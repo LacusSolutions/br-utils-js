@@ -21,7 +21,7 @@ module.exports = {
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-magic-numbers': ['warn', { ignore: [0, 2, 5, 8, 11, 13, 14] }],
+    'no-magic-numbers': ['warn', { ignore: [0, 2, 5, 8, 11, 12, 13, 14] }],
     'semi': ['error', 'always'],
     'semi-style': ['error', 'last'],
   },
