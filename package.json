@@ -1,0 +1,20 @@
+{
+  "name": "monorepo",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:utils": "npm run build --prefix packages/cnpj-utils",
+    "build:fmt": "npm run build --prefix packages/cnpj-fmt",
+    "build:gen": "npm run build --prefix packages/cnpj-gen",
+    "build:val": "npm run build --prefix packages/cnpj-val",
+    "build": "npm run build:utils && npm run build:fmt && npm run build:gen && npm run build:val",
+    "lint:utils": "npm run lint --prefix packages/cnpj-utils",
+    "lint:fmt": "npm run lint --prefix packages/cnpj-fmt",
+    "lint:gen": "npm run lint --prefix packages/cnpj-gen",
+    "lint:val": "npm run lint --prefix packages/cnpj-val",
+    "lint": "npm run lint:utils && npm run lint:fmt && npm run lint:gen && npm run lint:val",
+    "test": "npm run test --workspaces",
+    "publish:all": "npm publish --workspace packages/cnpj-fmt && npm publish --workspace packages/cnpj-gen && npm publish --workspace packages/cnpj-val && npm publish --workspace packages/cnpj-utils"
+  }
+}
