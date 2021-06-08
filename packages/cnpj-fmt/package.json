@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cnpj-fmt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Basic function to format CNPJ (Brazilian ID document).",
   "author": "Julio L. Muller",
   "license": "MIT",

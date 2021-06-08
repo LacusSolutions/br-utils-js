@@ -40,17 +40,18 @@ or import it through your HTML file, using CDN:
 ## Usage
 
 ```js
-const cnpj = '47844241055'
+const cnpj = '03603568000195'
 
-cnpjFmt(cnpj)       // returns '478.442.410-55'
+cnpjFmt(cnpj)       // returns '03.603.568/0001-95'
 
-cnpjFmt(cnpj, {     // returns '478.***.***-**'
+cnpjFmt(cnpj, {     // returns '03.603.***/****-**'
   hidden: true
 })
 
-cnpjFmt(cnpj, {     // returns '478442410_55'
+cnpjFmt(cnpj, {     // returns '03603568|0001_95'
   delimiters: {
     dot: '',
+    slash: '|',
     dash: '_'
   }
 })
@@ -72,7 +73,7 @@ cnpjFmt(cnpj, {
     start: 5,        // starting index of the numeric sequence to be hidden (min 0)
     end: 13,         // ending index of the numeric sequence to be hidden (max 13)
   },
-  onFail(value) {    // fallback function to be invoked in case a non-11-digits is passed
+  onFail(value) {    // fallback function to be invoked in case a non-14-digits is passed
     return value
   }
 })
