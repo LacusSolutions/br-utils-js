@@ -40,18 +40,18 @@ or import it through your HTML file, using CDN:
 ## Usage
 
 ```js
-let cnpj = cnpjGen()      // returns '47844241055'
+let cnpj = cnpjGen()      // returns '65453043000178'
 
-cnpj = cnpjGen({          // returns '005.265.352-88'
+cnpj = cnpjGen({          // returns '73.008.535/0005-06'
   format: true
 })
 
-cnpj = cnpjGen({          // returns '52825091138'
-  prefix: '528250911'
+cnpj = cnpjGen({          // returns '45623767000296'
+  prefix: '45623767'
 })
 
-cnpj = cnpjGen({          // returns '528.250.911-38'
-  prefix: '528250911'
+cnpj = cnpjGen({          // returns '45.623.767/0002-96'
+  prefix: '456237670002'
   format: true
 })
 ```
@@ -62,5 +62,5 @@ cnpj = cnpjGen({          // returns '528.250.911-38'
 cnpjGen({
   format: false, // indicates if output should be formatted
   prefix: '',    // if you have a CNPJ initials and want to complete it with valid digits.
-})               //     The string provided must contain between 0 and 9 digits!
+})               //     The string provided must contain between 1 and 12 digits!
 ```
