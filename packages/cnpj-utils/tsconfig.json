@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {},
+    // "lib": [],
+    // "types": [],
+    "sourceMap": false,
+    "target": "ES5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "useDefineForClassFields": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,                     /* Skip type checking of declaration files. */
+    "declaration": false,
+    "allowJs": false,
+    "noEmit": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "removeComments": false
+  },
+  "include": [
+    "src/"
+  ]
+}

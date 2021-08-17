@@ -1,7 +1,7 @@
 {
   "name": "cnpj-utils",
-  "version": "1.0.0",
-  "description": "Package with main utilities actions to deal with CNPJ data (Brazilian personal ID), like generation fake ones, validating and formatting",
+  "version": "1.1.0",
+  "description": "Package with main utilities actions to deal with CNPJ data (Brazilian company ID), like generation fake ones, validating and formatting",
   "author": "Julio L. Muller",
   "license": "MIT",
   "keywords": [
@@ -25,13 +25,11 @@
     "url": "https://github.com/juliolmuller/cnpj-utils-js/issues"
   },
   "homepage": "https://github.com/juliolmuller/cnpj-utils-js#readme",
-  "typings": "build/types.d.ts",
-  "main": "build/index.js",
+  "main": "build/index.cjs.js",
+  "types": "build/index.d.ts",
   "scripts": {
-    "build:browser": "rm -rf dist/ && webpack --mode=production",
-    "build:node": "rm -rf build/ && babel src/ --out-dir build/ && cp src/*.d.ts build/",
-    "build": "npm run build:browser && npm run build:node",
-    "lint": "eslint --fix src/**/*.js"
+    "build": "rollup --config",
+    "lint": "eslint --fix src/"
   },
   "dependencies": {
     "@lacussoft/cnpj-fmt": "latest",
@@ -39,14 +37,22 @@
     "@lacussoft/cnpj-val": "latest"
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.3",
-    "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.4",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@types/node": "^14.17.5",
     "babel-loader": "^8.2.2",
-    "core-js": "^3.14.0",
-    "eslint": "^7.28.0",
-    "eslint-config-lacussoft": "^2.0.1",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.2"
+    "eslint": "^7.32.0",
+    "eslint-config-lacussoft": "^2.0.3",
+    "jest": "^27.0.6",
+    "rollup": "^2.56.2",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-dts": "^3.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "~0.30.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.3.5"
   }
 }
