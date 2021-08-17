@@ -62,18 +62,18 @@ cnpjFmt(cnpj, {     // returns '03603568|0001_95'
 ```js
 cnpjFmt(cnpj, {
   delimiters: {
-    dot: '.',        // string to replace the dot characters
-    slash: '/',      // string to replace the slash character
-    dash: '-',       // string to replace the dash character
+    dot: '.',       // string to replace the dot characters
+    slash: '/',     // string to replace the slash character
+    dash: '-',      // string to replace the dash character
   },
-  escape: false,     // boolean to define if the result should be HTML escaped
-  hidden: false,     // boolean to define if digits should be hidden
-  hiddenSymbol: '*', // string to replace hidden digits
+  escape: false,    // boolean to define if the result should be HTML escaped
+  hidden: false,    // boolean to define if digits should be hidden
+  hiddenKey: '*',   // string to replace hidden digits
   hiddenRange: {
-    start: 5,        // starting index of the numeric sequence to be hidden (min 0)
-    end: 13,         // ending index of the numeric sequence to be hidden (max 13)
+    start: 5,       // starting index of the numeric sequence to be hidden (min 0)
+    end: 13,        // ending index of the numeric sequence to be hidden (max 13)
   },
-  onFail(value) {    // fallback function to be invoked in case a non-14-digits is passed
+  onFail(value) {   // fallback function to be invoked in case a non-14-digits is passed
     return value
   }
 })
