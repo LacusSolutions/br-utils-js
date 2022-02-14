@@ -1,7 +1,7 @@
-import numOnly from 'num-only'
 import { escape as escapeHTML } from 'html-escaper'
-import mergeOptions from './merge-options'
+import numOnly from 'num-only'
 
+import mergeOptions from './merge-options'
 import type { CnpjFormattingOptions } from './merge-options'
 
 /**

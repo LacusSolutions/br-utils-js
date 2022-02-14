@@ -1,10 +1,11 @@
-import numOnly from 'num-only'
 import cnpjFmt from '@lacussoft/cnpj-fmt'
-import mergeOptions from './merge-options'
+import numOnly from 'num-only'
+
 import calculateDigit from './calculate-digit'
+import mergeOptions from './merge-options'
+import type { CnpjGeneratorOptions } from './merge-options'
 import numberGenerator from './number-generator'
 
-import type { CnpjGeneratorOptions } from './merge-options'
 
 /**
  * Generate a valid CNPJ (Brazilian company ID) numeric sequence.

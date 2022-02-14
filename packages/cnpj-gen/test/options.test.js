@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { validate } = require('cnpj')
+
 const cnpjGen = require('..')
 
 test('Result length equals to 14 (no formatting)', () => {
