@@ -43,7 +43,7 @@
     },
     "packages/cnpj-gen": {
       "name": "@lacussoft/cnpj-gen",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "dependencies": {
         "@lacussoft/cnpj-fmt": "workspace:*",
         "deepmerge": "^4.3.1",
@@ -61,7 +61,6 @@
         "cnpj": "^2.0.1",
         "eslint": "^7.32.0",
         "eslint-config-lacussoft": "^2.3.0",
-        "jest": "^27.5.1",
         "rollup": "^2.79.2",
         "rollup-plugin-delete": "^2.1.0",
         "rollup-plugin-dts": "^4.2.3",
