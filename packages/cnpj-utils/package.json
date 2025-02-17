@@ -32,9 +32,9 @@
     "lint": "eslint --fix src/"
   },
   "dependencies": {
-    "@lacussoft/cnpj-fmt": "latest",
-    "@lacussoft/cnpj-gen": "latest",
-    "@lacussoft/cnpj-val": "latest"
+    "@lacussoft/cnpj-fmt": "workspace:*",
+    "@lacussoft/cnpj-gen": "workspace:*",
+    "@lacussoft/cnpj-val": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.2",

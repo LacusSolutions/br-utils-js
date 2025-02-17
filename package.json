@@ -1,20 +1,21 @@
 {
   "name": "monorepo",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build:utils": "npm run build --prefix packages/cnpj-utils",
-    "build:fmt": "npm run build --prefix packages/cnpj-fmt",
-    "build:gen": "npm run build --prefix packages/cnpj-gen",
-    "build:val": "npm run build --prefix packages/cnpj-val",
-    "build": "npm run build:utils && npm run build:fmt && npm run build:gen && npm run build:val",
-    "lint:utils": "npm run lint --prefix packages/cnpj-utils",
-    "lint:fmt": "npm run lint --prefix packages/cnpj-fmt",
-    "lint:gen": "npm run lint --prefix packages/cnpj-gen",
-    "lint:val": "npm run lint --prefix packages/cnpj-val",
-    "lint": "npm run lint:utils && npm run lint:fmt && npm run lint:gen && npm run lint:val",
-    "test": "npm run test --workspaces",
+    "build:utils": "bun run build --prefix packages/cnpj-utils",
+    "build:fmt": "bun run build --prefix packages/cnpj-fmt",
+    "build:gen": "bun run build --prefix packages/cnpj-gen",
+    "build:val": "bun run build --prefix packages/cnpj-val",
+    "build": "bun run build:utils && bun run build:fmt && bun run build:gen && bun run build:val",
+    "lint:utils": "bun run lint --prefix packages/cnpj-utils",
+    "lint:fmt": "bun run lint --prefix packages/cnpj-fmt",
+    "lint:gen": "bun run lint --prefix packages/cnpj-gen",
+    "lint:val": "bun run lint --prefix packages/cnpj-val",
+    "lint": "bun run lint:utils && bun run lint:fmt && bun run lint:gen && bun run lint:val",
+    "test": "bun run test --workspaces",
     "publish:all": "npm publish --workspace packages/cnpj-fmt && npm publish --workspace packages/cnpj-gen && npm publish --workspace packages/cnpj-val && npm publish --workspace packages/cnpj-utils"
   }
 }

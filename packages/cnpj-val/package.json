@@ -26,15 +26,15 @@
   "scripts": {
     "build": "rollup --config",
     "lint": "eslint --fix src/",
-    "pretest": "npm run build",
+    "pretest": "bun run build",
     "test": "jest",
-    "safe-publish": "npm test && npm publish"
+    "safe-publish": "bun run test && npm publish"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@lacussoft/cnpj-gen": "latest",
+    "@lacussoft/cnpj-gen": "workspace:*",
     "num-only": "^1.1.1"
   },
   "devDependencies": {
