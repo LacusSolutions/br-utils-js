@@ -1,16 +1,17 @@
 {
   "name": "@lacussoft/cnpj-fmt",
-  "version": "1.1.1",
-  "description": "Basic function to format CNPJ (Brazilian company ID).",
+  "version": "1.2.0",
+  "description": "Utility function to format CNPJ (Brazilian company ID).",
   "author": "Julio L. Muller",
   "license": "MIT",
   "keywords": [
-    "lacussoft",
     "cnpj",
     "format",
     "formatting",
     "formatar",
     "mascara",
+    "mask",
+    "pt-br",
     "br"
   ],
   "repository": {
@@ -27,8 +28,8 @@
     "build": "rollup --config",
     "lint": "eslint --fix src/",
     "pretest": "bun run build",
-    "test": "jest",
-    "safe-publish": "bun run test && npm publish"
+    "test": "bun test --coverage --coverage-reporter=lcov --coverage-dir=test/__coverage__",
+    "prepublish": "bun run test"
   },
   "publishConfig": {
     "access": "public"
@@ -50,7 +51,6 @@
     "babel-loader": "^8.4.1",
     "eslint": "^7.32.0",
     "eslint-config-lacussoft": "^2.3.0",
-    "jest": "^27.5.1",
     "rollup": "^2.79.2",
     "rollup-plugin-delete": "^2.1.0",
     "rollup-plugin-dts": "^4.2.3",
