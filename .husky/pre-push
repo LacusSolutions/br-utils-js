@@ -1,0 +1,16 @@
+export CURR_DIR="$PWD"
+
+cd "$CURR_DIR/packages/cpf-fmt"
+bun x tsc --noEmit
+bun run test
+
+cd "$CURR_DIR/packages/cpf-gen"
+bun x tsc --noEmit
+bun run test
+
+cd "$CURR_DIR/packages/cpf-val"
+bun x tsc --noEmit
+bun run test
+
+cd "$CURR_DIR/packages/cpf-utils"
+bun x tsc --noEmit
