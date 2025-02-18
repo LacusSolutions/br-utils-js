@@ -7,5 +7,6 @@ export default makeRollupConfig({
   bannerTitle: 'cnpj-utils',
   distFileName: 'cnpj-utils',
   globalName: 'cnpjUtils',
+  cjsExports: 'named',
   packageMeta,
 })

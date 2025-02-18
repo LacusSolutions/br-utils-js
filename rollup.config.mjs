@@ -17,10 +17,12 @@ import esBuildPlugin from 'rollup-plugin-esbuild'
  * @param {string} buildParams.distFileName
  * @param {string} [buildParams.umdEntryPoint]
  * @param {string} [buildParams.modulesEntryPoint]
+ * @param {'default' | 'named'} [buildParams.cjsExports]
  */
 export function makeRollupConfig({
   modulesEntryPoint = 'src/index.ts',
   umdEntryPoint = 'src/index.ts',
+  cjsExports = 'default',
   distFileName,
   bannerTitle,
   globalName,
@@ -92,12 +94,14 @@ export function makeRollupConfig({
           file: 'build/index.cjs.js',
           format: 'cjs',
           sourcemap: 'inline',
+          exports: cjsExports,
           banner: bundleBanner,
         },
         {
           file: 'build/index.esm.js',
           format: 'es',
           sourcemap: 'inline',
+          exports: 'named',
           banner: bundleBanner,
         },
       ],
