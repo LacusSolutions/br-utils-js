@@ -1,16 +1,16 @@
 export CURR_DIR="$PWD"
 
-cd "$CURR_DIR/packages/cpf-fmt"
+cd "$CURR_DIR/packages/cnpj-fmt"
 bun x tsc --noEmit
 bun run test
 
-cd "$CURR_DIR/packages/cpf-gen"
+cd "$CURR_DIR/packages/cnpj-gen"
 bun x tsc --noEmit
 bun run test
 
-cd "$CURR_DIR/packages/cpf-val"
+cd "$CURR_DIR/packages/cnpj-val"
 bun x tsc --noEmit
 bun run test
 
-cd "$CURR_DIR/packages/cpf-utils"
+cd "$CURR_DIR/packages/cnpj-utils"
 bun x tsc --noEmit
