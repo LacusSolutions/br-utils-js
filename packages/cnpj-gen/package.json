@@ -49,7 +49,7 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/deepmerge": "^2.2.3",
     "@types/node": "^22.13.4",
-    "cnpj": "^2.0.1",
+    "cnpj": "^5.0.0",
     "cpf-check": "^3.0.0",
     "eslint-config-lacussoft": "^2.3.0",
     "eslint": "^7.32.0",

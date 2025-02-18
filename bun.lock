@@ -56,7 +56,7 @@
         "@rollup/plugin-typescript": "^12.1.2",
         "@types/deepmerge": "^2.2.3",
         "@types/node": "^22.13.4",
-        "cnpj": "^2.0.1",
+        "cnpj": "^5.0.0",
         "cpf-check": "^3.0.0",
         "eslint": "^7.32.0",
         "eslint-config-lacussoft": "^2.3.0",
@@ -616,7 +616,7 @@
 
     "clone": ["clone@1.0.4", "", {}, "sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg=="],
 
-    "cnpj": ["cnpj@2.0.1", "", {}, "sha512-kbmtHMHbfvLvHohQpkG+FYjaGOYPgiGxxqZa6Ya4a4KlGoYVdqXUt1BHn7Mlj/M+86MIHwlgVh4KTyIkYOzEEQ=="],
+    "cnpj": ["cnpj@5.0.0", "", {}, "sha512-EQ7HTdJr8IXaU4/TqKpEHqj0i+vBCYzXxcMo7EJRQtcgrhrKLVZaXy1bRIKkodqYOCXt8W6Jvuwf/jiuKdix8Q=="],
 
     "cnpj-utils": ["cnpj-utils@workspace:packages/cnpj-utils"],
 
