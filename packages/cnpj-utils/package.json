@@ -1,7 +1,7 @@
 {
   "name": "cnpj-utils",
-  "version": "1.1.1",
-  "description": "Package with main utilities actions to deal with CNPJ data (Brazilian company ID), like generation fake ones, validating and formatting",
+  "version": "1.2.0",
+  "description": "Utility functions to deal with CNPJ data (Brazilian company ID), like generation fake ones, validating and formatting",
   "author": "Julio L. Muller",
   "license": "MIT",
   "keywords": [
@@ -15,7 +15,9 @@
     "gerar",
     "gerador",
     "generate",
-    "generator"
+    "generator",
+    "pt-br",
+    "br"
   ],
   "repository": {
     "type": "git",
