@@ -1,20 +1,20 @@
 {
   "name": "monorepo",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build:utils": "npm run build --prefix packages/cnpj-utils",
-    "build:fmt": "npm run build --prefix packages/cnpj-fmt",
-    "build:gen": "npm run build --prefix packages/cnpj-gen",
-    "build:val": "npm run build --prefix packages/cnpj-val",
-    "build": "npm run build:utils && npm run build:fmt && npm run build:gen && npm run build:val",
-    "lint:utils": "npm run lint --prefix packages/cnpj-utils",
-    "lint:fmt": "npm run lint --prefix packages/cnpj-fmt",
-    "lint:gen": "npm run lint --prefix packages/cnpj-gen",
-    "lint:val": "npm run lint --prefix packages/cnpj-val",
-    "lint": "npm run lint:utils && npm run lint:fmt && npm run lint:gen && npm run lint:val",
-    "test": "npm run test --workspaces",
-    "publish:all": "npm publish --workspace packages/cnpj-fmt && npm publish --workspace packages/cnpj-gen && npm publish --workspace packages/cnpj-val && npm publish --workspace packages/cnpj-utils"
+    "prepare": "husky",
+    "commit": "git-cz",
+    "test": "husky run pre-push"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3"
   }
 }
