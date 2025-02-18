@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {},
+    "target": "ES5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "useDefineForClassFields": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": false,
+    "noEmit": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "removeComments": false
+  }
+}
