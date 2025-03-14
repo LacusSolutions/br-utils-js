@@ -7,7 +7,16 @@
   "scripts": {
     "prepare": "husky",
     "commit": "git-cz",
-    "test": "husky run pre-push"
+    "lint": "bun run lint:root && bun run lint:fmt && bun run lint:gen && bun run lint:val && bun run lint:utils",
+    "lint:root": "eslint --fix eslint.config.mjs rollup.config.mjs",
+    "lint:fmt": "cd packages/cnpj-fmt && bun run lint",
+    "lint:gen": "cd packages/cnpj-gen && bun run lint",
+    "lint:val": "cd packages/cnpj-val && bun run lint",
+    "lint:utils": "cd packages/cnpj-utils && bun run lint",
+    "test": "bun run test:fmt && bun run test:gen && bun run test:val",
+    "test:fmt": "cd packages/cnpj-fmt && bun run test",
+    "test:gen": "cd packages/cnpj-gen && bun run test",
+    "test:val": "cd packages/cnpj-val && bun run test"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",

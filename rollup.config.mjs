@@ -1,13 +1,12 @@
-/* eslint-env node */
-import babelPlugin from '@rollup/plugin-babel'
-import commonJsPlugin from '@rollup/plugin-commonjs'
-import nodeResolvePlugin from '@rollup/plugin-node-resolve'
-import terserPlugin from '@rollup/plugin-terser'
-import typeScriptPlugin from '@rollup/plugin-typescript'
-import { defineConfig } from 'rollup'
-import deletePlugin from 'rollup-plugin-delete'
-import declarationsPlugin from 'rollup-plugin-dts'
-import esBuildPlugin from 'rollup-plugin-esbuild'
+import babelPlugin from '@rollup/plugin-babel';
+import commonJsPlugin from '@rollup/plugin-commonjs';
+import nodeResolvePlugin from '@rollup/plugin-node-resolve';
+import terserPlugin from '@rollup/plugin-terser';
+import typeScriptPlugin from '@rollup/plugin-typescript';
+import { defineConfig } from 'rollup';
+import deletePlugin from 'rollup-plugin-delete';
+import declarationsPlugin from 'rollup-plugin-dts';
+import esBuildPlugin from 'rollup-plugin-esbuild';
 
 /**
  * @param {Object} buildParams
@@ -26,15 +25,10 @@ export function makeRollupConfig({
   distFileName,
   bannerTitle,
   globalName,
-  packageMeta: {
-    author,
-    license,
-    version,
-    ...packageMeta
-  },
+  packageMeta: { author, license, version, ...packageMeta },
 }) {
   if (!author || !license || !version) {
-    throw new Error('Missing build params in `package.json`.')
+    throw new Error('Missing build params in `package.json`.');
   }
 
   const bundleBanner = `/**
@@ -43,7 +37,7 @@ export function makeRollupConfig({
  * @author ${author}.
  * @license ${license} - 2021-${new Date().getFullYear()}
  */
-`
+`;
 
   return defineConfig([
     // UMD for legacy browsers
@@ -63,17 +57,12 @@ export function makeRollupConfig({
           format: 'umd',
           sourcemap: 'inline',
           banner: bundleBanner,
-          plugins: [
-            terserPlugin(),
-          ],
+          plugins: [terserPlugin()],
         },
       ],
       plugins: [
         deletePlugin({
-          targets: [
-            'build/*',
-            'dist/*',
-          ],
+          targets: ['build/*', 'dist/*'],
         }),
         nodeResolvePlugin(),
         commonJsPlugin(),
@@ -126,9 +115,7 @@ export function makeRollupConfig({
         file: 'build/index.d.ts',
         format: 'es',
       },
-      plugins: [
-        declarationsPlugin(),
-      ],
+      plugins: [declarationsPlugin()],
     },
-  ])
+  ]);
 }
