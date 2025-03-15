@@ -1,1 +1,1 @@
-export { default } from './cnpj-val'
+export { default } from './cnpj-val';
