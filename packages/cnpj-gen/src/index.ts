@@ -1,1 +1,1 @@
-export { default } from './cnpj-gen'
+export { default } from './cnpj-gen';

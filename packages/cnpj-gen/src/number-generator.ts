@@ -1,18 +1,17 @@
-
 /**
  * Generate an array of random numbers (as string) between 0 and  9.
  */
 function numberGenerator(length: number) {
-  const numericSequence: number[] = []
+  const numericSequence: number[] = [];
 
   while (numericSequence.length < length) {
-    const random = Math.random() * 10
-    const integer = Math.floor(random)
+    const random = Math.random() * 10;
+    const integer = Math.floor(random);
 
-    numericSequence.push(integer)
+    numericSequence.push(integer);
   }
 
-  return numericSequence
+  return numericSequence;
 }
 
-export default numberGenerator
+export default numberGenerator;
