@@ -1,1 +1,1 @@
-export { default } from './cnpj-fmt'
+export { default } from './cnpj-fmt';
