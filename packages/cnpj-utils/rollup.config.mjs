@@ -1,5 +1,5 @@
-import { makeRollupConfig } from '../../rollup.config.mjs'
-import packageMeta from './package.json' with { type: 'json' }
+import { makeRollupConfig } from '../../rollup.config.mjs';
+import packageMeta from './package.json' with { type: 'json' };
 
 export default makeRollupConfig({
   umdEntryPoint: 'src/dist.ts',
@@ -9,4 +9,4 @@ export default makeRollupConfig({
   globalName: 'cnpjUtils',
   cjsExports: 'named',
   packageMeta,
-})
+});
