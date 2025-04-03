@@ -1,3 +1,3 @@
-import jlmConfig from 'eslint-config-jlm';
+import anyConfig from 'eslint-config-any';
 
-export default [...jlmConfig.sharedNodeAndBrowser];
+export default [...anyConfig.sharedNodeAndBrowser];

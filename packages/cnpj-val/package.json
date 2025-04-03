@@ -2,8 +2,11 @@
   "name": "@lacussoft/cnpj-val",
   "version": "1.2.1",
   "description": "Utility function to validate CNPJ (Brazilian company ID).",
-  "author": "Julio L. Muller",
   "license": "MIT",
+  "author": {
+    "name": "Julio L. Muller",
+    "url": "https://github.com/juliolmuller"
+  },
   "keywords": [
     "cnpj",
     "valid",
@@ -29,27 +32,27 @@
     "lint": "eslint --fix src/ test/ rollup.config.mjs",
     "pretest": "bun run build",
     "test": "bun test --coverage --coverage-reporter=lcov --coverage-dir=test/__coverage__",
-    "prepublish": "bun run test"
+    "prepublishOnly": "bun run test"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@lacussoft/cnpj-gen": "workspace:*",
-    "num-only": "^1.2.0"
+    "num-only": "^1.2.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
     "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^28.0.2",
-    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "~0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
-    "@types/node": "^22.13.4",
-    "rollup": "^4.34.7",
-    "rollup-plugin-delete": "^2.1.0",
-    "rollup-plugin-dts": "^6.1.1",
-    "rollup-plugin-esbuild": "^6.2.0",
-    "typescript": "^5.7.3"
+    "@types/node": "^22.14.0",
+    "rollup": "^4.39.0",
+    "rollup-plugin-delete": "^3.0.1",
+    "rollup-plugin-dts": "^6.2.1",
+    "rollup-plugin-esbuild": "^6.2.1",
+    "typescript": "^5.8.2"
   }
 }
