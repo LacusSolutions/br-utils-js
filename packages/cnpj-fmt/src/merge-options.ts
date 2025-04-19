@@ -4,7 +4,7 @@ type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
 };
 
-export interface ActualCnpjFormattingOptions<ER = unknown> {
+export interface ActualCnpjFormattingOptions<OnErrFallback> {
   delimiters: {
     dash: string;
     dot: string;
@@ -17,12 +17,14 @@ export interface ActualCnpjFormattingOptions<ER = unknown> {
     end: number;
     start: number;
   };
-  onFail: (value: string, error: Error) => ER;
+  onFail: (value: string, error: Error) => OnErrFallback;
 }
 
-export type CnpjFormattingOptions = DeepPartial<ActualCnpjFormattingOptions>;
+export type CnpjFormattingOptions<OnErrFallback> = DeepPartial<
+  ActualCnpjFormattingOptions<OnErrFallback>
+>;
 
-const defaultOptions: ActualCnpjFormattingOptions = {
+const defaultOptions: ActualCnpjFormattingOptions<string> = {
   delimiters: {
     dot: '.',
     slash: '/',
@@ -41,8 +43,13 @@ const defaultOptions: ActualCnpjFormattingOptions = {
 /**
  * Merge custom options to the default ones.
  */
-function mergeOptions(customOptions: CnpjFormattingOptions = {}) {
-  const options = mergeDeep(defaultOptions, customOptions) as ActualCnpjFormattingOptions;
+function mergeOptions<OnErrFallback>(
+  customOptions: CnpjFormattingOptions<OnErrFallback> = {},
+): ActualCnpjFormattingOptions<OnErrFallback> {
+  const options = mergeDeep(
+    defaultOptions,
+    customOptions,
+  ) as ActualCnpjFormattingOptions<OnErrFallback>;
 
   if (options.hidden) {
     if (

@@ -1,7 +1,7 @@
 /**
  * Calculate the verifier digit based on CNPJ base numeric sequence.
  */
-function calculateDigit(cnpjSequence: number[]) {
+function calculateDigit(cnpjSequence: number[]): number {
   let index = 2;
   const sum = [...cnpjSequence].reduceRight((previousResult, number) => {
     const result = previousResult + number * index;
