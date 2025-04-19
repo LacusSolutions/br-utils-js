@@ -7,7 +7,10 @@ import type { CnpjFormattingOptions } from './merge-options';
 /**
  * Validate a given CNPJ char sequence.
  */
-function cnpjFmt(cnpjString: string, options?: CnpjFormattingOptions): string {
+function cnpjFmt<OnErrFallback = string>(
+  cnpjString: string,
+  options?: CnpjFormattingOptions<OnErrFallback>,
+): string {
   const CNPJ_LENGTH = 14;
   const cnpjArray = numOnly(cnpjString).split('');
   const customOptions = mergeOptions(options);
