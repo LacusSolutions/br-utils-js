@@ -7,7 +7,8 @@
 ![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/cnpj-utils-js)
 ![Project License](https://img.shields.io/github/license/juliolmuller/cnpj-utils-js)
 
-Toolkit to handle the main operations with CNPJ data (Brazilian personal ID): validation, formatting and generation of valid character sequence.
+- Toolkit to handle the main operations with CNPJ data (Brazilian personal ID): validation, formatting and generation of valid character sequence.
++ Toolkit to handle the main operations with CNPJ data (Brazilian corporate ID): validation, formatting and generation of valid character sequences.
 
 ## Browser Support
 
