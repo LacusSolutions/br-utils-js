@@ -3,7 +3,7 @@
 ![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cnpj-fmt)
 ![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cnpj-fmt?label=bundle%20size)
 ![Downloads Count](https://img.shields.io/npm/dm/@lacussoft/cnpj-fmt.svg)
-![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cnpj-utils-js/release.yml?label=ci/cd)
+![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cnpj-utils-js/ci.yml?label=ci/cd)
 ![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/cnpj-utils-js)
 ![Project License](https://img.shields.io/github/license/juliolmuller/cnpj-utils-js)
 
@@ -18,7 +18,11 @@ Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
 ## Installation
 
 ```bash
-$ npm install @lacussoft/cnpj-fmt
+# using NPM
+$ npm install --save @lacussoft/cnpj-fmt
+
+# using Bun
+$ bun add @lacussoft/cnpj-fmt
 ```
 
 ## Import
@@ -64,14 +68,14 @@ cnpjFmt(cnpj, {
   delimiters: {
     dot: '.',       // string to replace the dot characters
     slash: '/',     // string to replace the slash character
-    dash: '-',      // string to replace the dash character
+    dash: '-'       // string to replace the dash character
   },
   escape: false,    // boolean to define if the result should be HTML escaped
   hidden: false,    // boolean to define if digits should be hidden
   hiddenKey: '*',   // string to replace hidden digits
   hiddenRange: {
     start: 5,       // starting index of the numeric sequence to be hidden (min 0)
-    end: 13,        // ending index of the numeric sequence to be hidden (max 13)
+    end: 13         // ending index of the numeric sequence to be hidden (max 13)
   },
   onFail(value) {   // fallback function to be invoked in case a non-14-digits is passed
     return value

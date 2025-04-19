@@ -18,7 +18,11 @@ Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
 ## Installation
 
 ```bash
-$ npm install cnpj-utils --save
+# using NPM
+$ npm install --save cnpj-utils
+
+# using Bun
+$ bun add cnpj-utils
 ```
 
 ## Import

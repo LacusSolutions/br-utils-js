@@ -3,7 +3,7 @@
 ![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cnpj-val)
 ![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cnpj-val?label=bundle%20size)
 ![Downloads Count](https://img.shields.io/npm/dm/@lacussoft/cnpj-val.svg)
-![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cnpj-utils-js/release.yml?label=ci/cd)
+![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cnpj-utils-js/ci.yml?label=ci/cd)
 ![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/cnpj-utils-js)
 ![Project License](https://img.shields.io/github/license/juliolmuller/cnpj-utils-js)
 
@@ -18,7 +18,11 @@ Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
 ## Installation
 
 ```bash
-$ npm install @lacussoft/cnpj-val
+# using NPM
+$ npm install --save @lacussoft/cnpj-val
+
+# using Bun
+$ bun add @lacussoft/cnpj-val
 ```
 
 ## Import
