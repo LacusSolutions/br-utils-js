@@ -51,9 +51,9 @@
     "test:ci": "bun test"
   },
   "dependencies": {
-    "@lacussoft/cnpj-fmt": "workspace:*",
+    "@lacussoft/cnpj-fmt": "^1.2.2",
     "deepmerge": "^4.3.1",
-    "num-only": "^1.2.1"
+    "num-only": "^1.2.6"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
@@ -63,13 +63,12 @@
     "@rollup/plugin-terser": "~0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/deepmerge": "^2.2.3",
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.14.1",
     "cnpj": "^5.0.0",
-    "cpf-check": "^3.0.0",
-    "rollup": "^4.39.0",
+    "rollup": "^4.40.0",
     "rollup-plugin-delete": "^3.0.1",
     "rollup-plugin-dts": "^6.2.1",
     "rollup-plugin-esbuild": "^6.2.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   }
 }

@@ -52,7 +52,7 @@
   "dependencies": {
     "deepmerge": "^4.3.1",
     "html-escaper": "^3.0.3",
-    "num-only": "^1.2.1"
+    "num-only": "^1.2.6"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
@@ -63,11 +63,11 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/deepmerge": "^2.2.3",
     "@types/html-escaper": "^3.0.4",
-    "@types/node": "^22.14.0",
-    "rollup": "^4.39.0",
+    "@types/node": "^22.14.1",
+    "rollup": "^4.40.0",
     "rollup-plugin-delete": "^3.0.1",
     "rollup-plugin-dts": "^6.2.1",
     "rollup-plugin-esbuild": "^6.2.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   }
 }
