@@ -7,6 +7,10 @@
     "name": "Julio L. Muller",
     "url": "https://github.com/juliolmuller"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "keywords": [
     "cnpj",
     "validar",

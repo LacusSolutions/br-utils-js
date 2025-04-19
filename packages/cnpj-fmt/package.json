@@ -7,6 +7,10 @@
     "name": "Julio L. Muller",
     "url": "https://github.com/juliolmuller"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "keywords": [
     "cnpj",
     "format",
@@ -44,9 +48,6 @@
     "pretest": "bun run build --silent",
     "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=test/__coverage__",
     "test:ci": "bun test"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "dependencies": {
     "deepmerge": "^4.3.1",
