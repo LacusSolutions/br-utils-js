@@ -129,18 +129,18 @@ cnpjUtils.generate({
 
 Keep in mind that, for the `prefix` option, it must be a **string** containing up to 12 digits.
 
-### `cnpjUtils.validate(string)`
+### `cnpjUtils.isValid(string)`
 
 **returns** `boolean`
 
-The `validate` method receives a string as its single parameter, evaluates it and returns `true` or `false` as output. This parameter may contain any character like letters, symbols, punctuation or white spaces, but it will immediately return `false` in case the expected 14 digits are not found to be deeply evaluated.
+The `isValid` method receives a string as its single parameter, evaluates it and returns `true` or `false` as output. This parameter may contain any character like letters, symbols, punctuation or white spaces, but it will immediately return `false` in case the expected 14 digits are not found to be deeply evaluated.
 
 
 ```js
-cnpjUtils.validate('98765432000198')      // returns 'true'
+cnpjUtils.isValid('98765432000198')      // returns 'true'
 
-cnpjUtils.validate('98.765.432/0001-98')  // returns 'true'
+cnpjUtils.isValid('98.765.432/0001-98')  // returns 'true'
 
-cnpjUtils.validate('98765432000199')      // returns 'false'
+cnpjUtils.isValid('98765432000199')      // returns 'false'
                                 ^^
 ```
