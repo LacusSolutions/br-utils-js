@@ -49,7 +49,7 @@ or import it through your HTML file, using CDN:
 
 The `format` method expects a string as its first parameter.
 
-If the input does not contain 11 digits (it does not require to be a valid CNPJ, but it MUST be 11-digits long) an `onFail` callback is invoked. By default, a copy of the input is returned as a fallback, but this callback and other customizations may be defined in the second parameter.
+If the input does not contain 14 digits (it does not require to be a valid CNPJ, but it MUST be 14-digits long) an `onFail` callback is invoked. By default, a copy of the input is returned as a fallback, but this callback and other customizations may be defined in the second parameter.
 
 ```js
 const cnpj = '03603568000195'
