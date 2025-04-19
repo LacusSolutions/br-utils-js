@@ -5,7 +5,7 @@ import mergeOptions from './merge-options';
 import type { CnpjFormattingOptions } from './merge-options';
 
 /**
- * Validate a given CNPJ char sequence.
+ * Format a given CNPJ char sequence.
  */
 function cnpjFmt<OnErrFallback = string>(
   cnpjString: string,
