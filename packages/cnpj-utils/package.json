@@ -30,8 +30,18 @@
     "url": "https://github.com/juliolmuller/cnpj-utils-js/issues"
   },
   "homepage": "https://github.com/juliolmuller/cnpj-utils-js#readme",
-  "main": "build/index.cjs.js",
+  "main": "build/index.cjs",
   "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "default": "./build/index.cjs"
+      },
+      "import": {
+        "default": "./build/index.mjs"
+      }
+    }
+  },
   "scripts": {
     "build": "rollup --config",
     "type-check": "tsc --noEmit",

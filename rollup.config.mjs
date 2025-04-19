@@ -27,14 +27,14 @@ export function makeRollupConfig({
   globalName,
   packageMeta: { author, license, version, ...packageMeta },
 }) {
-  if (!author || !license || !version) {
+  if (!author?.name || !license || !version) {
     throw new Error('Missing build params in `package.json`.');
   }
 
   const bundleBanner = `/**
  * ${bannerTitle} v${version}
  *
- * @author ${author}.
+ * @author ${author.name}.
  * @license ${license} - 2021-${new Date().getFullYear()}
  */
 `;
@@ -80,18 +80,16 @@ export function makeRollupConfig({
       input: modulesEntryPoint,
       output: [
         {
-          file: 'build/index.cjs.js',
+          file: 'build/index.cjs',
           format: 'cjs',
           sourcemap: 'inline',
           exports: cjsExports,
-          banner: bundleBanner,
         },
         {
-          file: 'build/index.esm.js',
+          file: 'build/index.mjs',
           format: 'es',
           sourcemap: 'inline',
           exports: 'named',
-          banner: bundleBanner,
         },
       ],
       plugins: [
