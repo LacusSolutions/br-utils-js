@@ -30,6 +30,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "rollup --config",
+    "type-check": "tsc --noEmit",
     "lint": "eslint --fix src/ test/ rollup.config.mjs",
     "test": "bun test --coverage --coverage-reporter=lcov --coverage-dir=test/__coverage__",
     "prepublishOnly": "bun run test"

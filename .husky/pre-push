@@ -1,16 +1,11 @@
-export CURR_DIR="$PWD"
+bun run test:fmt
+bun run type-check:fmt
 
-cd "$CURR_DIR/packages/cnpj-fmt"
-bun x tsc --noEmit
-bun run test
+bun run test:gen
+bun run type-check:gen
 
-cd "$CURR_DIR/packages/cnpj-gen"
-bun x tsc --noEmit
-bun run test
+bun run test:val
+bun run type-check:val
 
-cd "$CURR_DIR/packages/cnpj-val"
-bun x tsc --noEmit
-bun run test
-
-cd "$CURR_DIR/packages/cnpj-utils"
-bun x tsc --noEmit
+bun run test:utils
+bun run type-check:utils

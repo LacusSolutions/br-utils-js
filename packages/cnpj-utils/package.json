@@ -34,6 +34,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "rollup --config",
+    "type-check": "tsc --noEmit",
     "lint": "eslint --fix src/ rollup.config.mjs",
     "prepublishOnly": "bun run build"
   },
