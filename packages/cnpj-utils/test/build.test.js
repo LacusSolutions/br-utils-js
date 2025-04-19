@@ -26,7 +26,7 @@ describe('build in ES Module', () => {
     await expect(file.exists()).resolves.toBe(true);
   });
 
-  test('file contains a "export default" expression', async () => {
+  test('file contains an "export default" expression', async () => {
     const codebase = await file.text();
 
     expect(codebase).toMatch(/export \{ .+ default/);
@@ -44,7 +44,7 @@ describe('build types', () => {
     await expect(file.exists()).resolves.toBe(true);
   });
 
-  test('file contains a "export default" expression', async () => {
+  test('file contains an "export default" expression', async () => {
     const codebase = await file.text();
 
     expect(codebase).toMatch(/export \{ .+ default/);

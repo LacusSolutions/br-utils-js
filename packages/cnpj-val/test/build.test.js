@@ -22,7 +22,7 @@ describe('build in ES Module', () => {
     await expect(file.exists()).resolves.toBe(true);
   });
 
-  test('file contains a "export default" expression', async () => {
+  test('file contains an "export default" expression', async () => {
     await expect(file.text()).resolves.toContain('export { cnpjVal as default }');
   });
 });
@@ -35,7 +35,7 @@ describe('build types', () => {
     await expect(file.exists()).resolves.toBe(true);
   });
 
-  test('file contains a "export default" expression', async () => {
+  test('file contains an "export default" expression', async () => {
     await expect(file.text()).resolves.toContain('export { cnpjVal as default }');
   });
 });
