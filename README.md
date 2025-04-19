@@ -96,9 +96,8 @@ cnpjFmt(cnpj, {
 
 **returns** `string`
 
-If you need to generate valid CNPJ's to work with, the `generate` method make this task easy and safe. You just need to invoke it with no parameters to obtain an 11-digits string, however, you can provide an `options` object to configure its output, like flagging it to format or to complete a digits string with a valid CNPJ sequence:
+If you need to generate valid CNPJs, the `generate` method makes this task easy and safe. Invoke it without parameters to obtain a 14‑digit string. You can also provide an `options` object to configure its output, like flagging it to format or to complete a digits string with a valid CNPJ sequence:
 
-```js
 let cnpj = cnpjGen()   // returns '65453043000178'
 
 cnpj = cnpjGen({       // returns '73.008.535/0005-06'
