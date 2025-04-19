@@ -26,10 +26,11 @@
     "build:gen": "bun run --filter './***/cnpj-gen' build",
     "build:val": "bun run --filter './***/cnpj-val' build",
     "build:utils": "bun run --filter './**/cnpj-utils' build",
-    "test": "bun run test:fmt && bun run test:gen && bun run test:val",
-    "test:fmt": "cd packages/cnpj-fmt && bun run test",
-    "test:gen": "cd packages/cnpj-gen && bun run test",
-    "test:val": "cd packages/cnpj-val && bun run test"
+    "test": "bun run test:fmt && bun run test:gen && bun run test:val && bun run test:utils",
+    "test:fmt": "bun run --filter './***/cnpj-fmt' test",
+    "test:gen": "bun run --filter './***/cnpj-gen' test",
+    "test:val": "bun run --filter './***/cnpj-val' test",
+    "test:utils": "bun run --filter './**/cnpj-utils' test"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.2",
