@@ -1,7 +1,7 @@
 /**
- * Generate an array of random numbers (as string) between 0 and  9.
+ * Generate an array of random stringified numbers between 0 and  9.
  */
-function numberGenerator(length: number) {
+function numberGenerator(length: number): number[] {
   const numericSequence: number[] = [];
 
   while (numericSequence.length < length) {

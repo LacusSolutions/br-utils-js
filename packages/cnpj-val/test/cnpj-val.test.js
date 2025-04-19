@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test';
 
-import cnpjVal from '..';
+import cnpjVal from '../build';
 
 test('CNPJ string "22.250.620/0001-11" is valid', () => {
   expect(cnpjVal('22.250.620/0001-11')).toBeTruthy();

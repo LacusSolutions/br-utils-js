@@ -9,7 +9,7 @@ import numberGenerator from './number-generator';
 /**
  * Generate a valid CNPJ (Brazilian company ID) numeric sequence.
  */
-function cnpjGen(options?: CnpjGeneratorOptions) {
+function cnpjGen(options?: CnpjGeneratorOptions): string {
   const userOptions = mergeOptions(options);
   const baseSequence = numOnly(userOptions.prefix);
   const prefixLength = baseSequence.length;

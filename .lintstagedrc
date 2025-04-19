@@ -1,5 +1,13 @@
 {
-  "*.{js,ts}": [
+  "./README.md": [
+    "node -e \"fs=require('fs').copyFileSync('./README.md', './packages/cnpj-utils/README.md')\"",
+    "git add ./packages/cnpj-utils/README.md"
+  ],
+  "./packages/cnpj-utils/README.md": [
+    "node -e \"fs=require('fs').copyFileSync('./packages/cnpj-utils/README.md', './README.md')\"",
+    "git add ./README.md"
+  ],
+  "*.{js,cjs,mjs,ts,mts}": [
     "eslint --fix"
   ]
 }

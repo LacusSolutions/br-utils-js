@@ -4,7 +4,7 @@ import numOnly from 'num-only';
 /**
  * Validate a given CNPJ (Brazilian company ID) char sequence.
  */
-function cnpjVal(cnpjString: string) {
+function cnpjVal(cnpjString: string): boolean {
   const CNPJ_LENGTH = 14;
   const cnpjDigits = numOnly(cnpjString);
 
