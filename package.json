@@ -7,6 +7,9 @@
   "scripts": {
     "prepare": "husky",
     "commit": "git-cz",
+    "changelog": "changeset",
+    "version": "changeset version",
+    "release": "changeset publish",
     "lint": "bun run lint:root && bun run lint:fmt && bun run lint:gen && bun run lint:val && bun run lint:utils",
     "lint:root": "eslint --fix eslint.config.mjs rollup.config.mjs",
     "lint:fmt": "cd packages/cnpj-fmt && bun run lint",
@@ -19,6 +22,7 @@
     "test:val": "cd packages/cnpj-val && bun run test"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.2",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "commitizen": "^4.3.1",
