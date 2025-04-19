@@ -3,7 +3,7 @@
 ![NPM Latest Version](https://img.shields.io/npm/v/cnpj-utils)
 ![Bundle Size](https://img.shields.io/bundlephobia/min/cnpj-utils?label=bundle%20size)
 ![Downloads Count](https://img.shields.io/npm/dm/cnpj-utils.svg)
-![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cnpj-utils-js/release.yml?label=ci/cd)
+![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cnpj-utils-js/ci.yml?label=ci/cd)
 ![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/cnpj-utils-js)
 ![Project License](https://img.shields.io/github/license/juliolmuller/cnpj-utils-js)
 
