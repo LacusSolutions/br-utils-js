@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "prepare": "husky",
+    "prepare": "bun x husky",
     "commit": "git-cz",
     "changelog": "changeset",
     "version": "changeset version",
@@ -15,6 +15,7 @@
     "type-check:fmt": "bun run --filter './***/cnpj-fmt' type-check",
     "type-check:gen": "bun run --filter './***/cnpj-gen' type-check",
     "type-check:val": "bun run --filter './***/cnpj-val' type-check",
+    "type-check:utils": "bun run --filter './**/cnpj-utils' type-check",
     "lint": "bun run lint:root && bun run --filter '*' lint",
     "lint:root": "eslint --fix eslint.config.mjs rollup.config.mjs",
     "lint:fmt": "bun run --filter './***/cnpj-fmt' lint",
@@ -27,6 +28,7 @@
     "build:val": "bun run --filter './***/cnpj-val' build",
     "build:utils": "bun run --filter './**/cnpj-utils' build",
     "test": "bun run test:fmt && bun run test:gen && bun run test:val && bun run test:utils",
+    "test:ci": "bun run --filter '*' test:ci",
     "test:fmt": "bun run --filter './***/cnpj-fmt' test",
     "test:gen": "bun run --filter './***/cnpj-gen' test",
     "test:val": "bun run --filter './***/cnpj-val' test",
