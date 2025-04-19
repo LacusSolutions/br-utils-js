@@ -129,7 +129,7 @@ Keep in mind that, for the `prefix` option, it must be a **string** containing u
 
 **returns** `boolean`
 
-The `validate` method receives a string as its single parameter, evaluate it and returns `true` or `false` as output. This parameter may contain any character like letters, symbols, punctuation or white spaces, but it will immediately return `false` in case the expected 11 digits are not found to be deeply evaluated.
+The `validate` method receives a string as its single parameter, evaluates it and returns `true` or `false` as output. This parameter may contain any character like letters, symbols, punctuation or white spaces, but it will immediately return `false` in case the expected 14 digits are not found to be deeply evaluated.
 
 
 ```js
