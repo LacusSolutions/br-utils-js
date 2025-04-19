@@ -123,7 +123,7 @@ cnpjGen({
 })                 //     The string provided must contain between 1 and 12 digits!
 ```
 
-Keep in mind that, for the `prefix` option, it must be a **string** containing up to 9 digits.
+Keep in mind that, for the `prefix` option, it must be a **string** containing up to 12 digits.
 
 ### `cnpjUtils.validate(string)`
 
