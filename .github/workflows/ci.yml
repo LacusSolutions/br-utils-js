@@ -65,11 +65,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ env.BUN_VERSION }}
-          registry-url: ${{ env.NPM_REGISTRY_URL }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          registry-url: ${{ env.NPM_REGISTRY_URL }}
       - run: bun install --frozen-lockfile
       - run: bun run build
       - working-directory: packages/cnpj-${{ matrix.pkg }}
