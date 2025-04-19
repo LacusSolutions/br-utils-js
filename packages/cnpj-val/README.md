@@ -1,9 +1,9 @@
 # LacusSoft :: cnpj-val
 
 ![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cnpj-val)
+![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cnpj-val?label=bundle%20size)
 ![Downloads Count](https://img.shields.io/npm/dm/@lacussoft/cnpj-val.svg)
-![Bundle Size](https://packagephobia.now.sh/badge?p=@lacussoft/cnpj-val)
-![Test Status](https://img.shields.io/travis/juliolmuller/cnpj-utils-js/main.svg)
+![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cnpj-utils-js/release.yml?label=ci/cd)
 ![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/cnpj-utils-js)
 ![Project License](https://img.shields.io/github/license/juliolmuller/cnpj-utils-js)
 
