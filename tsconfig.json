@@ -9,6 +9,7 @@
     "useDefineForClassFields": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "allowJs": false,
     "noEmit": false,
     "strict": true,
