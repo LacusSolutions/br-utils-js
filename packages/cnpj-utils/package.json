@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/juliolmuller/cnpj-utils-js/issues"
   },
-  "homepage": "https://github.com/juliolmuller/cnpj-utils-js#readme",
+  "homepage": "https://cnpj-utils.vercel.app/",
   "main": "build/index.cjs",
   "types": "build/index.d.ts",
   "exports": {
