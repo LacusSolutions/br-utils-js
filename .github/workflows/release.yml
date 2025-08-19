@@ -1,0 +1,42 @@
+name: Release Packages
+
+on:
+  workflow_dispatch:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HUSKY: 0
+  NODE_VERSION: 20
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # for `npm publish`
+  BUN_VERSION: latest
+  NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }} # for `bun publish`
+  NPM_REGISTRY_URL: https://registry.npmjs.org/
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      pull-requests: write
+    steps:
+      - name: Checkout Project Artifacts
+        uses: actions/checkout@v4
+      - name: Setup Bun.js
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.NPM_REGISTRY_URL }}
+
+      - name: Publish to NPM
+        run: bun publish
