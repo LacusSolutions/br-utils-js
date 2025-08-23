@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cpf-fmt",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Utility function to format CPF (Brazilian ID document).",
   "license": "MIT",
   "author": {

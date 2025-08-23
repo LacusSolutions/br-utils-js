@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cpf-gen",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Utility function to generate valid CPF (Brazilian ID document).",
   "license": "MIT",
   "author": {
@@ -51,7 +51,7 @@
     "test:ci": "bun test"
   },
   "dependencies": {
-    "@lacussoft/cpf-fmt": "^1.4.1",
+    "@lacussoft/cpf-fmt": "^1.4.2",
     "deepmerge": "^4.3.1",
     "num-only": "^1.2.6"
   },
