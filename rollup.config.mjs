@@ -32,11 +32,14 @@ export function makeRollupConfig({
     throw new Error('Missing build params in `package.json`.');
   }
 
+  const currentYear = new Date().getFullYear();
+  const licenseCoveragePeriod =
+    currentYear === creationYear ? currentYear : `${creationYear}-${currentYear}`;
   const bundleBanner = `/**
  * ${bannerTitle} v${version}
  *
  * @author ${author.name}.
- * @license ${license} - ${creationYear}-${new Date().getFullYear()}
+ * @license ${license} - ${licenseCoveragePeriod}
  */
 `;
 

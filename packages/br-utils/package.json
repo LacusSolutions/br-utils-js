@@ -1,0 +1,57 @@
+{
+  "name": "br-utils",
+  "version": "0.0.0",
+  "description": "Utility functions and resources for Brazilian-related data.",
+  "license": "MIT",
+  "author": {
+    "name": "Julio L. Muller",
+    "url": "https://github.com/juliolmuller"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "keywords": [
+    "cpf",
+    "cnpj",
+    "cep",
+    "rg",
+    "state",
+    "city",
+    "validar",
+    "validador",
+    "validate",
+    "validation",
+    "formatar",
+    "format",
+    "gerar",
+    "gerador",
+    "generate",
+    "generator",
+    "pt-br",
+    "br"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliolmuller/br-utils-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/juliolmuller/br-utils-js/issues"
+  },
+  "homepage": "https://github.com/juliolmuller/br-utils-js#readme",
+  "main": "./build/index.cjs",
+  "types": "./build/index.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "default": "./build/index.cjs"
+      },
+      "import": {
+        "default": "./build/index.mjs"
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
