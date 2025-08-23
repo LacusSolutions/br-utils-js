@@ -1,4 +1,12 @@
 {
+  "./README.md": [
+    "node -e \"fs=require('fs').copyFileSync('./README.md', './packages/br-utils/README.md')\"",
+    "git add ./packages/br-utils/README.md"
+  ],
+  "./packages/br-utils/README.md": [
+    "node -e \"fs=require('fs').copyFileSync('./packages/br-utils/README.md', './README.md')\"",
+    "git add ./README.md"
+  ],
   "*.{js,cjs,mjs,ts,mts}": [
     "eslint --fix"
   ]

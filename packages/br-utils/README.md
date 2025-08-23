@@ -1,0 +1,51 @@
+# br-utils for JavaScript
+
+![NPM Latest Version](https://img.shields.io/npm/v/br-utils)
+![Bundle Size](https://img.shields.io/bundlephobia/min/br-utils?label=bundle%20size)
+![Downloads Count](https://img.shields.io/npm/dm/br-utils.svg)
+![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/br-utils-js/ci.yml?label=ci/cd)
+![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/br-utils-js)
+![Project License](https://img.shields.io/github/license/juliolmuller/br-utils-js)
+
+Toolkit to handle the main operations with Brazilian-related data for JavaScript/TypeScript programming language:
+
+- CPF (personal ID) ((View Demo)[https://cpf-utils.vercel.app/] | (Ver demonstração)[https://cpf-utils.vercel.app/])
+- CNPJ (employer ID) ((View Demo)[https://cnpj-utils.vercel.app/] | (Ver demonstração)[https://cpf-utils.vercel.app/])
+
+## Browser Support
+
+![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
+--- | --- | --- | --- | --- | --- |
+Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
+
+## Installation
+
+```bash
+# using NPM
+$ npm install --save br-utils
+
+# using Bun
+$ bun add br-utils
+```
+
+## Import
+
+```js
+// Common JS syntax:
+const brUtils = require('br-utils')
+
+// ES Module syntax:
+import brUtils from 'br-utils'
+// or get the specific function with ES tree-shaking:
+import { cpfUtils, cnpjUtils } from 'br-utils'
+```
+
+or import it through your HTML file, using CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/br-utils@latest/dist/br-utils.min.js"></script>
+```
+
+## API
+
+> 🚧 Under Development 🚧
