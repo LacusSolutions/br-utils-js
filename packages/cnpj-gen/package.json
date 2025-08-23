@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cnpj-gen",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Utility function to generate valid CNPJ (Brazilian company ID).",
   "license": "MIT",
   "author": {
@@ -51,7 +51,7 @@
     "test:ci": "bun test"
   },
   "dependencies": {
-    "@lacussoft/cnpj-fmt": "^1.3.0",
+    "@lacussoft/cnpj-fmt": "^1.3.1",
     "deepmerge": "^4.3.1",
     "num-only": "^1.2.6"
   },

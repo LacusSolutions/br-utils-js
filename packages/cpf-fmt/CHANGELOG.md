@@ -1,5 +1,11 @@
 # @lacussoft/cpf-fmt
 
+## 1.4.2
+
+### Patch Changes
+
+- 7e21d87: Updated overall development dependencies
+
 ## 1.4.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @lacussoft/cpf-val
 
+## 1.4.2
+
+### Patch Changes
+
+- 7e21d87: Updated overall development dependencies
+- Updated dependencies [7e21d87]
+  - @lacussoft/cpf-gen@1.5.2
+
 ## 1.4.1
 
 ### Patch Changes
