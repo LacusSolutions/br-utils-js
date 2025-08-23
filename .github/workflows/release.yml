@@ -1,7 +1,7 @@
 name: Release Packages
 
 on:
-  workflow_dispatch:
+  push:
     branches:
       - main
 
@@ -14,7 +14,7 @@ env:
   NODE_VERSION: 20
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # for `npm publish`
   BUN_VERSION: latest
-  NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }} # for `bun publish`
+  # NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }} # for `bun publish`
   NPM_REGISTRY_URL: https://registry.npmjs.org/
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -38,5 +38,24 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: ${{ env.NPM_REGISTRY_URL }}
 
-      - name: Publish to NPM
-        run: bun publish
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build Distribution Artifacts
+        run: bun run build
+
+      - name: Check Types & Linting
+        run: |
+          bun run type-check
+          bun run lint
+
+      - name: Run Unit Tests
+        run: bun run test:ci
+
+      - name: Create Release PR or Publish to NPM
+        uses: changesets/action@v1
+        with:
+          version: bun run version
+          publish: bun run release
+          commit: 'chore: release packages'
+          title: 'New Packages Release'

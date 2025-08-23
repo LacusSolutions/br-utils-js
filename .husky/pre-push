@@ -1,0 +1,11 @@
+bun run test:fmt
+bun run type-check:fmt
+
+bun run test:gen
+bun run type-check:gen
+
+bun run test:val
+bun run type-check:val
+
+bun run test:utils
+bun run type-check:utils
