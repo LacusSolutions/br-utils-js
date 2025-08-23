@@ -59,16 +59,16 @@
     "test:cpf-utils": "bun run --filter './**/cpf-utils' test"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.2",
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
+    "@changesets/cli": "^2.29.6",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^9.25.0",
-    "eslint-config-any": "^1.0.6",
+    "eslint": "^9.34.0",
+    "eslint-config-any": "^2.1.1",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.1",
-    "prettier": "^3.5.3",
-    "typescript": "^5.8.3"
+    "lint-staged": "^16.1.5",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
   }
 }
