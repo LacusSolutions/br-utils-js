@@ -4,4 +4,5 @@ build/
 dist/
 node_modules/
 
+**/.lcov.info.*
 **/*.log
