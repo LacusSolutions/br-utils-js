@@ -3,9 +3,9 @@
 ![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cpf-val)
 ![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cpf-val?label=bundle%20size)
 ![Downloads Count](https://img.shields.io/npm/dm/@lacussoft/cpf-val.svg)
-![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cpf-utils-js/ci.yml?label=ci/cd)
-![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/cpf-utils-js)
-![Project License](https://img.shields.io/github/license/juliolmuller/cpf-utils-js)
+![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/br-utils-js/ci.yml?label=ci/cd)
+![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/br-utils-js)
+![Project License](https://img.shields.io/github/license/juliolmuller/br-utils-js)
 
 Utility function to validate CPF (Brazilian ID document).
 

@@ -3,9 +3,9 @@
 ![NPM Latest Version](https://img.shields.io/npm/v/cpf-utils)
 ![Bundle Size](https://img.shields.io/bundlephobia/min/cpf-utils?label=bundle%20size)
 ![Downloads Count](https://img.shields.io/npm/dm/cpf-utils.svg)
-![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cpf-utils-js/ci.yml?label=ci/cd)
-![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/cpf-utils-js)
-![Project License](https://img.shields.io/github/license/juliolmuller/cpf-utils-js)
+![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/br-utils-js/ci.yml?label=ci/cd)
+![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/br-utils-js)
+![Project License](https://img.shields.io/github/license/juliolmuller/br-utils-js)
 
 Toolkit to handle the main operations with CPF data (Brazilian personal ID): validation, formatting and generation of valid character sequence.
 

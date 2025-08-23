@@ -28,10 +28,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/juliolmuller/cnpj-utils-js.git"
+    "url": "git+https://github.com/juliolmuller/br-utils-js.git"
   },
   "bugs": {
-    "url": "https://github.com/juliolmuller/cnpj-utils-js/issues"
+    "url": "https://github.com/juliolmuller/br-utils-js/issues"
   },
   "homepage": "https://cnpj-utils.vercel.app/",
   "main": "build/index.cjs",

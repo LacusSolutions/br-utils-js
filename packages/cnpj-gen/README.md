@@ -3,9 +3,9 @@
 ![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cnpj-gen)
 ![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cnpj-gen?label=bundle%20size)
 ![Downloads Count](https://img.shields.io/npm/dm/@lacussoft/cnpj-gen.svg)
-![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/cnpj-utils-js/ci.yml?label=ci/cd)
-![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/cnpj-utils-js)
-![Project License](https://img.shields.io/github/license/juliolmuller/cnpj-utils-js)
+![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/br-utils-js/ci.yml?label=ci/cd)
+![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/br-utils-js)
+![Project License](https://img.shields.io/github/license/juliolmuller/br-utils-js)
 
 Basic function to generate valid CNPJ (Brazilian ID document).
 

@@ -24,10 +24,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/juliolmuller/cpf-utils-js.git"
+    "url": "git+https://github.com/juliolmuller/br-utils-js.git"
   },
   "bugs": {
-    "url": "https://github.com/juliolmuller/cpf-utils-js/issues"
+    "url": "https://github.com/juliolmuller/br-utils-js/issues"
   },
   "homepage": "https://cpf-utils.vercel.app/",
   "main": "build/index.cjs",
