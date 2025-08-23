@@ -1,0 +1,17 @@
+.DS_Store
+.vscode/
+src/
+test/
+
+**/.*
+**/*.log
+**/*.config.js
+
+bun.lock
+bun.lockb
+yarn.lock
+pnpm-lock.yaml
+package-lock.json
+rollup.config.*
+tsconfig.json
+bunfig.toml

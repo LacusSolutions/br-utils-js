@@ -1,11 +1,23 @@
 bun run test:fmt
-bun run type-check:fmt
+bun run type-check:cnpj-fmt
 
 bun run test:gen
-bun run type-check:gen
+bun run type-check:cnpj-gen
 
 bun run test:val
-bun run type-check:val
+bun run type-check:cnpj-val
 
 bun run test:utils
-bun run type-check:utils
+bun run type-check:cnpj-utils
+
+bun run test:fmt
+bun run type-check:cpf-fmt
+
+bun run test:gen
+bun run type-check:cpf-gen
+
+bun run test:val
+bun run type-check:cpf-val
+
+bun run test:utils
+bun run type-check:cpf-utils

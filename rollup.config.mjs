@@ -19,6 +19,7 @@ import esBuildPlugin from 'rollup-plugin-esbuild';
  * @param {'default' | 'named'} [buildParams.cjsExports]
  */
 export function makeRollupConfig({
+  creationYear = 2020,
   modulesEntryPoint = 'src/index.ts',
   umdEntryPoint = 'src/index.ts',
   cjsExports = 'default',
@@ -35,7 +36,7 @@ export function makeRollupConfig({
  * ${bannerTitle} v${version}
  *
  * @author ${author.name}.
- * @license ${license} - 2020-${new Date().getFullYear()}
+ * @license ${license} - ${creationYear}-${new Date().getFullYear()}
  */
 `;
 

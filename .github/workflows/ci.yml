@@ -59,7 +59,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        pkg: ['fmt', 'gen', 'val', 'utils']
+        pkg:
+          - 'cnpj-fmt'
+          - 'cnpj-gen'
+          - 'cnpj-utils'
+          - 'cnpj-val'
+          - 'cpf-fmt'
+          - 'cpf-gen'
+          - 'cpf-utils'
+          - 'cpf-val'
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -70,5 +78,5 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - working-directory: packages/cpf-${{ matrix.pkg }}
+      - working-directory: packages/${{ matrix.pkg }}
         run: npm publish --dry-run
