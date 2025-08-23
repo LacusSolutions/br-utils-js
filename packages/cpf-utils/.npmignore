@@ -1,5 +1,6 @@
 **/.*
 
+demo/
 src/
 
 bun.lock
