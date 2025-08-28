@@ -3,9 +3,9 @@
 ![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cpf-gen)
 ![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cpf-gen?label=bundle%20size)
 ![Downloads Count](https://img.shields.io/npm/dm/@lacussoft/cpf-gen.svg)
-![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/br-utils-js/ci.yml?label=ci/cd)
-![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/br-utils-js)
-![Project License](https://img.shields.io/github/license/juliolmuller/br-utils-js)
+![Test Status](https://img.shields.io/github/actions/workflow/status/LacusSolutions/br-utils-js/ci.yml?label=ci/cd)
+![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)
+![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)
 
 Utility function to generate valid CPF (Brazilian ID document).
 

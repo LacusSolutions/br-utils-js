@@ -3,9 +3,9 @@
 ![NPM Latest Version](https://img.shields.io/npm/v/br-utils)
 ![Bundle Size](https://img.shields.io/bundlephobia/min/br-utils?label=bundle%20size)
 ![Downloads Count](https://img.shields.io/npm/dm/br-utils.svg)
-![Test Status](https://img.shields.io/github/actions/workflow/status/juliolmuller/br-utils-js/ci.yml?label=ci/cd)
-![Last Update Date](https://img.shields.io/github/last-commit/juliolmuller/br-utils-js)
-![Project License](https://img.shields.io/github/license/juliolmuller/br-utils-js)
+![Test Status](https://img.shields.io/github/actions/workflow/status/LacusSolutions/br-utils-js/ci.yml?label=ci/cd)
+![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)
+![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)
 
 Toolkit to handle the main operations with Brazilian-related data for JavaScript/TypeScript programming language:
 
