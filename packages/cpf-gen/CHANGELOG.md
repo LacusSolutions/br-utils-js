@@ -1,5 +1,13 @@
 # @lacussoft/cpf-gen
 
+## 1.5.3
+
+### Patch Changes
+
+- 5eb38e3: Adjust repo references from `juliolmuller` to `LacusSolutions`
+- Updated dependencies [5eb38e3]
+  - @lacussoft/cpf-fmt@1.4.3
+
 ## 1.5.2
 
 ### Patch Changes

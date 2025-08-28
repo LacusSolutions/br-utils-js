@@ -1,5 +1,11 @@
 # @lacussoft/cpf-fmt
 
+## 1.4.3
+
+### Patch Changes
+
+- 5eb38e3: Adjust repo references from `juliolmuller` to `LacusSolutions`
+
 ## 1.4.2
 
 ### Patch Changes
