@@ -1,5 +1,5 @@
-import cnpjUtils from 'cnpj-utils';
-import cpfUtils from 'cpf-utils';
+import * as cnpjUtils from 'cnpj-utils';
+import * as cpfUtils from 'cpf-utils';
 
 export const cnpj = cnpjUtils;
 
