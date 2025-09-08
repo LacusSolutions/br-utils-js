@@ -37,7 +37,7 @@ const brUtils = require('br-utils')
 // ES Module syntax:
 import brUtils from 'br-utils'
 // or get the specific function with ES tree-shaking:
-import { cpfUtils, cnpjUtils } from 'br-utils'
+import { cpf as cpfUtils, cnpj as cnpjUtils } from 'br-utils'
 ```
 
 or import it through your HTML file, using CDN:
@@ -48,4 +48,7 @@ or import it through your HTML file, using CDN:
 
 ## API
 
-> 🚧 Under Development 🚧
+Check out the API details for each submodule of the package:
+
+- [CNPJ utilities](https://github.com/LacusSolutions/br-utils-js/tree/main/packages/cnpj-utils#readme)
+- [CPF utilities](https://github.com/LacusSolutions/br-utils-js/tree/main/packages/cpf-utils#readme)
