@@ -44,7 +44,7 @@
     "lint:cpf-gen": "bun run --filter './***/cpf-gen' lint",
     "lint:cpf-val": "bun run --filter './***/cpf-val' lint",
     "lint:cpf-utils": "bun run --filter './**/cpf-utils' lint",
-    "build": "bun run build:br && bun run build:cnpj && bun run build:cpf",
+    "build": "bun run build:cnpj && bun run build:cpf && bun run build:br",
     "build:br": "bun run --filter './***/br-utils' build",
     "build:fmt": "bun run --filter './***/*-fmt' build",
     "build:gen": "bun run --filter './***/*-gen' build",
