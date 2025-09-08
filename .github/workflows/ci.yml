@@ -62,12 +62,13 @@ jobs:
         pkg:
           - 'cnpj-fmt'
           - 'cnpj-gen'
-          - 'cnpj-utils'
           - 'cnpj-val'
+          - 'cnpj-utils'
           - 'cpf-fmt'
           - 'cpf-gen'
-          - 'cpf-utils'
           - 'cpf-val'
+          - 'cpf-utils'
+          - 'br-utils'
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
