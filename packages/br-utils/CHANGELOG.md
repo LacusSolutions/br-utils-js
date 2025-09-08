@@ -1,5 +1,11 @@
 # br-utils
 
+## 1.0.1
+
+### Patch Changes
+
+- 86d23ff: Increment package version since tag "1.0.0" was already used in NPM registry.
+
 ## 1.0.0
 
 ### Release
