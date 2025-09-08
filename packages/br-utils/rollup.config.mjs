@@ -5,9 +5,9 @@ export default makeRollupConfig({
   creationYear: 2025,
   umdEntryPoint: 'src/dist.ts',
   modulesEntryPoint: 'src/module.ts',
-  bannerTitle: 'cnpj-utils',
-  distFileName: 'cnpj-utils',
-  globalName: 'cnpjUtils',
+  bannerTitle: 'br-utils',
+  distFileName: 'br-utils',
+  globalName: 'brUtils',
   cjsExports: 'named',
   packageMeta,
 });

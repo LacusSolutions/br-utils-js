@@ -1,6 +1,6 @@
 {
   "name": "br-utils",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Utility functions and resources for Brazilian-related data.",
   "license": "MIT",
   "author": {
@@ -51,7 +51,30 @@
       }
     }
   },
+  "dependencies": {
+    "cnpj-utils": "^1.3.2",
+    "cpf-utils": "^1.4.4"
+  },
+  "scripts": {
+    "build": "rollup --config",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint --fix src/ rollup.config.mjs",
+    "pretest": "bun run build --silent",
+    "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=test/__coverage__",
+    "test:ci": "bun test"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@babel/preset-env": "^7.28.3",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "~0.4.4",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "@types/node": "^22.17.2",
+    "rollup": "^4.47.1",
+    "rollup-plugin-delete": "^3.0.1",
+    "rollup-plugin-dts": "^6.2.3",
+    "rollup-plugin-esbuild": "^6.2.1",
+    "typescript": "^5.9.2"
   }
 }
