@@ -1,5 +1,15 @@
 # br-utils
 
+## 2.0.2
+
+### Patch Changes
+
+- e3f479a: Update package description.
+- Updated dependencies [e3f479a]
+- Updated dependencies [12cc5b1]
+  - cnpj-utils@1.3.3
+  - cpf-utils@1.4.5
+
 ## 2.0.1
 
 ### Patch Changes

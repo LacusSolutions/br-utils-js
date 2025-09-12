@@ -1,5 +1,15 @@
 # @lacussoft/cnpj-val
 
+## 1.3.3
+
+### Patch Changes
+
+- e3f479a: Update package description.
+- 12cc5b1: Fix types declaration export.
+- Updated dependencies [e3f479a]
+- Updated dependencies [12cc5b1]
+  - @lacussoft/cnpj-gen@1.3.3
+
 ## 1.3.2
 
 ### Patch Changes

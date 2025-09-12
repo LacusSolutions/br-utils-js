@@ -1,5 +1,15 @@
 # @lacussoft/cpf-val
 
+## 1.4.4
+
+### Patch Changes
+
+- e3f479a: Update package description.
+- 12cc5b1: Fix types declaration export.
+- Updated dependencies [e3f479a]
+- Updated dependencies [12cc5b1]
+  - @lacussoft/cpf-gen@1.5.4
+
 ## 1.4.3
 
 ### Patch Changes

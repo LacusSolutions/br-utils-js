@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cpf-fmt",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Utility function to format CNPJ (Brazilian personal ID)",
   "license": "MIT",
   "author": {
