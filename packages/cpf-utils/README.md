@@ -7,7 +7,7 @@
 ![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)
 ![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)
 
-Toolkit to handle the main operations with CPF data (Brazilian personal ID): validation, formatting and generation of valid character sequence.
+Toolkit to deal with CPF data (Brazilian personal ID): validation, formatting and generation of valid IDs.
 
 ## Browser Support
 

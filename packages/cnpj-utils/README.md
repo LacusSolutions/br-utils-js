@@ -7,7 +7,7 @@
 ![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)
 ![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)
 
-Toolkit to handle the main operations with CNPJ data (Brazilian corporate ID): validation, formatting and generation of valid character sequences.
+Toolkit to deal with CNPJ data (Brazilian employer ID): validation, formatting and generation of valid IDs.
 
 ## Browser Support
 

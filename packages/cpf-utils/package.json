@@ -1,7 +1,7 @@
 {
   "name": "cpf-utils",
   "version": "1.4.4",
-  "description": "Utility functions to deal with CPF data (Brazilian personal ID), like generation fake ones, validating and formatting",
+  "description": "Utility functions to deal with CPF data (Brazilian personal ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",

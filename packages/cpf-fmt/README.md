@@ -7,7 +7,7 @@
 ![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)
 ![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)
 
-Utility function to format CPF (Brazilian ID document).
+Utility function to format CNPJ (Brazilian personal ID).
 
 ## Browser Support
 
@@ -80,3 +80,19 @@ cpfFmt(cpf, {
   }
 })
 ```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes and version history.
+
+---
+
+Made with ❤️ by [Lacus Solutions](https://github.com/LacusSolutions)

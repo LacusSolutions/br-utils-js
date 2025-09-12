@@ -7,7 +7,7 @@
 ![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)
 ![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)
 
-Utility function to validate CPF (Brazilian ID document).
+Utility function to validate CPF (Brazilian personal ID).
 
 ## Browser Support
 

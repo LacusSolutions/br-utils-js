@@ -1,7 +1,7 @@
 {
   "name": "cnpj-utils",
   "version": "1.3.2",
-  "description": "Utility functions to deal with CNPJ data (Brazilian company ID), like generation fake ones, validating and formatting",
+  "description": "Utility functions to deal with CNPJ (Brazilian employer ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",

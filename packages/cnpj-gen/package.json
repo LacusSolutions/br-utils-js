@@ -1,7 +1,7 @@
 {
   "name": "@lacussoft/cnpj-gen",
   "version": "1.3.2",
-  "description": "Utility function to generate valid CNPJ (Brazilian company ID).",
+  "description": "Utility function to generate valid CNPJ (Brazilian employer ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",

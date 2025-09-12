@@ -7,7 +7,7 @@
 ![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)
 ![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)
 
-Basic function to generate valid CNPJ (Brazilian ID document).
+Utility function to generate valid CNPJ (Brazilian employer ID).
 
 ## Browser Support
 

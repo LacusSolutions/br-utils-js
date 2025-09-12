@@ -1,7 +1,7 @@
 {
   "name": "@lacussoft/cpf-gen",
   "version": "1.5.3",
-  "description": "Utility function to generate valid CPF (Brazilian ID document).",
+  "description": "Utility function to generate valid CPF (Brazilian personal ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",

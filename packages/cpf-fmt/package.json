@@ -1,7 +1,7 @@
 {
   "name": "@lacussoft/cpf-fmt",
   "version": "1.4.3",
-  "description": "Utility function to format CPF (Brazilian ID document).",
+  "description": "Utility function to format CNPJ (Brazilian personal ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",

@@ -1,7 +1,7 @@
 {
   "name": "br-utils",
   "version": "2.0.1",
-  "description": "Utility functions and resources for Brazilian-related data.",
+  "description": "Utility resources to deal with Brazilian-related data.",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
