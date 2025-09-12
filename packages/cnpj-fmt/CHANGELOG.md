@@ -1,5 +1,11 @@
 # @lacussoft/cnpj-fmt
 
+## 2.0.0
+
+### Major Changes
+
+- 5cfb84d: Increase version to align with `br-utils`.
+
 ## 1.3.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "br-utils",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Utility resources to deal with Brazilian-related data.",
   "license": "MIT",
   "author": {
@@ -53,8 +53,8 @@
     }
   },
   "dependencies": {
-    "cnpj-utils": "^1.3.3",
-    "cpf-utils": "^1.4.5"
+    "cnpj-utils": "^2.0.0",
+    "cpf-utils": "^2.0.0"
   },
   "scripts": {
     "build": "rollup --config",
