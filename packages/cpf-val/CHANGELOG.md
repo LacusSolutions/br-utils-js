@@ -1,5 +1,16 @@
 # @lacussoft/cpf-val
 
+## 2.0.0
+
+### Major Changes
+
+- 5cfb84d: Increase version to align with `br-utils`.
+
+### Patch Changes
+
+- Updated dependencies [5cfb84d]
+  - @lacussoft/cpf-gen@2.0.0
+
 ## 1.4.4
 
 ### Patch Changes

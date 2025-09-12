@@ -1,5 +1,15 @@
 # br-utils
 
+## 2.0.3
+
+### Patch Changes
+
+- ff7ef2a: Remove `default` property from `cpf` and `cnpj` submodules.
+- 5cfb84d: Increase version to align with `br-utils`.
+- Updated dependencies [5cfb84d]
+  - cnpj-utils@2.0.0
+  - cpf-utils@2.0.0
+
 ## 2.0.2
 
 ### Patch Changes
