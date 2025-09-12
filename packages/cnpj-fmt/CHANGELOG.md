@@ -1,5 +1,12 @@
 # @lacussoft/cnpj-fmt
 
+## 1.3.3
+
+### Patch Changes
+
+- e3f479a: Update package description.
+- 12cc5b1: Fix types declaration export.
+
 ## 1.3.2
 
 ### Patch Changes

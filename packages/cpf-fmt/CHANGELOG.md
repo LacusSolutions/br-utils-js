@@ -1,5 +1,12 @@
 # @lacussoft/cpf-fmt
 
+## 1.4.4
+
+### Patch Changes
+
+- e3f479a: Update package description.
+- 12cc5b1: Fix types declaration export.
+
 ## 1.4.3
 
 ### Patch Changes

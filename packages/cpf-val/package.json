@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cpf-val",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Utility function to validate CPF (Brazilian personal ID)",
   "license": "MIT",
   "author": {
@@ -51,7 +51,7 @@
     "test:ci": "bun test"
   },
   "dependencies": {
-    "@lacussoft/cpf-gen": "^1.5.3",
+    "@lacussoft/cpf-gen": "^1.5.4",
     "num-only": "^1.2.6"
   },
   "devDependencies": {
