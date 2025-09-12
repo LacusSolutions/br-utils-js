@@ -1,5 +1,11 @@
 # br-utils
 
+## 2.0.1
+
+### Patch Changes
+
+- 54339e7: Fix types export.
+
 ## 2.0.0
 
 ### Release
