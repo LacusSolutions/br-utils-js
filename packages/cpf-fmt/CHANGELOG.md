@@ -1,5 +1,12 @@
 # @lacussoft/cpf-fmt
 
+## 2.0.1
+
+### Patch Changes
+
+- 2889911: Update documentation.
+- 5d9bf1d: Create a contribution guide.
+
 ## 2.0.0
 
 ### Major Changes

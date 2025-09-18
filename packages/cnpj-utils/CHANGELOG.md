@@ -1,5 +1,17 @@
 # cnpj-utils
 
+## 2.0.1
+
+### Patch Changes
+
+- 2889911: Update documentation.
+- 5d9bf1d: Create a contribution guide.
+- Updated dependencies [2889911]
+- Updated dependencies [5d9bf1d]
+  - @lacussoft/cnpj-fmt@2.0.1
+  - @lacussoft/cnpj-gen@2.0.1
+  - @lacussoft/cnpj-val@2.0.1
+
 ## 2.0.0
 
 ### Major Changes

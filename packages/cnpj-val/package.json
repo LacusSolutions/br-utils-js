@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cnpj-val",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Utility function to validate CNPJ (Brazilian employer ID)",
   "license": "MIT",
   "author": {
@@ -51,7 +51,7 @@
     "test:ci": "bun test"
   },
   "dependencies": {
-    "@lacussoft/cnpj-gen": "^2.0.0",
+    "@lacussoft/cnpj-gen": "^2.0.1",
     "num-only": "^1.2.6"
   },
   "devDependencies": {
