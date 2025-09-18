@@ -1,19 +1,19 @@
-# LacusSoft :: cpf-fmt
+# Lacus :: cpf-fmt
 
-![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cpf-fmt)
-![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cpf-fmt?label=bundle%20size)
-![Downloads Count](https://img.shields.io/npm/dm/@lacussoft/cpf-fmt.svg)
-![Test Status](https://img.shields.io/github/actions/workflow/status/LacusSolutions/br-utils-js/ci.yml?label=ci/cd)
-![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)
-![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)
+[![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cpf-fmt)](https://npmjs.com/package/@lacussoft/cpf-fmt)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cpf-fmt?label=bundle%20size)](https://bundlephobia.com/package/@lacussoft/cpf-fmt)
+[![Downloads Count](https://img.shields.io/npm/dm/@lacussoft/cpf-fmt.svg)](https://npmjs.com/package/@lacussoft/cpf-fmt)
+[![Test Status](https://img.shields.io/github/actions/workflow/status/LacusSolutions/br-utils-js/ci.yml?label=ci/cd)](https://github.com/LacusSolutions/br-utils-js/actions)
+[![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js)
+[![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE)
 
 Utility function to format CNPJ (Brazilian personal ID).
 
 ## Browser Support
 
-![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
---- | --- | --- | --- | --- | --- |
-Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
+|--- | --- | --- | --- | --- | --- |
+| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
 
 ## Installation
 
@@ -81,17 +81,22 @@ cpfFmt(cpf, {
 })
 ```
 
-## Contributing
+## Contribution & Support
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+We welcome contributions! Please see our [Contributing Guidelines](./CONTRIBUTING.md) for details. But if you find this project helpful, please consider:
+
+- ⭐ Starring the repository
+- 🤝 Contributing to the codebase
+- 💡 [Suggesting new features](https://github.com/LacusSolutions/br-utils-js/issues)
+- 🐛 [Reporting bugs](https://github.com/LacusSolutions/br-utils-js/issues)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE) file for details.
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for a list of changes and version history.
+See [CHANGELOG](tps://github.com/LacusSolutions/br-utils-js/blob/main/CHANGELOG.md) for a list of changes and version history.
 
 ---
 
