@@ -9,8 +9,8 @@
 
 Toolkit to handle the main operations with Brazilian-related data for JavaScript/TypeScript programming language:
 
-- CPF (personal ID) ((View Demo)[https://cpf-utils.vercel.app/] | (Ver demonstração)[https://cpf-utils.vercel.app/])
-- CNPJ (employer ID) ((View Demo)[https://cnpj-utils.vercel.app/] | (Ver demonstração)[https://cpf-utils.vercel.app/])
+- CPF (personal ID) ([demo](https://cpf-utils.vercel.app/))
+- CNPJ (employer ID) ([demo](https://cnpj-utils.vercel.app/))
 
 ## Browser Support
 
