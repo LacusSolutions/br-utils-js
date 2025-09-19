@@ -37,7 +37,7 @@ Before contributing, please:
 ### Prerequisites
 
 - **Node.js** (v18 or higher)
-- **Bun** (v1.0 or higher) - for testing and package management
+- **Bun** (v1.0 or higher) - for testing, building, and package management
 - **Git** - for version control
 
 ### Installation
@@ -51,55 +51,90 @@ cd br-utils-js
 bun install
 
 # Verify setup
-bun test
+bun run test
 bun run build
+bun run type-check
 ```
 
 ### Available Scripts
 
 ```bash
 # Development
-bun run build          # Build the project
-bun run type-check     # Run TypeScript type checking
-bun run lint           # Run ESLint with auto-fix
-bun test               # Run all tests
-bun test --coverage    # Run tests with coverage report
+bun run build          # Build all packages
+bun run type-check     # Run TypeScript type checking for all packages
+bun run lint           # Run ESLint with auto-fix for all packages
+bun run test           # Run all tests
+bun run test:ci        # Run tests in CI mode
 
-# Production
-bun run build          # Build for production
+# Package-specific commands
+bun run build:cnpj     # Build all CNPJ packages
+bun run build:cpf      # Build all CPF packages
+bun run build:br       # Build BR utilities package
+bun run test:cnpj      # Test all CNPJ packages
+bun run test:cpf       # Test all CPF packages
+bun run test:br        # Test BR utilities package
+
+# Type checking by category
+bun run type-check:fmt # Type check formatter packages
+bun run type-check:gen # Type check generator packages
+bun run type-check:val # Type check validator packages
+bun run type-check:utils # Type check utility packages
+
+# Linting by category
+bun run lint:fmt       # Lint formatter packages
+bun run lint:gen       # Lint generator packages
+bun run lint:val       # Lint validator packages
+bun run lint:utils     # Lint utility packages
+
+# Release management
+bun run changelog      # Generate changelog
+bun run version        # Version packages
+bun run release        # Publish packages
 ```
 
 ## Project Structure
 
 ```
 br-utils-js/
-├── src/                    # Source code
-│   ├── core/              # Core functionality
-│   │   ├── FieldProcessor.ts
-│   │   └── OptionsSchema.ts
-│   ├── errors/            # Error classes
-│   │   ├── CustomTestError.ts
-│   │   ├── FieldError.ts
-│   │   └── ValidationError.ts
-│   ├── processors/        # Field type processors
-│   │   └── IntFieldProcessor.ts
-│   ├── types/             # TypeScript type definitions
-│   │   ├── FieldDefinition.ts
-│   │   ├── FieldType.ts
-│   │   └── ValidationResult.ts
-│   └── index.ts           # Main entry point
-├── test/                  # Test files
-│   ├── core/             # Core tests
-│   ├── errors/           # Error tests
-│   ├── processors/       # Processor tests
-│   └── types/            # Type tests
-├── build/                # Built files (generated)
-├── dist/                 # Distribution files (generated)
-├── docs/                 # Documentation
-├── .eslintrc.js         # ESLint configuration
-├── rollup.config.mjs    # Rollup configuration
-├── tsconfig.json        # TypeScript configuration
-└── package.json         # Package configuration
+├── packages/                    # Monorepo packages
+│   ├── br-utils/               # Core BR utilities
+│   │   ├── src/               # Source code
+│   │   ├── test/              # Test files
+│   │   ├── build/             # Built files (generated)
+│   │   ├── dist/              # Distribution files (generated)
+│   │   ├── package.json       # Package configuration
+│   │   ├── rollup.config.mjs  # Rollup configuration
+│   │   └── tsconfig.json      # TypeScript configuration
+│   ├── cnpj-fmt/              # CNPJ formatter package
+│   │   ├── src/               # Source code
+│   │   ├── test/              # Test files
+│   │   ├── build/             # Built files (generated)
+│   │   ├── dist/              # Distribution files (generated)
+│   │   ├── package.json       # Package configuration
+│   │   ├── rollup.config.mjs  # Rollup configuration
+│   │   └── tsconfig.json      # TypeScript configuration
+│   ├── cnpj-gen/              # CNPJ generator package
+│   │   └── ...                # Similar structure
+│   ├── cnpj-utils/            # CNPJ utilities package
+│   │   └── ...                # Similar structure
+│   ├── cnpj-val/              # CNPJ validator package
+│   │   └── ...                # Similar structure
+│   ├── cpf-fmt/               # CPF formatter package
+│   │   └── ...                # Similar structure
+│   ├── cpf-gen/               # CPF generator package
+│   │   └── ...                # Similar structure
+│   ├── cpf-utils/             # CPF utilities package
+│   │   └── ...                # Similar structure
+│   └── cpf-val/               # CPF validator package
+│       └── ...                # Similar structure
+├── node_modules/              # Dependencies (generated)
+├── bun.lock                   # Bun lock file
+├── bunfig.toml               # Bun configuration
+├── eslint.config.mjs         # ESLint configuration
+├── rollup.config.mjs         # Root rollup configuration
+├── tsconfig.json             # Root TypeScript configuration
+├── package.json              # Root package configuration
+└── README.md                 # Project documentation
 ```
 
 ## Contributing Guidelines
@@ -143,19 +178,24 @@ git checkout -b fix/issue-description
 
 ```bash
 # Run all tests
-bun test
+bun run test:ci
 
-# Run with coverage
-bun test --coverage
+# Run tests with coverage
+bun run test
 
-# Type check
+# Type check all packages
 bun run type-check
 
-# Lint
+# Lint all packages
 bun run lint
 
-# Build
+# Build all packages
 bun run build
+
+# Test specific package categories
+bun run test:cnpj      # Test CNPJ packages
+bun run test:cpf       # Test CPF packages
+bun run test:br        # Test BR utilities
 ```
 
 ### 4. Commit Your Changes
@@ -181,29 +221,31 @@ Then create a pull request on GitHub.
 
 ### Test Structure
 
-- Tests are located in the `test/` directory
-- Test files use the `.spec.js` extension
+- Tests are located in the `test/` directory within each package
+- Test files use the `.test.ts` extension
 - Tests mirror the `src/` directory structure
-- Use Bun's built-in test runner
+- Use Bun's built-in test runner with TypeScript support
 
 ### Writing Tests
 
-```javascript
+```typescript
 import { describe, expect, it, beforeEach } from 'bun:test';
-import { OptionsSchema } from '../src/index.js';
+import { cnpjFormat } from '../src/index.js';
 
-describe('Feature Name', () => {
-  let schema;
+describe('CNPJ Formatter', () => {
+  let input: string;
 
   beforeEach(() => {
-    schema = OptionsSchema.create({
-      // test schema
-    });
+    input = '12345678000195';
   });
 
-  it('should do something specific', () => {
-    const result = schema.validate({});
-    expect(result.isValid).toBe(true);
+  it('should format CNPJ with mask', () => {
+    const result = cnpjFormat(input);
+    expect(result).toBe('12.345.678/0001-95');
+  });
+
+  it('should handle invalid input', () => {
+    expect(() => cnpjFormat('invalid')).toThrow();
   });
 });
 ```
@@ -224,6 +266,8 @@ describe('Feature Name', () => {
 - Use **explicit return types** for public methods
 - Avoid **`any`** types; use `unknown` or specific types
 - Use **generic types** for reusability
+- Use **const assertions** where appropriate
+- Prefer **type imports** for type-only imports
 
 ### Code Formatting
 
@@ -232,32 +276,47 @@ describe('Feature Name', () => {
 - Use **single quotes** for strings
 - Use **trailing commas** in objects and arrays
 - Use **arrow functions** for short functions
+- Use **prettier** for consistent formatting
 
 ### Naming Conventions
 
-- **Classes**: PascalCase (`OptionsSchema`)
-- **Methods**: camelCase (`validate`)
+- **Classes**: PascalCase (`CnpjFormatter`)
+- **Functions**: camelCase (`formatCnpj`)
 - **Variables**: camelCase (`fieldName`)
 - **Constants**: UPPER_SNAKE_CASE (`MAX_RETRIES`)
-- **Files**: PascalCase for classes (`FieldProcessor.ts`)
+- **Files**: kebab-case for utilities (`cnpj-formatter.ts`)
+- **Types/Interfaces**: PascalCase (`FormatOptions`)
+
+### Package Naming
+
+- Package names use `@lacussoft/` scope
+- Format: `@lacussoft/{package-name}`
+- Examples: `@lacussoft/cnpj-fmt`, `@lacussoft/cpf-val`
 
 ### Example Code Style
 
 ```typescript
-export class ExampleProcessor extends FieldProcessor {
-  private readonly _customProperty: string;
+import type { FormatOptions } from './types.js';
 
-  public constructor(definition: FieldDefinition) {
-    super(definition);
-    this._customProperty = 'example';
+export interface CnpjFormatterOptions extends FormatOptions {
+  readonly mask?: boolean;
+}
+
+export class CnpjFormatter {
+  private readonly _options: CnpjFormatterOptions;
+
+  public constructor(options: CnpjFormatterOptions = {}) {
+    this._options = { mask: true, ...options };
   }
 
-  public validate(value: unknown): ValidationResult {
+  public format(cnpj: string): string {
     // Implementation
+    return this._applyMask(cnpj);
   }
 
-  private _helperMethod(): void {
+  private _applyMask(cnpj: string): string {
     // Private implementation
+    return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
   }
 }
 ```
@@ -267,12 +326,13 @@ export class ExampleProcessor extends FieldProcessor {
 ### Before Submitting
 
 - [ ] Code follows our style guidelines
-- [ ] All tests pass (`bun test`)
+- [ ] All tests pass (`bun run test`)
 - [ ] TypeScript compiles without errors (`bun run type-check`)
 - [ ] ESLint passes (`bun run lint`)
 - [ ] Build succeeds (`bun run build`)
 - [ ] Documentation is updated
 - [ ] Commit messages follow conventional format
+- [ ] Package version is updated if needed
 
 ### PR Description Template
 
@@ -335,12 +395,17 @@ What you expected to happen.
 
 **Environment:**
 - Node.js version: [e.g. 18.17.0]
+- Bun version: [e.g. 1.0.0]
 - OS: [e.g. macOS 13.0]
-- `br-utils` version: [e.g. 1.0.0]
+- Package version: [e.g. @lacussoft/cnpj-fmt@2.0.1]
 
 **Code example**
-```javascript
+```typescript
+import { cnpjFormat } from '@lacussoft/cnpj-fmt';
+
 // Minimal code that reproduces the issue
+const result = cnpjFormat('12345678000195');
+console.log(result);
 ```
 
 **Additional context**
