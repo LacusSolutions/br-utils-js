@@ -147,7 +147,7 @@ cnpjUtils.isValid('98765432000199')      // returns 'false'
 
 ## Contribution & Support
 
-We welcome contributions! Please see our [Contributing Guidelines](./CONTRIBUTING.md) for details. But if you find this project helpful, please consider:
+We welcome contributions! Please see our [Contributing Guidelines](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) for details. But if you find this project helpful, please consider:
 
 - ⭐ Starring the repository
 - 🤝 Contributing to the codebase
@@ -160,7 +160,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Changelog
 
-See [CHANGELOG](tps://github.com/LacusSolutions/br-utils-js/blob/main/CHANGELOG.md) for a list of changes and version history.
+See [CHANGELOG](tps://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-utils/CHANGELOG.md) for a list of changes and version history.
 
 ---
 
