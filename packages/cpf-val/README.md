@@ -67,7 +67,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Changelog
 
-See [CHANGELOG](tps://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-val/CHANGELOG.md) for a list of changes and version history.
+See [CHANGELOG](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-val/CHANGELOG.md) for a list of changes and version history.
 
 ---
 
