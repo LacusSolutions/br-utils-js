@@ -46,9 +46,9 @@
   "scripts": {
     "build": "rollup --config",
     "type-check": "tsc --noEmit",
-    "lint": "eslint --fix src/ test/ rollup.config.mjs",
+    "lint": "eslint --fix src/ tests/ rollup.config.mjs",
     "pretest": "bun run build --silent",
-    "test": "bun test --coverage --coverage-reporter=lcov --coverage-dir=test/__coverage__",
+    "test": "bun test --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
     "test:ci": "bun test"
   },
   "dependencies": {
