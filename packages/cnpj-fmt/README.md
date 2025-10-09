@@ -1,4 +1,4 @@
-# Lacus :: cnpj-fmt
+![cnpj-fmt for JavaScript](https://github.com/user-attachments/assets/a2c32327-060c-4ea5-9f35-03c11d1c37ab)
 
 [![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cnpj-fmt)](https://npmjs.com/package/@lacussoft/cnpj-fmt)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cnpj-fmt?label=bundle%20size)](https://bundlephobia.com/package/@lacussoft/cnpj-fmt)

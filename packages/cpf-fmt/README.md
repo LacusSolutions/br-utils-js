@@ -1,4 +1,4 @@
-# Lacus :: cpf-fmt
+![cpf-fmt for JavaScript](https://github.com/user-attachments/assets/7999ba4a-04f5-4506-84f4-91ed0d3ed5d2)
 
 [![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cpf-fmt)](https://npmjs.com/package/@lacussoft/cpf-fmt)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cpf-fmt?label=bundle%20size)](https://bundlephobia.com/package/@lacussoft/cpf-fmt)

@@ -1,4 +1,4 @@
-# cnpj-utils for JavaScript
+![cnpj-utils for JavaScript](https://github.com/user-attachments/assets/daebe359-0c12-4af5-8582-fa7f3b5cb9c9)
 
 [![NPM Latest Version](https://img.shields.io/npm/v/cnpj-utils)](https://npmjs.com/package/cnpj-utils)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/cnpj-utils?label=bundle%20size)](https://bundlephobia.com/package/cnpj-utils)

@@ -1,4 +1,4 @@
-# Lacus :: cnpj-gen
+![cnpj-gen for JavaScript](https://github.com/user-attachments/assets/80ba4abd-169b-456a-acc3-d10759856a1e)
 
 [![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cnpj-gen)](https://npmjs.com/package/@lacussoft/cnpj-gen)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cnpj-gen?label=bundle%20size)](https://bundlephobia.com/package/@lacussoft/cnpj-gen)

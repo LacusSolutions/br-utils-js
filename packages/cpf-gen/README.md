@@ -1,4 +1,4 @@
-# Lacus :: cpf-gen
+![cpf-gen for JavaScript](https://github.com/user-attachments/assets/a6d9ae1b-dd92-4d4b-be9f-5de5b462955e)
 
 [![NPM Latest Version](https://img.shields.io/npm/v/@lacussoft/cpf-gen)](https://npmjs.com/package/@lacussoft/cpf-gen)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@lacussoft/cpf-gen?label=bundle%20size)](https://bundlephobia.com/package/@lacussoft/cpf-gen)
