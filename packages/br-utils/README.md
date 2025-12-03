@@ -1,4 +1,4 @@
-![br-utils for JavaScript](https://github.com/user-attachments/assets/e245b11e-59d2-43b9-95a8-3d220b194acf)
+![br-utils for JavaScript](https://br-utils.vercel.app/img/cover_br-utils.jpg)
 
 [![NPM Latest Version](https://img.shields.io/npm/v/br-utils)](https://npmjs.com/package/br-utils)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/br-utils?label=bundle%20size)](https://bundlephobia.com/package/br-utils)
