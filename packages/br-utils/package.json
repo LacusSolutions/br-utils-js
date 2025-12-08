@@ -65,17 +65,17 @@
     "test:ci": "bun test"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.28.3",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^28.0.6",
-    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@babel/preset-env": "^7.28.5",
+    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "~0.4.4",
-    "@rollup/plugin-typescript": "^12.1.4",
-    "@types/node": "^22.17.2",
-    "rollup": "^4.47.1",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/node": "^22.19.1",
+    "rollup": "^4.53.3",
     "rollup-plugin-delete": "^3.0.1",
-    "rollup-plugin-dts": "^6.2.3",
+    "rollup-plugin-dts": "^6.3.0",
     "rollup-plugin-esbuild": "^6.2.1",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }
