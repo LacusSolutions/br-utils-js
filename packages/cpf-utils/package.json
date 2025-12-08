@@ -1,6 +1,6 @@
 {
   "name": "cpf-utils",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Utility functions to deal with CPF data (Brazilian personal ID)",
   "license": "MIT",
   "author": {
@@ -56,9 +56,9 @@
     "test:ci": "bun test"
   },
   "dependencies": {
-    "@lacussoft/cpf-fmt": "^2.0.1",
-    "@lacussoft/cpf-gen": "^2.0.1",
-    "@lacussoft/cpf-val": "^2.0.1"
+    "@lacussoft/cpf-fmt": "^2.0.2",
+    "@lacussoft/cpf-gen": "^2.0.2",
+    "@lacussoft/cpf-val": "^2.0.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.5",
