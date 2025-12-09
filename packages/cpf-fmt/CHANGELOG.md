@@ -1,5 +1,11 @@
 # @lacussoft/cpf-fmt
 
+## 2.0.2
+
+### Patch Changes
+
+- ddd33b9: Update overall dependencies.
+
 ## 2.0.1
 
 ### Patch Changes

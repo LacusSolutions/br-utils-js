@@ -1,6 +1,6 @@
 {
   "name": "cnpj-utils",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Utility functions to deal with CNPJ (Brazilian employer ID)",
   "license": "MIT",
   "author": {
@@ -56,9 +56,9 @@
     "test:ci": "bun test"
   },
   "dependencies": {
-    "@lacussoft/cnpj-fmt": "^2.0.1",
-    "@lacussoft/cnpj-gen": "^2.0.1",
-    "@lacussoft/cnpj-val": "^2.0.1"
+    "@lacussoft/cnpj-fmt": "^2.0.2",
+    "@lacussoft/cnpj-gen": "^2.0.2",
+    "@lacussoft/cnpj-val": "^2.0.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.5",

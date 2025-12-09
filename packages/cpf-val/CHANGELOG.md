@@ -1,5 +1,13 @@
 # @lacussoft/cpf-val
 
+## 2.0.2
+
+### Patch Changes
+
+- ddd33b9: Update overall dependencies.
+- Updated dependencies [ddd33b9]
+  - @lacussoft/cpf-gen@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

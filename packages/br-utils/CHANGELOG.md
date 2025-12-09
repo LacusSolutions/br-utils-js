@@ -1,5 +1,14 @@
 # br-utils
 
+## 2.0.5
+
+### Patch Changes
+
+- ddd33b9: Update overall dependencies.
+- Updated dependencies [ddd33b9]
+  - cnpj-utils@2.0.2
+  - cpf-utils@2.0.2
+
 ## 2.0.4
 
 ### Patch Changes
