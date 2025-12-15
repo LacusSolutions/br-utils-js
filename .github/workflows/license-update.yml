@@ -1,0 +1,117 @@
+name: Update License Years
+
+on:
+  schedule:
+    - cron: '0 15 1 1 *' # Run every year on January 1st at 15:00 UTC
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  licenses-to-update:
+    runs-on: ubuntu-latest
+    outputs:
+      licenses: ${{ steps.licenses-list.outputs.licenses }}
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+
+      - id: licenses-list
+        run: |
+          LICENSES=("LICENSE")
+
+          PACKAGES_DIR="packages"
+          echo "🔍 Discovering licenses in \"$PACKAGES_DIR\" directory..."
+          while IFS= read -r license_path; do
+            LICENSES+=("$license_path")
+          done < <(find packages -mindepth 2 -maxdepth 2 -type f -name "LICENSE" | sort)
+
+          echo "📝 ${#LICENSES[@]} license files found:"
+          printf '  - %s\n' "${LICENSES[@]}"
+          printf -v licenses_json '"%s",' "${LICENSES[@]}"
+          licenses_json="[${licenses_json%,}]"
+          echo "licenses=$licenses_json" >> $GITHUB_OUTPUT
+
+  update-license-years:
+    needs: licenses-to-update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+
+      - id: year
+        run: echo "current=$(date +%Y)" >> $GITHUB_OUTPUT
+      - env:
+          LICENSES: ${{ needs.licenses-to-update.outputs.licenses }}
+        run: |
+          CURRENT_YEAR="${{ steps.year.outputs.current }}"
+
+          update_license() {
+            local file="$1"
+
+            if [[ ! -f "$file" ]]; then
+              echo "⚠️ File not found: \"$file\""
+              return
+            fi
+
+            # Extract the copyright pattern and update the year
+            # Supported patterns:
+            #   - Copyright (c) YYYY Author
+            #   - Copyright (c) YYYY-YYYY Author
+            sed -i -E "s/Copyright \(c\) ([0-9]{4})(-[0-9]{4})? /Copyright (c) \1-${CURRENT_YEAR} /g" "$file"
+            sed -i -E "s/Copyright \(c\) ${CURRENT_YEAR}-${CURRENT_YEAR} /Copyright (c) ${CURRENT_YEAR} /g" "$file"
+
+            echo "✅ License \"$file\" updated to $CURRENT_YEAR"
+          }
+
+          echo "📄 Processing license files..."
+          for license_path in $(echo "$LICENSES" | jq -r '.[]'); do
+            update_license "$license_path"
+          done
+
+          echo "All license files processed."
+
+      - id: changes
+        env:
+          LICENSES: ${{ needs.licenses-to-update.outputs.licenses }}
+        run: |
+          if git diff --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected in license files."
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected:"
+            git diff --stat
+
+            # Format licenses list as markdown for PR body
+            licenses_md=$(echo "$LICENSES" | jq -r '.[] | "- `\(.)`"')
+            {
+              echo "licenses_md<<EOF"
+              echo "$licenses_md"
+              echo "EOF"
+            } >> $GITHUB_OUTPUT
+          fi
+
+      - if: steps.changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: update license copyright year to ${{ steps.year.outputs.current }}'
+          base: main
+          branch: chore/update-license-year-${{ steps.year.outputs.current }}
+          title: 'Update license copyright year to ${{ steps.year.outputs.current }}'
+          body: |
+            ## 📅 Annual License Update
+
+            This PR automatically updates the copyright year coverage in license files to **${{ steps.year.outputs.current }}**.
+
+            ### Updated Files
+            ${{ steps.changes.outputs.licenses_md }}
+
+            ### Review Checklist
+            Please verify that:
+            - [ ] Years are correct in all files
+            - [ ] No files were improperly modified
+
+            ---
+            *This PR was automatically created by the license update workflow.*
