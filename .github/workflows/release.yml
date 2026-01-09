@@ -15,7 +15,6 @@ env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # for `npm publish`
   BUN_VERSION: latest
   # NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }} # for `bun publish`
-  NPM_REGISTRY_URL: https://registry.npmjs.org/
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
@@ -26,21 +25,19 @@ jobs:
       id-token: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
-      - uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: oven-sh/setup-bun@b7a1c7ccf290d58743029c4f6903da283811b979 # v2.1.0
         with:
           bun-version: ${{ env.BUN_VERSION }}
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
-          registry-url: ${{ env.NPM_REGISTRY_URL }}
 
       - run: bun install --frozen-lockfile
       - run: bun run build
 
-      - run: |
-          bun run type-check
-          bun run lint
+      - run: bun run type-check
+      - run: bun run lint
       - run: bun run test:ci
 
       - uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
