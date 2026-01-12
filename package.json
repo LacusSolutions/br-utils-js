@@ -82,6 +82,7 @@
     "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
+    "@commitlint/config-workspace-scopes": "^20.2.0",
     "@commitlint/prompt-cli": "^20.3.1",
     "eslint": "^9.39.1",
     "eslint-config-any": "^2.2.1",
