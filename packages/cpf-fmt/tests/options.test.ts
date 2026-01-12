@@ -178,7 +178,7 @@ test('"80976511061" formats to "809.765.###-##"', () => {
 
 test('"abc" falls back to "ABC"', () => {
   const cpf = cpfFmt('abc', {
-    onFail: (value) => String(value).toUpperCase(),
+    onFail: (value: string) => String(value).toUpperCase(),
   });
 
   expect(cpf).toBe('ABC');
