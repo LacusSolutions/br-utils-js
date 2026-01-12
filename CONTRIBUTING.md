@@ -105,7 +105,7 @@ br-utils-js/
 │   │   ├── package.json       # Package configuration
 │   │   ├── rollup.config.mjs  # Rollup configuration
 │   │   └── tsconfig.json      # TypeScript configuration
-│   ├── cnpj-cd/               # CNPJ check digits package
+│   ├── cnpj-dv/               # CNPJ check digits package
 │   │   ├── src/               # Source code
 │   │   ├── test/              # Test files
 │   │   ├── build/             # Built files (generated)
@@ -121,7 +121,7 @@ br-utils-js/
 │   │   └── ...                # Similar structure
 │   ├── cnpj-val/              # CNPJ validator package
 │   │   └── ...                # Similar structure
-│   ├── cpf-cd/                # CPF check digits package
+│   ├── cpf-dv/                # CPF check digits package
 │   │   └── ...                # Similar structure
 │   ├── cpf-fmt/               # CPF formatter package
 │   │   └── ...                # Similar structure

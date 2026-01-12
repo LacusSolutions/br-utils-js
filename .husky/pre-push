@@ -10,8 +10,8 @@ bun run type-check:cnpj-val
 bun run test:cnpj-utils
 bun run type-check:cnpj-utils
 
-bun run test:cpf-cd
-bun run type-check:cpf-cd
+bun run test:cpf-dv
+bun run type-check:cpf-dv
 
 bun run test:cpf-fmt
 bun run type-check:cpf-fmt

@@ -1,4 +1,4 @@
-![cpf-cd for JavaScript](https://br-utils.vercel.app/img/cover_cpf-cd.jpg)
+![cpf-dv for JavaScript](https://br-utils.vercel.app/img/cover_cpf-dv.jpg)
 
 ---
 

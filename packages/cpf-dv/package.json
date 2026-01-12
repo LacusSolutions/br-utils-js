@@ -1,5 +1,5 @@
 {
-  "name": "@lacussoft/cpf-cd",
+  "name": "@lacussoft/cpf-dv",
   "version": "1.0.0",
   "description": "Utility resources to calculate check digits on CPF (Brazilian personal ID)",
   "license": "MIT",
