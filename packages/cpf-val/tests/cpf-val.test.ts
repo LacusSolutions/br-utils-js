@@ -67,15 +67,15 @@ test('CPF string "86244870011" is NOT valid', () => {
  */
 
 test('Value 123 is NOT valid', () => {
-  expect(cpfVal(123)).toBeFalsy();
+  expect(cpfVal(123 as unknown as string)).toBeFalsy();
 });
 
 test('Value 123456 is NOT valid', () => {
-  expect(cpfVal(123456)).toBeFalsy();
+  expect(cpfVal(123456 as unknown as string)).toBeFalsy();
 });
 
 test('Value 123456789 is NOT valid', () => {
-  expect(cpfVal(123456789)).toBeFalsy();
+  expect(cpfVal(123456789 as unknown as string)).toBeFalsy();
 });
 
 test('Value "abc" is NOT valid', () => {
@@ -87,33 +87,33 @@ test('Value "abc123" is NOT valid', () => {
 });
 
 test('Value "true" is NOT valid', () => {
-  expect(cpfVal(true)).toBeFalsy();
+  expect(cpfVal(true as unknown as string)).toBeFalsy();
 });
 
 test('Value "false" is NOT valid', () => {
-  expect(cpfVal(false)).toBeFalsy();
+  expect(cpfVal(false as unknown as string)).toBeFalsy();
 });
 
 test('Value "undefined" is NOT valid', () => {
-  expect(cpfVal(undefined)).toBeFalsy();
+  expect(cpfVal(undefined as unknown as string)).toBeFalsy();
 });
 
 test('Value "Infinity" is NOT valid', () => {
-  expect(cpfVal(Infinity)).toBeFalsy();
+  expect(cpfVal(Infinity as unknown as string)).toBeFalsy();
 });
 
 test('Value "null" is NOT valid', () => {
-  expect(cpfVal(null)).toBeFalsy();
+  expect(cpfVal(null as unknown as string)).toBeFalsy();
 });
 
 test('An array [1, 2, 3] is NOT valid', () => {
-  expect(cpfVal([1, 2, 3])).toBeFalsy();
+  expect(cpfVal([1, 2, 3] as unknown as string)).toBeFalsy();
 });
 
 test('An object { a: 1, b: 2, c:3 } is NOT valid', () => {
-  expect(cpfVal({ a: 1, b: 2, c: 3 })).toBeFalsy();
+  expect(cpfVal({ a: 1, b: 2, c: 3 } as unknown as string)).toBeFalsy();
 });
 
 test('A function is NOT valid', () => {
-  expect(cpfVal(() => {})).toBeFalsy();
+  expect(cpfVal((() => {}) as unknown as string)).toBeFalsy();
 });
