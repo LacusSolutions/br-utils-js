@@ -67,15 +67,15 @@ test('CNPJ string "03783943000127" is NOT valid', () => {
  */
 
 test('Value 123 is NOT valid', () => {
-  expect(cnpjVal(123)).toBeFalsy();
+  expect(cnpjVal(123 as unknown as string)).toBeFalsy();
 });
 
 test('Value 123456 is NOT valid', () => {
-  expect(cnpjVal(123456)).toBeFalsy();
+  expect(cnpjVal(123456 as unknown as string)).toBeFalsy();
 });
 
 test('Value 123456789 is NOT valid', () => {
-  expect(cnpjVal(123456789)).toBeFalsy();
+  expect(cnpjVal(123456789 as unknown as string)).toBeFalsy();
 });
 
 test('Value "abc" is NOT valid', () => {
@@ -87,33 +87,33 @@ test('Value "abc123" is NOT valid', () => {
 });
 
 test('Value "true" is NOT valid', () => {
-  expect(cnpjVal(true)).toBeFalsy();
+  expect(cnpjVal(true as unknown as string)).toBeFalsy();
 });
 
 test('Value "false" is NOT valid', () => {
-  expect(cnpjVal(false)).toBeFalsy();
+  expect(cnpjVal(false as unknown as string)).toBeFalsy();
 });
 
 test('Value "undefined" is NOT valid', () => {
-  expect(cnpjVal(undefined)).toBeFalsy();
+  expect(cnpjVal(undefined as unknown as string)).toBeFalsy();
 });
 
 test('Value "Infinity" is NOT valid', () => {
-  expect(cnpjVal(Infinity)).toBeFalsy();
+  expect(cnpjVal(Infinity as unknown as string)).toBeFalsy();
 });
 
 test('Value "null" is NOT valid', () => {
-  expect(cnpjVal(null)).toBeFalsy();
+  expect(cnpjVal(null as unknown as string)).toBeFalsy();
 });
 
 test('An array [1, 2, 3] is NOT valid', () => {
-  expect(cnpjVal([1, 2, 3])).toBeFalsy();
+  expect(cnpjVal([1, 2, 3] as unknown as string)).toBeFalsy();
 });
 
 test('An object { a: 1, b: 2, c:3 } is NOT valid', () => {
-  expect(cnpjVal({ a: 1, b: 2, c: 3 })).toBeFalsy();
+  expect(cnpjVal({ a: 1, b: 2, c: 3 } as unknown as string)).toBeFalsy();
 });
 
 test('A function is NOT valid', () => {
-  expect(cnpjVal(() => {})).toBeFalsy();
+  expect(cnpjVal((() => {}) as unknown as string)).toBeFalsy();
 });
