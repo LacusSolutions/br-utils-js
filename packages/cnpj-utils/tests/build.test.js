@@ -2,7 +2,7 @@ import Bun from 'bun';
 import { describe, expect, test } from 'bun:test';
 
 describe('build in CommonJS', () => {
-  const filePath = Bun.resolveSync('../build/index.cjs', import.meta.dir);
+  const filePath = Bun.resolveSync('../dist/index.cjs', import.meta.dir);
   const file = Bun.file(filePath);
 
   test('file exists', async () => {
@@ -19,7 +19,7 @@ describe('build in CommonJS', () => {
 });
 
 describe('build in ES Module', () => {
-  const filePath = Bun.resolveSync('../build/index.mjs', import.meta.dir);
+  const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
   const file = Bun.file(filePath);
 
   test('file exists', async () => {
@@ -37,7 +37,7 @@ describe('build in ES Module', () => {
 });
 
 describe('build types', () => {
-  const filePath = Bun.resolveSync('../build/index.d.ts', import.meta.dir);
+  const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
   const file = Bun.file(filePath);
 
   test('file exists', async () => {

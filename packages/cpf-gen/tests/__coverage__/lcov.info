@@ -1,5 +1,5 @@
 TN:
-SF:../cpf-fmt/build/index.cjs
+SF:../cpf-fmt/dist/index.cjs
 FNF:4
 FNH:3
 DA:1,15
@@ -68,7 +68,7 @@ LF:62
 LH:44
 end_of_record
 TN:
-SF:build/index.cjs
+SF:dist/index.cjs
 FNF:5
 FNH:5
 DA:1,15

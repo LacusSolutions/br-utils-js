@@ -29,16 +29,16 @@
     "url": "https://github.com/LacusSolutions/br-utils-js/issues"
   },
   "homepage": "https://cnpj-utils.vercel.app/",
-  "main": "build/index.cjs",
-  "types": "build/index.d.ts",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./build/index.d.ts",
+      "types": "./dist/index.d.ts",
       "require": {
-        "default": "./build/index.cjs"
+        "default": "./dist/index.cjs"
       },
       "import": {
-        "default": "./build/index.mjs"
+        "default": "./dist/index.mjs"
       }
     }
   },

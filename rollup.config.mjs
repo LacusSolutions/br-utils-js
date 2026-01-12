@@ -66,7 +66,7 @@ export function makeRollupConfig({
       ],
       plugins: [
         deletePlugin({
-          targets: ['build/*', 'dist/*'],
+          targets: ['dist/*'],
         }),
         nodeResolvePlugin(),
         commonJsPlugin(),
@@ -84,13 +84,13 @@ export function makeRollupConfig({
       input: modulesEntryPoint,
       output: [
         {
-          file: 'build/index.cjs',
+          file: 'dist/index.cjs',
           format: 'cjs',
           sourcemap: 'inline',
           exports: cjsExports,
         },
         {
-          file: 'build/index.mjs',
+          file: 'dist/index.mjs',
           format: 'es',
           sourcemap: 'inline',
           exports: 'named',
@@ -114,7 +114,7 @@ export function makeRollupConfig({
     {
       input: modulesEntryPoint,
       output: {
-        file: 'build/index.d.ts',
+        file: 'dist/index.d.ts',
         format: 'es',
       },
       plugins: [declarationsPlugin()],
