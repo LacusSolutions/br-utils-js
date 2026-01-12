@@ -188,7 +188,7 @@ test('"03603568000195" formats to "03.603.568/####-##"', () => {
 
 test('"abc" falls back to "ABC"', () => {
   const cnpj = cnpjFmt('abc', {
-    onFail: (value) => String(value).toUpperCase(),
+    onFail: (value: string) => String(value).toUpperCase(),
   });
 
   expect(cnpj).toBe('ABC');

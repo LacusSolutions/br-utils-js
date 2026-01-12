@@ -46,7 +46,7 @@ test('Option with range end greater than 13 throws TypeError', () => {
   expect(cnpj).toThrow(TypeError);
 });
 
-test('Option with onfail as not a function throws TypeError', () => {
+test('Option with onFail as not a function throws TypeError', () => {
   function cnpj() {
     return cnpjFmt('03603568000195', { onFail: 'testing' });
   }
