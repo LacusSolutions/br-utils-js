@@ -135,9 +135,9 @@
         "typescript": "^5.9.3",
       },
     },
-    "packages/cpf-cd": {
-      "name": "@lacussoft/cpf-cd",
-      "version": "1.0.0",
+    "packages/cpf-dv": {
+      "name": "@lacussoft/cpf-dv",
+      "version": "0.0.0",
       "devDependencies": {
         "@babel/preset-env": "^7.28.5",
         "@rollup/plugin-babel": "^6.1.0",
@@ -621,7 +621,7 @@
 
     "@lacussoft/cnpj-val": ["@lacussoft/cnpj-val@workspace:packages/cnpj-val"],
 
-    "@lacussoft/cpf-cd": ["@lacussoft/cpf-cd@workspace:packages/cpf-cd"],
+    "@lacussoft/cpf-dv": ["@lacussoft/cpf-dv@workspace:packages/cpf-dv"],
 
     "@lacussoft/cpf-fmt": ["@lacussoft/cpf-fmt@workspace:packages/cpf-fmt"],
 
