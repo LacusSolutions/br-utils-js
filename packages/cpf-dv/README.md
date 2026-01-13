@@ -192,7 +192,7 @@ Creates a new `CpfCheckDigits` instance from the provided CPF base digits.
 **Parameters:**
 - `cpfDigits` (string | string[]): The CPF base digits (9-11 digits). Can be:
   - A string with 9-11 digits (formatting characters are ignored)
-  - An array of strings (each string can be a single digit or multi-digit number)
+  - An array of strings (each string can be a single-digit or multi-digit number)
 
 **Throws:**
 - `CpfCheckDigitsInputTypeError`: If the input type is not supported
