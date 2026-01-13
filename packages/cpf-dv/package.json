@@ -1,7 +1,7 @@
 {
   "name": "@lacussoft/cpf-dv",
   "version": "0.0.0",
-  "description": "Utility resources to calculate check digits on CPF (Brazilian personal ID)",
+  "description": "Utility resources to calculate check digits on CPF (Brazilian individual taxpayer ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
