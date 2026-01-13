@@ -4,7 +4,7 @@ import packageMeta from './package.json' with { type: 'json' };
 export default makeRollupConfig({
   bannerTitle: 'Lacus Solutions :: cpf-gen',
   creationYear: 2020,
-  umdGlobalName: 'CpfGen',
+  umdGlobalName: 'cpfGen',
   umdDistFileName: 'cpf-gen',
   packageMeta,
 });
