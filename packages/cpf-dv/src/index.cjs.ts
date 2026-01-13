@@ -17,8 +17,8 @@ export default class CpfCheckDigits extends CpfCheckDigitsBase {
   public static readonly CPF_MIN_LENGTH = CPF_MIN_LENGTH;
 
   public static readonly CpfCheckDigits = CpfCheckDigitsBase;
-  public static readonly CpfCheckDigitsExceptionException = CpfCheckDigitsException;
-  public static readonly CpfCheckDigitsTypeErrorTypeError = CpfCheckDigitsTypeError;
+  public static readonly CpfCheckDigitsException = CpfCheckDigitsException;
+  public static readonly CpfCheckDigitsTypeError = CpfCheckDigitsTypeError;
   public static readonly CpfCheckDigitsCalculationException = CpfCheckDigitsCalculationException;
   public static readonly CpfCheckDigitsInputInvalidException = CpfCheckDigitsInputInvalidException;
   public static readonly CpfCheckDigitsInputLengthException = CpfCheckDigitsInputLengthException;
