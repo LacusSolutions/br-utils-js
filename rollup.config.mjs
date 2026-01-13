@@ -12,22 +12,30 @@ import esBuildPlugin from 'rollup-plugin-esbuild';
  * @param {Object} buildParams
  * @param {any} buildParams.packageMeta
  * @param {string} buildParams.bannerTitle
- * @param {string} buildParams.globalName
- * @param {string} buildParams.distFileName
- * @param {string} [buildParams.umdEntryPoint]
- * @param {string} [buildParams.modulesEntryPoint]
+ * @param {string} [buildParams.cjsEntryPoint]
  * @param {'default' | 'named'} [buildParams.cjsExports]
+ * @param {string} [buildParams.esmEntryPoint]
+ * @param {'default' | 'named'} [buildParams.esmExports]
+ * @param {string} buildParams.umdDistFileName
+ * @param {string} [buildParams.umdEntryPoint]
+ * @param {string} buildParams.umdGlobalName
  */
 export function makeRollupConfig({
-  creationYear = 2020,
-  modulesEntryPoint = 'src/index.ts',
-  umdEntryPoint = 'src/index.ts',
-  cjsExports = 'default',
-  distFileName,
   bannerTitle,
-  globalName,
   packageMeta: { author, license, version, ...packageMeta },
+  creationYear,
+  cjsEntryPoint = 'src/index.ts',
+  cjsExports = 'default',
+  esmEntryPoint = 'src/index.ts',
+  esmExports = 'named',
+  umdDistFileName,
+  umdEntryPoint = 'src/index.ts',
+  umdGlobalName,
 }) {
+  if (!bannerTitle || !creationYear || !umdGlobalName || !umdDistFileName) {
+    throw new Error('Missing build params in `makeRollupConfig`.');
+  }
+
   if (!author?.name || !license || !version) {
     throw new Error('Missing build params in `package.json`.');
   }
@@ -43,21 +51,37 @@ export function makeRollupConfig({
  */
 `;
 
+  /** @type {import('rollup').RollupOptions} */
+  const commonModulesOptions = {
+    plugins: [
+      nodeResolvePlugin(),
+      commonJsPlugin(),
+      esBuildPlugin({
+        target: 'esnext',
+      }),
+    ],
+    external: [
+      ...Object.keys(packageMeta.dependencies || {}),
+      ...Object.keys(packageMeta.devDependencies || {}),
+      ...Object.keys(packageMeta.peerDependencies || {}),
+    ],
+  };
+
   return defineConfig([
     // UMD for legacy browsers
     {
       input: umdEntryPoint,
       output: [
         {
-          name: globalName,
-          file: `dist/${distFileName}.js`,
+          name: umdGlobalName,
+          file: `dist/${umdDistFileName}.js`,
           format: 'umd',
           sourcemap: 'inline',
           banner: bundleBanner,
         },
         {
-          name: globalName,
-          file: `dist/${distFileName}.min.js`,
+          name: umdGlobalName,
+          file: `dist/${umdDistFileName}.min.js`,
           format: 'umd',
           sourcemap: 'inline',
           banner: bundleBanner,
@@ -79,9 +103,9 @@ export function makeRollupConfig({
       ],
     },
 
-    // CommonJS & ES Module
+    // CommonJS
     {
-      input: modulesEntryPoint,
+      input: cjsEntryPoint,
       output: [
         {
           file: 'dist/index.cjs',
@@ -93,29 +117,33 @@ export function makeRollupConfig({
           file: 'dist/index.mjs',
           format: 'es',
           sourcemap: 'inline',
-          exports: 'named',
+          exports: esmExports,
         },
       ],
-      plugins: [
-        nodeResolvePlugin(),
-        commonJsPlugin(),
-        esBuildPlugin({
-          target: 'esnext',
-        }),
-      ],
-      external: [
-        ...Object.keys(packageMeta.dependencies || {}),
-        ...Object.keys(packageMeta.devDependencies || {}),
-        ...Object.keys(packageMeta.peerDependencies || {}),
-      ],
+      ...commonModulesOptions,
     },
 
-    // Types declarations files
+    // ES Module
     {
-      input: modulesEntryPoint,
+      input: esmEntryPoint,
+      output: [
+        {
+          file: 'dist/index.mjs',
+          format: 'es',
+          sourcemap: 'inline',
+          exports: esmExports,
+        },
+      ],
+      ...commonModulesOptions,
+    },
+
+    // Types declaration
+    {
+      input: esmEntryPoint,
       output: {
         file: 'dist/index.d.ts',
         format: 'es',
+        exports: esmExports,
       },
       plugins: [declarationsPlugin()],
     },

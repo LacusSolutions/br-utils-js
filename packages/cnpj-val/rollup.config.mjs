@@ -2,9 +2,9 @@ import { makeRollupConfig } from '../../rollup.config.mjs';
 import packageMeta from './package.json' with { type: 'json' };
 
 export default makeRollupConfig({
+  bannerTitle: 'Lacus Solutions :: cnpj-val',
   creationYear: 2021,
-  bannerTitle: 'LacusSoft :: cnpj-val',
-  distFileName: 'cnpj-val',
-  globalName: 'cnpjVal',
+  umdGlobalName: 'cnpjVal',
+  umdDistFileName: 'cnpj-val',
   packageMeta,
 });

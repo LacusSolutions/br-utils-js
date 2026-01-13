@@ -2,8 +2,9 @@ import { makeRollupConfig } from '../../rollup.config.mjs';
 import packageMeta from './package.json' with { type: 'json' };
 
 export default makeRollupConfig({
-  bannerTitle: 'LacusSoft :: cpf-fmt',
-  distFileName: 'cpf-fmt',
-  globalName: 'cpfFmt',
+  bannerTitle: 'Lacus Solutions :: cpf-fmt',
+  creationYear: 2020,
+  umdGlobalName: 'CpfFmt',
+  umdDistFileName: 'cpf-fmt',
   packageMeta,
 });
