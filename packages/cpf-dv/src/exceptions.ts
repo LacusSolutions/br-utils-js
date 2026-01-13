@@ -9,6 +9,7 @@ export abstract class CpfCheckDigitsTypeError extends TypeError {
   public constructor(message: string) {
     super(message);
     this.name = this.constructor.name;
+    Object.setPrototypeOf(this, new.target.prototype);
   }
 }
 
@@ -46,6 +47,7 @@ export abstract class CpfCheckDigitsException extends Error {
   public constructor(message: string) {
     super(message);
     this.name = 'CpfCheckDigitsError';
+    Object.setPrototypeOf(this, new.target.prototype);
   }
 }
 
