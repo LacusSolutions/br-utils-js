@@ -59,7 +59,6 @@ describe('package distributions', () => {
           const CpfCheckDigitsClass = makeGlobalClass();
 
           expect(typeof CpfCheckDigitsClass).toBe('function');
-          // expect(CpfCheckDigitsClass.name).toBe('CpfCheckDigits');
         });
 
         it('creates working instances', async () => {
