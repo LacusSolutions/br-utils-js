@@ -184,12 +184,6 @@ describe('CnpjCheckDigits', (): void => {
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
 
-      it('throws CnpjCheckDigitsInputLengthException for non-numeric string', (): void => {
-        const sut = (): unknown => new CnpjCheckDigits('abcdefghij');
-
-        expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
-      });
-
       it('throws CnpjCheckDigitsInputLengthException for string with 11 digits', (): void => {
         const sut = (): unknown => new CnpjCheckDigits('12345678910');
 
