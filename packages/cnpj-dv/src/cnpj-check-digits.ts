@@ -3,16 +3,12 @@ import {
   CnpjCheckDigitsInputLengthException,
   CnpjCheckDigitsInputTypeError,
 } from './exceptions';
-import { type CnpjChar, type CnpjInput } from './types';
+import { type CnpjInput } from './types';
 
 export const CNPJ_MIN_LENGTH = 12;
 export const CNPJ_MAX_LENGTH = 14;
 
-const CHAR_CODE_0 = '0'.charCodeAt(0);
-const CHAR_CODE_9 = '9'.charCodeAt(0);
-const CHAR_CODE_A = 'A'.charCodeAt(0);
-const CHAR_CODE_Z = 'Z'.charCodeAt(0);
-const DELTA_FACTOR = CHAR_CODE_0;
+const DELTA_FACTOR = '0'.charCodeAt(0);
 
 /**
  * Class to calculate CNPJ check digits.
@@ -110,37 +106,13 @@ export class CnpjCheckDigits {
       throw new CnpjCheckDigitsCalculationException(cnpjSequence);
     }
 
-    const invalidCharCodes: CnpjChar[] = [];
-    const invalidCharLengths: CnpjChar[] = [];
     const sequenceValues: number[] = [];
 
     for (let i = 0; i < sequenceLength; i++) {
-      if (cnpjSequence[i].length !== 1) {
-        invalidCharLengths.push({
-          value: cnpjSequence[i],
-          index: i,
-        });
-        continue;
-      }
-
       const charCode = cnpjSequence[i].charCodeAt(0);
-      const isNumeric = charCode >= CHAR_CODE_0 && charCode <= CHAR_CODE_9;
-      const isLetter = charCode >= CHAR_CODE_A && charCode <= CHAR_CODE_Z;
+      const charValue = charCode - DELTA_FACTOR;
 
-      if (!isNumeric && !isLetter) {
-        invalidCharCodes.push({
-          value: cnpjSequence[i],
-          index: i,
-        });
-        continue;
-      }
-
-      sequenceValues.push(charCode - DELTA_FACTOR);
-    }
-
-    if (invalidCharLengths.length || invalidCharCodes.length) {
-      // TODO: specify error
-      throw new CnpjCheckDigitsCalculationException(cnpjSequence);
+      sequenceValues.push(charValue);
     }
 
     let factor = 2;
