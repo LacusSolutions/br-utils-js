@@ -61,6 +61,7 @@ jobs:
       fail-fast: false
       matrix:
         pkg:
+          - 'cnpj-dv'
           - 'cnpj-fmt'
           - 'cnpj-gen'
           - 'cnpj-val'

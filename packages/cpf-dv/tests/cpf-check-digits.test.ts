@@ -426,7 +426,9 @@ describe('CpfCheckDigits', (): void => {
           expect.unreachable('Expected exception to be thrown');
         } catch (error) {
           expect(error).toBeInstanceOf(CpfCheckDigitsCalculationException);
-          expect((error as CpfCheckDigitsCalculationException).actualSequence).toEqual(invalidSequence);
+          expect((error as CpfCheckDigitsCalculationException).actualSequence).toEqual(
+            invalidSequence,
+          );
         }
       });
 

@@ -1,6 +1,6 @@
 ![cpf-dv for JavaScript](https://br-utils.vercel.app/img/cover_cpf-dv.jpg)
 
-> 🌎 [Access documentation in English](./.github/README.md)
+> 🌎 [Access documentation in English](./README.md)
 
 Classe utilitária para calcular os dígitos verificadores de CPF (Cadastro de Pessoa Física).
 

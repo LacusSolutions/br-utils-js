@@ -1,7 +1,7 @@
 {
-  "name": "@lacussoft/cpf-dv",
+  "name": "@lacussoft/cnpj-dv",
   "version": "0.0.0",
-  "description": "Utility resources to calculate check digits on CPF (Brazilian individual taxpayer ID)",
+  "description": "Utility class to calculate check digits on CNPJ (Brazilian legal entity ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
@@ -12,7 +12,7 @@
     "provenance": true
   },
   "keywords": [
-    "cpf",
+    "cnpj",
     "verificar",
     "verificador",
     "verify",
@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/LacusSolutions/br-utils-js/issues"
   },
-  "homepage": "https://cpf-utils.vercel.app/",
+  "homepage": "https://cnpj-utils.vercel.app/",
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "exports": {
