@@ -33,14 +33,14 @@ The package calculates CPF check digits using the official Brazilian algorithm:
 1. **First Check Digit (10th position)**:
    - Uses digits 1-9 of the CPF base
    - Applies weights: 10, 9, 8, 7, 6, 5, 4, 3, 2 (from left to right)
-   - Calculates: `sum(digit × weight) % 11`
-   - Result: `0` if remainder > 9, otherwise `11 - remainder`
+   - Calculates: `remainder = 11 - (sum(digit × weight) % 11)`
+   - Result: `0` if remainder > 9, otherwise `remainder`
 
 2. **Second Check Digit (11th position)**:
    - Uses digits 1-9 + first check digit
    - Applies weights: 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 (from left to right)
-   - Calculates: `sum(digit × weight) % 11`
-   - Result: `0` if remainder > 9, otherwise `11 - remainder`
+   - Calculates: `remainder = 11 - (sum(digit × weight) % 11)`
+   - Result: `0` if remainder > 9, otherwise `remainder`
 
 ## Installation
 
