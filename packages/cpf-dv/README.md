@@ -7,6 +7,8 @@
 [![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js)
 [![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE)
 
+> 🌎 [Acessar documentação em português](./README.pt.md)
+
 Utility class to calculate check digits on CPF (Brazilian individual taxpayer ID).
 
 ## Browser Support
