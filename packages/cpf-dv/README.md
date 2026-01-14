@@ -111,7 +111,7 @@ const checkDigits = new CpfCheckDigits(['054', '496', '519'])  // also flattens
 
 ## Error Handling
 
-This project uses the the **Error/Exception differentiation** concept. Basically, _errors_ are incorrect use of the package, for example, not following the argument type of a function, and _exceptions_ are recoverable errors where the data or flow falls out of the rules for some reason, for example an invalid CPF is provided to the library, so the check digits cannot be calculated as expected.
+This project uses the **Error/Exception differentiation** concept. Basically, _errors_ are incorrect use of the package, for example, not following the argument type of a function, and _exceptions_ are recoverable errors where the data or flow falls out of the rules for some reason, for example an invalid CPF is provided to the library, so the check digits cannot be calculated as expected.
 
 Therefore the package throws detailed errors and exceptions for different situations:
 
