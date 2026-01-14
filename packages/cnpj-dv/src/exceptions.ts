@@ -77,9 +77,9 @@ export class CnpjCheckDigitsInputLengthException extends CnpjCheckDigitsExceptio
  * Raised when the calculation of the CNPJ check digits fails.
  */
 export class CnpjCheckDigitsCalculationException extends CnpjCheckDigitsException {
-  public readonly actualSequence: number[];
+  public readonly actualSequence: string[];
 
-  public constructor(actualSequence: number[]) {
+  public constructor(actualSequence: string[]) {
     super(
       `Failed to calculate CNPJ check digits for the sequence: [${actualSequence.join(', ')}].`,
     );

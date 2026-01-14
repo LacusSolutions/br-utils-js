@@ -3,21 +3,27 @@ import {
   CnpjCheckDigitsInputLengthException,
   CnpjCheckDigitsInputTypeError,
 } from './exceptions';
-import { type CnpjInput } from './types';
+import { type CnpjChar, type CnpjInput } from './types';
 
 export const CNPJ_MIN_LENGTH = 12;
 export const CNPJ_MAX_LENGTH = 14;
+
+const CHAR_CODE_0 = '0'.charCodeAt(0);
+const CHAR_CODE_9 = '9'.charCodeAt(0);
+const CHAR_CODE_A = 'A'.charCodeAt(0);
+const CHAR_CODE_Z = 'Z'.charCodeAt(0);
+const DELTA_FACTOR = CHAR_CODE_0;
 
 /**
  * Class to calculate CNPJ check digits.
  */
 export class CnpjCheckDigits {
-  private readonly cnpjDigits: number[];
+  private readonly cnpjChars: string[];
   private cachedFirstDigit: number | undefined = undefined;
   private cachedSecondDigit: number | undefined = undefined;
 
   public constructor(cnpjInput: CnpjInput) {
-    let parsedInput: number[];
+    let parsedInput: string[];
 
     if (typeof cnpjInput === 'string') {
       parsedInput = this.handleStringInput(cnpjInput);
@@ -29,14 +35,14 @@ export class CnpjCheckDigits {
 
     this.validateLength(parsedInput, cnpjInput);
 
-    this.cnpjDigits = parsedInput.slice(0, CNPJ_MIN_LENGTH);
+    this.cnpjChars = parsedInput.slice(0, CNPJ_MIN_LENGTH);
   }
 
   public get first(): string {
     if (this.cachedFirstDigit === undefined) {
-      const baseDigitsSequence = [...this.cnpjDigits];
+      const baseCharsSequence = [...this.cnpjChars];
 
-      this.cachedFirstDigit = this.calculate(baseDigitsSequence);
+      this.cachedFirstDigit = this.calculate(baseCharsSequence);
     }
 
     return this.cachedFirstDigit.toString();
@@ -44,9 +50,9 @@ export class CnpjCheckDigits {
 
   public get second(): string {
     if (this.cachedSecondDigit === undefined) {
-      const baseDigitsSequence = [...this.cnpjDigits, Number(this.first)];
+      const baseCharsSequence = [...this.cnpjChars, this.first];
 
-      this.cachedSecondDigit = this.calculate(baseDigitsSequence);
+      this.cachedSecondDigit = this.calculate(baseCharsSequence);
     }
 
     return this.cachedSecondDigit.toString();
@@ -57,18 +63,18 @@ export class CnpjCheckDigits {
   }
 
   public get cnpj(): string {
-    return [...this.cnpjDigits, this.both].join('');
+    return [...this.cnpjChars, this.both].join('');
   }
 
-  private handleStringInput(cnpjString: string): number[] {
-    const stringDigitsOnly = cnpjString.replace(/\D/g, '');
-    const stringDigitsArray = stringDigitsOnly.split('');
-    const numberDigitsArray = stringDigitsArray.map(Number);
+  private handleStringInput(cnpjString: string): string[] {
+    const alphanumericOnly = cnpjString.replace(/[^0-9A-Z]/gi, '');
+    const alphanumericUpper = alphanumericOnly.toUpperCase();
+    const alphanumericArray = alphanumericUpper.split('');
 
-    return numberDigitsArray;
+    return alphanumericArray;
   }
 
-  private handleArrayInput(cnpjArray: unknown[]): number[] {
+  private handleArrayInput(cnpjArray: unknown[]): string[] {
     if (cnpjArray.length === 0) {
       return [];
     }
@@ -82,20 +88,20 @@ export class CnpjCheckDigits {
     return this.handleStringInput(cnpjArray.join(''));
   }
 
-  private validateLength(cnpjIntArray: number[], originalInput: CnpjInput): void {
-    const digitsCount = cnpjIntArray.length;
+  private validateLength(cnpjChars: string[], originalInput: CnpjInput): void {
+    const charsCount = cnpjChars.length;
 
-    if (digitsCount < CNPJ_MIN_LENGTH || digitsCount > CNPJ_MAX_LENGTH) {
+    if (charsCount < CNPJ_MIN_LENGTH || charsCount > CNPJ_MAX_LENGTH) {
       throw new CnpjCheckDigitsInputLengthException(
         originalInput,
-        cnpjIntArray.join(''),
+        cnpjChars.join(''),
         CNPJ_MIN_LENGTH,
         CNPJ_MAX_LENGTH,
       );
     }
   }
 
-  protected calculate(cnpjSequence: number[]): number {
+  protected calculate(cnpjSequence: string[]): number {
     const minLength = CNPJ_MIN_LENGTH;
     const maxLength = CNPJ_MAX_LENGTH - 1;
     const sequenceLength = cnpjSequence.length;
@@ -104,11 +110,44 @@ export class CnpjCheckDigits {
       throw new CnpjCheckDigitsCalculationException(cnpjSequence);
     }
 
+    const invalidCharCodes: CnpjChar[] = [];
+    const invalidCharLengths: CnpjChar[] = [];
+    const sequenceValues: number[] = [];
+
+    for (let i = 0; i < sequenceLength; i++) {
+      if (cnpjSequence[i].length !== 1) {
+        invalidCharLengths.push({
+          value: cnpjSequence[i],
+          index: i,
+        });
+        continue;
+      }
+
+      const charCode = cnpjSequence[i].charCodeAt(0);
+      const isNumeric = charCode >= CHAR_CODE_0 && charCode <= CHAR_CODE_9;
+      const isLetter = charCode >= CHAR_CODE_A && charCode <= CHAR_CODE_Z;
+
+      if (!isNumeric && !isLetter) {
+        invalidCharCodes.push({
+          value: cnpjSequence[i],
+          index: i,
+        });
+        continue;
+      }
+
+      sequenceValues.push(charCode - DELTA_FACTOR);
+    }
+
+    if (invalidCharLengths.length || invalidCharCodes.length) {
+      // TODO: specify error
+      throw new CnpjCheckDigitsCalculationException(cnpjSequence);
+    }
+
     let factor = 2;
     let sumResult = 0;
 
     for (let i = sequenceLength - 1; i >= 0; i--) {
-      sumResult += cnpjSequence[i] * factor;
+      sumResult += sequenceValues[i] * factor;
       factor = factor === 9 ? 2 : factor + 1;
     }
 
