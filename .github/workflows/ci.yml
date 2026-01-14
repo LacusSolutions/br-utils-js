@@ -65,6 +65,7 @@ jobs:
           - 'cnpj-gen'
           - 'cnpj-val'
           - 'cnpj-utils'
+          - 'cpf-dv'
           - 'cpf-fmt'
           - 'cpf-gen'
           - 'cpf-val'

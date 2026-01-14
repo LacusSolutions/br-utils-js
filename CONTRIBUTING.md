@@ -105,7 +105,7 @@ br-utils-js/
 │   │   ├── package.json       # Package configuration
 │   │   ├── rollup.config.mjs  # Rollup configuration
 │   │   └── tsconfig.json      # TypeScript configuration
-│   ├── cnpj-fmt/              # CNPJ formatter package
+│   ├── cnpj-dv/               # CNPJ check digits package
 │   │   ├── src/               # Source code
 │   │   ├── test/              # Test files
 │   │   ├── build/             # Built files (generated)
@@ -113,11 +113,15 @@ br-utils-js/
 │   │   ├── package.json       # Package configuration
 │   │   ├── rollup.config.mjs  # Rollup configuration
 │   │   └── tsconfig.json      # TypeScript configuration
+│   ├── cnpj-fmt/              # CNPJ formatter package
+│   │   └── ...                # Similar structure
 │   ├── cnpj-gen/              # CNPJ generator package
 │   │   └── ...                # Similar structure
 │   ├── cnpj-utils/            # CNPJ utilities package
 │   │   └── ...                # Similar structure
 │   ├── cnpj-val/              # CNPJ validator package
+│   │   └── ...                # Similar structure
+│   ├── cpf-dv/                # CPF check digits package
 │   │   └── ...                # Similar structure
 │   ├── cpf-fmt/               # CPF formatter package
 │   │   └── ...                # Similar structure

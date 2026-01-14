@@ -1,8 +1,4 @@
 {
-  "./LICENSE": [
-    "node -e \"const fs = require('fs'); const path = require('path'); fs.readdirSync('./packages').forEach(pkg => { const dest = path.join('./packages', pkg, 'LICENSE'); if (fs.statSync(path.join('./packages', pkg)).isDirectory()) { fs.copyFileSync('./LICENSE', dest); } })\"",
-    "git add **/LICENSE"
-  ],
   "./README.md": [
     "node -e \"fs=require('fs').copyFileSync('./README.md', './packages/br-utils/README.md')\"",
     "git add ./packages/br-utils/README.md"
