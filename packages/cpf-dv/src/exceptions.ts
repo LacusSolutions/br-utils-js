@@ -13,6 +13,28 @@ export abstract class CpfCheckDigitsTypeError extends TypeError {
   }
 }
 
+function describeType(value: unknown): string {
+  if (value === null) {
+    return 'null';
+  }
+
+  if (!Array.isArray(value)) {
+    return typeof value;
+  }
+
+  if (value.length === 0) {
+    return 'unknown[]';
+  }
+
+  const uniqueTypes = Array.from(new Set(value.map((item) => typeof item)));
+
+  if (uniqueTypes.length === 1) {
+    return `${uniqueTypes[0]}[]`;
+  }
+
+  return `(${uniqueTypes.join(' | ')})[]`;
+}
+
 /**
  * Raised when the class input does not match the expected type.
  */
@@ -20,18 +42,7 @@ export class CpfCheckDigitsInputTypeError extends CpfCheckDigitsTypeError {
   public readonly actualInput: unknown;
 
   public constructor(actualInput: unknown) {
-    const isInputNull = actualInput === null;
-    const isInputArray = !isInputNull && Array.isArray(actualInput);
-    const arrayTypesSet = isInputArray
-      ? actualInput.reduce((set, item) => set.add(typeof item), new Set<string>())
-      : new Set<string>();
-    const actualInputType = isInputNull
-      ? 'null'
-      : !isInputArray
-        ? typeof actualInput
-        : arrayTypesSet.size === 1
-          ? `${arrayTypesSet.values().next().value}[]`
-          : `(${[...arrayTypesSet.values()].join(' | ')})[]`;
+    const actualInputType = describeType(actualInput);
 
     super(`CPF input must be of type string or string[]. Got ${actualInputType}.`);
     this.actualInput = actualInput;
