@@ -45,11 +45,11 @@ describe('package distributions', () => {
           const makeGlobalClass = new Function(`${fileContent}\nreturn CnpjCheckDigits;`);
           const CnpjCheckDigitsClass = makeGlobalClass();
 
-          const instance = new CnpjCheckDigitsClass('123456789');
+          const instance = new CnpjCheckDigitsClass('914157320007');
 
-          expect(instance.first).toBe('0');
-          expect(instance.second).toBe('9');
-          expect(instance.cnpj).toBe('12345678909');
+          expect(instance.first).toBe('9');
+          expect(instance.second).toBe('3');
+          expect(instance.cnpj).toBe('91415732000793');
         });
       });
     });
@@ -76,11 +76,11 @@ describe('package distributions', () => {
           const makeGlobalClass = new Function(`${fileContent}\nreturn CnpjCheckDigits;`);
           const CnpjCheckDigitsClass = makeGlobalClass();
 
-          const instance = new CnpjCheckDigitsClass('123456789');
+          const instance = new CnpjCheckDigitsClass('914157320007');
 
-          expect(instance.first).toBe('0');
-          expect(instance.second).toBe('9');
-          expect(instance.cnpj).toBe('12345678909');
+          expect(instance.first).toBe('9');
+          expect(instance.second).toBe('3');
+          expect(instance.cnpj).toBe('91415732000793');
         });
       });
     });

@@ -8,56 +8,56 @@ import CnpjCheckDigits, {
 
 describe('CnpjCheckDigits', (): void => {
   const testCases: Record<string, string> = {
-    '054496519': '05449651910',
-    '965376562': '96537656206',
-    '339670768': '33967076806',
-    '623855638': '62385563827',
-    '582286009': '58228600950',
-    '935218534': '93521853403',
-    '132115335': '13211533508',
-    '492602225': '49260222575',
-    '341428925': '34142892533',
-    '727598627': '72759862720',
-    '478880583': '47888058396',
-    '336636977': '33663697797',
-    '859249430': '85924943038',
-    '306829569': '30682956961',
-    '443539643': '44353964321',
-    '439709507': '43970950783',
-    '557601402': '55760140221',
-    '951159579': '95115957922',
-    '671669104': '67166910496',
-    '627571100': '62757110004',
-    '515930555': '51593055560',
-    '303472731': '30347273130',
-    '728843365': '72884336508',
-    '523667424': '52366742479',
-    '513362164': '51336216476',
-    '427546407': '42754640797',
-    '880696512': '88069651237',
-    '571430852': '57143085227',
-    '561416205': '56141620540',
-    '769627950': '76962795050',
-    '416603400': '41660340063',
-    '853803696': '85380369634',
-    '484667676': '48466767657',
-    '058588388': '05858838820',
-    '862778820': '86277882007',
-    '047126827': '04712682752',
-    '881801816': '88180181677',
-    '932053118': '93205311884',
-    '029783613': '02978361379',
-    '950189877': '95018987766',
-    '842528992': '84252899206',
-    '216901618': '21690161809',
-    '110478730': '11047873001',
-    '032967591': '03296759158',
-    '700386565': '70038656531',
-    '929036812': '92903681287',
-    '750529972': '75052997272',
-    '481063058': '48106305872',
-    '307721932': '30772193282',
-    '994799423': '99479942364',
+    '914157320007': '91415732000793',
+    '517503930003': '51750393000353',
+    '050532360008': '05053236000886',
+    '412851460002': '41285146000299',
+    '003579820002': '00357982000254',
+    '144863760009': '14486376000910',
+    '301272110005': '30127211000584',
+    '017205400003': '01720540000374',
+    '723362430001': '72336243000106',
+    '982882590009': '98288259000931',
+    '238857260004': '23885726000405',
+    '456189710004': '45618971000480',
+    '871056390003': '87105639000381',
+    '615208400003': '61520840000331',
+    '483494070001': '48349407000155',
+    '782152520001': '78215252000125',
+    '023543810003': '02354381000302',
+    '648275500008': '64827550000838',
+    '210890360007': '21089036000759',
+    '319476190003': '31947619000301',
+    '758805710006': '75880571000671',
+    '159833710006': '15983371000612',
+    '069523030004': '06952303000433',
+    '509053950004': '50905395000492',
+    '573669460004': '57366946000436',
+    '307168390003': '30716839000353',
+    '885435950009': '88543595000920',
+    '354946770003': '35494677000370',
+    '006645070002': '00664507000220',
+    '470076350005': '47007635000508',
+    '005792660004': '00579266000483',
+    '479281750001': '47928175000127',
+    '167805610002': '16780561000271',
+    '313124260006': '31312426000619',
+    '822313180002': '82231318000229',
+    '992040290001': '99204029000152',
+    '040693560006': '04069356000647',
+    '410302000007': '41030200000760',
+    '015206300003': '01520630000311',
+    '863940890002': '86394089000214',
+    '002439100008': '00243910000871',
+    '669041680003': '66904168000300',
+    '283366280009': '28336628000939',
+    '076394320005': '07639432000510',
+    '451264770004': '45126477000407',
+    '474080600006': '47408060000616',
+    '711081470005': '71108147000571',
+    '784153420007': '78415342000755',
+    '495517490003': '49551749000388',
+    '570635620003': '57063562000363',
   };
 
   describe('constructor', (): void => {
@@ -120,27 +120,44 @@ describe('CnpjCheckDigits', (): void => {
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
 
-      it('throws CnpjCheckDigitsInputLengthException for string with 8 digits', (): void => {
-        const sut = (): unknown => new CnpjCheckDigits('12345678');
+      it('throws CnpjCheckDigitsInputLengthException for string with 11 digits', (): void => {
+        const sut = (): unknown => new CnpjCheckDigits('12345678910');
 
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
 
-      it('throws CnpjCheckDigitsInputLengthException for string with 12 digits', (): void => {
-        const sut = (): unknown => new CnpjCheckDigits('123456789100');
+      it('throws CnpjCheckDigitsInputLengthException for string with 15 digits', (): void => {
+        const sut = (): unknown => new CnpjCheckDigits('123456789101112');
 
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
 
-      it('throws CnpjCheckDigitsInputLengthException for string array with 8 digits', (): void => {
-        const sut = (): unknown => new CnpjCheckDigits(['1', '2', '3', '4', '5', '6', '7', '8']);
-
-        expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
-      });
-
-      it('throws CnpjCheckDigitsInputLengthException for string array with 12 digits', (): void => {
+      it('throws CnpjCheckDigitsInputLengthException for string array with 11 digits', (): void => {
         const sut = (): unknown =>
-          new CnpjCheckDigits(['0', '5', '4', '4', '9', '6', '5', '1', '9', '1', '0', '0']);
+          new CnpjCheckDigits(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']);
+
+        expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
+      });
+
+      it('throws CnpjCheckDigitsInputLengthException for string array with 15 digits', (): void => {
+        const sut = (): unknown =>
+          new CnpjCheckDigits([
+            '0',
+            '0',
+            '1',
+            '1',
+            '1',
+            '2',
+            '2',
+            '2',
+            '0',
+            '0',
+            '0',
+            '4',
+            '5',
+            '6',
+            '7',
+          ]);
 
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
@@ -187,7 +204,7 @@ describe('CnpjCheckDigits', (): void => {
       });
 
       it('returns cached values on subsequent calls', (): void => {
-        const cnpjCheckDigits = new CnpjCheckDigits('123456789');
+        const cnpjCheckDigits = new CnpjCheckDigits('914157320007');
 
         cnpjCheckDigits.first; // eslint-disable-line @typescript-eslint/no-unused-expressions
         cnpjCheckDigits.first; // eslint-disable-line @typescript-eslint/no-unused-expressions
@@ -238,7 +255,7 @@ describe('CnpjCheckDigits', (): void => {
       });
 
       it('returns cached values on subsequent calls', (): void => {
-        const cnpjCheckDigits = new CnpjCheckDigits('123456789');
+        const cnpjCheckDigits = new CnpjCheckDigits('914157320007');
 
         cnpjCheckDigits.second; // eslint-disable-line @typescript-eslint/no-unused-expressions
         cnpjCheckDigits.second; // eslint-disable-line @typescript-eslint/no-unused-expressions
@@ -281,25 +298,38 @@ describe('CnpjCheckDigits', (): void => {
   describe('actual CNPJ string', (): void => {
     describe('when input is a string', (): void => {
       it('returns the respective 14-character string for CNPJ', (): void => {
-        const cnpjCheckDigits = new CnpjCheckDigits('123456789');
+        const cnpjCheckDigits = new CnpjCheckDigits('914157320007');
 
-        expect(cnpjCheckDigits.cnpj).toBe('12345678909');
+        expect(cnpjCheckDigits.cnpj).toBe('91415732000793');
       });
     });
 
     describe('when input is an array of grouped digits string', (): void => {
       it('returns the respective 14-character string for CNPJ', (): void => {
-        const cnpjCheckDigits = new CnpjCheckDigits(['123', '456', '789']);
+        const cnpjCheckDigits = new CnpjCheckDigits(['9141', '5732', '0007']);
 
-        expect(cnpjCheckDigits.cnpj).toBe('12345678909');
+        expect(cnpjCheckDigits.cnpj).toBe('91415732000793');
       });
     });
 
     describe('when input is an array of individual digits string', (): void => {
       it('returns the respective 14-character string for CNPJ', (): void => {
-        const cnpjCheckDigits = new CnpjCheckDigits(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
+        const cnpjCheckDigits = new CnpjCheckDigits([
+          '9',
+          '1',
+          '4',
+          '1',
+          '5',
+          '7',
+          '3',
+          '2',
+          '0',
+          '0',
+          '0',
+          '7',
+        ]);
 
-        expect(cnpjCheckDigits.cnpj).toBe('12345678909');
+        expect(cnpjCheckDigits.cnpj).toBe('91415732000793');
       });
     });
 
@@ -320,19 +350,19 @@ describe('CnpjCheckDigits', (): void => {
   describe('edge cases', (): void => {
     describe('when input is a formatted CNPJ string', (): void => {
       it('correctly parses and calculates check digits', (): void => {
-        const cnpjCheckDigits = new CnpjCheckDigits('123.456.789');
+        const cnpjCheckDigits = new CnpjCheckDigits('91.415.732/0007');
 
-        expect(cnpjCheckDigits.cnpj).toBe('12345678909');
+        expect(cnpjCheckDigits.cnpj).toBe('91415732000793');
       });
     });
 
     describe('when input already contains check digits', (): void => {
       it('ignores provided check digits and calculates ones correctly', (): void => {
-        const cnpjCheckDigits = new CnpjCheckDigits('12345678910');
+        const cnpjCheckDigits = new CnpjCheckDigits('91415732000700');
 
-        expect(cnpjCheckDigits.first).toBe('0');
-        expect(cnpjCheckDigits.second).toBe('9');
-        expect(cnpjCheckDigits.cnpj).toBe('12345678909');
+        expect(cnpjCheckDigits.first).toBe('9');
+        expect(cnpjCheckDigits.second).toBe('3');
+        expect(cnpjCheckDigits.cnpj).toBe('91415732000793');
       });
     });
   });
@@ -346,8 +376,8 @@ describe('CnpjCheckDigits', (): void => {
 
     describe('when called with invalid sequence length via subclass', (): void => {
       it('throws CnpjCheckDigitsCalculationException for sequence shorter than 12 digits', (): void => {
-        const testInstance = new TestCnpjCheckDigits('123456789');
-        const shortSequence = [1, 2, 3, 4, 5, 6, 7, 8];
+        const testInstance = new TestCnpjCheckDigits('914157320007');
+        const shortSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1];
 
         const sut = (): number => testInstance.exposeCalculate(shortSequence);
 
@@ -355,8 +385,8 @@ describe('CnpjCheckDigits', (): void => {
       });
 
       it('throws CnpjCheckDigitsCalculationException for sequence longer than 13 digits', (): void => {
-        const testInstance = new TestCnpjCheckDigits('123456789');
-        const longSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1];
+        const testInstance = new TestCnpjCheckDigits('914157320007');
+        const longSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4];
 
         const sut = (): number => testInstance.exposeCalculate(longSequence);
 
@@ -364,7 +394,7 @@ describe('CnpjCheckDigits', (): void => {
       });
 
       it('throws CnpjCheckDigitsCalculationException for empty sequence', (): void => {
-        const testInstance = new TestCnpjCheckDigits('123456789');
+        const testInstance = new TestCnpjCheckDigits('914157320007');
         const emptySequence: number[] = [];
 
         const sut = (): number => testInstance.exposeCalculate(emptySequence);
@@ -373,7 +403,7 @@ describe('CnpjCheckDigits', (): void => {
       });
 
       it('includes the actual sequence in the exception', (): void => {
-        const testInstance = new TestCnpjCheckDigits('123456789');
+        const testInstance = new TestCnpjCheckDigits('914157320007');
         const invalidSequence = [1, 2, 3];
 
         try {
@@ -388,8 +418,8 @@ describe('CnpjCheckDigits', (): void => {
       });
 
       it('does not throw for valid 12-digit sequence', (): void => {
-        const testInstance = new TestCnpjCheckDigits('123456789');
-        const validSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const testInstance = new TestCnpjCheckDigits('914157320007');
+        const validSequence = [9, 1, 4, 1, 5, 7, 3, 2, 0, 0, 0, 7];
 
         const result = testInstance.exposeCalculate(validSequence);
 
@@ -397,8 +427,8 @@ describe('CnpjCheckDigits', (): void => {
       });
 
       it('does not throw for valid 13-digit sequence', (): void => {
-        const testInstance = new TestCnpjCheckDigits('123456789');
-        const validSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+        const testInstance = new TestCnpjCheckDigits('914157320007');
+        const validSequence = [9, 1, 4, 1, 5, 7, 3, 2, 0, 0, 0, 7, 9];
 
         const result = testInstance.exposeCalculate(validSequence);
 
