@@ -1,4 +1,5 @@
 import { type CpfInput } from './types';
+import { describeType } from './utils';
 
 /**
  * Base error for all `cpf-dv` type-related errors.
@@ -11,28 +12,6 @@ export abstract class CpfCheckDigitsTypeError extends TypeError {
     this.name = this.constructor.name;
     Object.setPrototypeOf(this, new.target.prototype);
   }
-}
-
-function describeType(value: unknown): string {
-  if (value === null) {
-    return 'null';
-  }
-
-  if (!Array.isArray(value)) {
-    return typeof value;
-  }
-
-  if (value.length === 0) {
-    return 'unknown[]';
-  }
-
-  const uniqueTypes = Array.from(new Set(value.map((item) => typeof item)));
-
-  if (uniqueTypes.length === 1) {
-    return `${uniqueTypes[0]}[]`;
-  }
-
-  return `(${uniqueTypes.join(' | ')})[]`;
 }
 
 /**
