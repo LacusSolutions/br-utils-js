@@ -21,11 +21,31 @@ Utility class to calculate check digits on CNPJ (Brazilian legal entity ID).
 
 ## Features
 
-TODO: describe
+- ✅ **Alphanumeric Support**: Full support for the new alphanumeric CNPJ format (introduced in 2026)
+- ✅ **Multiple Input Formats**: Accepts strings or arrays of strings
+- ✅ **Format Agnostic**: Automatically strips non-alphanumeric characters from string input
+- ✅ **Auto-Expansion**: Automatically expands multi-character strings in arrays to individual characters
+- ✅ **Lazy Evaluation**: Check digits are calculated only when accessed (via properties)
+- ✅ **Caching**: Calculated values are cached for subsequent access
+- ✅ **TypeScript Support**: Full TypeScript definitions included
+- ✅ **Zero Dependencies**: No external dependencies required
+- ✅ **Comprehensive Error Handling**: Specific exceptions for different error scenarios
 
 ## Calculation Algorithm
 
-TODO: describe
+The package calculates CNPJ check digits using the official Brazilian algorithm, with full support for alphanumeric characters:
+
+1. **First Check Digit (13th position)**:
+   - Uses characters 1-12 of the CNPJ base
+   - Applies weights from right to left: 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5
+   - For alphanumeric characters, uses their ASCII code minus 48 (the ASCII code of '0')
+   - Calculates: `remainder = sum(char_value × weight) % 11`
+   - Result: `0` if remainder < 2, otherwise `11 - remainder`
+
+2. **Second Check Digit (14th position)**:
+   - Uses characters 1-12 + first check digit
+   - Applies weights from right to left: 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6
+   - Same calculation logic as above
 
 ## Installation
 
@@ -57,7 +77,25 @@ or import it through your HTML file, using CDN:
 
 ### Basic Usage
 
-TODO: describe
+```js
+// Calculate check digits from a 12-character CNPJ base
+const checkDigits = new CnpjCheckDigits('914157320007')
+
+console.log(checkDigits.first)   // returns '9'
+console.log(checkDigits.second)  // returns '3'
+console.log(checkDigits.both)    // returns '93'
+console.log(checkDigits.cnpj)    // returns '91415732000793'
+```
+
+```js
+// Works with alphanumeric CNPJs (new format)
+const checkDigits = new CnpjCheckDigits('MGKGMJ9X0001')
+
+console.log(checkDigits.first)   // returns '6'
+console.log(checkDigits.second)  // returns '8'
+console.log(checkDigits.both)    // returns '68'
+console.log(checkDigits.cnpj)    // returns 'MGKGMJ9X000168'
+```
 
 ### Input Formats
 
@@ -65,11 +103,30 @@ The `CnpjCheckDigits` class accepts multiple input formats:
 
 #### String Input
 
-TODO: describe
+```js
+// Only digits/characters
+const checkDigits = new CnpjCheckDigits('914157320007')
+const checkDigits = new CnpjCheckDigits('MGKGMJ9X000193')
+
+// Formatted CNPJ
+const checkDigits = new CnpjCheckDigits('91.415.732/0007-93')
+const checkDigits = new CnpjCheckDigits('MG.KGM.J9X/0001-93')
+
+// note that lowercase letters are transformed to uppercase
+const checkDigits = new CnpjCheckDigits('mgkgmj9x0001')  // treated as 'MGKGMJ9X0001'
+```
 
 #### Array of Strings
 
-TODO: describe
+```js
+// Array of single-character strings
+const checkDigits = new CnpjCheckDigits(['9', '1', '4', '1', '5', '7', '3', '2', '0', '0', '0', '7'])
+
+// Array with multi-character strings (automatically flattened)
+const checkDigits = new CnpjCheckDigits(['914157320007'])        // flattens to individual characters
+const checkDigits = new CnpjCheckDigits(['91', '415', '732', '0007'])
+const checkDigits = new CnpjCheckDigits(['MG', 'KGM', 'J9X', '0001'])
+```
 
 ## Error Handling
 
@@ -95,13 +152,13 @@ try {
 
 ### `CnpjCheckDigitsInputLengthException`
 
-Thrown when the input does not contain 12 to 14 digits.
+Thrown when the input does not contain 12 to 14 alphanumeric characters.
 
 ```js
 import CnpjCheckDigits, { CnpjCheckDigitsInputLengthException } from '@lacussoft/cnpj-dv'
 
 try {
-  new CnpjCheckDigits('12345678')  // only 8 digits
+  new CnpjCheckDigits('12345678')  // only 8 characters
 } catch (error) {
   if (error instanceof CnpjCheckDigitsInputLengthException) {
     console.log(error.message)  // CNPJ input "12345678" does not contain 12 to 14 digits. Got 8.
@@ -131,17 +188,33 @@ try {
 
 #### Constructor
 
-TODO: describe
+```ts
+new CnpjCheckDigits(cnpjDigits: string | string[]): CnpjCheckDigits
+```
+
+Creates a new `CnpjCheckDigits` instance from the provided CNPJ base characters.
+
+**Parameters:**
+- `cnpjDigits` (string | string[]): The CNPJ base characters (12-14 alphanumeric characters). Can be:
+  - A string with 12-14 characters (formatting characters are ignored, letters are uppercased)
+  - An array of strings (each string can be a single-character or multi-character value)
+
+**Throws:**
+- `CnpjCheckDigitsInputTypeError`: If the input type is not supported
+- `CnpjCheckDigitsInputLengthException`: If the input does not contain 12-14 characters
+
+**Returns:**
+- `CnpjCheckDigits`: A new instance ready to calculate check digits
 
 #### Properties
 
 ##### `first: string`
 
-The first check digit (13th digit of the CNPJ). Calculated lazily on first access.
+The first check digit (13th character of the CNPJ). Calculated lazily on first access.
 
 ##### `second: string`
 
-The second check digit (14th digit of the CNPJ). Calculated lazily on first access.
+The second check digit (14th character of the CNPJ). Calculated lazily on first access.
 
 ##### `both: string`
 
@@ -149,7 +222,7 @@ Both check digits concatenated as a string.
 
 ##### `cnpj: string`
 
-The complete CNPJ as a string of 14 digits (12 base digits + 2 check digits).
+The complete CNPJ as a string of 14 characters (12 base characters + 2 check digits).
 
 ## Contribution & Support
 
