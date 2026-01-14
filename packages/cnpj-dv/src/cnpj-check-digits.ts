@@ -106,20 +106,14 @@ export class CnpjCheckDigits {
       throw new CnpjCheckDigitsCalculationException(cnpjSequence);
     }
 
-    const sequenceValues: number[] = [];
-
-    for (let i = 0; i < sequenceLength; i++) {
-      const charCode = cnpjSequence[i].charCodeAt(0);
-      const charValue = charCode - DELTA_FACTOR;
-
-      sequenceValues.push(charValue);
-    }
-
     let factor = 2;
     let sumResult = 0;
 
     for (let i = sequenceLength - 1; i >= 0; i--) {
-      sumResult += sequenceValues[i] * factor;
+      const charCode = cnpjSequence[i].charCodeAt(0);
+      const charValue = charCode - DELTA_FACTOR;
+
+      sumResult += charValue * factor;
       factor = factor === 9 ? 2 : factor + 1;
     }
 
