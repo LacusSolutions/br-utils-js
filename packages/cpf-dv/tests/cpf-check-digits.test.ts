@@ -421,9 +421,13 @@ describe('CpfCheckDigits', (): void => {
         const testInstance = new TestCpfCheckDigits('123456789');
         const invalidSequence = [1, 2, 3];
 
-        const sut = (): number => testInstance.exposeCalculate(invalidSequence);
-
-        expect(sut).toThrow(CpfCheckDigitsCalculationException);
+        try {
+          testInstance.exposeCalculate(invalidSequence);
+          expect.unreachable('Expected exception to be thrown');
+        } catch (error) {
+          expect(error).toBeInstanceOf(CpfCheckDigitsCalculationException);
+          expect((error as CpfCheckDigitsCalculationException).actualSequence).toEqual(invalidSequence);
+        }
       });
 
       it('does not throw for valid 9-digit sequence', (): void => {
