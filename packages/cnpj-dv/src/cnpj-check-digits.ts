@@ -104,17 +104,17 @@ export class CnpjCheckDigits {
       throw new CnpjCheckDigitsCalculationException(cnpjSequence);
     }
 
-    let factor = sequenceLength + 1;
+    let factor = 2;
     let sumResult = 0;
 
-    for (const num of cnpjSequence) {
-      sumResult += num * factor;
-      factor -= 1;
+    for (let i = sequenceLength - 1; i >= 0; i--) {
+      sumResult += cnpjSequence[i] * factor;
+      factor = factor === 9 ? 2 : factor + 1;
     }
 
-    const remainder = 11 - (sumResult % 11);
+    const remainder = sumResult % 11;
 
-    return remainder > 9 ? 0 : remainder;
+    return remainder < 2 ? 0 : 11 - remainder;
   }
 }
 
