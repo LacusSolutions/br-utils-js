@@ -16,7 +16,7 @@ describe('package distributions', () => {
     async () => {
       const packageDir = import.meta.dir.replace('/tests', '');
 
-      await $`bun run --cwd ${packageDir} dist --silent`;
+      await $`bun run --cwd ${packageDir} build --silent`;
     },
     { timeout: 20000 },
   );
