@@ -1,6 +1,16 @@
 import Bun, { $ } from 'bun';
 import { beforeAll, describe, expect, it } from 'bun:test';
 
+function extractExportedResources(content: string): string[] {
+  return (
+    content
+      ?.match(/export \{([^}]+)\}/)
+      ?.at(1)
+      ?.split(',')
+      ?.map((resource) => resource.trim()) ?? []
+  );
+}
+
 describe('package distributions', () => {
   beforeAll(
     async () => {
@@ -99,22 +109,14 @@ describe('package distributions', () => {
 
     it('exports CpfCheckDigits as default', async () => {
       const content = await file.text();
-      const exportedResources = content
-        ?.match(/export \{([^}]+)\}/)
-        ?.at(1)
-        ?.split(',')
-        ?.map((resource) => resource.trim());
+      const exportedResources = extractExportedResources(content);
 
       expect(exportedResources).toContain('CpfCheckDigits as default');
     });
 
     it('exports CpfCheckDigits as named', async () => {
       const content = await file.text();
-      const exportedResources = content
-        ?.match(/export \{([^}]+)\}/)
-        ?.at(1)
-        ?.split(',')
-        ?.map((resource) => resource.trim());
+      const exportedResources = extractExportedResources(content);
 
       expect(exportedResources).toContain('CpfCheckDigits');
     });
@@ -136,22 +138,14 @@ describe('package distributions', () => {
 
     it('exports CpfCheckDigits as default', async () => {
       const content = await file.text();
-      const exportedResources = content
-        ?.match(/export \{([^}]+)\}/)
-        ?.at(1)
-        ?.split(',')
-        ?.map((resource) => resource.trim());
+      const exportedResources = extractExportedResources(content);
 
       expect(exportedResources).toContain('CpfCheckDigits as default');
     });
 
     it('exports CpfCheckDigits as named', async () => {
       const content = await file.text();
-      const exportedResources = content
-        ?.match(/export \{([^}]+)\}/)
-        ?.at(1)
-        ?.split(',')
-        ?.map((resource) => resource.trim());
+      const exportedResources = extractExportedResources(content);
 
       expect(exportedResources).toContain('CpfCheckDigits');
     });
