@@ -261,6 +261,101 @@ describe('CnpjCheckDigits', (): void => {
         },
       );
     });
+
+    describe('when given repeated numeric characters', (): void => {
+      const repeatedDigitInputs: CnpjInput[] = [
+        '111111111111',
+        '222222222222',
+        '333333333333',
+        '444444444444',
+        '555555555555',
+        '666666666666',
+        '777777777777',
+        '888888888888',
+        '999999999999',
+        ['111111111111'],
+        ['222222222222'],
+        ['333333333333'],
+        ['444444444444'],
+        ['555555555555'],
+        ['666666666666'],
+        ['777777777777'],
+        ['888888888888'],
+        ['999999999999'],
+        ['11', '111', '111', '1111'],
+        ['22', '222', '222', '2222'],
+        ['33', '333', '333', '3333'],
+        ['44', '444', '444', '4444'],
+        ['55', '555', '555', '5555'],
+        ['66', '666', '666', '6666'],
+        ['77', '777', '777', '7777'],
+        ['88', '888', '888', '8888'],
+        ['99', '999', '999', '9999'],
+        ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
+        ['2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2'],
+        ['3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3'],
+        ['4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4'],
+        ['5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5'],
+        ['6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6'],
+        ['7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7'],
+        ['8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8'],
+        ['9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9'],
+      ];
+
+      it.each(repeatedDigitInputs.map((input) => [input]))(
+        'throws CnpjCheckDigitsInputInvalidException for input `%s`',
+        (input): void => {
+          const sut = (): unknown => new CnpjCheckDigits(input);
+
+          expect(sut).toThrow(CnpjCheckDigitsInputInvalidException);
+          expect(sut).toThrow(/repeated digits/i);
+        },
+      );
+    });
+
+    describe('when given repeated non-numeric characters', (): void => {
+      const repeatedLetterInputs: CnpjInput[] = [
+        'AAAAAAAAAAAA',
+        'BBBBBBBBBBBB',
+        'CCCCCCCCCCCC',
+        'JJJJJJJJJJJJ',
+        'KKKKKKKKKKKK',
+        'LLLLLLLLLLLL',
+        'XXXXXXXXXXXX',
+        'YYYYYYYYYYYY',
+        'ZZZZZZZZZZZZ',
+        ['AAAAAAAAAAAA'],
+        ['BBBBBBBBBBBB'],
+        ['CCCCCCCCCCCC'],
+        ['JJJJJJJJJJJJ'],
+        ['KKKKKKKKKKKK'],
+        ['LLLLLLLLLLLL'],
+        ['XXXXXXXXXXXX'],
+        ['YYYYYYYYYYYY'],
+        ['ZZZZZZZZZZZZ'],
+        ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A'],
+        ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'],
+        ['C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'],
+        ['J', 'J', 'J', 'J', 'J', 'J', 'J', 'J', 'J', 'J', 'J', 'J'],
+        ['K', 'K', 'K', 'K', 'K', 'K', 'K', 'K', 'K', 'K', 'K', 'K'],
+        ['L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L'],
+        ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+        ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'],
+        ['Z', 'Z', 'Z', 'Z', 'Z', 'Z', 'Z', 'Z', 'Z', 'Z', 'Z', 'Z'],
+      ];
+
+      it.each(repeatedLetterInputs.map((input) => [input]))(
+        'does not throw error for input `%s`',
+        (input): void => {
+          const cnpjCheckDigits = new CnpjCheckDigits(input);
+          const stringifiedInput = Array.isArray(input) ? input.join('') : input;
+
+          expect(cnpjCheckDigits).toBeDefined();
+          expect(cnpjCheckDigits.cnpj.length).toBe(14);
+          expect(cnpjCheckDigits.cnpj).toMatch(new RegExp(`^${stringifiedInput}`));
+        },
+      );
+    });
   });
 
   describe('first digit', (): void => {

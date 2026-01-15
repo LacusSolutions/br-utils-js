@@ -41,6 +41,7 @@ export class CnpjCheckDigits {
     this.validateLength(parsedInput, cnpjInput);
     this.validateBaseId(parsedInput, cnpjInput);
     this.validateBranchId(parsedInput, cnpjInput);
+    this.validateNonRepeatedDigits(parsedInput, cnpjInput);
 
     this.cnpjChars = parsedInput.slice(0, CNPJ_MIN_LENGTH);
   }
@@ -131,6 +132,18 @@ export class CnpjCheckDigits {
       throw new CnpjCheckDigitsInputInvalidException(
         originalInput,
         `Branch ID "${CNPJ_INVALID_BRANCH_ID}" is not eligible.`,
+      );
+    }
+  }
+
+  private validateNonRepeatedDigits(cnpjIntArray: string[], originalInput: CnpjInput): void {
+    const eligibleCnpjIntArray = cnpjIntArray.slice(0, CNPJ_MIN_LENGTH);
+    const uniqueDigits = new Set(eligibleCnpjIntArray);
+
+    if (uniqueDigits.size === 1 && /^\d$/.test(eligibleCnpjIntArray[0])) {
+      throw new CnpjCheckDigitsInputInvalidException(
+        originalInput,
+        'Repeated digits are not considered valid.',
       );
     }
   }
