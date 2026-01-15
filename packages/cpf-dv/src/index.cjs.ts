@@ -4,7 +4,6 @@ import {
   CpfCheckDigits as CpfCheckDigitsBase,
 } from './cpf-check-digits';
 import {
-  CpfCheckDigitsCalculationException,
   CpfCheckDigitsException,
   CpfCheckDigitsInputInvalidException,
   CpfCheckDigitsInputLengthException,
@@ -19,7 +18,6 @@ export default class CpfCheckDigits extends CpfCheckDigitsBase {
   public static readonly CpfCheckDigits = CpfCheckDigitsBase;
   public static readonly CpfCheckDigitsException = CpfCheckDigitsException;
   public static readonly CpfCheckDigitsTypeError = CpfCheckDigitsTypeError;
-  public static readonly CpfCheckDigitsCalculationException = CpfCheckDigitsCalculationException;
   public static readonly CpfCheckDigitsInputInvalidException = CpfCheckDigitsInputInvalidException;
   public static readonly CpfCheckDigitsInputLengthException = CpfCheckDigitsInputLengthException;
   public static readonly CpfCheckDigitsInputTypeError = CpfCheckDigitsInputTypeError;

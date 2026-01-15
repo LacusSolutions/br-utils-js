@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, type Mock, spyOn } from 'bun:test';
 
 import CpfCheckDigits, {
-  CpfCheckDigitsCalculationException,
   CpfCheckDigitsInputInvalidException,
   CpfCheckDigitsInputLengthException,
   CpfCheckDigitsInputTypeError,
@@ -378,76 +377,6 @@ describe('CpfCheckDigits', (): void => {
         expect(cpfCheckDigits.first).toBe('0');
         expect(cpfCheckDigits.second).toBe('9');
         expect(cpfCheckDigits.cpf).toBe('12345678909');
-      });
-    });
-  });
-
-  describe('protected calculate method', (): void => {
-    class TestCpfCheckDigits extends CpfCheckDigits {
-      public exposeCalculate(sequence: number[]): number {
-        return this.calculate(sequence);
-      }
-    }
-
-    describe('when called with invalid sequence length via subclass', (): void => {
-      it('throws CpfCheckDigitsCalculationException for sequence shorter than 9 digits', (): void => {
-        const testInstance = new TestCpfCheckDigits('123456789');
-        const shortSequence = [1, 2, 3, 4, 5, 6, 7, 8];
-
-        const sut = (): number => testInstance.exposeCalculate(shortSequence);
-
-        expect(sut).toThrow(CpfCheckDigitsCalculationException);
-      });
-
-      it('throws CpfCheckDigitsCalculationException for sequence longer than 10 digits', (): void => {
-        const testInstance = new TestCpfCheckDigits('123456789');
-        const longSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1];
-
-        const sut = (): number => testInstance.exposeCalculate(longSequence);
-
-        expect(sut).toThrow(CpfCheckDigitsCalculationException);
-      });
-
-      it('throws CpfCheckDigitsCalculationException for empty sequence', (): void => {
-        const testInstance = new TestCpfCheckDigits('123456789');
-        const emptySequence: number[] = [];
-
-        const sut = (): number => testInstance.exposeCalculate(emptySequence);
-
-        expect(sut).toThrow(CpfCheckDigitsCalculationException);
-      });
-
-      it('includes the actual sequence in the exception', (): void => {
-        const testInstance = new TestCpfCheckDigits('123456789');
-        const invalidSequence = [1, 2, 3];
-
-        try {
-          testInstance.exposeCalculate(invalidSequence);
-          expect.unreachable('Expected exception to be thrown');
-        } catch (error) {
-          expect(error).toBeInstanceOf(CpfCheckDigitsCalculationException);
-          expect((error as CpfCheckDigitsCalculationException).actualSequence).toEqual(
-            invalidSequence,
-          );
-        }
-      });
-
-      it('does not throw for valid 9-digit sequence', (): void => {
-        const testInstance = new TestCpfCheckDigits('123456789');
-        const validSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-        const result = testInstance.exposeCalculate(validSequence);
-
-        expect(typeof result).toBe('number');
-      });
-
-      it('does not throw for valid 10-digit sequence', (): void => {
-        const testInstance = new TestCpfCheckDigits('123456789');
-        const validSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-
-        const result = testInstance.exposeCalculate(validSequence);
-
-        expect(typeof result).toBe('number');
       });
     });
   });

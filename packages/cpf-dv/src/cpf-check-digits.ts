@@ -1,5 +1,4 @@
 import {
-  CpfCheckDigitsCalculationException,
   CpfCheckDigitsInputInvalidException,
   CpfCheckDigitsInputLengthException,
   CpfCheckDigitsInputTypeError,
@@ -110,15 +109,7 @@ export class CpfCheckDigits {
   }
 
   protected calculate(cpfSequence: number[]): number {
-    const minLength = CPF_MIN_LENGTH;
-    const maxLength = CPF_MAX_LENGTH - 1;
-    const sequenceLength = cpfSequence.length;
-
-    if (sequenceLength < minLength || sequenceLength > maxLength) {
-      throw new CpfCheckDigitsCalculationException(cpfSequence);
-    }
-
-    let factor = sequenceLength + 1;
+    let factor = cpfSequence.length + 1;
     let sumResult = 0;
 
     for (const num of cpfSequence) {
