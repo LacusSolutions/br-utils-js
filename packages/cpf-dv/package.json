@@ -45,7 +45,7 @@
     "type-check": "tsc --noEmit",
     "lint": "bun run lint:ci --fix",
     "lint:ci": "eslint src/ tests/ rollup.config.mjs",
-    "test": "bun test --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
+    "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
     "test:ci": "bun test"
   },
   "devDependencies": {
