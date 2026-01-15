@@ -2,8 +2,10 @@ import { afterEach, beforeEach, describe, expect, it, type Mock, spyOn } from 'b
 
 import CnpjCheckDigits, {
   CnpjCheckDigitsCalculationException,
+  CnpjCheckDigitsInputInvalidException,
   CnpjCheckDigitsInputLengthException,
   CnpjCheckDigitsInputTypeError,
+  type CnpjInput,
 } from '../src/index.esm';
 
 describe('CnpjCheckDigits', (): void => {
@@ -225,6 +227,25 @@ describe('CnpjCheckDigits', (): void => {
 
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
+    });
+
+    describe('when given invalid CNPJ base ID', (): void => {
+      const invalidBaseIdInputs: CnpjInput[] = [
+        '00000000',
+        ['00000000'],
+        ['00', '000', '000'],
+        ['0', '0', '0', '0', '0', '0', '0', '0'],
+      ];
+
+      it.each(invalidBaseIdInputs.map((input) => [input]))(
+        'throws CnpjCheckDigitsInputInvalidException for base ID `%s`',
+        (input): void => {
+          const sut = (): unknown => new CnpjCheckDigits(`${input}/0001`);
+
+          expect(sut).toThrow(CnpjCheckDigitsInputInvalidException);
+          expect(sut).toThrow(/base id/i);
+        },
+      );
     });
   });
 

@@ -1,5 +1,6 @@
 import {
   CnpjCheckDigitsCalculationException,
+  CnpjCheckDigitsInputInvalidException,
   CnpjCheckDigitsInputLengthException,
   CnpjCheckDigitsInputTypeError,
 } from './exceptions';
@@ -7,6 +8,10 @@ import { type CnpjInput } from './types';
 
 export const CNPJ_MIN_LENGTH = 12;
 export const CNPJ_MAX_LENGTH = 14;
+
+const CNPJ_BASE_ID_LENGTH = 8;
+const CNPJ_BASE_ID_LAST_INDEX = CNPJ_BASE_ID_LENGTH - 1;
+const CNPJ_INVALID_BASE_ID = '0'.repeat(CNPJ_BASE_ID_LENGTH);
 
 const DELTA_FACTOR = '0'.charCodeAt(0);
 
@@ -30,6 +35,7 @@ export class CnpjCheckDigits {
     }
 
     this.validateLength(parsedInput, cnpjInput);
+    this.validateBaseId(parsedInput, cnpjInput);
 
     this.cnpjChars = parsedInput.slice(0, CNPJ_MIN_LENGTH);
   }
@@ -93,6 +99,18 @@ export class CnpjCheckDigits {
         cnpjChars.join(''),
         CNPJ_MIN_LENGTH,
         CNPJ_MAX_LENGTH,
+      );
+    }
+  }
+
+  private validateBaseId(cnpjIntArray: string[], originalInput: CnpjInput): void {
+    const cnpjBaseIdArray = cnpjIntArray.slice(0, CNPJ_BASE_ID_LAST_INDEX + 1);
+    const cnpjBaseIdString = cnpjBaseIdArray.join('');
+
+    if (cnpjBaseIdString === CNPJ_INVALID_BASE_ID) {
+      throw new CnpjCheckDigitsInputInvalidException(
+        originalInput,
+        `Base ID "${CNPJ_INVALID_BASE_ID}" is not eligible.`,
       );
     }
   }
