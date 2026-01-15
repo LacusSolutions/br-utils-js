@@ -247,6 +247,20 @@ describe('CnpjCheckDigits', (): void => {
         },
       );
     });
+
+    describe('when given invalid CNPJ branch ID', (): void => {
+      const invalidBranchIdInputs: CnpjInput[] = ['0000', ['0000'], ['0', '0', '0', '0']];
+
+      it.each(invalidBranchIdInputs.map((input) => [input]))(
+        'throws CnpjCheckDigitsInputInvalidException for branch ID `%s`',
+        (input): void => {
+          const sut = (): unknown => new CnpjCheckDigits(`12345678/${input}`);
+
+          expect(sut).toThrow(CnpjCheckDigitsInputInvalidException);
+          expect(sut).toThrow(/branch id/i);
+        },
+      );
+    });
   });
 
   describe('first digit', (): void => {

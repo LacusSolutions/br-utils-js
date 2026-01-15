@@ -13,6 +13,10 @@ const CNPJ_BASE_ID_LENGTH = 8;
 const CNPJ_BASE_ID_LAST_INDEX = CNPJ_BASE_ID_LENGTH - 1;
 const CNPJ_INVALID_BASE_ID = '0'.repeat(CNPJ_BASE_ID_LENGTH);
 
+const CNPJ_BRANCH_ID_LENGTH = 4;
+const CNPJ_BRANCH_ID_LAST_INDEX = CNPJ_BASE_ID_LAST_INDEX + CNPJ_BRANCH_ID_LENGTH;
+const CNPJ_INVALID_BRANCH_ID = '0'.repeat(CNPJ_BRANCH_ID_LENGTH);
+
 const DELTA_FACTOR = '0'.charCodeAt(0);
 
 /**
@@ -36,6 +40,7 @@ export class CnpjCheckDigits {
 
     this.validateLength(parsedInput, cnpjInput);
     this.validateBaseId(parsedInput, cnpjInput);
+    this.validateBranchId(parsedInput, cnpjInput);
 
     this.cnpjChars = parsedInput.slice(0, CNPJ_MIN_LENGTH);
   }
@@ -111,6 +116,21 @@ export class CnpjCheckDigits {
       throw new CnpjCheckDigitsInputInvalidException(
         originalInput,
         `Base ID "${CNPJ_INVALID_BASE_ID}" is not eligible.`,
+      );
+    }
+  }
+
+  private validateBranchId(cnpjIntArray: string[], originalInput: CnpjInput): void {
+    const cnpjBranchIdArray = cnpjIntArray.slice(
+      CNPJ_BASE_ID_LENGTH,
+      CNPJ_BRANCH_ID_LAST_INDEX + 1,
+    );
+    const cnpjBranchIdString = cnpjBranchIdArray.join('');
+
+    if (cnpjBranchIdString === CNPJ_INVALID_BRANCH_ID) {
+      throw new CnpjCheckDigitsInputInvalidException(
+        originalInput,
+        `Branch ID "${CNPJ_INVALID_BRANCH_ID}" is not eligible.`,
       );
     }
   }
