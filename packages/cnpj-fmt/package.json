@@ -50,11 +50,6 @@
     "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
     "test:ci": "bun test"
   },
-  "dependencies": {
-    "deepmerge": "^4.3.1",
-    "html-escaper": "^3.0.3",
-    "num-only": "^1.2.9"
-  },
   "devDependencies": {
     "@babel/preset-env": "^7.28.6",
     "@rollup/plugin-babel": "^6.1.0",
@@ -62,8 +57,6 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "~0.4.4",
     "@rollup/plugin-typescript": "^12.3.0",
-    "@types/deepmerge": "^2.2.3",
-    "@types/html-escaper": "^3.0.4",
     "@types/node": "^22.19.6",
     "rollup": "^4.55.1",
     "rollup-plugin-delete": "^3.0.2",
