@@ -25,6 +25,7 @@ Utility class to calculate check digits on CNPJ (Brazilian legal entity ID).
 - ✅ **Multiple Input Formats**: Accepts strings or arrays of strings
 - ✅ **Format Agnostic**: Automatically strips non-alphanumeric characters from string input
 - ✅ **Auto-Expansion**: Automatically expands multi-character strings in arrays to individual characters
+- ✅ **Input Validation**: Rejects invalid CNPJs (all-zero base/branch IDs, repeated digits)
 - ✅ **Lazy Evaluation**: Check digits are calculated only when accessed (via properties)
 - ✅ **Caching**: Calculated values are cached for subsequent access
 - ✅ **TypeScript Support**: Full TypeScript definitions included
@@ -166,6 +167,41 @@ try {
 }
 ```
 
+### `CnpjCheckDigitsInputInvalidException`
+
+Thrown when the input is structurally invalid, such as:
+- Base ID (first 8 characters) is all zeros ("00000000")
+- Branch ID (characters 9-12) is all zeros ("0000")
+- All 12 characters are repeated (e.g., "111111111111")
+
+```js
+import CnpjCheckDigits, { CnpjCheckDigitsInputInvalidException } from '@lacussoft/cnpj-dv'
+
+try {
+  new CnpjCheckDigits('000000000001')  // invalid: base ID is all zeros
+} catch (error) {
+  if (error instanceof CnpjCheckDigitsInputInvalidException) {
+    console.log(error.message)  // CNPJ input "000000000001" is invalid. Base ID "00000000" is not eligible.
+  }
+}
+
+try {
+  new CnpjCheckDigits('123456780000')  // invalid: branch ID is all zeros
+} catch (error) {
+  if (error instanceof CnpjCheckDigitsInputInvalidException) {
+    console.log(error.message)  // CNPJ input "123456780000" is invalid. Branch ID "0000" is not eligible.
+  }
+}
+
+try {
+  new CnpjCheckDigits('111111111111')  // invalid: all repeated digits
+} catch (error) {
+  if (error instanceof CnpjCheckDigitsInputInvalidException) {
+    console.log(error.message)  // CNPJ input "111111111111" is invalid. Repeated digits are not considered valid.
+  }
+}
+```
+
 ### Catch any error from the package
 
 All type errors extend from `CnpjCheckDigitsTypeError` and all exceptions extend from `CnpjCheckDigitsException`, so you can use these types to handle any error thrown by the module.
@@ -202,6 +238,7 @@ Creates a new `CnpjCheckDigits` instance from the provided CNPJ base characters.
 **Throws:**
 - `CnpjCheckDigitsInputTypeError`: If the input type is not supported
 - `CnpjCheckDigitsInputLengthException`: If the input does not contain 12-14 characters
+- `CnpjCheckDigitsInputInvalidException`: If the input is structurally invalid (e.g., all-zero base/branch ID, repeated digits)
 
 **Returns:**
 - `CnpjCheckDigits`: A new instance ready to calculate check digits
