@@ -1,43 +1,39 @@
-import { escape as escapeHTML } from 'html-escaper';
-import numOnly from 'num-only';
+import { CnpjFormatter } from './cnpj-formatter';
+import type { OnFailCallback } from './cnpj-formatter-options';
 
-import mergeOptions from './merge-options';
-import type { CnpjFormattingOptions } from './merge-options';
+export interface CnpjFormatOptions<OnErrFallback = string> {
+  hidden?: boolean | null;
+  hiddenKey?: string | null;
+  hiddenStart?: number | null;
+  hiddenEnd?: number | null;
+  dotKey?: string | null;
+  slashKey?: string | null;
+  dashKey?: string | null;
+  escape?: boolean | null;
+  onFail?: OnFailCallback<OnErrFallback> | null;
+}
 
 /**
- * Format a given CNPJ char sequence.
+ * Formats a CNPJ string according to the given options.
+ * Default options returns the traditional CNPJ format (`91.415.732/0007-93`).
  */
 function cnpjFmt<OnErrFallback = string>(
   cnpjString: string,
-  options?: CnpjFormattingOptions<OnErrFallback>,
-): string {
-  const CNPJ_LENGTH = 14;
-  const cnpjArray = numOnly(cnpjString).split('');
-  const customOptions = mergeOptions(options);
+  options?: CnpjFormatOptions<OnErrFallback>,
+): string | OnErrFallback {
+  const formatter = new CnpjFormatter<OnErrFallback>(
+    options?.hidden,
+    options?.hiddenKey,
+    options?.hiddenStart,
+    options?.hiddenEnd,
+    options?.dotKey,
+    options?.slashKey,
+    options?.dashKey,
+    options?.escape,
+    options?.onFail,
+  );
 
-  if (cnpjArray.length !== CNPJ_LENGTH) {
-    const error = new Error(`Parameter "${cnpjString}" does not contain ${CNPJ_LENGTH} digits.`);
-
-    return customOptions.onFail(cnpjString, error) as string;
-  }
-
-  if (customOptions.hidden) {
-    for (let i = customOptions.hiddenRange.start; i <= customOptions.hiddenRange.end; i++) {
-      cnpjArray[i] = customOptions.hiddenKey;
-    }
-  }
-
-  cnpjArray.splice(12, 0, customOptions.delimiters.dash);
-  cnpjArray.splice(8, 0, customOptions.delimiters.slash);
-  cnpjArray.splice(5, 0, customOptions.delimiters.dot);
-  cnpjArray.splice(2, 0, customOptions.delimiters.dot);
-  const cnpjPretty = cnpjArray.join('');
-
-  if (customOptions.escape) {
-    return escapeHTML(cnpjPretty);
-  }
-
-  return cnpjPretty;
+  return formatter.format(cnpjString);
 }
 
 export default cnpjFmt;

@@ -9,8 +9,20 @@ describe('build in CommonJS', () => {
     await expect(file.exists()).resolves.toBe(true);
   });
 
-  test('file contains a "module.exports" assignment', async () => {
-    await expect(file.text()).resolves.toContain('module.exports = cnpjFmt');
+  test('file exports cnpjFmt as named export', async () => {
+    await expect(file.text()).resolves.toContain('exports.cnpjFmt = cnpjFmt');
+  });
+
+  test('file exports default as cnpjFmt', async () => {
+    await expect(file.text()).resolves.toContain('exports.default = cnpjFmt');
+  });
+
+  test('file exports CnpjFormatter class', async () => {
+    await expect(file.text()).resolves.toContain('exports.CnpjFormatter = CnpjFormatter');
+  });
+
+  test('file exports CnpjFormatterOptions class', async () => {
+    await expect(file.text()).resolves.toContain('exports.CnpjFormatterOptions = CnpjFormatterOptions');
   });
 });
 
@@ -22,8 +34,12 @@ describe('build in ES Module', () => {
     await expect(file.exists()).resolves.toBe(true);
   });
 
-  test('file contains an "export default" expression', async () => {
-    await expect(file.text()).resolves.toContain('export { cnpjFmt as default }');
+  test('file contains named exports including cnpjFmt as default', async () => {
+    await expect(file.text()).resolves.toContain('cnpjFmt as default');
+  });
+
+  test('file contains CnpjFormatter export', async () => {
+    await expect(file.text()).resolves.toContain('CnpjFormatter');
   });
 });
 
@@ -35,8 +51,23 @@ describe('build types', () => {
     await expect(file.exists()).resolves.toBe(true);
   });
 
-  test('file contains an "export default" expression', async () => {
-    await expect(file.text()).resolves.toContain('export { cnpjFmt as default }');
+  test('file contains cnpjFmt as default export', async () => {
+    await expect(file.text()).resolves.toContain('cnpjFmt as default');
+  });
+
+  test('file contains CnpjFormatter class declaration', async () => {
+    await expect(file.text()).resolves.toContain('declare class CnpjFormatter');
+  });
+
+  test('file contains CnpjFormatterOptions class declaration', async () => {
+    await expect(file.text()).resolves.toContain('declare class CnpjFormatterOptions');
+  });
+
+  test('file contains exception class declarations', async () => {
+    const content = await file.text();
+    expect(content).toContain('declare class CnpjFormatterError');
+    expect(content).toContain('declare class CnpjFormatterInvalidLengthError');
+    expect(content).toContain('declare class CnpjFormatterHiddenRangeError');
   });
 });
 
@@ -48,14 +79,16 @@ describe('UMD file', () => {
     await expect(file.exists()).resolves.toBe(true);
   });
 
-  test('file evaluates to a global function called "cnpjFmt"', async () => {
+  test('file evaluates to a global object with cnpjFmt function', async () => {
     const fileContent = await file.text();
-    const makeGlobalFunction = new Function(`${fileContent}\nreturn cnpjFmt;`);
-    const globalFunction = makeGlobalFunction();
+    const makeGlobalObject = new Function(`${fileContent}\nreturn cnpjFmt;`);
+    const globalObject = makeGlobalObject();
 
-    expect(typeof globalFunction).toBe('function');
-    expect(globalFunction.name).toBe('cnpjFmt');
-    expect(globalFunction('12345678000910')).toBe('12.345.678/0009-10');
+    expect(typeof globalObject).toBe('object');
+    expect(typeof globalObject.cnpjFmt).toBe('function');
+    expect(typeof globalObject.default).toBe('function');
+    expect(typeof globalObject.CnpjFormatter).toBe('function');
+    expect(globalObject.cnpjFmt('12345678000910')).toBe('12.345.678/0009-10');
   });
 });
 
@@ -67,13 +100,14 @@ describe('UMD minified file', () => {
     await expect(file.exists()).resolves.toBe(true);
   });
 
-  test('file evaluates to a global function called "cnpjFmt"', async () => {
+  test('file evaluates to a global object with cnpjFmt function', async () => {
     const fileContent = await file.text();
-    const makeGlobalFunction = new Function(`${fileContent}\nreturn cnpjFmt;`);
-    const globalFunction = makeGlobalFunction();
+    const makeGlobalObject = new Function(`${fileContent}\nreturn cnpjFmt;`);
+    const globalObject = makeGlobalObject();
 
-    expect(typeof globalFunction).toBe('function');
-    expect(globalFunction.name).toBe('');
-    expect(globalFunction('12345678000910')).toBe('12.345.678/0009-10');
+    expect(typeof globalObject).toBe('object');
+    expect(typeof globalObject.cnpjFmt).toBe('function');
+    expect(typeof globalObject.default).toBe('function');
+    expect(globalObject.cnpjFmt('12345678000910')).toBe('12.345.678/0009-10');
   });
 });

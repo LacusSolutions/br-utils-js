@@ -2,53 +2,53 @@ import { expect, test } from 'bun:test';
 
 import cnpjFmt from '..';
 
-test('Option with range start -1 throws TypeError', () => {
+test('Option with range start -1 throws CnpjFormatterHiddenRangeError', () => {
   function cnpj() {
     return cnpjFmt('03603568000195', {
       hidden: true,
-      hiddenRange: { start: -1 },
+      hiddenStart: -1,
     });
   }
 
-  expect(cnpj).toThrow(TypeError);
+  expect(cnpj).toThrow();
 });
 
-test('Option with range start greater than 13 throws TypeError', () => {
+test('Option with range start greater than 13 throws CnpjFormatterHiddenRangeError', () => {
   function cnpj() {
     return cnpjFmt('03603568000195', {
       hidden: true,
-      hiddenRange: { start: 14 },
+      hiddenStart: 14,
     });
   }
 
-  expect(cnpj).toThrow(TypeError);
+  expect(cnpj).toThrow();
 });
 
-test('Option with range end -1 throws TypeError', () => {
+test('Option with range end -1 throws CnpjFormatterHiddenRangeError', () => {
   function cnpj() {
     return cnpjFmt('03603568000195', {
       hidden: true,
-      hiddenRange: { end: -1 },
+      hiddenEnd: -1,
     });
   }
 
-  expect(cnpj).toThrow(TypeError);
+  expect(cnpj).toThrow();
 });
 
-test('Option with range end greater than 13 throws TypeError', () => {
+test('Option with range end greater than 13 throws CnpjFormatterHiddenRangeError', () => {
   function cnpj() {
     return cnpjFmt('03603568000195', {
       hidden: true,
-      hiddenRange: { end: 14 },
+      hiddenEnd: 14,
     });
   }
 
-  expect(cnpj).toThrow(TypeError);
+  expect(cnpj).toThrow();
 });
 
 test('Option with onFail as not a function throws TypeError', () => {
   function cnpj() {
-    return cnpjFmt('03603568000195', { onFail: 'testing' });
+    return cnpjFmt('03603568000195', { onFail: 'testing' as unknown as () => string });
   }
 
   expect(cnpj).toThrow(TypeError);

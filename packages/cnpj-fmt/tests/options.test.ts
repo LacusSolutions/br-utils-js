@@ -70,7 +70,7 @@ test('"036035680001 dv 95" formats to "03.603.568/0001-95"', () => {
 
 test('"03603568000195" formats to "03603568/0001-95"', () => {
   const cnpj = cnpjFmt('03603568000195', {
-    delimiters: { dot: '' },
+    dotKey: '',
   });
 
   expect(cnpj).toBe('03603568/0001-95');
@@ -78,7 +78,7 @@ test('"03603568000195" formats to "03603568/0001-95"', () => {
 
 test('"03603568000195" formats to "03.603.568:0001-95"', () => {
   const cnpj = cnpjFmt('03603568000195', {
-    delimiters: { slash: ':' },
+    slashKey: ':',
   });
 
   expect(cnpj).toBe('03.603.568:0001-95');
@@ -86,7 +86,7 @@ test('"03603568000195" formats to "03.603.568:0001-95"', () => {
 
 test('"03603568000195" formats to "03.603.568/0001.95"', () => {
   const cnpj = cnpjFmt('03603568000195', {
-    delimiters: { dash: '.' },
+    dashKey: '.',
   });
 
   expect(cnpj).toBe('03.603.568/0001.95');
@@ -94,11 +94,9 @@ test('"03603568000195" formats to "03.603.568/0001.95"', () => {
 
 test('"03.603.568/0001-95" formats to "03603568000195"', () => {
   const cnpj = cnpjFmt('03.603.568/0001-95', {
-    delimiters: {
-      dot: '',
-      slash: '',
-      dash: '',
-    },
+    dotKey: '',
+    slashKey: '',
+    dashKey: '',
   });
 
   expect(cnpj).toBe('03603568000195');
@@ -106,11 +104,9 @@ test('"03.603.568/0001-95" formats to "03603568000195"', () => {
 
 test('"03603568000195" formats to "03&lt;603&lt;568&amp;0001&gt;95"', () => {
   const cnpj = cnpjFmt('03603568000195', {
-    delimiters: {
-      dot: '<',
-      slash: '&',
-      dash: '>',
-    },
+    dotKey: '<',
+    slashKey: '&',
+    dashKey: '>',
     escape: true,
   });
 
@@ -128,7 +124,7 @@ test('"03603568000195" formats to "03.603.***/****-**"', () => {
 test('"03603568000195" formats to "03.603.568/****-**"', () => {
   const cnpj = cnpjFmt('03603568000195', {
     hidden: true,
-    hiddenRange: { start: 8 },
+    hiddenStart: 8,
   });
 
   expect(cnpj).toBe('03.603.568/****-**');
@@ -137,7 +133,7 @@ test('"03603568000195" formats to "03.603.568/****-**"', () => {
 test('"03603568000195" formats to "03.603.***/****-95"', () => {
   const cnpj = cnpjFmt('03603568000195', {
     hidden: true,
-    hiddenRange: { end: 11 },
+    hiddenEnd: 11,
   });
 
   expect(cnpj).toBe('03.603.***/****-95');
@@ -146,10 +142,8 @@ test('"03603568000195" formats to "03.603.***/****-95"', () => {
 test('"03603568000195" formats to "**.***.***/0001-95"', () => {
   const cnpj = cnpjFmt('03603568000195', {
     hidden: true,
-    hiddenRange: {
-      start: 0,
-      end: 7,
-    },
+    hiddenStart: 0,
+    hiddenEnd: 7,
   });
 
   expect(cnpj).toBe('**.***.***/0001-95');
@@ -158,10 +152,8 @@ test('"03603568000195" formats to "**.***.***/0001-95"', () => {
 test('"03603568000195" formats to "03.***.***/****-95"', () => {
   const cnpj = cnpjFmt('03603568000195', {
     hidden: true,
-    hiddenRange: {
-      start: 11,
-      end: 2,
-    },
+    hiddenStart: 11,
+    hiddenEnd: 2,
   });
 
   expect(cnpj).toBe('03.***.***/****-95');
@@ -180,7 +172,7 @@ test('"03603568000195" formats to "03.603.568/####-##"', () => {
   const cnpj = cnpjFmt('03603568000195', {
     hidden: true,
     hiddenKey: '#',
-    hiddenRange: { start: 8 },
+    hiddenStart: 8,
   });
 
   expect(cnpj).toBe('03.603.568/####-##');
