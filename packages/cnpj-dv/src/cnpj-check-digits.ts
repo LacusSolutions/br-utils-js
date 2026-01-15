@@ -1,5 +1,4 @@
 import {
-  CnpjCheckDigitsCalculationException,
   CnpjCheckDigitsInputInvalidException,
   CnpjCheckDigitsInputLengthException,
   CnpjCheckDigitsInputTypeError,
@@ -149,18 +148,10 @@ export class CnpjCheckDigits {
   }
 
   protected calculate(cnpjSequence: string[]): number {
-    const minLength = CNPJ_MIN_LENGTH;
-    const maxLength = CNPJ_MAX_LENGTH - 1;
-    const sequenceLength = cnpjSequence.length;
-
-    if (sequenceLength < minLength || sequenceLength > maxLength) {
-      throw new CnpjCheckDigitsCalculationException(cnpjSequence);
-    }
-
     let factor = 2;
     let sumResult = 0;
 
-    for (let i = sequenceLength - 1; i >= 0; i--) {
+    for (let i = cnpjSequence.length - 1; i >= 0; i--) {
       const charCode = cnpjSequence[i].charCodeAt(0);
       const charValue = charCode - DELTA_FACTOR;
 

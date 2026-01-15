@@ -89,17 +89,3 @@ export class CnpjCheckDigitsInputInvalidException extends CnpjCheckDigitsExcepti
     this.reason = reason;
   }
 }
-
-/**
- * Raised when the calculation of the CNPJ check digits fails.
- */
-export class CnpjCheckDigitsCalculationException extends CnpjCheckDigitsException {
-  public readonly actualSequence: string[];
-
-  public constructor(actualSequence: string[]) {
-    super(
-      `Failed to calculate CNPJ check digits for the sequence: [${actualSequence.join(', ')}].`,
-    );
-    this.actualSequence = actualSequence;
-  }
-}

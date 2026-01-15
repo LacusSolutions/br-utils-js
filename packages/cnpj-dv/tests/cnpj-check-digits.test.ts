@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, type Mock, spyOn } from 'bun:test';
 
 import CnpjCheckDigits, {
-  CnpjCheckDigitsCalculationException,
   CnpjCheckDigitsInputInvalidException,
   CnpjCheckDigitsInputLengthException,
   CnpjCheckDigitsInputTypeError,
@@ -557,76 +556,6 @@ describe('CnpjCheckDigits', (): void => {
         expect(cnpjCheckDigits.first).toBe('9');
         expect(cnpjCheckDigits.second).toBe('3');
         expect(cnpjCheckDigits.cnpj).toBe('91415732000793');
-      });
-    });
-  });
-
-  describe('protected calculate method', (): void => {
-    class TestCnpjCheckDigits extends CnpjCheckDigits {
-      public exposeCalculate(sequence: string[]): number {
-        return this.calculate(sequence);
-      }
-    }
-
-    describe('when called with invalid sequence length via subclass', (): void => {
-      it('throws CnpjCheckDigitsCalculationException for sequence shorter than 12 digits', (): void => {
-        const testInstance = new TestCnpjCheckDigits('914157320007');
-        const shortSequence = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1'];
-
-        const sut = (): number => testInstance.exposeCalculate(shortSequence);
-
-        expect(sut).toThrow(CnpjCheckDigitsCalculationException);
-      });
-
-      it('throws CnpjCheckDigitsCalculationException for sequence longer than 13 digits', (): void => {
-        const testInstance = new TestCnpjCheckDigits('914157320007');
-        const longSequence = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4'];
-
-        const sut = (): number => testInstance.exposeCalculate(longSequence);
-
-        expect(sut).toThrow(CnpjCheckDigitsCalculationException);
-      });
-
-      it('throws CnpjCheckDigitsCalculationException for empty sequence', (): void => {
-        const testInstance = new TestCnpjCheckDigits('914157320007');
-        const emptySequence: string[] = [];
-
-        const sut = (): number => testInstance.exposeCalculate(emptySequence);
-
-        expect(sut).toThrow(CnpjCheckDigitsCalculationException);
-      });
-
-      it('includes the actual sequence in the exception', (): void => {
-        const testInstance = new TestCnpjCheckDigits('914157320007');
-        const invalidSequence = ['1', '2', '3'];
-
-        try {
-          testInstance.exposeCalculate(invalidSequence);
-          expect.unreachable('Expected exception to be thrown');
-        } catch (error) {
-          expect(error).toBeInstanceOf(CnpjCheckDigitsCalculationException);
-          expect((error as CnpjCheckDigitsCalculationException).actualSequence).toEqual(
-            invalidSequence,
-          );
-        }
-      });
-
-      it('does not throw for valid 12-digit sequence', (): void => {
-        const testInstance = new TestCnpjCheckDigits('914157320007');
-        const validSequence = ['9', '1', '4', '1', '5', '7', '3', '2', '0', '0', '0', '7'];
-
-        const result = testInstance.exposeCalculate(validSequence);
-
-        expect(typeof result).toBe('number');
-      });
-
-      it('does not throw for valid 13-digit sequence', (): void => {
-        const testInstance = new TestCnpjCheckDigits('914157320007');
-        const validSequence = ['9', '1', '4', '1', '5', '7', '3', '2', '0', '0', '0', '7', '9'];
-
-        const result = testInstance.exposeCalculate(validSequence);
-
-        expect(typeof result).toBe('number');
       });
     });
   });
