@@ -74,15 +74,18 @@ export class CnpjCheckDigitsInputLengthException extends CnpjCheckDigitsExceptio
 }
 
 /**
- * Raised when the calculation of the CNPJ check digits fails.
+ * Raised when the class input is not valid (e.g., repeated digits).
  */
-export class CnpjCheckDigitsCalculationException extends CnpjCheckDigitsException {
-  public readonly actualSequence: string[];
+export class CnpjCheckDigitsInputInvalidException extends CnpjCheckDigitsException {
+  public readonly actualInput: CnpjInput;
+  public readonly reason: string;
 
-  public constructor(actualSequence: string[]) {
-    super(
-      `Failed to calculate CNPJ check digits for the sequence: [${actualSequence.join(', ')}].`,
-    );
-    this.actualSequence = actualSequence;
+  public constructor(actualInput: CnpjInput, reason: string) {
+    const fmtActualInput =
+      typeof actualInput === 'string' ? `"${actualInput}"` : JSON.stringify(actualInput);
+
+    super(`CNPJ input ${fmtActualInput} is invalid. ${reason}`);
+    this.actualInput = actualInput;
+    this.reason = reason;
   }
 }

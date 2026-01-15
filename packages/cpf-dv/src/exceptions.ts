@@ -89,15 +89,3 @@ export class CpfCheckDigitsInputInvalidException extends CpfCheckDigitsException
     this.reason = reason;
   }
 }
-
-/**
- * Raised when the calculation of the CPF check digits fails.
- */
-export class CpfCheckDigitsCalculationException extends CpfCheckDigitsException {
-  public readonly actualSequence: number[];
-
-  public constructor(actualSequence: number[]) {
-    super(`Failed to calculate CPF check digits for the sequence: [${actualSequence.join(', ')}].`);
-    this.actualSequence = actualSequence;
-  }
-}

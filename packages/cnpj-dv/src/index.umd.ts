@@ -4,8 +4,8 @@ import {
   CnpjCheckDigits as CnpjCheckDigitsBase,
 } from './cnpj-check-digits';
 import {
-  CnpjCheckDigitsCalculationException,
   CnpjCheckDigitsException,
+  CnpjCheckDigitsInputInvalidException,
   CnpjCheckDigitsInputLengthException,
   CnpjCheckDigitsInputTypeError,
   CnpjCheckDigitsTypeError,
@@ -17,7 +17,7 @@ export default class CnpjCheckDigits extends CnpjCheckDigitsBase {
 
   public static readonly Exception = CnpjCheckDigitsException;
   public static readonly TypeError = CnpjCheckDigitsTypeError;
-  public static readonly CalculationException = CnpjCheckDigitsCalculationException;
+  public static readonly InputInvalidException = CnpjCheckDigitsInputInvalidException;
   public static readonly InputLengthException = CnpjCheckDigitsInputLengthException;
   public static readonly InputTypeError = CnpjCheckDigitsInputTypeError;
 }

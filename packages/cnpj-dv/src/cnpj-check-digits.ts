@@ -1,5 +1,5 @@
 import {
-  CnpjCheckDigitsCalculationException,
+  CnpjCheckDigitsInputInvalidException,
   CnpjCheckDigitsInputLengthException,
   CnpjCheckDigitsInputTypeError,
 } from './exceptions';
@@ -7,6 +7,14 @@ import { type CnpjInput } from './types';
 
 export const CNPJ_MIN_LENGTH = 12;
 export const CNPJ_MAX_LENGTH = 14;
+
+const CNPJ_BASE_ID_LENGTH = 8;
+const CNPJ_BASE_ID_LAST_INDEX = CNPJ_BASE_ID_LENGTH - 1;
+const CNPJ_INVALID_BASE_ID = '0'.repeat(CNPJ_BASE_ID_LENGTH);
+
+const CNPJ_BRANCH_ID_LENGTH = 4;
+const CNPJ_BRANCH_ID_LAST_INDEX = CNPJ_BASE_ID_LAST_INDEX + CNPJ_BRANCH_ID_LENGTH;
+const CNPJ_INVALID_BRANCH_ID = '0'.repeat(CNPJ_BRANCH_ID_LENGTH);
 
 const DELTA_FACTOR = '0'.charCodeAt(0);
 
@@ -30,6 +38,9 @@ export class CnpjCheckDigits {
     }
 
     this.validateLength(parsedInput, cnpjInput);
+    this.validateBaseId(parsedInput, cnpjInput);
+    this.validateBranchId(parsedInput, cnpjInput);
+    this.validateNonRepeatedDigits(parsedInput, cnpjInput);
 
     this.cnpjChars = parsedInput.slice(0, CNPJ_MIN_LENGTH);
   }
@@ -97,19 +108,50 @@ export class CnpjCheckDigits {
     }
   }
 
-  protected calculate(cnpjSequence: string[]): number {
-    const minLength = CNPJ_MIN_LENGTH;
-    const maxLength = CNPJ_MAX_LENGTH - 1;
-    const sequenceLength = cnpjSequence.length;
+  private validateBaseId(cnpjIntArray: string[], originalInput: CnpjInput): void {
+    const cnpjBaseIdArray = cnpjIntArray.slice(0, CNPJ_BASE_ID_LAST_INDEX + 1);
+    const cnpjBaseIdString = cnpjBaseIdArray.join('');
 
-    if (sequenceLength < minLength || sequenceLength > maxLength) {
-      throw new CnpjCheckDigitsCalculationException(cnpjSequence);
+    if (cnpjBaseIdString === CNPJ_INVALID_BASE_ID) {
+      throw new CnpjCheckDigitsInputInvalidException(
+        originalInput,
+        `Base ID "${CNPJ_INVALID_BASE_ID}" is not eligible.`,
+      );
     }
+  }
 
+  private validateBranchId(cnpjIntArray: string[], originalInput: CnpjInput): void {
+    const cnpjBranchIdArray = cnpjIntArray.slice(
+      CNPJ_BASE_ID_LENGTH,
+      CNPJ_BRANCH_ID_LAST_INDEX + 1,
+    );
+    const cnpjBranchIdString = cnpjBranchIdArray.join('');
+
+    if (cnpjBranchIdString === CNPJ_INVALID_BRANCH_ID) {
+      throw new CnpjCheckDigitsInputInvalidException(
+        originalInput,
+        `Branch ID "${CNPJ_INVALID_BRANCH_ID}" is not eligible.`,
+      );
+    }
+  }
+
+  private validateNonRepeatedDigits(cnpjIntArray: string[], originalInput: CnpjInput): void {
+    const eligibleCnpjIntArray = cnpjIntArray.slice(0, CNPJ_MIN_LENGTH);
+    const uniqueDigits = new Set(eligibleCnpjIntArray);
+
+    if (uniqueDigits.size === 1 && /^\d$/.test(eligibleCnpjIntArray[0])) {
+      throw new CnpjCheckDigitsInputInvalidException(
+        originalInput,
+        'Repeated digits are not considered valid.',
+      );
+    }
+  }
+
+  protected calculate(cnpjSequence: string[]): number {
     let factor = 2;
     let sumResult = 0;
 
-    for (let i = sequenceLength - 1; i >= 0; i--) {
+    for (let i = cnpjSequence.length - 1; i >= 0; i--) {
       const charCode = cnpjSequence[i].charCodeAt(0);
       const charValue = charCode - DELTA_FACTOR;
 

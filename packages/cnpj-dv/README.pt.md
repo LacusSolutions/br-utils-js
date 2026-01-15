@@ -12,6 +12,7 @@ Classe utilitária para calcular os dígitos verificadores de CNPJ (Cadastro Nac
 - ✅ **Múltiplos Formatos de Entrada**: Aceita strings ou arrays de strings
 - ✅ **Agnóstico a Formatação**: Remove automaticamente caracteres não alfanuméricos da entrada
 - ✅ **Auto-Expansão**: Expande automaticamente strings com múltiplos caracteres em arrays para caracteres individuais
+- ✅ **Validação de Entrada**: Rejeita CNPJs inválidos (base/filial zerados, dígitos repetidos)
 - ✅ **Avaliação Lazy**: Os dígitos verificadores são calculados apenas quando acessados (via propriedades)
 - ✅ **Cache**: Valores calculados são armazenados em cache para acessos subsequentes
 - ✅ **Suporte a TypeScript**: Definições TypeScript completas incluídas
@@ -153,6 +154,42 @@ try {
 }
 ```
 
+### `CnpjCheckDigitsInputInvalidException`
+
+Lançado quando a entrada é estruturalmente inválida, como:
+- ID base (primeiros 8 caracteres) é todo zeros ("00000000")
+- ID da filial (caracteres 9-12) é todo zeros ("0000")
+- Todos os 12 caracteres são repetidos com digitos numéricos (ex: "111111111111")
+
+```js
+import CnpjCheckDigits, { CnpjCheckDigitsInputInvalidException } from '@lacussoft/cnpj-dv'
+
+try {
+  new CnpjCheckDigits('000000000001')  // inválido: ID base é todo zeros
+} catch (error) {
+  if (error instanceof CnpjCheckDigitsInputInvalidException) {
+    console.log(error.message)  // CNPJ input "000000000001" is invalid. Base ID "00000000" is not eligible.
+    console.log(error.reason)   // Base ID "00000000" is not eligible.
+  }
+}
+
+try {
+  new CnpjCheckDigits('123456780000')  // inválido: ID da filial é todo zeros
+} catch (error) {
+  if (error instanceof CnpjCheckDigitsInputInvalidException) {
+    console.log(error.message)  // CNPJ input "123456780000" is invalid. Branch ID "0000" is not eligible.
+  }
+}
+
+try {
+  new CnpjCheckDigits('111111111111')  // inválido: todos os dígitos repetidos
+} catch (error) {
+  if (error instanceof CnpjCheckDigitsInputInvalidException) {
+    console.log(error.message)  // CNPJ input "111111111111" is invalid. Repeated digits are not considered valid.
+  }
+}
+```
+
 ### Capturar qualquer erro do pacote
 
 Todos os type errors estendem de `CnpjCheckDigitsTypeError` e todas as exceptions estendem de `CnpjCheckDigitsException`, então você pode usar esses tipos para tratar qualquer erro lançado pelo módulo.
@@ -189,6 +226,7 @@ Cria uma nova instância de `CnpjCheckDigits` a partir dos caracteres base do CN
 **Lança:**
 - `CnpjCheckDigitsInputTypeError`: Se o tipo de entrada não for suportado
 - `CnpjCheckDigitsInputLengthException`: Se a entrada não contiver 12-14 caracteres
+- `CnpjCheckDigitsInputInvalidException`: Se a entrada for estruturalmente inválida (ex: base/filial zerados, dígitos repetidos)
 
 **Retorna:**
 - `CnpjCheckDigits`: Uma nova instância pronta para calcular os dígitos verificadores
