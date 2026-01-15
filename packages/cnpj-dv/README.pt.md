@@ -159,7 +159,7 @@ try {
 Lançado quando a entrada é estruturalmente inválida, como:
 - ID base (primeiros 8 caracteres) é todo zeros ("00000000")
 - ID da filial (caracteres 9-12) é todo zeros ("0000")
-- Todos os 12 caracteres são repetidos (ex: "111111111111")
+- Todos os 12 caracteres são repetidos com digitos numéricos (ex: "111111111111")
 
 ```js
 import CnpjCheckDigits, { CnpjCheckDigitsInputInvalidException } from '@lacussoft/cnpj-dv'

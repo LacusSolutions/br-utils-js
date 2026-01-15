@@ -172,7 +172,7 @@ try {
 Thrown when the input is structurally invalid, such as:
 - Base ID (first 8 characters) is all zeros ("00000000")
 - Branch ID (characters 9-12) is all zeros ("0000")
-- All 12 characters are repeated (e.g., "111111111111")
+- All 12 characters are repeated with numeric digits (e.g., "111111111111")
 
 ```js
 import CnpjCheckDigits, { CnpjCheckDigitsInputInvalidException } from '@lacussoft/cnpj-dv'
