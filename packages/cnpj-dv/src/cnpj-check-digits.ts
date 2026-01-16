@@ -22,47 +22,47 @@ const DELTA_FACTOR = '0'.charCodeAt(0);
  * Class to calculate CNPJ check digits.
  */
 export class CnpjCheckDigits {
-  private readonly cnpjChars: string[];
-  private cachedFirstDigit: number | undefined = undefined;
-  private cachedSecondDigit: number | undefined = undefined;
+  private readonly _cnpjChars: string[];
+  private _cachedFirstDigit: number | undefined = undefined;
+  private _cachedSecondDigit: number | undefined = undefined;
 
   public constructor(cnpjInput: CnpjInput) {
     let parsedInput: string[];
 
     if (typeof cnpjInput === 'string') {
-      parsedInput = this.handleStringInput(cnpjInput);
+      parsedInput = this._handleStringInput(cnpjInput);
     } else if (Array.isArray(cnpjInput)) {
-      parsedInput = this.handleArrayInput(cnpjInput);
+      parsedInput = this._handleArrayInput(cnpjInput);
     } else {
       throw new CnpjCheckDigitsInputTypeError(cnpjInput);
     }
 
-    this.validateLength(parsedInput, cnpjInput);
-    this.validateBaseId(parsedInput, cnpjInput);
-    this.validateBranchId(parsedInput, cnpjInput);
-    this.validateNonRepeatedDigits(parsedInput, cnpjInput);
+    this._validateLength(parsedInput, cnpjInput);
+    this._validateBaseId(parsedInput, cnpjInput);
+    this._validateBranchId(parsedInput, cnpjInput);
+    this._validateNonRepeatedDigits(parsedInput, cnpjInput);
 
-    this.cnpjChars = parsedInput.slice(0, CNPJ_MIN_LENGTH);
+    this._cnpjChars = parsedInput.slice(0, CNPJ_MIN_LENGTH);
   }
 
   public get first(): string {
-    if (this.cachedFirstDigit === undefined) {
-      const baseCharsSequence = [...this.cnpjChars];
+    if (this._cachedFirstDigit === undefined) {
+      const baseCharsSequence = [...this._cnpjChars];
 
-      this.cachedFirstDigit = this.calculate(baseCharsSequence);
+      this._cachedFirstDigit = this.calculate(baseCharsSequence);
     }
 
-    return this.cachedFirstDigit.toString();
+    return this._cachedFirstDigit.toString();
   }
 
   public get second(): string {
-    if (this.cachedSecondDigit === undefined) {
-      const baseCharsSequence = [...this.cnpjChars, this.first];
+    if (this._cachedSecondDigit === undefined) {
+      const baseCharsSequence = [...this._cnpjChars, this.first];
 
-      this.cachedSecondDigit = this.calculate(baseCharsSequence);
+      this._cachedSecondDigit = this.calculate(baseCharsSequence);
     }
 
-    return this.cachedSecondDigit.toString();
+    return this._cachedSecondDigit.toString();
   }
 
   public get both(): string {
@@ -70,10 +70,10 @@ export class CnpjCheckDigits {
   }
 
   public get cnpj(): string {
-    return [...this.cnpjChars, this.both].join('');
+    return [...this._cnpjChars, this.both].join('');
   }
 
-  private handleStringInput(cnpjString: string): string[] {
+  private _handleStringInput(cnpjString: string): string[] {
     const alphanumericOnly = cnpjString.replace(/[^0-9A-Z]/gi, '');
     const alphanumericUpper = alphanumericOnly.toUpperCase();
     const alphanumericArray = alphanumericUpper.split('');
@@ -81,7 +81,7 @@ export class CnpjCheckDigits {
     return alphanumericArray;
   }
 
-  private handleArrayInput(cnpjArray: unknown[]): string[] {
+  private _handleArrayInput(cnpjArray: unknown[]): string[] {
     if (cnpjArray.length === 0) {
       return [];
     }
@@ -92,10 +92,10 @@ export class CnpjCheckDigits {
       throw new CnpjCheckDigitsInputTypeError(cnpjArray);
     }
 
-    return this.handleStringInput(cnpjArray.join(''));
+    return this._handleStringInput(cnpjArray.join(''));
   }
 
-  private validateLength(cnpjChars: string[], originalInput: CnpjInput): void {
+  private _validateLength(cnpjChars: string[], originalInput: CnpjInput): void {
     const charsCount = cnpjChars.length;
 
     if (charsCount < CNPJ_MIN_LENGTH || charsCount > CNPJ_MAX_LENGTH) {
@@ -108,7 +108,7 @@ export class CnpjCheckDigits {
     }
   }
 
-  private validateBaseId(cnpjIntArray: string[], originalInput: CnpjInput): void {
+  private _validateBaseId(cnpjIntArray: string[], originalInput: CnpjInput): void {
     const cnpjBaseIdArray = cnpjIntArray.slice(0, CNPJ_BASE_ID_LAST_INDEX + 1);
     const cnpjBaseIdString = cnpjBaseIdArray.join('');
 
@@ -120,7 +120,7 @@ export class CnpjCheckDigits {
     }
   }
 
-  private validateBranchId(cnpjIntArray: string[], originalInput: CnpjInput): void {
+  private _validateBranchId(cnpjIntArray: string[], originalInput: CnpjInput): void {
     const cnpjBranchIdArray = cnpjIntArray.slice(
       CNPJ_BASE_ID_LENGTH,
       CNPJ_BRANCH_ID_LAST_INDEX + 1,
@@ -135,7 +135,7 @@ export class CnpjCheckDigits {
     }
   }
 
-  private validateNonRepeatedDigits(cnpjIntArray: string[], originalInput: CnpjInput): void {
+  private _validateNonRepeatedDigits(cnpjIntArray: string[], originalInput: CnpjInput): void {
     const eligibleCnpjIntArray = cnpjIntArray.slice(0, CNPJ_MIN_LENGTH);
     const uniqueDigits = new Set(eligibleCnpjIntArray);
 
