@@ -2,7 +2,12 @@ import {
   CnpjFormatterOptionsHiddenRangeInvalidException,
   CnpjFormatterOptionsTypeError,
 } from './exceptions';
-import type { CnpjFormatterOptionsType, Nullable, OnFailCallback } from './types';
+import type {
+  CnpjFormatterOptionsInput,
+  CnpjFormatterOptionsType,
+  Nullable,
+  OnFailCallback,
+} from './types';
 
 /**
  * The standard length of a CNPJ (Cadastro Nacional da Pessoa Jurídica)
@@ -168,9 +173,9 @@ export class CnpjFormatterOptions {
    * they are within the valid range [0, CNPJ_LENGTH - 1] and will be swapped if
    * `hiddenStart > hiddenEnd`.
    *
-   * @param {CnpjFormatterOptions | Partial<CnpjFormatterOptionsType>} [options] - Initial
+   * @param {CnpjFormatterOptionsInput} [options] - Initial
    *   options object or another `CnpjFormatterOptions` instance
-   * @param {...(CnpjFormatterOptions | Partial<CnpjFormatterOptionsType>)[]} overrides - Additional
+   * @param {...CnpjFormatterOptionsInput[]} overrides - Additional
    *   option objects to merge, applied in order
    *
    * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type
@@ -178,8 +183,8 @@ export class CnpjFormatterOptions {
    *   or `hiddenEnd` are out of valid range
    */
   public constructor(
-    options?: CnpjFormatterOptions | Partial<CnpjFormatterOptionsType>,
-    ...overrides: (CnpjFormatterOptions | Partial<CnpjFormatterOptionsType>)[]
+    options?: CnpjFormatterOptionsInput,
+    ...overrides: CnpjFormatterOptionsInput[]
   ) {
     this.hidden = options?.hidden;
     this.hiddenKey = options?.hiddenKey;
@@ -562,7 +567,7 @@ export class CnpjFormatterOptions {
    * not included in the object retain their current values. You can pass either
    * a partial options object or another `CnpjFormatterOptions` instance.
    *
-   * @param {CnpjFormatterOptions | Partial<CnpjFormatterOptionsType>} options - An
+   * @param {CnpjFormatterOptionsInput} options - An
    *   options object or another `CnpjFormatterOptions` instance
    *
    * @returns {this}
@@ -571,7 +576,7 @@ export class CnpjFormatterOptions {
    * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
    *   or `hiddenEnd` are out of valid range
    */
-  public set(options: CnpjFormatterOptions | Partial<CnpjFormatterOptionsType>): this {
+  public set(options: CnpjFormatterOptionsInput): this {
     this.hidden = options.hidden ?? this.hidden;
     this.hiddenKey = options.hiddenKey ?? this.hiddenKey;
     this.dotKey = options.dotKey ?? this.dotKey;

@@ -1,4 +1,5 @@
 /* eslint-disable @eslint-community/eslint-comments/disable-enable-pair, perfectionist/sort-interfaces */
+import type { CnpjFormatterOptions } from './cnpj-formatter-options';
 
 /**
  * Represents valid input types for CNPJ formatting.
@@ -147,3 +148,5 @@ export interface CnpjFormatterOptionsType {
    */
   onFail: OnFailCallback;
 }
+
+export type CnpjFormatterOptionsInput = CnpjFormatterOptions | Partial<CnpjFormatterOptionsType>;

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 
 import { CnpjFormatterOptions } from '../src/cnpj-formatter-options';
-import { type CnpjFormatterOptionsType, type OnFailCallback } from '../src/types';
+import type { CnpjFormatterOptionsType, OnFailCallback } from '../src/types';
 
 describe('CnpjFormatterOptions', (): void => {
   const DEFAULT_PARAMETERS: CnpjFormatterOptionsType = {
