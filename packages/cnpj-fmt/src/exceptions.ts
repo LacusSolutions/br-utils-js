@@ -48,7 +48,7 @@ export abstract class CnpjFormatterTypeError extends TypeError {
  * @property {unknown} actualInput - The actual input value that caused the
  *   error. This preserves the original value for debugging purposes.
  * @property {string} expectedType - A human-readable description of the
- *   expected type (e.g., "string or string[]").
+ *   expected type (e.g., `"string or string[]"`).
  */
 export class CnpjFormatterInputTypeError extends CnpjFormatterTypeError {
   /**
@@ -71,7 +71,7 @@ export class CnpjFormatterInputTypeError extends CnpjFormatterTypeError {
    * @param {unknown} actualInput - The actual input value that does not match
    *   the expected type.
    * @param {string} expectedType - A human-readable description of the expected
-   *   type (e.g., "string" or "string[]").
+   *   type (e.g., `"string"` or `"string[]"`).
    */
   public constructor(actualInput: unknown, expectedType: string) {
     const actualInputType = describeType(actualInput);
@@ -94,11 +94,12 @@ export class CnpjFormatterInputTypeError extends CnpjFormatterTypeError {
  * @property {string} name - The name of the error class, automatically set from
  *   the constructor name.
  * @property {keyof CnpjFormatterOptionsType} optionName - The name of the
- *   option that has an invalid type (e.g., "hidden", "hiddenKey", "dotKey").
+ *   option that has an invalid type (e.g., `"hidden"`, `"hiddenKey"`,
+ *   `"dotKey"`, `"escape"`, `"encode"`, `"onFail"`).
  * @property {unknown} actualInput - The actual value provided for the option
  *   that caused the error.
  * @property {string} expectedType - A human-readable description of the
- *   expected type for this option (e.g., "boolean", "string", "number").
+ *   expected type for this option (e.g., `"boolean"`, `"string"`, `"number"`).
  */
 export class CnpjFormatterOptionsTypeError extends CnpjFormatterTypeError {
   /**
@@ -198,8 +199,8 @@ export abstract class CnpjFormatterException extends Error {
  * @property {string} name - The name of the exception class, automatically set from
  *   the constructor name.
  * @property {keyof CnpjFormatterOptionsType} optionName - The name of the
- *   option that has an invalid range value (must be "hiddenStart" or
- *   "hiddenEnd").
+ *   option that has an invalid range value (e.g., `"hiddenStart"`,
+ *   `"hiddenEnd"`, `"dotKey"`, `"encode"`, `"escape"`, `"onFail"`).
  * @property {number} actualInput - The actual numeric value provided for the
  *   option that is out of bounds.
  * @property {number} minExpectedValue - The minimum allowed value for the
