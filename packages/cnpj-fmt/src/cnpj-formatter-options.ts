@@ -130,26 +130,6 @@ const MAX_HIDDEN_RANGE = CNPJ_LENGTH - 1;
  * centralized way to configure how CNPJ numbers are formatted, including
  * delimiters, hidden character ranges, HTML escaping, URL encoding, and error
  * handling callbacks.
- *
- * @example
- * ```typescript
- * // Create with default options
- * const options = new CnpjFormatterOptions();
- *
- * // Create with custom options
- * const customOptions = new CnpjFormatterOptions({
- *   hidden: true,
- *   hiddenKey: 'X',
- *   dotKey: ','
- * });
- *
- * // Create with multiple override layers
- * const layeredOptions = new CnpjFormatterOptions(
- *   { hidden: true },
- *   { hiddenKey: 'X' },
- *   { dotKey: ',' }
- * );
- * ```
  */
 export class CnpjFormatterOptions {
   /**
@@ -173,29 +153,29 @@ export class CnpjFormatterOptions {
    * they are within the valid range [0, CNPJ_LENGTH - 1] and will be swapped if
    * `hiddenStart > hiddenEnd`.
    *
-   * @param {CnpjFormatterOptionsInput} [options] - Initial
-   *   options object or another `CnpjFormatterOptions` instance
-   * @param {...CnpjFormatterOptionsInput[]} overrides - Additional
-   *   option objects to merge, applied in order
+   * @param {CnpjFormatterOptionsInput} [defaultOptions] - Initial options
+   *   object or another `CnpjFormatterOptions` instance
+   * @param {...CnpjFormatterOptionsInput[]} overrides - Additional option
+   *   objects to merge, applied in order
    *
    * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type
    * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
    *   or `hiddenEnd` are out of valid range
    */
   public constructor(
-    options?: CnpjFormatterOptionsInput,
+    defaultOptions?: CnpjFormatterOptionsInput,
     ...overrides: CnpjFormatterOptionsInput[]
   ) {
-    this.hidden = options?.hidden;
-    this.hiddenKey = options?.hiddenKey;
-    this.dotKey = options?.dotKey;
-    this.slashKey = options?.slashKey;
-    this.dashKey = options?.dashKey;
-    this.escape = options?.escape;
-    this.encode = options?.encode;
-    this.onFail = options?.onFail;
+    this.hidden = defaultOptions?.hidden;
+    this.hiddenKey = defaultOptions?.hiddenKey;
+    this.dotKey = defaultOptions?.dotKey;
+    this.slashKey = defaultOptions?.slashKey;
+    this.dashKey = defaultOptions?.dashKey;
+    this.escape = defaultOptions?.escape;
+    this.encode = defaultOptions?.encode;
+    this.onFail = defaultOptions?.onFail;
 
-    this.setHiddenRange(options?.hiddenStart, options?.hiddenEnd);
+    this.setHiddenRange(defaultOptions?.hiddenStart, defaultOptions?.hiddenEnd);
 
     for (const override of overrides) {
       this.set(override);

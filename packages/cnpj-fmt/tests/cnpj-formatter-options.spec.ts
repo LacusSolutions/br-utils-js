@@ -124,6 +124,26 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.all).toEqual(originalOptions.all);
       });
     });
+
+    describe('when called with overrides parameters', (): void => {
+      it('uses last param option with 2 params', (): void => {
+        const options = new CnpjFormatterOptions({ hiddenKey: '#' }, { hiddenKey: 'X' });
+
+        expect(options.hiddenKey).toBe('X');
+      });
+
+      it('uses last param option with 5 params', (): void => {
+        const options = new CnpjFormatterOptions(
+          { hiddenKey: '.' },
+          { hiddenKey: '_' },
+          { hiddenKey: '#' },
+          { hiddenKey: 'X' },
+          { hiddenKey: '@' },
+        );
+
+        expect(options.hiddenKey).toBe('@');
+      });
+    });
   });
 
   describe('`hidden` property', (): void => {
