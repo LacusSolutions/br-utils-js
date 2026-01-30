@@ -13,6 +13,12 @@ import { describeType } from './utils';
  *
  * @property {string} name - The name of the error class, automatically set from
  *   the constructor name.
+ * @property {unknown} actualInput - The actual input value that caused the
+ *   error. This preserves the original value for debugging purposes.
+ * @property {string} actualType - A human-readable description of the actual
+ *   input type.
+ * @property {string} expectedType - A human-readable description of the expected
+ *   type.
  */
 export abstract class CnpjFormatterTypeError extends TypeError {
   /**
@@ -23,13 +29,48 @@ export abstract class CnpjFormatterTypeError extends TypeError {
   public readonly name: string;
 
   /**
+   * The actual input value that caused the error.
+   *
+   * @readonly
+   */
+  public readonly actualInput: unknown;
+
+  /**
+   * A human-readable description of the actual input type.
+   *
+   * @readonly
+   */
+  public readonly actualType: string;
+
+  /**
+   * A human-readable description of the expected type.
+   *
+   * @readonly
+   */
+  public readonly expectedType: string;
+
+  /**
    * Creates a new instance of `CnpjFormatterTypeError`.
    *
+   * @param {string} actualInput - The actual input value that caused the error.
+   * @param {string} actualType - A human-readable description of the actual
+   *   input type.
+   * @param {string} expectedType - A human-readable description of the expected
+   *   type.
    * @param {string} message - The error message describing the type error.
    */
-  public constructor(message: string) {
+  public constructor(
+    actualInput: unknown,
+    actualType: string,
+    expectedType: string,
+    message: string,
+  ) {
     super(message);
     this.name = this.constructor.name;
+    this.actualInput = actualInput;
+    this.actualType = actualType;
+    this.expectedType = expectedType;
+
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }
@@ -47,24 +88,12 @@ export abstract class CnpjFormatterTypeError extends TypeError {
  *   the constructor name.
  * @property {unknown} actualInput - The actual input value that caused the
  *   error. This preserves the original value for debugging purposes.
+ * @property {string} actualType - A human-readable description of the actual
+ *   input type.
  * @property {string} expectedType - A human-readable description of the
  *   expected type (e.g., `"string or string[]"`).
  */
 export class CnpjFormatterInputTypeError extends CnpjFormatterTypeError {
-  /**
-   * The actual input value that caused the error.
-   *
-   * @readonly
-   */
-  public readonly actualInput: unknown;
-
-  /**
-   * A human-readable description of the expected type.
-   *
-   * @readonly
-   */
-  public readonly expectedType: string;
-
   /**
    * Creates a new instance of `CnpjFormatterInputTypeError`.
    *
@@ -76,9 +105,12 @@ export class CnpjFormatterInputTypeError extends CnpjFormatterTypeError {
   public constructor(actualInput: unknown, expectedType: string) {
     const actualInputType = describeType(actualInput);
 
-    super(`CNPJ input must be of type ${expectedType}. Got ${actualInputType}.`);
-    this.actualInput = actualInput;
-    this.expectedType = expectedType;
+    super(
+      actualInput,
+      actualInputType,
+      expectedType,
+      `CNPJ input must be of type ${expectedType}. Got ${actualInputType}.`,
+    );
   }
 }
 
@@ -98,6 +130,8 @@ export class CnpjFormatterInputTypeError extends CnpjFormatterTypeError {
  *   `"dotKey"`, `"escape"`, `"encode"`, `"onFail"`).
  * @property {unknown} actualInput - The actual value provided for the option
  *   that caused the error.
+ * @property {string} actualType - A human-readable description of the actual
+ *   input type.
  * @property {string} expectedType - A human-readable description of the
  *   expected type for this option (e.g., `"boolean"`, `"string"`, `"number"`).
  */
@@ -110,26 +144,14 @@ export class CnpjFormatterOptionsTypeError extends CnpjFormatterTypeError {
   public readonly optionName: keyof CnpjFormatterOptionsType;
 
   /**
-   * The actual value provided for the option that caused the error.
-   *
-   * @readonly
-   */
-  public readonly actualInput: unknown;
-
-  /**
-   * A human-readable description of the expected type for this option.
-   *
-   * @readonly
-   */
-  public readonly expectedType: string;
-
-  /**
    * Creates a new instance of `CnpjFormatterOptionsTypeError`.
    *
    * @param {keyof CnpjFormatterOptionsType} optionName - The name of the option
    *   that has an invalid type.
    * @param {unknown} actualInput - The actual value provided for the option
    *   that does not match the expected type.
+   * @param {string} actualInputType - A human-readable description of the actual
+   *   input type.
    * @param {string} expectedType - A human-readable description of the expected
    *   type for this option.
    */
@@ -141,11 +163,12 @@ export class CnpjFormatterOptionsTypeError extends CnpjFormatterTypeError {
     const actualInputType = describeType(actualInput);
 
     super(
+      actualInput,
+      actualInputType,
+      expectedType,
       `CNPJ formatting option "${optionName}" must be of type ${expectedType}. Got ${actualInputType}.`,
     );
     this.optionName = optionName;
-    this.actualInput = actualInput;
-    this.expectedType = expectedType;
   }
 }
 

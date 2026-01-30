@@ -14,25 +14,42 @@ describe('CnpjFormatterTypeError', (): void => {
     class TestClass extends CnpjFormatterTypeError {}
 
     it('is an instance of TypeError', (): void => {
-      const error = new TestClass('some error');
+      const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error).toBeInstanceOf(TypeError);
     });
 
     it('is an instance of CnpjFormatterTypeError', (): void => {
-      const error = new TestClass('some error');
+      const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error).toBeInstanceOf(CnpjFormatterTypeError);
     });
 
     it('has the correct name', (): void => {
-      const error = new TestClass('some error');
+      const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error.name).toBe('TestClass');
     });
 
+    it('sets the `actualInput` property', (): void => {
+      const error = new TestClass(123, 'number', 'string', 'some error');
+
+      expect(error.actualInput).toBe(123);
+    });
+
+    it('sets the `actualType` property', (): void => {
+      const error = new TestClass(123, 'number', 'string', 'some error');
+      expect(error.actualType).toBe('number');
+    });
+
+    it('sets the `expectedType` property', (): void => {
+      const error = new TestClass(123, 'number', 'string', 'some error');
+
+      expect(error.expectedType).toBe('string');
+    });
+
     it('has a `message` property', (): void => {
-      const error = new TestClass('some error');
+      const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error.message).toBe('some error');
     });
@@ -66,6 +83,12 @@ describe('CnpjFormatterInputTypeError', (): void => {
       expect(error.actualInput).toBe(input);
     });
 
+    it('sets the `actualType` property', (): void => {
+      const error = new CnpjFormatterInputTypeError(123, 'string');
+
+      expect(error.actualType).toBe('integer number');
+    });
+
     it('sets the `expectedType` property', (): void => {
       const error = new CnpjFormatterInputTypeError(123, 'string or string[]');
 
@@ -74,9 +97,9 @@ describe('CnpjFormatterInputTypeError', (): void => {
 
     it('generates a message describing the error', (): void => {
       const actualInput = 123;
-      const actualInputType = 'integer number';
+      const actualType = 'integer number';
       const expectedType = 'string[]';
-      const actualMessage = `CNPJ input must be of type ${expectedType}. Got ${actualInputType}.`;
+      const actualMessage = `CNPJ input must be of type ${expectedType}. Got ${actualType}.`;
 
       const error = new CnpjFormatterInputTypeError(actualInput, expectedType);
 
@@ -115,6 +138,12 @@ describe('CnpjFormatterOptionsTypeError', (): void => {
       const error = new CnpjFormatterOptionsTypeError('hiddenKey', 123, 'string');
 
       expect(error.actualInput).toBe(123);
+    });
+
+    it('sets the `actualType` property', (): void => {
+      const error = new CnpjFormatterOptionsTypeError('hiddenKey', 123, 'string');
+
+      expect(error.actualType).toBe('integer number');
     });
 
     it('sets the `expectedType` property', (): void => {
