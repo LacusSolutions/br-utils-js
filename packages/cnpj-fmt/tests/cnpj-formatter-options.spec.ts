@@ -115,7 +115,7 @@ describe('CnpjFormatterOptions', (): void => {
           hiddenEnd: 8,
           slashKey: '|',
           escape: true,
-          onFail: (value) => `ERROR: ${value}`,
+          onFail: (value): string => `ERROR: ${value}`,
         });
 
         const options = new CnpjFormatterOptions(originalOptions);
@@ -805,7 +805,7 @@ describe('CnpjFormatterOptions', (): void => {
 
         options.onFail = undefined;
 
-        expect(typeof options.onFail).toBe('function');
+        expect(options.onFail).toBeFunction();
         expect(options.onFail.name).toBe('DEFAULT_ON_FAIL');
       });
 
@@ -815,7 +815,7 @@ describe('CnpjFormatterOptions', (): void => {
 
         options.onFail = null as unknown as OnFailCallback;
 
-        expect(typeof options.onFail).toBe('function');
+        expect(options.onFail).toBeFunction();
         expect(options.onFail.name).toBe('DEFAULT_ON_FAIL');
       });
     });
