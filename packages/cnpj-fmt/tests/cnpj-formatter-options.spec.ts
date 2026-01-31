@@ -5,16 +5,16 @@ import type { CnpjFormatterOptionsType, OnFailCallback } from '../src/types';
 
 describe('CnpjFormatterOptions', (): void => {
   const DEFAULT_PARAMETERS: CnpjFormatterOptionsType = {
-    hidden: false,
-    hiddenKey: '*',
-    hiddenStart: 5,
-    hiddenEnd: 13,
-    dotKey: '.',
-    slashKey: '/',
-    dashKey: '-',
-    escape: false,
-    encode: false,
-    onFail: expect.any(Function),
+    hidden: CnpjFormatterOptions.DEFAULT_HIDDEN,
+    hiddenKey: CnpjFormatterOptions.DEFAULT_HIDDEN_KEY,
+    hiddenStart: CnpjFormatterOptions.DEFAULT_HIDDEN_START,
+    hiddenEnd: CnpjFormatterOptions.DEFAULT_HIDDEN_END,
+    dotKey: CnpjFormatterOptions.DEFAULT_DOT_KEY,
+    slashKey: CnpjFormatterOptions.DEFAULT_SLASH_KEY,
+    dashKey: CnpjFormatterOptions.DEFAULT_DASH_KEY,
+    escape: CnpjFormatterOptions.DEFAULT_ESCAPE,
+    encode: CnpjFormatterOptions.DEFAULT_ENCODE,
+    onFail: CnpjFormatterOptions.DEFAULT_ON_FAIL,
   };
 
   describe('constructor', (): void => {
@@ -805,7 +805,7 @@ describe('CnpjFormatterOptions', (): void => {
 
         options.onFail = undefined;
 
-        expect(options.onFail).toBeFunction();
+        expect(options.onFail).toBe(DEFAULT_PARAMETERS.onFail);
         expect(options.onFail.name).toBe('DEFAULT_ON_FAIL');
       });
 
@@ -815,7 +815,7 @@ describe('CnpjFormatterOptions', (): void => {
 
         options.onFail = null as unknown as OnFailCallback;
 
-        expect(options.onFail).toBeFunction();
+        expect(options.onFail).toBe(DEFAULT_PARAMETERS.onFail);
         expect(options.onFail.name).toBe('DEFAULT_ON_FAIL');
       });
     });

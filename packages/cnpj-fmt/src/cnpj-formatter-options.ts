@@ -19,95 +19,6 @@ import type {
 export const CNPJ_LENGTH = 14;
 
 /**
- * Default value for the `hidden` option. When `false`, all CNPJ characters are
- * displayed.
- *
- * @constant
- * @type {boolean}
- */
-const DEFAULT_HIDDEN = false;
-
-/**
- * Default string used to replace hidden CNPJ characters.
- *
- * @constant
- * @type {string}
- */
-const DEFAULT_HIDDEN_KEY = '*';
-
-/**
- * Default start index (inclusive) for hiding CNPJ characters. Characters from
- * this index onwards will be replaced with the `hiddenKey` value.
- *
- * @constant
- * @type {number}
- */
-const DEFAULT_HIDDEN_START = 5;
-
-/**
- * Default end index (inclusive) for hiding CNPJ characters. Characters up to and
- * including this index will be replaced with the `hiddenKey` value.
- *
- * @constant
- * @type {number}
- */
-const DEFAULT_HIDDEN_END = 13;
-
-/**
- * Default string used as the dot delimiter in formatted CNPJ. Used to separate
- * the first groups of characters (XX.XXX.XXX).
- *
- * @constant
- * @type {string}
- */
-const DEFAULT_DOT_KEY = '.';
-
-/**
- * Default string used as the slash delimiter in formatted CNPJ. Used to separate
- * the first group of characters from the branch identifier (XXXXXXXX/XXXX).
- *
- * @constant
- * @type {string}
- */
-const DEFAULT_SLASH_KEY = '/';
-
-/**
- * Default string used as the dash delimiter in formatted CNPJ. Used to separate
- * the branch identifier from the check digits at the end (XXXX-XX).
- *
- * @constant
- * @type {string}
- */
-const DEFAULT_DASH_KEY = '-';
-
-/**
- * Default value for the `escape` option. When `false`, HTML special characters
- * are not escaped.
- *
- * @constant
- * @type {boolean}
- */
-const DEFAULT_ESCAPE = false;
-
-/**
- * Default value for the `encode` option. When `false`, the CNPJ string is not
- * URL-encoded.
- *
- * @constant
- * @type {boolean}
- */
-const DEFAULT_ENCODE = false;
-
-/**
- * Default callback function executed when formatting fails. Returns an empty
- * string by default.
- *
- * @constant
- * @type {OnFailCallback}
- */
-const DEFAULT_ON_FAIL: OnFailCallback = (): string => '';
-
-/**
  * Minimum valid index for the hidden range (inclusive).
  * Must be between 0 and CNPJ_LENGTH - 1.
  *
@@ -132,6 +43,67 @@ const MAX_HIDDEN_RANGE = CNPJ_LENGTH - 1;
  * handling callbacks.
  */
 export class CnpjFormatterOptions {
+  /**
+   * Default value for the `hidden` option. When `false`, all CNPJ characters are
+   * displayed.
+   */
+  public static readonly DEFAULT_HIDDEN = false;
+
+  /**
+   * Default string used to replace hidden CNPJ characters.
+   */
+  public static readonly DEFAULT_HIDDEN_KEY = '*';
+
+  /**
+   * Default start index (inclusive) for hiding CNPJ characters. Characters from
+   * this index onwards will be replaced with the `hiddenKey` value.
+   */
+  public static readonly DEFAULT_HIDDEN_START = 5;
+
+  /**
+   * Default end index (inclusive) for hiding CNPJ characters. Characters up to and
+   * including this index will be replaced with the `hiddenKey` value.
+   */
+  public static readonly DEFAULT_HIDDEN_END = 13;
+
+  /**
+   * Default string used as the dot delimiter in formatted CNPJ. Used to separate
+   * the first groups of characters (XX.XXX.XXX).
+   */
+  public static readonly DEFAULT_DOT_KEY = '.';
+
+  /**
+   * Default string used as the slash delimiter in formatted CNPJ. Used to separate
+   * the first group of characters from the branch identifier (XXXXXXXX/XXXX).
+   */
+  public static readonly DEFAULT_SLASH_KEY = '/';
+
+  /**
+   * Default string used as the dash delimiter in formatted CNPJ. Used to separate
+   * the branch identifier from the check digits at the end (XXXX-XX).
+   */
+  public static readonly DEFAULT_DASH_KEY = '-';
+
+  /**
+   * Default value for the `escape` option. When `false`, HTML special characters
+   * are not escaped.
+   */
+  public static readonly DEFAULT_ESCAPE = false;
+
+  /**
+   * Default value for the `encode` option. When `false`, the CNPJ string is not
+   * URL-encoded.
+   */
+  public static readonly DEFAULT_ENCODE = false;
+
+  /**
+   * Default callback function executed when formatting fails. Returns an empty
+   * string by default.
+   */
+  public static readonly DEFAULT_ON_FAIL: OnFailCallback = function DEFAULT_ON_FAIL(): string {
+    return '';
+  };
+
   /**
    * Internal storage for all formatter options.
    *
@@ -215,7 +187,7 @@ export class CnpjFormatterOptions {
    * @param {Nullable<boolean>} value
    */
   public set hidden(value: Nullable<boolean>) {
-    let actualHidden = value ?? DEFAULT_HIDDEN;
+    let actualHidden = value ?? CnpjFormatterOptions.DEFAULT_HIDDEN;
 
     actualHidden = Boolean(actualHidden);
     this._options.hidden = actualHidden;
@@ -242,7 +214,7 @@ export class CnpjFormatterOptions {
    * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
    */
   public set hiddenKey(value: Nullable<string>) {
-    const actualHiddenKey = value ?? DEFAULT_HIDDEN_KEY;
+    const actualHiddenKey = value ?? CnpjFormatterOptions.DEFAULT_HIDDEN_KEY;
 
     if (typeof actualHiddenKey !== 'string') {
       throw new CnpjFormatterOptionsTypeError('hiddenKey', actualHiddenKey, 'string');
@@ -327,7 +299,7 @@ export class CnpjFormatterOptions {
    * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
    */
   public set dotKey(value: Nullable<string>) {
-    const actualDotKey = value ?? DEFAULT_DOT_KEY;
+    const actualDotKey = value ?? CnpjFormatterOptions.DEFAULT_DOT_KEY;
 
     if (typeof actualDotKey !== 'string') {
       throw new CnpjFormatterOptionsTypeError('dotKey', actualDotKey, 'string');
@@ -357,7 +329,7 @@ export class CnpjFormatterOptions {
    * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
    */
   public set slashKey(value: Nullable<string>) {
-    const actualSlashKey = value ?? DEFAULT_SLASH_KEY;
+    const actualSlashKey = value ?? CnpjFormatterOptions.DEFAULT_SLASH_KEY;
 
     if (typeof actualSlashKey !== 'string') {
       throw new CnpjFormatterOptionsTypeError('slashKey', actualSlashKey, 'string');
@@ -387,7 +359,7 @@ export class CnpjFormatterOptions {
    * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
    */
   public set dashKey(value: Nullable<string>) {
-    const actualDashKey = value ?? DEFAULT_DASH_KEY;
+    const actualDashKey = value ?? CnpjFormatterOptions.DEFAULT_DASH_KEY;
 
     if (typeof actualDashKey !== 'string') {
       throw new CnpjFormatterOptionsTypeError('dashKey', actualDashKey, 'string');
@@ -419,7 +391,7 @@ export class CnpjFormatterOptions {
    * @param {Nullable<boolean>} value
    */
   public set escape(value: Nullable<boolean>) {
-    let actualEscape = value ?? DEFAULT_ESCAPE;
+    let actualEscape = value ?? CnpjFormatterOptions.DEFAULT_ESCAPE;
 
     actualEscape = Boolean(actualEscape);
     this._options.escape = actualEscape;
@@ -445,7 +417,7 @@ export class CnpjFormatterOptions {
    * @param {Nullable<boolean>} value
    */
   public set encode(value: Nullable<boolean>) {
-    let actualEncode = value ?? DEFAULT_ENCODE;
+    let actualEncode = value ?? CnpjFormatterOptions.DEFAULT_ENCODE;
 
     actualEncode = Boolean(actualEncode);
     this._options.encode = actualEncode;
@@ -474,7 +446,7 @@ export class CnpjFormatterOptions {
    * @throws {CnpjFormatterOptionsTypeError} If the value is not a function
    */
   public set onFail(value: Nullable<OnFailCallback>) {
-    const actualOnFail = value ?? DEFAULT_ON_FAIL;
+    const actualOnFail = value ?? CnpjFormatterOptions.DEFAULT_ON_FAIL;
 
     if (typeof actualOnFail !== 'function') {
       throw new CnpjFormatterOptionsTypeError('onFail', value, 'function');
@@ -502,8 +474,8 @@ export class CnpjFormatterOptions {
    *   is out of valid range [`0`, `CNPJ_LENGTH - 1`]
    */
   public setHiddenRange(hiddenStart: Nullable<number>, hiddenEnd: Nullable<number>): this {
-    let actualHiddenStart = hiddenStart ?? DEFAULT_HIDDEN_START;
-    let actualHiddenEnd = hiddenEnd ?? DEFAULT_HIDDEN_END;
+    let actualHiddenStart = hiddenStart ?? CnpjFormatterOptions.DEFAULT_HIDDEN_START;
+    let actualHiddenEnd = hiddenEnd ?? CnpjFormatterOptions.DEFAULT_HIDDEN_END;
 
     if (typeof actualHiddenStart !== 'number' || !Number.isInteger(actualHiddenStart)) {
       throw new CnpjFormatterOptionsTypeError('hiddenStart', actualHiddenStart, 'integer');
@@ -571,3 +543,5 @@ export class CnpjFormatterOptions {
     return this;
   }
 }
+
+Object.freeze(CnpjFormatterOptions);
