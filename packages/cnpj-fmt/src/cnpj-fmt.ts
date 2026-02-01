@@ -1,39 +1,19 @@
 import { CnpjFormatter } from './cnpj-formatter';
-import type { OnFailCallback } from './cnpj-formatter-options';
-
-export interface CnpjFormatOptions<OnErrFallback = string> {
-  hidden?: boolean | null;
-  hiddenKey?: string | null;
-  hiddenStart?: number | null;
-  hiddenEnd?: number | null;
-  dotKey?: string | null;
-  slashKey?: string | null;
-  dashKey?: string | null;
-  escape?: boolean | null;
-  onFail?: OnFailCallback<OnErrFallback> | null;
-}
+import type { CnpjFormatterOptionsInput } from './types';
 
 /**
- * Formats a CNPJ string according to the given options.
- * Default options returns the traditional CNPJ format (`91.415.732/0007-93`).
+ * Helper function to simplify the usage of the {@link CnpjFormatter} class.
+ *
+ * Formats a CNPJ string according to the given options. With no options, returns
+ * the traditional CNPJ format (e.g. `91.415.732/0007-93`). Invalid input or
+ * length is handled by the configured `onFail` callback instead of throwing.
+ *
+ * @param {string} cnpjString - Raw or already formatted CNPJ (14 alphanumeric
+ *   chars after sanitization).
+ * @param {CnpjFormatterOptionsInput} [options] - Optional formatting options
+ *   (delimiters, masking, HTML escape, URL encode, `onFail` callback).
+ * @returns {string}
  */
-function cnpjFmt<OnErrFallback = string>(
-  cnpjString: string,
-  options?: CnpjFormatOptions<OnErrFallback>,
-): string | OnErrFallback {
-  const formatter = new CnpjFormatter<OnErrFallback>(
-    options?.hidden,
-    options?.hiddenKey,
-    options?.hiddenStart,
-    options?.hiddenEnd,
-    options?.dotKey,
-    options?.slashKey,
-    options?.dashKey,
-    options?.escape,
-    options?.onFail,
-  );
-
-  return formatter.format(cnpjString);
+export function cnpjFmt(cnpjString: string, options?: CnpjFormatterOptionsInput): string {
+  return new CnpjFormatter(options).format(cnpjString);
 }
-
-export default cnpjFmt;
