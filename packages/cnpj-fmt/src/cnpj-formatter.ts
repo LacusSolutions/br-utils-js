@@ -10,6 +10,15 @@ import { escapeHTML } from './utils';
  */
 
 /**
+ * A rarely-used 1-length character that is replaced with `hiddenKey` when
+ * `hidden` is `true`.
+ *
+ * @constant
+ * @type {string}
+ */
+const HIDDEN_KEY_PLACEHOLDER = CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS[0];
+
+/**
  * Formatter for CNPJ (Cadastro Nacional da Pessoa Jurídica) identifiers. It
  * normalizes and optionally masks, HTML-escapes, or URL-encodes 14-character
  * alphanumeric CNPJ input. Accepts a string or array of strings;
@@ -118,7 +127,7 @@ export class CnpjFormatter {
       const startingPart = formattedCnpj.slice(0, actualOptions.hiddenStart);
       const endingPart = formattedCnpj.slice(actualOptions.hiddenEnd + 1);
       const hiddenPartLength = actualOptions.hiddenEnd - actualOptions.hiddenStart + 1;
-      const hiddenPart = actualOptions.hiddenKey.repeat(hiddenPartLength);
+      const hiddenPart = HIDDEN_KEY_PLACEHOLDER.repeat(hiddenPartLength);
 
       formattedCnpj = startingPart + hiddenPart + endingPart;
     }
@@ -133,6 +142,10 @@ export class CnpjFormatter {
       formattedCnpj.slice(8, 12) +
       actualOptions.dashKey +
       formattedCnpj.slice(12, 14);
+    formattedCnpj = formattedCnpj.replace(
+      new RegExp(HIDDEN_KEY_PLACEHOLDER, 'g'),
+      actualOptions.hiddenKey,
+    );
 
     if (actualOptions.escape) {
       formattedCnpj = escapeHTML(formattedCnpj);
@@ -159,3 +172,5 @@ export class CnpjFormatter {
     return this._options;
   }
 }
+
+Object.freeze(CnpjFormatter);

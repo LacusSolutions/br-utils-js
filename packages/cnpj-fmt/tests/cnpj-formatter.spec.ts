@@ -339,8 +339,8 @@ describe('CnpjFormatter', (): void => {
     });
 
     describe('when using `hidden` option', (): void => {
-      const defaultOptions = new CnpjFormatterOptions();
-      const DEFAULT_HIDDEN_LENGTH = defaultOptions.hiddenEnd - defaultOptions.hiddenStart + 1;
+      const { DEFAULT_HIDDEN_END, DEFAULT_HIDDEN_START } = CnpjFormatterOptions;
+      const DEFAULT_HIDDEN_LENGTH = DEFAULT_HIDDEN_END - DEFAULT_HIDDEN_START + 1;
       const STANDARD_CNPJ_FORMAT_LENGTH = '00.000.000/0000-00'.length;
 
       it('replaces some characters with "*" when simply `true`', (): void => {
@@ -389,7 +389,9 @@ describe('CnpjFormatter', (): void => {
           hidden: true,
           hiddenKey: '[]',
         });
-        const hiddenChars = Array.from(result).filter((char) => char === '[' || char === ']');
+        const hiddenChars = Array.from(result)
+          .filter((char) => char === '[' || char === ']')
+          .join('');
 
         expect(result).not.toContain('*');
         expect(hiddenChars).toMatch(new RegExp(`^(\\[\\]){${DEFAULT_HIDDEN_LENGTH}}$`));
@@ -491,6 +493,22 @@ describe('CnpjFormatter', (): void => {
         });
 
         expect(result).toBe('12.ABC.345%2F00DE-99');
+      });
+    });
+
+    describe('edge cases', (): void => {
+      it('replaces `hiddenKey`, `dotKey`, `slashKey` and `dashKey` use multi-characters value', (): void => {
+        const result = format('12ABC34500DE99', {
+          hidden: true,
+          hiddenStart: 5,
+          hiddenEnd: 9,
+          hiddenKey: '[*]',
+          dotKey: '[.]',
+          slashKey: '[/]',
+          dashKey: '[-]',
+        });
+
+        expect(result).toBe('12[.]ABC[.][*][*][*][/][*][*]DE[-]99');
       });
     });
   });

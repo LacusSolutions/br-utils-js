@@ -289,6 +289,72 @@ export class CnpjFormatterOptionsHiddenRangeInvalidException extends CnpjFormatt
 }
 
 /**
+ * Exception raised when a character is not allowed to be used as a key
+ * character on options.
+ *
+ * @extends {CnpjFormatterException}
+ *
+ * @property {string} name - The name of the exception class, automatically set from
+ *   the constructor name.
+ * @property {keyof CnpjFormatterOptionsType} optionName - The name of the
+ *   option whose value contains a forbidden key character (e.g., `"hiddenKey"`,
+ *   `"dotKey"`, `"slashKey"`, `"dashKey"`).
+ * @property {string} actualInput - The actual string value that was provided
+ *   to the option that contains an invalid character.
+ * @property {string[]} forbiddenCharacters - The list of forbidden characters
+ *   that are not allowed to be used as key characters on options like
+ *   `hiddenKey`, `dotKey`, `slashKey` or `dashKey`.
+ */
+export class CnpjFormatterOptionsForbiddenKeyCharacterException extends CnpjFormatterException {
+  /**
+   * The name of the option whose value contains a forbidden key character.
+   *
+   * @readonly
+   */
+  public readonly optionName: keyof CnpjFormatterOptionsType;
+
+  /**
+   * The actual string value that was provided to the option that contains an
+   * invalid character.
+   *
+   * @readonly
+   */
+  public readonly actualInput: string;
+
+  /**
+   * The list of forbidden characters that are not allowed to be used as key
+   * characters on options like `hiddenKey`, `dotKey`, `slashKey` or `dashKey`.
+   *
+   * @readonly
+   */
+  public readonly forbiddenCharacters: readonly string[];
+
+  /**
+   * Creates a new instance of `CnpjFormatterOptionsForbiddenKeyCharacterException`.
+   *
+   * @param {keyof CnpjFormatterOptionsType} optionName - The name of the option
+   *   whose value contains a forbidden key character.
+   * @param {string} actualInput - The actual string value that was provided
+   *   to the option that contains an invalid character.
+   * @param {readonly string[]} forbiddenCharacters - The list of forbidden characters
+   *   that are not allowed to be used as key characters on options like
+   *   `hiddenKey`, `dotKey`, `slashKey` or `dashKey`.
+   */
+  public constructor(
+    optionName: keyof CnpjFormatterOptionsType,
+    actualInput: string,
+    forbiddenCharacters: readonly string[],
+  ) {
+    super(
+      `Value "${actualInput}" for CNPJ formatting option "${optionName}" contains disallowed characters ("${forbiddenCharacters.join('", "')}").`,
+    );
+    this.optionName = optionName;
+    this.actualInput = actualInput;
+    this.forbiddenCharacters = forbiddenCharacters;
+  }
+}
+
+/**
  * Exception raised when a CNPJ string does not contain the expected number of
  * characters.
  *

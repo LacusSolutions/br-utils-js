@@ -282,6 +282,21 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "hiddenKey" must be of type string. Got boolean.');
       });
     });
+
+    describe('when setting to a string containing a forbidden key character', (): void => {
+      it.each([...CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
+        'throws CnpjFormatterOptionsForbiddenKeyCharacterException with %s',
+        (forbiddenChar): void => {
+          const options = new CnpjFormatterOptions();
+
+          expect(() => {
+            options.hiddenKey = forbiddenChar;
+          }).toThrow(
+            `Value "${forbiddenChar}" for CNPJ formatting option "hiddenKey" contains disallowed characters ("${CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS.join('", "')}").`,
+          );
+        },
+      );
+    });
   });
 
   describe('`hiddenStart` property', (): void => {
@@ -512,6 +527,21 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "dotKey" must be of type string. Got boolean.');
       });
     });
+
+    describe('when setting to a string containing a forbidden key character', (): void => {
+      it.each([...CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
+        'throws CnpjFormatterOptionsForbiddenKeyCharacterException with %s',
+        (forbiddenChar): void => {
+          const options = new CnpjFormatterOptions();
+
+          expect(() => {
+            options.dotKey = forbiddenChar;
+          }).toThrow(
+            `Value "${forbiddenChar}" for CNPJ formatting option "dotKey" contains disallowed characters ("${CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS.join('", "')}").`,
+          );
+        },
+      );
+    });
   });
 
   describe('`slashKey` property', (): void => {
@@ -568,6 +598,21 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "slashKey" must be of type string. Got boolean.');
       });
     });
+
+    describe('when setting to a string containing a forbidden key character', (): void => {
+      it.each([...CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
+        'throws CnpjFormatterOptionsForbiddenKeyCharacterException with %s',
+        (forbiddenChar): void => {
+          const options = new CnpjFormatterOptions();
+
+          expect(() => {
+            options.slashKey = forbiddenChar;
+          }).toThrow(
+            `Value "${forbiddenChar}" for CNPJ formatting option "slashKey" contains disallowed characters ("${CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS.join('", "')}").`,
+          );
+        },
+      );
+    });
   });
 
   describe('`dashKey` property', (): void => {
@@ -623,6 +668,21 @@ describe('CnpjFormatterOptions', (): void => {
           options.dashKey = true as unknown as string;
         }).toThrow('CNPJ formatting option "dashKey" must be of type string. Got boolean.');
       });
+    });
+
+    describe('when setting to a string containing a forbidden key character', (): void => {
+      it.each([...CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
+        'throws CnpjFormatterOptionsForbiddenKeyCharacterException with %s',
+        (forbiddenChar): void => {
+          const options = new CnpjFormatterOptions();
+
+          expect(() => {
+            options.dashKey = forbiddenChar;
+          }).toThrow(
+            `Value "${forbiddenChar}" for CNPJ formatting option "dashKey" contains disallowed characters ("${CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS.join('", "')}").`,
+          );
+        },
+      );
     });
   });
 

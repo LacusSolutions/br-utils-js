@@ -4,6 +4,7 @@ import {
   CnpjFormatterException,
   CnpjFormatterInputLengthException,
   CnpjFormatterInputTypeError,
+  CnpjFormatterOptionsForbiddenKeyCharacterException,
   CnpjFormatterOptionsHiddenRangeInvalidException,
   CnpjFormatterOptionsTypeError,
   CnpjFormatterTypeError,
@@ -341,6 +342,85 @@ describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
         actualInput,
         minExpectedValue,
         maxExpectedValue,
+      );
+
+      expect(exception.message).toBe(actualMessage);
+    });
+  });
+});
+
+describe('CnpjFormatterOptionsForbiddenKeyCharacterException', (): void => {
+  describe('when instantiated', (): void => {
+    it('is an instance of Error', (): void => {
+      const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('dotKey', 'å', [
+        'å',
+        'ë',
+        'ï',
+        'ð',
+      ]);
+
+      expect(exception).toBeInstanceOf(Error);
+    });
+
+    it('is an instance of CnpjFormatterException', (): void => {
+      const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('dotKey', 'å', [
+        'å',
+        'ë',
+        'ï',
+        'ð',
+      ]);
+
+      expect(exception).toBeInstanceOf(CnpjFormatterException);
+    });
+
+    it('has the correct name', (): void => {
+      const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('dotKey', 'å', [
+        'å',
+        'ë',
+        'ï',
+        'ð',
+      ]);
+
+      expect(exception.name).toBe('CnpjFormatterOptionsForbiddenKeyCharacterException');
+    });
+
+    it('sets the `optionName` property', (): void => {
+      const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('hiddenKey', 'x', [
+        'x',
+      ]);
+
+      expect(exception.optionName).toBe('hiddenKey');
+    });
+
+    it('sets the `actualInput` property', (): void => {
+      const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('slashKey', '/', [
+        '/',
+      ]);
+
+      expect(exception.actualInput).toBe('/');
+    });
+
+    it('sets the `forbiddenCharacters` property', (): void => {
+      const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('dashKey', 'å', [
+        'å',
+        'ë',
+        'ï',
+        'ð',
+      ]);
+
+      expect(exception.forbiddenCharacters).toEqual(['å', 'ë', 'ï', 'ð']);
+    });
+
+    it('generates a message describing the exception', (): void => {
+      const optionName = 'dotKey';
+      const actualInput = 'å';
+      const forbiddenCharacters = ['å', 'ë', 'ï', 'ð'];
+      const actualMessage = `Value "${actualInput}" for CNPJ formatting option "${optionName}" contains forbidden characters ("${forbiddenCharacters.join('", "')}").`;
+
+      const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException(
+        optionName,
+        actualInput,
+        forbiddenCharacters,
       );
 
       expect(exception.message).toBe(actualMessage);

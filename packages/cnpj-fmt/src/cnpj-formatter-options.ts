@@ -1,4 +1,5 @@
 import {
+  CnpjFormatterOptionsForbiddenKeyCharacterException,
   CnpjFormatterOptionsHiddenRangeInvalidException,
   CnpjFormatterOptionsTypeError,
 } from './exceptions';
@@ -105,6 +106,21 @@ export class CnpjFormatterOptions {
   };
 
   /**
+   * Characters that are not allowed in key options (`hiddenKey`, `dotKey`,
+   * `slashKey`, `dashKey`). They are reserved for internal formatting logic.
+   *
+   * FOr now, it's only used to replace the hidden key placeholder in the
+   * CnpjFormatter class. However, this set of characters are reserver for
+   * future use already.
+   */
+  public static readonly DISALLOWED_KEY_CHARACTERS = Object.freeze([
+    '\u00e5',
+    '\u00eb',
+    '\u00ef',
+    '\u00f6',
+  ]);
+
+  /**
    * Internal storage for all formatter options.
    *
    * @private
@@ -133,6 +149,9 @@ export class CnpjFormatterOptions {
    * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type
    * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
    *   or `hiddenEnd` are out of valid range
+   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If any key
+   *   option (`hiddenKey`, `dotKey`, `slashKey`, `dashKey`) contains a
+   *   disallowed character
    */
   public constructor(
     defaultOptions?: CnpjFormatterOptionsInput,
@@ -212,6 +231,8 @@ export class CnpjFormatterOptions {
    * @param {Nullable<string>} value
    *
    * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
+   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If the value
+   *   contains any disallowed key character
    */
   public set hiddenKey(value: Nullable<string>) {
     const actualHiddenKey = value ?? CnpjFormatterOptions.DEFAULT_HIDDEN_KEY;
@@ -219,6 +240,8 @@ export class CnpjFormatterOptions {
     if (typeof actualHiddenKey !== 'string') {
       throw new CnpjFormatterOptionsTypeError('hiddenKey', actualHiddenKey, 'string');
     }
+
+    this._assertNoDisallowedKeyCharacters('hiddenKey', actualHiddenKey);
 
     this._options.hiddenKey = actualHiddenKey;
   }
@@ -297,6 +320,8 @@ export class CnpjFormatterOptions {
    * @param {Nullable<string>} value
    *
    * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
+   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If the value
+   *   contains any disallowed key character
    */
   public set dotKey(value: Nullable<string>) {
     const actualDotKey = value ?? CnpjFormatterOptions.DEFAULT_DOT_KEY;
@@ -304,6 +329,8 @@ export class CnpjFormatterOptions {
     if (typeof actualDotKey !== 'string') {
       throw new CnpjFormatterOptionsTypeError('dotKey', actualDotKey, 'string');
     }
+
+    this._assertNoDisallowedKeyCharacters('dotKey', actualDotKey);
 
     this._options.dotKey = actualDotKey;
   }
@@ -327,6 +354,8 @@ export class CnpjFormatterOptions {
    * @param {Nullable<string>} value
    *
    * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
+   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If the value
+   *   contains any disallowed key character
    */
   public set slashKey(value: Nullable<string>) {
     const actualSlashKey = value ?? CnpjFormatterOptions.DEFAULT_SLASH_KEY;
@@ -334,6 +363,8 @@ export class CnpjFormatterOptions {
     if (typeof actualSlashKey !== 'string') {
       throw new CnpjFormatterOptionsTypeError('slashKey', actualSlashKey, 'string');
     }
+
+    this._assertNoDisallowedKeyCharacters('slashKey', actualSlashKey);
 
     this._options.slashKey = actualSlashKey;
   }
@@ -357,6 +388,8 @@ export class CnpjFormatterOptions {
    * @param {Nullable<string>} value
    *
    * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
+   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If the value
+   *   contains any disallowed key character
    */
   public set dashKey(value: Nullable<string>) {
     const actualDashKey = value ?? CnpjFormatterOptions.DEFAULT_DASH_KEY;
@@ -364,6 +397,8 @@ export class CnpjFormatterOptions {
     if (typeof actualDashKey !== 'string') {
       throw new CnpjFormatterOptionsTypeError('dashKey', actualDashKey, 'string');
     }
+
+    this._assertNoDisallowedKeyCharacters('dashKey', actualDashKey);
 
     this._options.dashKey = actualDashKey;
   }
@@ -527,6 +562,9 @@ export class CnpjFormatterOptions {
    * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type
    * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
    *   or `hiddenEnd` are out of valid range
+   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If any key
+   *   option (`hiddenKey`, `dotKey`, `slashKey`, `dashKey`) contains a
+   *   disallowed character
    */
   public set(options: CnpjFormatterOptionsInput): this {
     this.hidden = options.hidden ?? this.hidden;
@@ -541,6 +579,32 @@ export class CnpjFormatterOptions {
     this.setHiddenRange(options.hiddenStart, options?.hiddenEnd);
 
     return this;
+  }
+
+  /**
+   * Throws if the given string contains any disallowed key character.
+   *
+   * @private
+   * @param {keyof CnpjFormatterOptionsType} optionName - Option being set.
+   * @param {string} value - String value to validate.
+   *
+   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If `value`
+   *   contains any character from `getDisallowedKeyCharacters()`.
+   */
+  private _assertNoDisallowedKeyCharacters(
+    optionName: keyof CnpjFormatterOptionsType,
+    value: string,
+  ): void {
+    const forbiddenChars = CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS;
+    const hasForbiddenChars = forbiddenChars.some((ch) => value.includes(ch));
+
+    if (hasForbiddenChars) {
+      throw new CnpjFormatterOptionsForbiddenKeyCharacterException(
+        optionName,
+        value,
+        forbiddenChars,
+      );
+    }
   }
 }
 
