@@ -1,5 +1,5 @@
 import { CnpjFormatter } from './cnpj-formatter';
-import type { CnpjFormatterOptionsInput } from './types';
+import type { CnpjFormatterOptionsInput, CnpjInput } from './types';
 
 /**
  * Helper function to simplify the usage of the {@link CnpjFormatter} class.
@@ -8,12 +8,13 @@ import type { CnpjFormatterOptionsInput } from './types';
  * the traditional CNPJ format (e.g. `91.415.732/0007-93`). Invalid input or
  * length is handled by the configured `onFail` callback instead of throwing.
  *
- * @param {string} cnpjString - Raw or already formatted CNPJ (14 alphanumeric
- *   chars after sanitization).
+ * @param {CnpjInput} cnpjInput - CNPJ as a string or array of strings (e.g. raw
+ *   digits or preformatted). Arrays are joined with no separator before
+ *   processing.
  * @param {CnpjFormatterOptionsInput} [options] - Optional formatting options
  *   (delimiters, masking, HTML escape, URL encode, `onFail` callback).
  * @returns {string}
  */
-export function cnpjFmt(cnpjString: string, options?: CnpjFormatterOptionsInput): string {
-  return new CnpjFormatter(options).format(cnpjString);
+export function cnpjFmt(cnpjInput: CnpjInput, options?: CnpjFormatterOptionsInput): string {
+  return new CnpjFormatter(options).format(cnpjInput);
 }
