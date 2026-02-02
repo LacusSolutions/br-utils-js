@@ -17,7 +17,7 @@ Utilitário em JavaScript/TypeScript para formatar CNPJ (Cadastro Nacional da Pe
 
 | ![Node.js](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg) | ![Bun](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bun/bun-original.svg) | ![Deno](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/denojs/denojs-original.svg) | ![Chrome](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Firefox](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firefox/firefox-original.svg) | ![Safari](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/safari/safari-original.svg) | ![Opera](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opera/opera-original.svg) | ![IE](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ie10/ie10-original.svg) |
 |--- |--- |--- |--- | --- | --- | --- | --- | --- |
-| v1.0+ ✔ | v16+ ✔ | ⚠️ não testado | Última ✔ | Última ✔ | Última ✔ | Última ✔ | Última ✔ | 11 ✔ |
+| v16+ ✔ | v1.0+ ✔ | ⚠️ não testado | Última ✔ | Última ✔ | Última ✔ | Última ✔ | Última ✔ | 11 ✔ |
 
 ## Recursos
 
