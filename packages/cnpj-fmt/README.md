@@ -7,13 +7,27 @@
 [![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js)
 [![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE)
 
-Utility function to format CNPJ (Brazilian employer ID).
+> 🚀 **Full support to the new alphanumeric CNPJ format.**
 
-## Browser Support
+> 🌎 [Acessar documentação em português](./README.pt.md)
 
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
-|--- | --- | --- | --- | --- | --- |
-| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
+A JavaScript/TypeScript utility to format CNPJ (Brazilian legal entity ID).
+
+## Platform Support
+
+| ![Node.js](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg) | ![Bun](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bun/bun-original.svg) | ![Deno](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/denojs/denojs-original.svg) | ![Chrome](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Firefox](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firefox/firefox-original.svg) | ![Safari](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/safari/safari-original.svg) | ![Opera](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opera/opera-original.svg) | ![IE](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ie10/ie10-original.svg) |
+|--- |--- |--- |--- | --- | --- | --- | --- | --- |
+| v1.0+ ✔ | v16+ ✔ | ⚠️ untested | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
+
+## Features
+
+- ✅ **Alphanumeric CNPJ**: Supports 14-character alphanumeric CNPJ (digits and letters, e.g. `RK0CMT3W000100`)
+- ✅ **Flexible input**: accepts strings or array of strings
+- ✅ **Format agnostic**: Strips non-alphanumeric characters and uppercases before formatting
+- ✅ **Customizable**: Delimiters (dot, slash, dash), masking (range + replacement), HTML escape, URL encode
+- ✅ **TypeScript support**: Full type definitions and strict-mode compatible
+- ✅ **Zero dependencies**: No external dependencies
+- ✅ **Error handling**: Configurable `onFail` callback; optional use of specific exception classes
 
 ## Installation
 
@@ -25,9 +39,9 @@ $ npm install --save @lacussoft/cnpj-fmt
 $ bun add @lacussoft/cnpj-fmt
 ```
 
-## Import
+## Quick Start
 
-```js
+```ts
 // ES Modules
 import cnpjFmt from '@lacussoft/cnpj-fmt'
 
@@ -35,7 +49,25 @@ import cnpjFmt from '@lacussoft/cnpj-fmt'
 const cnpjFmt = require('@lacussoft/cnpj-fmt')
 ```
 
-or import it through your HTML file, using CDN:
+Basic usage:
+
+```ts
+const cnpj = '03603568000195'
+
+cnpjFmt(cnpj)       // '03.603.568/0001-95'
+
+cnpjFmt(cnpj, {     // '03.603.***/****-**'
+  hidden: true
+})
+
+cnpjFmt(cnpj, {     // '03603568|0001_95'
+  dotKey: '',
+  slashKey: '|',
+  dashKey: '_'
+})
+```
+
+For legacy frontends, include the UMD build (e.g. minified) in a `<script>` tag; `cnpjFmt` is exposed globally:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cnpj-fmt@latest/dist/cnpj-fmt.min.js"></script>
@@ -43,49 +75,91 @@ or import it through your HTML file, using CDN:
 
 ## Usage
 
-```js
-const cnpj = '03603568000195'
-
-cnpjFmt(cnpj)       // returns '03.603.568/0001-95'
-
-cnpjFmt(cnpj, {     // returns '03.603.***/****-**'
-  hidden: true
-})
-
-cnpjFmt(cnpj, {     // returns '03603568|0001_95'
-  delimiters: {
-    dot: '',
-    slash: '|',
-    dash: '_'
-  }
-})
-```
-
 ### Formatting options
 
-```js
+All options are optional. Flat keys (no nested `delimiters` or `hiddenRange`):
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `dotKey` | string | `'.'` | Dot delimiter (e.g. in `12.345.678`) |
+| `slashKey` | string | `'/'` | Slash delimiter (e.g. before branch `…/0001-90`) |
+| `dashKey` | string | `'-'` | Dash delimiter (e.g. before check digits `…-90`) |
+| `hidden` | boolean | `false` | When `true`, mask characters in `hiddenStart`–`hiddenEnd` with `hiddenKey` |
+| `hiddenKey` | string | `'*'` | Character(s) used to replace masked digits |
+| `hiddenStart` | number | `5` | Start index (0–13, inclusive) of the range to hide |
+| `hiddenEnd` | number | `13` | End index (0–13, inclusive) of the range to hide |
+| `escape` | boolean | `false` | When `true`, escape HTML special characters in the result |
+| `encode` | boolean | `false` | When `true`, URL-encode the result (e.g. for query params) |
+| `onFail` | (value, error?) => string | `() => ''` | Callback when input is invalid or length ≠ 14; return value is used as result |
+
+Example with all options:
+
+```ts
 cnpjFmt(cnpj, {
-  delimiters: {
-    dot: '.',       // string to replace the dot characters
-    slash: '/',     // string to replace the slash character
-    dash: '-'       // string to replace the dash character
+  hidden: true,
+  hiddenKey: '#',
+  hiddenStart: 5,
+  hiddenEnd: 11,
+  dotKey: ' ',
+  slashKey: '|',
+  dashKey: '_-_',
+  escape: true,
+  encode: true,
+  onFail(value, error) {
+    return String(value)
   },
-  escape: false,    // boolean to define if the result should be HTML escaped
-  hidden: false,    // boolean to define if digits should be hidden
-  hiddenKey: '*',   // string to replace hidden digits
-  hiddenRange: {
-    start: 5,       // starting index of the numeric sequence to be hidden (min 0)
-    end: 13         // ending index of the numeric sequence to be hidden (max 13)
-  },
-  onFail(value) {   // fallback function to be invoked in case a non-14-digits is passed
-    return value
-  }
 })
 ```
+
+### `cnpjFmt` (helper function)
+
+Formats a CNPJ string. With no options, returns the standard format (e.g. `91.415.732/0007-93`). Invalid input or length is handled by the `onFail` callback instead of throwing. This is a more convenient way to use the library. However, under the hood, it instantiates a `CnpjFormatter` and immediately calls `format`.
+
+- **`cnpjInput`** (string or array of strings): Raw or already formatted 14-alphanumeric-chars (after sanitization).
+- **`options`** (optional): See [formatting options](#formatting-options).
+
+### `CnpjFormatter` (class)
+
+For reusable defaults, you can create your own formatter:
+
+```ts
+import { CnpjFormatter } from '@lacussoft/cnpj-fmt'
+
+const formatter = new CnpjFormatter({ hidden: true, hiddenKey: '#' })
+
+formatter.format('RK0CMT3W000100')                    // 'RK.0CM.###/####-##'
+formatter.format('RK.0CM.T3W/0001-00')                // 'RK.0CM.###/####-##'
+formatter.format(['RK', '0CM', 'T3W', '0001', '00'])  // 'RK.0CM.###/####-##'
+formatter.format('03603568000195', { hidden: false }) // override for this call: 'RK.0CM.T3W/0001-00'
+```
+
+- **`constructor`**: `new CnpjFormatter(options?)` — options are optional and can be a plain object or a `CnpjFormatterOptions` instance.
+- **`format(input, options?)`**: `input` can be `string` or `string[]`; per-call `options` override instance defaults for that call only.
+
+## API
+
+### Exports
+
+- **`cnpjFmt`** (default): `(cnpjString: string, options?: CnpjFormatterOptionsInput) => string`
+- **`CnpjFormatter`**: Class to format CNPJ with optional default options; accepts `string | string[]` in `format()`.
+- **`CnpjFormatterOptions`**: Class holding options (dotKey, slashKey, dashKey, hidden, hiddenKey, hiddenStart, hiddenEnd, escape, encode, onFail). Supports merge via constructor or `set()`.
+- **`CNPJ_LENGTH`**: `14` (constant).
+- **Types**: `CnpjInput`, `CnpjFormatterOptionsInput`, `CnpjFormatterOptionsType`, `OnFailCallback`, `Nullable<T>`.
+
+### Exceptions
+
+When using `CnpjFormatter` with invalid options or when you throw on failure, you may see:
+
+- **CnpjFormatterTypeError** (base for type errors)
+- **CnpjFormatterInputTypeError** — input is not string or string[]
+- **CnpjFormatterInputLengthException** — sanitized input length is not 14
+- **CnpjFormatterOptionsTypeError** — an option has the wrong type
+- **CnpjFormatterOptionsHiddenRangeInvalidException** — hiddenStart/hiddenEnd out of 0..13
+- **CnpjFormatterOptionsForbiddenKeyCharacterException** — a key option contains a disallowed character
 
 ## Contribution & Support
 
-We welcome contributions! Please see our [Contributing Guidelines](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) for details. But if you find this project helpful, please consider:
+We welcome contributions! Please see our [Contributing Guidelines](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) for details. If you find this project helpful, please consider:
 
 - ⭐ Starring the repository
 - 🤝 Contributing to the codebase
