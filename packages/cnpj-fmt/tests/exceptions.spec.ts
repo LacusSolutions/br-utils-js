@@ -415,7 +415,7 @@ describe('CnpjFormatterOptionsForbiddenKeyCharacterException', (): void => {
       const optionName = 'dotKey';
       const actualInput = 'å';
       const forbiddenCharacters = ['å', 'ë', 'ï', 'ð'];
-      const actualMessage = `Value "${actualInput}" for CNPJ formatting option "${optionName}" contains forbidden characters ("${forbiddenCharacters.join('", "')}").`;
+      const actualMessage = `Value "${actualInput}" for CNPJ formatting option "${optionName}" contains disallowed characters ("${forbiddenCharacters.join('", "')}").`;
 
       const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException(
         optionName,
