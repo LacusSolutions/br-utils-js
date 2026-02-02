@@ -109,8 +109,8 @@ export class CnpjFormatterOptions {
    * Characters that are not allowed in key options (`hiddenKey`, `dotKey`,
    * `slashKey`, `dashKey`). They are reserved for internal formatting logic.
    *
-   * FOr now, it's only used to replace the hidden key placeholder in the
-   * CnpjFormatter class. However, this set of characters are reserver for
+   * For now, it's only used to replace the hidden key placeholder in the
+   * CnpjFormatter class. However, this set of characters is reserved for
    * future use already.
    */
   public static readonly DISALLOWED_KEY_CHARACTERS = Object.freeze([
