@@ -130,7 +130,7 @@ const formatter = new CnpjFormatter({ hidden: true, hiddenKey: '#' })
 formatter.format('RK0CMT3W000100')                    // 'RK.0CM.###/####-##'
 formatter.format('RK.0CM.T3W/0001-00')                // 'RK.0CM.###/####-##'
 formatter.format(['RK', '0CM', 'T3W', '0001', '00'])  // 'RK.0CM.###/####-##'
-formatter.format('03603568000195', { hidden: false }) // override for this call: 'RK.0CM.T3W/0001-00'
+formatter.format('RK0CMT3W000100', { hidden: false }) // override for this call: 'RK.0CM.T3W/0001-00'
 ```
 
 - **`constructor`**: `new CnpjFormatter(options?)` — options are optional and can be a plain object or a `CnpjFormatterOptions` instance.
