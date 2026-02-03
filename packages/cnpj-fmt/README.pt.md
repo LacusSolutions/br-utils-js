@@ -127,10 +127,10 @@ import { CnpjFormatter } from '@lacussoft/cnpj-fmt'
 
 const formatter = new CnpjFormatter({ hidden: true, hiddenKey: '#' })
 
-formatter.format('RK0CMT3W000100')                    // 'RK.0CM.###/####-##'
-formatter.format('RK.0CM.T3W/0001-00')                // 'RK.0CM.###/####-##'
-formatter.format(['RK', '0CM', 'T3W', '0001', '00'])  // 'RK.0CM.###/####-##'
-formatter.format('RK0CMT3W000100', { hidden: false }) // override nesta chamada: '03.603.568/0001-95'
+formatter.format('RK0CMT3W000100')                      // 'RK.0CM.###/####-##'
+formatter.format('RK.0CM.T3W/0001-00')                  // 'RK.0CM.###/####-##'
+formatter.format(['RK', '0CM', 'T3W', '0001', '00'])    // 'RK.0CM.###/####-##'
+formatter.format('RK0CMT3W000100', { hidden: false })   // sobrescreve nesta chamada: 'RK.0CM.T3W/0001-00'
 ```
 
 - **`constructor`**: `new CnpjFormatter(options?)` — opções são opcionais e podem ser um objeto simples ou uma instância de `CnpjFormatterOptions`.
