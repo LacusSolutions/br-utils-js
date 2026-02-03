@@ -12,45 +12,45 @@ export const CPF_MAX_LENGTH = 11;
  * Class to calculate CPF check digits.
  */
 export class CpfCheckDigits {
-  private readonly cpfDigits: number[];
-  private cachedFirstDigit: number | undefined = undefined;
-  private cachedSecondDigit: number | undefined = undefined;
+  private readonly _cpfDigits: number[];
+  private _cachedFirstDigit: number | undefined = undefined;
+  private _cachedSecondDigit: number | undefined = undefined;
 
   public constructor(cpfInput: CpfInput) {
     let parsedInput: number[];
 
     if (typeof cpfInput === 'string') {
-      parsedInput = this.handleStringInput(cpfInput);
+      parsedInput = this._handleStringInput(cpfInput);
     } else if (Array.isArray(cpfInput)) {
-      parsedInput = this.handleArrayInput(cpfInput);
+      parsedInput = this._handleArrayInput(cpfInput);
     } else {
       throw new CpfCheckDigitsInputTypeError(cpfInput);
     }
 
-    this.validateLength(parsedInput, cpfInput);
-    this.validateNonRepeatedDigits(parsedInput, cpfInput);
+    this._validateLength(parsedInput, cpfInput);
+    this._validateNonRepeatedDigits(parsedInput, cpfInput);
 
-    this.cpfDigits = parsedInput.slice(0, CPF_MIN_LENGTH);
+    this._cpfDigits = parsedInput.slice(0, CPF_MIN_LENGTH);
   }
 
   public get first(): string {
-    if (this.cachedFirstDigit === undefined) {
-      const baseDigitsSequence = [...this.cpfDigits];
+    if (this._cachedFirstDigit === undefined) {
+      const baseDigitsSequence = [...this._cpfDigits];
 
-      this.cachedFirstDigit = this.calculate(baseDigitsSequence);
+      this._cachedFirstDigit = this.calculate(baseDigitsSequence);
     }
 
-    return this.cachedFirstDigit.toString();
+    return this._cachedFirstDigit.toString();
   }
 
   public get second(): string {
-    if (this.cachedSecondDigit === undefined) {
-      const baseDigitsSequence = [...this.cpfDigits, Number(this.first)];
+    if (this._cachedSecondDigit === undefined) {
+      const baseDigitsSequence = [...this._cpfDigits, Number(this.first)];
 
-      this.cachedSecondDigit = this.calculate(baseDigitsSequence);
+      this._cachedSecondDigit = this.calculate(baseDigitsSequence);
     }
 
-    return this.cachedSecondDigit.toString();
+    return this._cachedSecondDigit.toString();
   }
 
   public get both(): string {
@@ -58,10 +58,10 @@ export class CpfCheckDigits {
   }
 
   public get cpf(): string {
-    return [...this.cpfDigits, this.both].join('');
+    return [...this._cpfDigits, this.both].join('');
   }
 
-  private handleStringInput(cpfString: string): number[] {
+  private _handleStringInput(cpfString: string): number[] {
     const stringDigitsOnly = cpfString.replace(/\D/g, '');
     const stringDigitsArray = stringDigitsOnly.split('');
     const numberDigitsArray = stringDigitsArray.map(Number);
@@ -69,7 +69,7 @@ export class CpfCheckDigits {
     return numberDigitsArray;
   }
 
-  private handleArrayInput(cpfArray: unknown[]): number[] {
+  private _handleArrayInput(cpfArray: unknown[]): number[] {
     if (cpfArray.length === 0) {
       return [];
     }
@@ -80,10 +80,10 @@ export class CpfCheckDigits {
       throw new CpfCheckDigitsInputTypeError(cpfArray);
     }
 
-    return this.handleStringInput(cpfArray.join(''));
+    return this._handleStringInput(cpfArray.join(''));
   }
 
-  private validateLength(cpfIntArray: number[], originalInput: CpfInput): void {
+  private _validateLength(cpfIntArray: number[], originalInput: CpfInput): void {
     const digitsCount = cpfIntArray.length;
 
     if (digitsCount < CPF_MIN_LENGTH || digitsCount > CPF_MAX_LENGTH) {
@@ -96,7 +96,7 @@ export class CpfCheckDigits {
     }
   }
 
-  private validateNonRepeatedDigits(cpfIntArray: number[], originalInput: CpfInput): void {
+  private _validateNonRepeatedDigits(cpfIntArray: number[], originalInput: CpfInput): void {
     const eligibleCpfIntArray = cpfIntArray.slice(0, CPF_MIN_LENGTH);
     const uniqueDigits = new Set(eligibleCpfIntArray);
 
