@@ -140,7 +140,7 @@ formatter.format('RK0CMT3W000100', { hidden: false })   // sobrescreve nesta cha
 
 ### Exportações
 
-- **`cnpjFmt`** (default): `(cnpjString: string, options?: CnpjFormatterOptionsInput) => string`
+- **`cnpjFmt`** (default): `(cnpjInput: string | string[], options?: CnpjFormatterOptionsInput) => string`
 - **`CnpjFormatter`**: Classe para formatar CNPJ com opções padrão opcionais; aceita `string | string[]` em `format()`.
 - **`CnpjFormatterOptions`**: Classe que armazena as opções (dotKey, slashKey, dashKey, hidden, hiddenKey, hiddenStart, hiddenEnd, escape, encode, onFail). Suporta merge via construtor ou `set()`.
 - **`CNPJ_LENGTH`**: `14` (constante).
