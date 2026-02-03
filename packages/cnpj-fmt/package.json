@@ -1,7 +1,7 @@
 {
   "name": "@lacussoft/cnpj-fmt",
   "version": "2.0.2",
-  "description": "Utility class to format CNPJ (Brazilian legal entity ID)",
+  "description": "Utility to format CNPJ (Brazilian legal entity ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
