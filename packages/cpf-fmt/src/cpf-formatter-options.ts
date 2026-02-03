@@ -1,27 +1,27 @@
 import {
-  CnpjFormatterOptionsForbiddenKeyCharacterException,
-  CnpjFormatterOptionsHiddenRangeInvalidException,
-  CnpjFormatterOptionsTypeError,
+  CpfFormatterOptionsForbiddenKeyCharacterException,
+  CpfFormatterOptionsHiddenRangeInvalidException,
+  CpfFormatterOptionsTypeError,
 } from './exceptions';
 import type {
-  CnpjFormatterOptionsInput,
-  CnpjFormatterOptionsType,
+  CpfFormatterOptionsInput,
+  CpfFormatterOptionsType,
   Nullable,
   OnFailCallback,
 } from './types';
 
 /**
- * The standard length of a CNPJ (Cadastro Nacional da Pessoa Jurídica)
- * identifier. A CNPJ consists of 14 alphanumeric characters.
+ * The standard length of a CPF (Cadastro de Pessoas Físicas) identifier. A CPF
+ * consists of 11 digits.
  *
  * @constant
  * @type {number}
  */
-export const CNPJ_LENGTH = 14;
+export const CPF_LENGTH = 11;
 
 /**
  * Minimum valid index for the hidden range (inclusive).
- * Must be between 0 and CNPJ_LENGTH - 1.
+ * Must be between 0 and CPF_LENGTH - 1.
  *
  * @constant
  * @type {number}
@@ -30,58 +30,52 @@ const MIN_HIDDEN_RANGE = 0;
 
 /**
  * Maximum valid index for the hidden range (inclusive).
- * Must be between 0 and CNPJ_LENGTH - 1.
+ * Must be between 0 and CPF_LENGTH - 1.
  *
  * @constant
  * @type {number}
  */
-const MAX_HIDDEN_RANGE = CNPJ_LENGTH - 1;
+const MAX_HIDDEN_RANGE = CPF_LENGTH - 1;
 
 /**
- * Class to store the options for the CNPJ formatter. This class provides a
- * centralized way to configure how CNPJ numbers are formatted, including
- * delimiters, hidden character ranges, HTML escaping, URL encoding, and error
+ * Class to store the options for the CPF formatter. This class provides a
+ * centralized way to configure how CPF numbers are formatted, including
+ * delimiters, hidden digit ranges, HTML escaping, URL encoding, and error
  * handling callbacks.
  */
-export class CnpjFormatterOptions {
+export class CpfFormatterOptions {
   /**
-   * Default value for the `hidden` option. When `false`, all CNPJ characters are
+   * Default value for the `hidden` option. When `false`, all CPF digits are
    * displayed.
    */
   public static readonly DEFAULT_HIDDEN = false;
 
   /**
-   * Default string used to replace hidden CNPJ characters.
+   * Default string used to replace hidden CPF digits.
    */
   public static readonly DEFAULT_HIDDEN_KEY = '*';
 
   /**
-   * Default start index (inclusive) for hiding CNPJ characters. Characters from
-   * this index onwards will be replaced with the `hiddenKey` value.
+   * Default start index (inclusive) for hiding CPF digits. Digits from this
+   * index onwards will be replaced with the `hiddenKey` value.
    */
-  public static readonly DEFAULT_HIDDEN_START = 5;
+  public static readonly DEFAULT_HIDDEN_START = 3;
 
   /**
-   * Default end index (inclusive) for hiding CNPJ characters. Characters up to and
+   * Default end index (inclusive) for hiding CPF digits. Digits up to and
    * including this index will be replaced with the `hiddenKey` value.
    */
-  public static readonly DEFAULT_HIDDEN_END = 13;
+  public static readonly DEFAULT_HIDDEN_END = 10;
 
   /**
-   * Default string used as the dot delimiter in formatted CNPJ. Used to separate
-   * the first groups of characters (XX.XXX.XXX).
+   * Default string used as the dot delimiter in formatted CPF. Used to
+   * separate the first groups of digits (XXX.XXX.XXX).
    */
   public static readonly DEFAULT_DOT_KEY = '.';
 
   /**
-   * Default string used as the slash delimiter in formatted CNPJ. Used to separate
-   * the first group of characters from the branch identifier (XXXXXXXX/XXXX).
-   */
-  public static readonly DEFAULT_SLASH_KEY = '/';
-
-  /**
-   * Default string used as the dash delimiter in formatted CNPJ. Used to separate
-   * the branch identifier from the check digits at the end (XXXX-XX).
+   * Default string used as the dash delimiter in formatted CPF. Used to separate
+   * the first group of digits from the check digits at the end (-XX).
    */
   public static readonly DEFAULT_DASH_KEY = '-';
 
@@ -92,7 +86,7 @@ export class CnpjFormatterOptions {
   public static readonly DEFAULT_ESCAPE = false;
 
   /**
-   * Default value for the `encode` option. When `false`, the CNPJ string is not
+   * Default value for the `encode` option. When `false`, the CPF string is not
    * URL-encoded.
    */
   public static readonly DEFAULT_ENCODE = false;
@@ -107,10 +101,10 @@ export class CnpjFormatterOptions {
 
   /**
    * Characters that are not allowed in key options (`hiddenKey`, `dotKey`,
-   * `slashKey`, `dashKey`). They are reserved for internal formatting logic.
+   * `dashKey`). They are reserved for internal formatting logic.
    *
    * For now, it's only used to replace the hidden key placeholder in the
-   * CnpjFormatter class. However, this set of characters is reserved for
+   * CpfFormatter class. However, this set of characters is reserved for
    * future use already.
    */
   public static readonly DISALLOWED_KEY_CHARACTERS = Object.freeze([
@@ -124,43 +118,42 @@ export class CnpjFormatterOptions {
    * Internal storage for all formatter options.
    *
    * @private
-   * @type {CnpjFormatterOptionsType}
+   * @type {CpfFormatterOptionsType}
    */
-  private _options = {} as CnpjFormatterOptionsType;
+  private _options = {} as CpfFormatterOptionsType;
 
   /**
-   * Creates a new instance of `CnpjFormatterOptions`.
+   * Creates a new instance of `CpfFormatterOptions`.
    *
    * Options can be provided in multiple ways:
-   * 1. As a single options object or another `CnpjFormatterOptions` instance
+   * 1. As a single options object or another `CpfFormatterOptions` instance
    * 2. As multiple override objects that are merged in order (later overrides
    *    take precedence)
    *
    * All options are optional and will default to their predefined values if not
    * provided. The `hiddenStart` and `hiddenEnd` options are validated to ensure
-   * they are within the valid range [0, CNPJ_LENGTH - 1] and will be swapped if
+   * they are within the valid range [0, CPF_LENGTH - 1] and will be swapped if
    * `hiddenStart > hiddenEnd`.
    *
-   * @param {CnpjFormatterOptionsInput} [defaultOptions] - Initial options
-   *   object or another `CnpjFormatterOptions` instance
-   * @param {...CnpjFormatterOptionsInput[]} overrides - Additional option
+   * @param {CpfFormatterOptionsInput} [defaultOptions] - Initial options
+   *   object or another `CpfFormatterOptions` instance
+   * @param {...CpfFormatterOptionsInput[]} overrides - Additional option
    *   objects to merge, applied in order
    *
-   * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type
-   * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
+   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type
+   * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
    *   or `hiddenEnd` are out of valid range
-   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If any key
-   *   option (`hiddenKey`, `dotKey`, `slashKey`, `dashKey`) contains a
+   * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If any key
+   *   option (`hiddenKey`, `dotKey`, `dashKey`) contains a
    *   disallowed character
    */
   public constructor(
-    defaultOptions?: CnpjFormatterOptionsInput,
-    ...overrides: CnpjFormatterOptionsInput[]
+    defaultOptions?: CpfFormatterOptionsInput,
+    ...overrides: CpfFormatterOptionsInput[]
   ) {
     this.hidden = defaultOptions?.hidden;
     this.hiddenKey = defaultOptions?.hiddenKey;
     this.dotKey = defaultOptions?.dotKey;
-    this.slashKey = defaultOptions?.slashKey;
     this.dashKey = defaultOptions?.dashKey;
     this.escape = defaultOptions?.escape;
     this.encode = defaultOptions?.encode;
@@ -178,18 +171,18 @@ export class CnpjFormatterOptions {
    * modification. This is useful for creating immutable snapshots of the
    * current configuration.
    *
-   * @returns {CnpjFormatterOptionsType}
+   * @returns {CpfFormatterOptionsType}
    */
-  public get all(): CnpjFormatterOptionsType {
+  public get all(): CpfFormatterOptionsType {
     const options = { ...this._options };
 
     return Object.freeze(options);
   }
 
   /**
-   * Gets whether hidden character replacement is enabled. When `true`,
-   * characters within the `hiddenStart` to `hiddenEnd` range will be replaced
-   * with the `hiddenKey` character.
+   * Gets whether hidden digit replacement is enabled. When `true`, digits
+   * within the `hiddenStart` to `hiddenEnd` range will be replaced with the
+   * `hiddenKey` character.
    *
    * @returns {boolean}
    */
@@ -198,23 +191,23 @@ export class CnpjFormatterOptions {
   }
 
   /**
-   * Sets whether hidden character replacement is enabled. When set to `true`,
-   * characters within the `hiddenStart` to `hiddenEnd` range will be replaced
+   * Sets whether hidden digit replacement is enabled. When set to `true`,
+   * digits within the `hiddenStart` to `hiddenEnd` range will be replaced
    * with the `hiddenKey` character. The value is converted to a boolean using
    * `Boolean()`, so truthy/falsy values are handled appropriately.
    *
    * @param {Nullable<boolean>} value
    */
   public set hidden(value: Nullable<boolean>) {
-    let actualHidden = value ?? CnpjFormatterOptions.DEFAULT_HIDDEN;
+    let actualHidden = value ?? CpfFormatterOptions.DEFAULT_HIDDEN;
 
     actualHidden = Boolean(actualHidden);
     this._options.hidden = actualHidden;
   }
 
   /**
-   * Gets the string used to replace hidden CNPJ characters. This string is
-   * used when `hidden` is `true` to mask characters in the range from
+   * Gets the string used to replace hidden CPF digits. This string is
+   * used when `hidden` is `true` to mask digits in the range from
    * `hiddenStart` to `hiddenEnd` (inclusive).
    *
    * @returns {string}
@@ -224,21 +217,21 @@ export class CnpjFormatterOptions {
   }
 
   /**
-   * Sets the string used to replace hidden CNPJ characters. This string is
-   * used when `hidden` is `true` to mask characters in the range from
-   * `hiddenStart` to `hiddenEnd` (inclusive).
+   * Sets the string used to replace hidden CPF digits. This string is used
+   * when `hidden` is `true` to mask digits in the range from `hiddenStart` to
+   * `hiddenEnd` (inclusive).
    *
    * @param {Nullable<string>} value
    *
-   * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
-   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If the value
+   * @throws {CpfFormatterOptionsTypeError} If the value is not a string
+   * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If the value
    *   contains any disallowed key character
    */
   public set hiddenKey(value: Nullable<string>) {
-    const actualHiddenKey = value ?? CnpjFormatterOptions.DEFAULT_HIDDEN_KEY;
+    const actualHiddenKey = value ?? CpfFormatterOptions.DEFAULT_HIDDEN_KEY;
 
     if (typeof actualHiddenKey !== 'string') {
-      throw new CnpjFormatterOptionsTypeError('hiddenKey', actualHiddenKey, 'string');
+      throw new CpfFormatterOptionsTypeError('hiddenKey', actualHiddenKey, 'string');
     }
 
     this._assertNoDisallowedKeyCharacters('hiddenKey', actualHiddenKey);
@@ -247,10 +240,10 @@ export class CnpjFormatterOptions {
   }
 
   /**
-   * Gets the start index (inclusive) for hiding CNPJ characters. This is the
-   * first position in the CNPJ string where characters will be replaced with
-   * the `hiddenKey` string when `hidden` is `true`. Must be between `0` and
-   * `13` (`CNPJ_LENGTH - 1`).
+   * Gets the start index (inclusive) for hiding CPF digits. This is the first
+   * position in the CPF string where digits will be replaced with the
+   * `hiddenKey` string when `hidden` is `true`. Must be between `0` and `10`
+   * (`CPF_LENGTH - 1`).
    *
    * @returns {number}
    */
@@ -259,25 +252,25 @@ export class CnpjFormatterOptions {
   }
 
   /**
-   * Sets the start index (inclusive) for hiding CNPJ characters. This is the
-   * first position in the CNPJ string where characters will be replaced with
-   * the `hiddenKey` when `hidden` is `true`. The value is validated and will be
+   * Sets the start index (inclusive) for hiding CPF digits. This is the first
+   * position in the CPF string where digits will be replaced with the
+   * `hiddenKey` when `hidden` is `true`. The value is validated and will be
    * swapped with `hiddenEnd` if necessary to ensure `hiddenStart <= hiddenEnd`.
    *
    * @param {Nullable<number>} value
    *
-   * @throws {CnpjFormatterOptionsTypeError} If the value is not an integer
-   * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If the value is out of valid range [0, CNPJ_LENGTH - 1]
+   * @throws {CpfFormatterOptionsTypeError} If the value is not an integer
+   * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If the value is out of valid range [0, CPF_LENGTH - 1]
    */
   public set hiddenStart(value: Nullable<number>) {
     this.setHiddenRange(value, this._options.hiddenEnd);
   }
 
   /**
-   * Gets the end index (inclusive) for hiding CNPJ characters. This is the last
-   * position in the CNPJ string where characters will be replaced with the
-   * `hiddenKey` string when `hidden` is `true`. Must be between `0` and
-   * `13` (`CNPJ_LENGTH - 1`).
+   * Gets the end index (inclusive) for hiding CPF digits. This is the last
+   * position in the CPF string where digits will be replaced with the
+   * `hiddenKey` string when `hidden` is `true`. Must be between `0` and `10`
+   * (`CPF_LENGTH - 1`).
    *
    * @returns {number}
    */
@@ -286,16 +279,16 @@ export class CnpjFormatterOptions {
   }
 
   /**
-   * Sets the end index (inclusive) for hiding CNPJ characters. This is the last
-   * position in the CNPJ string where characters will be replaced with the
+   * Sets the end index (inclusive) for hiding CPF digits. This is the last
+   * position in the CPF string where digits will be replaced with the
    * `hiddenKey` when `hidden` is `true`. The value is validated and will be
    * swapped with `hiddenStart` if necessary to ensure `hiddenStart <= hiddenEnd`.
    *
    * @param {Nullable<number>} value
    *
-   * @throws {CnpjFormatterOptionsTypeError} If the value is not an integer
-   * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If the value is
-   *   out of valid range [`0`, `CNPJ_LENGTH - 1`]
+   * @throws {CpfFormatterOptionsTypeError} If the value is not an integer
+   * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If the value is
+   *   out of valid range [`0`, `CPF_LENGTH - 1`]
    */
   public set hiddenEnd(value: Nullable<number>) {
     this.setHiddenRange(this._options.hiddenStart, value);
@@ -303,8 +296,8 @@ export class CnpjFormatterOptions {
 
   /**
    * Gets the string used as the dot delimiter. This string is used to
-   * separate the first groups of characters in the formatted CNPJ (e.g., `"."`
-   * in "12.345.678/0001-90").
+   * separate the first groups of digits in the formatted CPF (e.g., `"."` in
+   * "123.456.789-10").
    *
    * @returns {string}
    */
@@ -314,20 +307,20 @@ export class CnpjFormatterOptions {
 
   /**
    * Sets the string used as the dot delimiter. This string is used to
-   * separate the first groups of characters in the formatted CNPJ (e.g.,
-   * `"."` in `"12.345.678/0001-90"`).
+   * separate the first groups of digits in the formatted CPF (e.g., `"."` in
+   * `"123.456.789-10"`).
    *
    * @param {Nullable<string>} value
    *
-   * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
-   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If the value
+   * @throws {CpfFormatterOptionsTypeError} If the value is not a string
+   * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If the value
    *   contains any disallowed key character
    */
   public set dotKey(value: Nullable<string>) {
-    const actualDotKey = value ?? CnpjFormatterOptions.DEFAULT_DOT_KEY;
+    const actualDotKey = value ?? CpfFormatterOptions.DEFAULT_DOT_KEY;
 
     if (typeof actualDotKey !== 'string') {
-      throw new CnpjFormatterOptionsTypeError('dotKey', actualDotKey, 'string');
+      throw new CpfFormatterOptionsTypeError('dotKey', actualDotKey, 'string');
     }
 
     this._assertNoDisallowedKeyCharacters('dotKey', actualDotKey);
@@ -336,43 +329,9 @@ export class CnpjFormatterOptions {
   }
 
   /**
-   * Gets the string used as the slash delimiter. This string is used to
-   * separate the first group of characters from the branch identifier in the
-   * formatted CNPJ (e.g., `"/"` in `"12.345.678/0001-90"`).
-   *
-   * @returns {string}
-   */
-  public get slashKey(): string {
-    return this._options.slashKey;
-  }
-
-  /**
-   * Sets the string used as the slash delimiter. This string is used to
-   * separate the first group of characters from the branch identifier in the
-   * formatted CNPJ (e.g., `"/"` in `"12.345.678/0001-90"`).
-   *
-   * @param {Nullable<string>} value
-   *
-   * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
-   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If the value
-   *   contains any disallowed key character
-   */
-  public set slashKey(value: Nullable<string>) {
-    const actualSlashKey = value ?? CnpjFormatterOptions.DEFAULT_SLASH_KEY;
-
-    if (typeof actualSlashKey !== 'string') {
-      throw new CnpjFormatterOptionsTypeError('slashKey', actualSlashKey, 'string');
-    }
-
-    this._assertNoDisallowedKeyCharacters('slashKey', actualSlashKey);
-
-    this._options.slashKey = actualSlashKey;
-  }
-
-  /**
    * Gets the string used as the dash delimiter. This string is used to
-   * separate the check digits at the end in the formatted CNPJ (e.g., `"-"` in
-   * `"12.345.678/0001-90"`).
+   * separate the check digits at the end in the formatted CPF (e.g., `"-"` in
+   * `"123.456.789-10"`).
    *
    * @returns {string}
    */
@@ -382,20 +341,20 @@ export class CnpjFormatterOptions {
 
   /**
    * Sets the string used as the dash delimiter. This string is used to
-   * separate the check digits at the end in the formatted CNPJ (e.g., `"-"` in
-   * `"12.345.678/0001-90"`).
+   * separate the check digits at the end in the formatted CPF (e.g., `"-"` in
+   * `"123.456.789-10"`).
    *
    * @param {Nullable<string>} value
    *
-   * @throws {CnpjFormatterOptionsTypeError} If the value is not a string
-   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If the value
+   * @throws {CpfFormatterOptionsTypeError} If the value is not a string
+   * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If the value
    *   contains any disallowed key character
    */
   public set dashKey(value: Nullable<string>) {
-    const actualDashKey = value ?? CnpjFormatterOptions.DEFAULT_DASH_KEY;
+    const actualDashKey = value ?? CpfFormatterOptions.DEFAULT_DASH_KEY;
 
     if (typeof actualDashKey !== 'string') {
-      throw new CnpjFormatterOptionsTypeError('dashKey', actualDashKey, 'string');
+      throw new CpfFormatterOptionsTypeError('dashKey', actualDashKey, 'string');
     }
 
     this._assertNoDisallowedKeyCharacters('dashKey', actualDashKey);
@@ -405,9 +364,9 @@ export class CnpjFormatterOptions {
 
   /**
    * Gets whether HTML escaping is enabled. When `true`, HTML special characters
-   * (like `<`, `>`, `&`, etc.) in the formatted CNPJ string will be escaped.
+   * (like `<`, `>`, `&`, etc.) in the formatted CPF string will be escaped.
    * This is useful when using custom delimiters that may contain HTML
-   * characters or when displaying CNPJ in HTML.
+   * characters or when displaying CPF in HTML.
    *
    * @returns {boolean}
    */
@@ -417,23 +376,23 @@ export class CnpjFormatterOptions {
 
   /**
    * Sets whether HTML escaping is enabled. When set to `true`, HTML special
-   * characters (like `<`, `>`, `&`, etc.) in the formatted CNPJ string will be
+   * characters (like `<`, `>`, `&`, etc.) in the formatted CPF string will be
    * escaped. This is useful when using custom delimiters that may contain HTML
-   * characters or when displaying CNPJ in HTML. The value is converted to a
+   * characters or when displaying CPF in HTML. The value is converted to a
    * boolean using `Boolean()`, so truthy/falsy values are handled
    * appropriately.
    *
    * @param {Nullable<boolean>} value
    */
   public set escape(value: Nullable<boolean>) {
-    let actualEscape = value ?? CnpjFormatterOptions.DEFAULT_ESCAPE;
+    let actualEscape = value ?? CpfFormatterOptions.DEFAULT_ESCAPE;
 
     actualEscape = Boolean(actualEscape);
     this._options.escape = actualEscape;
   }
 
   /**
-   * Gets whether URL encoding is enabled. When `true`, the formatted CNPJ
+   * Gets whether URL encoding is enabled. When `true`, the formatted CPF
    * string will be URL-encoded, making it safe to use in URL query parameters
    * or path segments.
    *
@@ -445,14 +404,14 @@ export class CnpjFormatterOptions {
 
   /**
    * Sets whether URL encoding is enabled. When set to `true`, the formatted
-   * CNPJ string will be URL-encoded, making it safe to use in URL query parameters
+   * CPF string will be URL-encoded, making it safe to use in URL query parameters
    * or path segments. The value is converted to a boolean using `Boolean()`, so
    * truthy/falsy values are handled appropriately.
    *
    * @param {Nullable<boolean>} value
    */
   public set encode(value: Nullable<boolean>) {
-    let actualEncode = value ?? CnpjFormatterOptions.DEFAULT_ENCODE;
+    let actualEncode = value ?? CpfFormatterOptions.DEFAULT_ENCODE;
 
     actualEncode = Boolean(actualEncode);
     this._options.encode = actualEncode;
@@ -478,13 +437,13 @@ export class CnpjFormatterOptions {
    *
    * @param {Nullable<OnFailCallback>} value
    *
-   * @throws {CnpjFormatterOptionsTypeError} If the value is not a function
+   * @throws {CpfFormatterOptionsTypeError} If the value is not a function
    */
   public set onFail(value: Nullable<OnFailCallback>) {
-    const actualOnFail = value ?? CnpjFormatterOptions.DEFAULT_ON_FAIL;
+    const actualOnFail = value ?? CpfFormatterOptions.DEFAULT_ON_FAIL;
 
     if (typeof actualOnFail !== 'function') {
-      throw new CnpjFormatterOptionsTypeError('onFail', value, 'function');
+      throw new CpfFormatterOptionsTypeError('onFail', value, 'function');
     }
 
     this._options.onFail = actualOnFail;
@@ -493,36 +452,36 @@ export class CnpjFormatterOptions {
   /**
    * Sets the hiddenStart and hiddenEnd options with proper validation and
    * sanitization. This method validates that both indices are integers within
-   * the valid range [`0`, `CNPJ_LENGTH - 1`]. If `hiddenStart > hiddenEnd`, the
+   * the valid range [`0`, `CPF_LENGTH - 1`]. If `hiddenStart > hiddenEnd`, the
    * values are automatically swapped to ensure a valid range. This method is
    * used internally by the `hiddenStart` and `hiddenEnd` setters to maintain
    * consistency.
    *
    * @param {Nullable<number>} hiddenStart - The start index (inclusive) for
-   *   hiding characters, or `null`/`undefined` for default (5)
+   *   hiding digits, or `null`/`undefined` for default (3)
    * @param {Nullable<number>} hiddenEnd - The end index (inclusive) for hiding
-   *   characters, or `null`/`undefined` for default (13)
+   *   digits, or `null`/`undefined` for default (10)
    *
    * @returns {this}
    *
-   * @throws {CnpjFormatterOptionsTypeError} If either value is not an integer
-   * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If either value
-   *   is out of valid range [`0`, `CNPJ_LENGTH - 1`]
+   * @throws {CpfFormatterOptionsTypeError} If either value is not an integer
+   * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If either value
+   *   is out of valid range [`0`, `CPF_LENGTH - 1`]
    */
   public setHiddenRange(hiddenStart: Nullable<number>, hiddenEnd: Nullable<number>): this {
-    let actualHiddenStart = hiddenStart ?? CnpjFormatterOptions.DEFAULT_HIDDEN_START;
-    let actualHiddenEnd = hiddenEnd ?? CnpjFormatterOptions.DEFAULT_HIDDEN_END;
+    let actualHiddenStart = hiddenStart ?? CpfFormatterOptions.DEFAULT_HIDDEN_START;
+    let actualHiddenEnd = hiddenEnd ?? CpfFormatterOptions.DEFAULT_HIDDEN_END;
 
     if (typeof actualHiddenStart !== 'number' || !Number.isInteger(actualHiddenStart)) {
-      throw new CnpjFormatterOptionsTypeError('hiddenStart', actualHiddenStart, 'integer');
+      throw new CpfFormatterOptionsTypeError('hiddenStart', actualHiddenStart, 'integer');
     }
 
     if (typeof actualHiddenEnd !== 'number' || !Number.isInteger(actualHiddenEnd)) {
-      throw new CnpjFormatterOptionsTypeError('hiddenEnd', actualHiddenEnd, 'integer');
+      throw new CpfFormatterOptionsTypeError('hiddenEnd', actualHiddenEnd, 'integer');
     }
 
     if (actualHiddenStart < MIN_HIDDEN_RANGE || actualHiddenStart > MAX_HIDDEN_RANGE) {
-      throw new CnpjFormatterOptionsHiddenRangeInvalidException(
+      throw new CpfFormatterOptionsHiddenRangeInvalidException(
         'hiddenStart',
         actualHiddenStart,
         MIN_HIDDEN_RANGE,
@@ -531,7 +490,7 @@ export class CnpjFormatterOptions {
     }
 
     if (actualHiddenEnd < MIN_HIDDEN_RANGE || actualHiddenEnd > MAX_HIDDEN_RANGE) {
-      throw new CnpjFormatterOptionsHiddenRangeInvalidException(
+      throw new CpfFormatterOptionsHiddenRangeInvalidException(
         'hiddenEnd',
         actualHiddenEnd,
         MIN_HIDDEN_RANGE,
@@ -553,25 +512,24 @@ export class CnpjFormatterOptions {
    * Sets multiple options at once. This method allows you to update multiple
    * options in a single call. Only the provided options are updated; options
    * not included in the object retain their current values. You can pass either
-   * a partial options object or another `CnpjFormatterOptions` instance.
+   * a partial options object or another `CpfFormatterOptions` instance.
    *
-   * @param {CnpjFormatterOptionsInput} options - An
-   *   options object or another `CnpjFormatterOptions` instance
+   * @param {CpfFormatterOptionsInput} options - An
+   *   options object or another `CpfFormatterOptions` instance
    *
    * @returns {this}
    *
-   * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type
-   * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
+   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type
+   * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
    *   or `hiddenEnd` are out of valid range
-   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If any key
-   *   option (`hiddenKey`, `dotKey`, `slashKey`, `dashKey`) contains a
+   * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If any key
+   *   option (`hiddenKey`, `dotKey`, `dashKey`) contains a
    *   disallowed character
    */
-  public set(options: CnpjFormatterOptionsInput): this {
+  public set(options: CpfFormatterOptionsInput): this {
     this.hidden = options.hidden ?? this.hidden;
     this.hiddenKey = options.hiddenKey ?? this.hiddenKey;
     this.dotKey = options.dotKey ?? this.dotKey;
-    this.slashKey = options.slashKey ?? this.slashKey;
     this.dashKey = options.dashKey ?? this.dashKey;
     this.escape = options.escape ?? this.escape;
     this.encode = options.encode ?? this.encode;
@@ -589,21 +547,21 @@ export class CnpjFormatterOptions {
    * Throws if the given string contains any disallowed key character.
    *
    * @private
-   * @param {keyof CnpjFormatterOptionsType} optionName - Option being set.
+   * @param {keyof CpfFormatterOptionsType} optionName - Option being set.
    * @param {string} value - String value to validate.
    *
-   * @throws {CnpjFormatterOptionsForbiddenKeyCharacterException} If `value`
+   * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If `value`
    *   contains any character from `getDisallowedKeyCharacters()`.
    */
   private _assertNoDisallowedKeyCharacters(
-    optionName: keyof CnpjFormatterOptionsType,
+    optionName: keyof CpfFormatterOptionsType,
     value: string,
   ): void {
-    const forbiddenChars = CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS;
+    const forbiddenChars = CpfFormatterOptions.DISALLOWED_KEY_CHARACTERS;
     const hasForbiddenChars = forbiddenChars.some((ch) => value.includes(ch));
 
     if (hasForbiddenChars) {
-      throw new CnpjFormatterOptionsForbiddenKeyCharacterException(
+      throw new CpfFormatterOptionsForbiddenKeyCharacterException(
         optionName,
         value,
         forbiddenChars,
@@ -612,4 +570,4 @@ export class CnpjFormatterOptions {
   }
 }
 
-Object.freeze(CnpjFormatterOptions);
+Object.freeze(CpfFormatterOptions);
