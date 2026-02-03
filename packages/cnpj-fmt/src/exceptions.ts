@@ -1,4 +1,4 @@
-import type { CnpjFormatterOptionsType } from './types';
+import type { CnpjFormatterOptionsType, CnpjInput } from './types';
 import { describeType } from './utils';
 
 /**
@@ -368,7 +368,7 @@ export class CnpjFormatterOptionsForbiddenKeyCharacterException extends CnpjForm
  *
  * @property {string} name - The name of the exception class, automatically set from
  *   the constructor name.
- * @property {string} actualInput - The original input string provided to the
+ * @property {CnpjInput} actualInput - The original input provided to the
  *   formatter. This may contain formatting characters like dots, slashes or
  *   dashes.
  * @property {string} evaluatedInput - The input string after processing
@@ -379,11 +379,11 @@ export class CnpjFormatterOptionsForbiddenKeyCharacterException extends CnpjForm
  */
 export class CnpjFormatterInputLengthException extends CnpjFormatterException {
   /**
-   * The original input string provided to the formatter.
+   * The original input provided to the formatter.
    *
    * @readonly
    */
-  public readonly actualInput: string;
+  public readonly actualInput: CnpjInput;
 
   /**
    * The input string after processing (typically with formatting characters
@@ -403,7 +403,7 @@ export class CnpjFormatterInputLengthException extends CnpjFormatterException {
   /**
    * Creates a new instance of `CnpjFormatterInputLengthException`.
    *
-   * @param {string} actualInput - The original input string provided to the
+   * @param {CnpjInput} actualInput - The original input provided to the
    *   formatter. This may contain formatting characters.
    * @param {string} evaluatedInput - The input string after processing
    *   (typically with formatting characters removed). This is the string whose
@@ -411,7 +411,7 @@ export class CnpjFormatterInputLengthException extends CnpjFormatterException {
    * @param {number} expectedLength - The expected number of characters
    *   (typically 14 for a CNPJ).
    */
-  public constructor(actualInput: string, evaluatedInput: string, expectedLength: number) {
+  public constructor(actualInput: CnpjInput, evaluatedInput: string, expectedLength: number) {
     const fmtActualInput =
       typeof actualInput === 'string' ? `"${actualInput}"` : JSON.stringify(actualInput);
     const fmtEvaluatedInput =

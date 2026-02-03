@@ -114,11 +114,7 @@ export class CnpjFormatter {
     let formattedCnpj = alphanumericOnly.toUpperCase();
 
     if (formattedCnpj.length !== CNPJ_LENGTH) {
-      const error = new CnpjFormatterInputLengthException(
-        nonArrayInput,
-        formattedCnpj,
-        CNPJ_LENGTH,
-      );
+      const error = new CnpjFormatterInputLengthException(cnpjInput, formattedCnpj, CNPJ_LENGTH);
 
       return actualOptions.onFail(nonArrayInput, error);
     }
