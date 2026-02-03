@@ -496,6 +496,7 @@ export class CnpjFormatterOptions {
    * the valid range [`0`, `CNPJ_LENGTH - 1`]. If `hiddenStart > hiddenEnd`, the
    * values are automatically swapped to ensure a valid range. This method is
    * used internally by the `hiddenStart` and `hiddenEnd` setters to maintain
+   * consistency.
    *
    * @param {Nullable<number>} hiddenStart - The start index (inclusive) for
    *   hiding characters, or `null`/`undefined` for default (5)
