@@ -30,10 +30,16 @@ describe('package distributions', (): void => {
         await expect(file.exists()).resolves.toBe(true);
       });
 
-      describe('when evaluated', async (): Promise<void> => {
-        const fileContent = await file.text();
-        const makeGlobalInstance = new Function(`${fileContent}\nreturn cnpjFmt;`);
-        const cnpjFmt = makeGlobalInstance();
+      describe('when evaluated', (): void => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let cnpjFmt: any;
+
+        beforeAll(async (): Promise<void> => {
+          const fileContent = await file.text();
+          const makeGlobalInstance = new Function(`${fileContent}\nreturn cnpjFmt;`);
+
+          cnpjFmt = makeGlobalInstance();
+        });
 
         it('exposes a global `cnpjFmt` helper function', async (): Promise<void> => {
           expect(cnpjFmt).toBeFunction();
@@ -158,10 +164,14 @@ describe('package distributions', (): void => {
     });
   });
 
-  describe('ES Module (index.mjs)', async (): Promise<void> => {
+  describe('ES Module (index.mjs)', (): void => {
     const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
     const file = Bun.file(filePath);
-    const content = await file.text();
+    let content: string;
+
+    beforeAll(async (): Promise<void> => {
+      content = await file.text();
+    });
 
     it('exists', async (): Promise<void> => {
       await expect(file.exists()).resolves.toBe(true);
@@ -240,10 +250,14 @@ describe('package distributions', (): void => {
     });
   });
 
-  describe('TypeScript declarations (index.d.ts)', async (): Promise<void> => {
+  describe('TypeScript declarations (index.d.ts)', (): void => {
     const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
     const file = Bun.file(filePath);
-    const content = await file.text();
+    let content: string;
+
+    beforeAll(async (): Promise<void> => {
+      content = await file.text();
+    });
 
     it('exists', async (): Promise<void> => {
       await expect(file.exists()).resolves.toBe(true);
