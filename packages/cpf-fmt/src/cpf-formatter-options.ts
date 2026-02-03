@@ -455,6 +455,7 @@ export class CpfFormatterOptions {
    * the valid range [`0`, `CPF_LENGTH - 1`]. If `hiddenStart > hiddenEnd`, the
    * values are automatically swapped to ensure a valid range. This method is
    * used internally by the `hiddenStart` and `hiddenEnd` setters to maintain
+   * consistency.
    *
    * @param {Nullable<number>} hiddenStart - The start index (inclusive) for
    *   hiding digits, or `null`/`undefined` for default (3)
