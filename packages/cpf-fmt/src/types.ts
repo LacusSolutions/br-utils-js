@@ -65,7 +65,7 @@ export interface CpfFormatterOptionsType {
    * the `hiddenKey` character when `hidden` is `true`. Must be an integer
    * between `0` and `10` (`CPF_LENGTH - 1`).
    *
-   * @default 5
+   * @default 3
    */
   hiddenStart: number;
 
@@ -75,7 +75,7 @@ export interface CpfFormatterOptionsType {
    * the `hiddenKey` character when `hidden` is `true`. Must be an integer
    * between `0` and `10` (`CPF_LENGTH - 1`).
    *
-   * @default 13
+   * @default 10
    */
   hiddenEnd: number;
 
