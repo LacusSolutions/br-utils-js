@@ -847,6 +847,14 @@ describe('CnpjFormatterOptions', (): void => {
   });
 
   describe('`onFail` property', (): void => {
+    describe('when using the default callback value', (): void => {
+      it('returns empty string', (): void => {
+        const result = CnpjFormatterOptions.DEFAULT_ON_FAIL('some value');
+
+        expect(result).toBe('');
+      });
+    });
+
     describe('when setting to a callable value', (): void => {
       it('sets `onFail` to the provided callback', (): void => {
         const callback: OnFailCallback = (value) => `ERROR: ${value}`;
