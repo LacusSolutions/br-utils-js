@@ -1,37 +1,44 @@
 /**
  * Describes the type of a value for error messages.
  *
- * @param value - The value to describe
- * @returns A human-readable type description
- *
  * @example
- * describeType(null)           // 'null'
- * describeType(undefined)      // 'undefined'
- * describeType(42)             // 'number'
- * describeType('hello')        // 'string'
- * describeType([])             // 'Array (empty)'
- * describeType([1, 2, 3])      // 'number[]'
- * describeType([1, 'a', 2])    // '(number | string)[]'
- * describeType(new Set())      // 'Set'
- * describeType(new Map())      // 'Map'
- * describeType({})             // 'object'
+ * describeType(null)          // 'null'
+ * describeType(undefined)     // 'undefined'
+ * describeType('hello')       // 'string'
+ * describeType(true)          // 'boolean'
+ * describeType(42)            // 'integer number'
+ * describeType(3.14)          // 'float number'
+ * describeType(NaN)           // 'NaN'
+ * describeType(Infinity)      // 'Infinity'
+ * describeType([])            // 'Array (empty)'
+ * describeType([1, 2, 3])     // 'number[]'
+ * describeType([1, 'a', 2])   // '(number | string)[]'
+ * describeType({})            // 'object'
  */
 export function describeType(value: unknown): string {
   if (!Array.isArray(value)) {
+    if (typeof value === 'number') {
+      if (isNaN(value)) {
+        return 'NaN';
+      }
+
+      if (!isFinite(value)) {
+        return 'Infinity';
+      }
+
+      if (Number.isInteger(value)) {
+        return 'integer number';
+      }
+
+      return 'float number';
+    }
+
     if (typeof value !== 'object') {
       return typeof value;
     }
 
     if (value === null) {
       return 'null';
-    }
-
-    if (value instanceof Set) {
-      return 'Set';
-    }
-
-    if (value instanceof Map) {
-      return 'Map';
     }
 
     return typeof value;
@@ -41,7 +48,8 @@ export function describeType(value: unknown): string {
     return 'Array (empty)';
   }
 
-  const uniqueTypes = Array.from(new Set(value.map((item) => typeof item)));
+  const uniqueTypesSet = new Set(value.map((item) => typeof item));
+  const uniqueTypes = Array.from(uniqueTypesSet);
 
   if (uniqueTypes.length === 1) {
     return `${uniqueTypes[0]}[]`;
