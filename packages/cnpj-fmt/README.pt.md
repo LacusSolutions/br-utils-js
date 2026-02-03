@@ -9,7 +9,7 @@
 
 > 🚀 **Suporte completo ao novo formato alfanumérico de CNPJ.**
 
-> 🌎 [Read  documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-fmt/README.md)
+> 🌎 [Read documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-fmt/README.md)
 
 Utilitário em JavaScript/TypeScript para formatar CNPJ (Cadastro Nacional da Pessoa Jurídica).
 
