@@ -115,8 +115,7 @@ export interface CpfFormatterOptionsType {
    * Whether to URL-encode the formatted CPF string. When `true`, the formatted
    * CPF string will be URL-encoded using `encodeURIComponent`, making it safe
    * to use in URL query parameters, path segments, or other URL contexts. This
-   * ensures that special characters like the `"/"` in the standard formatting
-   * or in custom keys are properly encoded.
+   * ensures that special characters in custom keys are properly encoded.
    *
    * @default false
    */
