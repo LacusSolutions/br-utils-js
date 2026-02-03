@@ -368,12 +368,4 @@ describe('escapeHTML', (): void => {
       expect(result).toBe('&#039;');
     });
   });
-
-  describe('when given a "\'" character', (): void => {
-    it('returns "&#039;"', (): void => {
-      const result = escapeHTML("'");
-
-      expect(result).toBe('&#039;');
-    });
-  });
 });
