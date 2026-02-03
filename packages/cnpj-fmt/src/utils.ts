@@ -2,20 +2,18 @@
  * Describes the type of a value for error messages.
  *
  * @example
- * describeType(null)           // 'null'
- * describeType(undefined)      // 'undefined'
- * describeType('hello')        // 'string'
- * describeType(true)           // 'boolean'
- * describeType(42)             // 'integer number'
- * describeType(3.14)           // 'float number'
- * describeType(NaN)            // 'NaN'
- * describeType(Infinity)       // 'Infinity'
- * describeType([])             // 'Array (empty)'
- * describeType([1, 2, 3])      // 'number[]'
- * describeType([1, 'a', 2])    // '(number | string)[]'
- * describeType(new Set())      // 'Set'
- * describeType(new Map())      // 'Map'
- * describeType({})             // 'object'
+ * describeType(null)          // 'null'
+ * describeType(undefined)     // 'undefined'
+ * describeType('hello')       // 'string'
+ * describeType(true)          // 'boolean'
+ * describeType(42)            // 'integer number'
+ * describeType(3.14)          // 'float number'
+ * describeType(NaN)           // 'NaN'
+ * describeType(Infinity)      // 'Infinity'
+ * describeType([])            // 'Array (empty)'
+ * describeType([1, 2, 3])     // 'number[]'
+ * describeType([1, 'a', 2])   // '(number | string)[]'
+ * describeType({})            // 'object'
  */
 export function describeType(value: unknown): string {
   if (!Array.isArray(value)) {
