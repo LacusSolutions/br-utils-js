@@ -82,7 +82,7 @@ describe('describeType', (): void => {
       expect(result).toBe('Infinity');
     });
 
-    it('returns "-Infinity" for negative `Infinity`', (): void => {
+    it('returns "Infinity" for negative `Infinity`', (): void => {
       const result = describeType(-Infinity);
 
       expect(result).toBe('Infinity');
