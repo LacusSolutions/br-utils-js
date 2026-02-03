@@ -147,7 +147,7 @@ export class CnpjCheckDigits {
     }
   }
 
-  protected calculate(cnpjSequence: string[]): number {
+  protected _calculate(cnpjSequence: string[]): number {
     let factor = 2;
     let sumResult = 0;
 

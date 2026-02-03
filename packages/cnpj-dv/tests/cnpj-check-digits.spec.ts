@@ -389,7 +389,7 @@ describe('CnpjCheckDigits', (): void => {
       let calculateSpy: Mock<never>;
 
       beforeEach(() => {
-        calculateSpy = spyOn(CnpjCheckDigits.prototype, 'calculate' as keyof CnpjCheckDigits);
+        calculateSpy = spyOn(CnpjCheckDigits.prototype, '_calculate' as keyof CnpjCheckDigits);
       });
 
       afterEach(() => {
@@ -440,7 +440,7 @@ describe('CnpjCheckDigits', (): void => {
       let calculateSpy: Mock<never>;
 
       beforeEach(() => {
-        calculateSpy = spyOn(CnpjCheckDigits.prototype, 'calculate' as keyof CnpjCheckDigits);
+        calculateSpy = spyOn(CnpjCheckDigits.prototype, '_calculate' as keyof CnpjCheckDigits);
       });
 
       afterEach(() => {
