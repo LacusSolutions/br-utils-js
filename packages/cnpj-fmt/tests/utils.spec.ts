@@ -47,7 +47,7 @@ describe('describeType', (): void => {
     });
 
     it('returns "integer" for a negative integer', (): void => {
-      const result = describeType(42);
+      const result = describeType(-42);
 
       expect(result).toBe('integer number');
     });
