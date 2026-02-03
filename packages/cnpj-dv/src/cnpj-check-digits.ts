@@ -34,7 +34,7 @@ export class CnpjCheckDigits {
     } else if (Array.isArray(cnpjInput)) {
       parsedInput = this._handleArrayInput(cnpjInput);
     } else {
-      throw new CnpjCheckDigitsInputTypeError(cnpjInput);
+      throw new CnpjCheckDigitsInputTypeError(cnpjInput, 'string or string[]');
     }
 
     this._validateLength(parsedInput, cnpjInput);
@@ -49,7 +49,7 @@ export class CnpjCheckDigits {
     if (this._cachedFirstDigit === undefined) {
       const baseCharsSequence = [...this._cnpjChars];
 
-      this._cachedFirstDigit = this.calculate(baseCharsSequence);
+      this._cachedFirstDigit = this._calculate(baseCharsSequence);
     }
 
     return this._cachedFirstDigit.toString();
@@ -59,7 +59,7 @@ export class CnpjCheckDigits {
     if (this._cachedSecondDigit === undefined) {
       const baseCharsSequence = [...this._cnpjChars, this.first];
 
-      this._cachedSecondDigit = this.calculate(baseCharsSequence);
+      this._cachedSecondDigit = this._calculate(baseCharsSequence);
     }
 
     return this._cachedSecondDigit.toString();
@@ -89,7 +89,7 @@ export class CnpjCheckDigits {
     const isStringArray = cnpjArray.every((item) => typeof item === 'string');
 
     if (!isStringArray) {
-      throw new CnpjCheckDigitsInputTypeError(cnpjArray);
+      throw new CnpjCheckDigitsInputTypeError(cnpjArray, 'string or string[]');
     }
 
     return this._handleStringInput(cnpjArray.join(''));
