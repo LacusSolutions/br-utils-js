@@ -576,7 +576,10 @@ export class CnpjFormatterOptions {
     this.encode = options.encode ?? this.encode;
     this.onFail = options.onFail ?? this.onFail;
 
-    this.setHiddenRange(options.hiddenStart, options?.hiddenEnd);
+    this.setHiddenRange(
+      options.hiddenStart ?? this.hiddenStart,
+      options.hiddenEnd ?? this.hiddenEnd,
+    );
 
     return this;
   }
