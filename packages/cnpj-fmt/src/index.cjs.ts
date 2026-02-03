@@ -21,8 +21,8 @@ import type {
   OnFailCallback as BaseOnFailCallback,
 } from './types';
 
-function cnpjFmt(cnpjString: BaseCnpjInput, options?: BaseCnpjFormatterOptionsInput): string {
-  return baseCnpjFmt(cnpjString, options);
+function cnpjFmt(cnpjInput: BaseCnpjInput, options?: BaseCnpjFormatterOptionsInput): string {
+  return baseCnpjFmt(cnpjInput, options);
 }
 
 namespace cnpjFmt {
