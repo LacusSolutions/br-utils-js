@@ -53,8 +53,8 @@
     }
   },
   "dependencies": {
-    "cnpj-utils": "^2.0.2",
-    "cpf-utils": "^2.0.2"
+    "cnpj-utils": "workspace:^2.0.2",
+    "cpf-utils": "workspace:^2.0.2"
   },
   "scripts": {
     "build": "rollup --config",
@@ -63,19 +63,5 @@
     "pretest": "bun run build --silent",
     "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
     "test:ci": "bun test"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.28.6",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "~0.4.4",
-    "@rollup/plugin-typescript": "^12.3.0",
-    "@types/node": "^22.19.6",
-    "rollup": "^4.55.1",
-    "rollup-plugin-delete": "^3.0.2",
-    "rollup-plugin-dts": "^6.3.0",
-    "rollup-plugin-esbuild": "^6.2.1",
-    "typescript": "^5.9.3"
   }
 }

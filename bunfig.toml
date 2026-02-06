@@ -1,2 +1,3 @@
 [install]
+linker = "hoisted"
 registry = "https://registry.npmjs.org/"
