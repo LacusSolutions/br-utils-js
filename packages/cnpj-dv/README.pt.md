@@ -141,11 +141,10 @@ try {
 
 ### Outros recursos disponíveis
 
-- **`CnpjCheckDigits`** (default): Classe para calcular os dígitos verificadores de CNPJ; o construtor aceita `string | string[]`.
 - **`CNPJ_MIN_LENGTH`**: `12` (constante).
 - **`CNPJ_MAX_LENGTH`**: `14` (constante).
 - **Tipos**: `CnpjInput` (`string | string[]`).
-- **Exceções**: Ver lista acima.
+- **Exceções**: Ver acima.
 
 ## Algoritmo de cálculo
 

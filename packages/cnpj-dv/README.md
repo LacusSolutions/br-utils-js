@@ -154,11 +154,10 @@ try {
 
 ### Other Available Resources
 
-- **`CnpjCheckDigits`** (default): Class to compute CNPJ check digits; constructor accepts `string | string[]`.
 - **`CNPJ_MIN_LENGTH`**: `12` (constant).
 - **`CNPJ_MAX_LENGTH`**: `14` (constant).
 - **Types**: `CnpjInput` (`string | string[]`).
-- **Exceptions**: See below.
+- **Exceptions**: See above.
 
 ## Calculation algorithm
 
