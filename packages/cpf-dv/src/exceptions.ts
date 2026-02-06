@@ -106,7 +106,7 @@ export class CpfCheckDigitsInputLengthException extends CpfCheckDigitsException 
 }
 
 /**
- * Exception raised when the CPF input contains invalid characters sequences,
+ * Exception raised when the CPF input contains invalid character sequences,
  * like all digits are repeated. This is a business logic exception and it is
  * highly recommended that users of the library catch it and handle it
  * appropriately.
