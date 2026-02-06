@@ -11,12 +11,12 @@
 
 > 🌎 [Acessar documentação em português](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-fmt/README.pt.md)
 
-A JavaScript/TypeScript utility to format CNPJ (Brazilian legal entity ID).
+A JavaScript/TypeScript utility to format CNPJ (Brazilian Business Tax ID).
 
 ## Platform Support
 
 | ![Node.js](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg) | ![Bun](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bun/bun-original.svg) | ![Deno](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/denojs/denojs-original.svg) | ![Chrome](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Firefox](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firefox/firefox-original.svg) | ![Safari](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/safari/safari-original.svg) | ![Opera](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opera/opera-original.svg) | ![IE](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ie10/ie10-original.svg) |
-|--- |--- |--- |--- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | v16+ ✔ | v1.0+ ✔ | ⚠️ untested | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
 
 ## Features
@@ -81,13 +81,13 @@ All options are optional. Flat keys (no nested `delimiters` or `hiddenRange`):
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `dotKey` | string | `'.'` | Dot delimiter (e.g. in `12.345.678`) |
-| `slashKey` | string | `'/'` | Slash delimiter (e.g. before branch `…/0001-90`) |
-| `dashKey` | string | `'-'` | Dash delimiter (e.g. before check digits `…-90`) |
 | `hidden` | boolean | `false` | When `true`, mask characters in `hiddenStart`–`hiddenEnd` with `hiddenKey` |
 | `hiddenKey` | string | `'*'` | Character(s) used to replace masked digits |
 | `hiddenStart` | number | `5` | Start index (0–13, inclusive) of the range to hide |
 | `hiddenEnd` | number | `13` | End index (0–13, inclusive) of the range to hide |
+| `dotKey` | string | `'.'` | Dot delimiter (e.g. in `12.345.678`) |
+| `slashKey` | string | `'/'` | Slash delimiter (e.g. before branch `…/0001-90`) |
+| `dashKey` | string | `'-'` | Dash delimiter (e.g. before check digits `…-90`) |
 | `escape` | boolean | `false` | When `true`, escape HTML special characters in the result |
 | `encode` | boolean | `false` | When `true`, URL-encode the result (e.g. for query params) |
 | `onFail` | (value, error?) => string | `() => ''` | Callback when input is invalid or length ≠ 14; return value is used as result |

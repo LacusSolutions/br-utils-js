@@ -1,23 +1,10 @@
 ![cnpj-fmt para JavaScript](https://br-utils.vercel.app/img/cover_cnpj-fmt.jpg)
 
-[![Versão no NPM](https://img.shields.io/npm/v/@lacussoft/cnpj-fmt)](https://npmjs.com/package/@lacussoft/cnpj-fmt)
-[![Tamanho do pacote](https://img.shields.io/bundlephobia/min/@lacussoft/cnpj-fmt?label=bundle%20size)](https://bundlephobia.com/package/@lacussoft/cnpj-fmt)
-[![Downloads](https://img.shields.io/npm/dm/@lacussoft/cnpj-fmt.svg)](https://npmjs.com/package/@lacussoft/cnpj-fmt)
-[![Status dos testes](https://img.shields.io/github/actions/workflow/status/LacusSolutions/br-utils-js/ci.yml?label=ci/cd)](https://github.com/LacusSolutions/br-utils-js/actions)
-[![Última atualização](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js)
-[![Licença](https://img.shields.io/github/license/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE)
-
 > 🚀 **Suporte completo ao novo formato alfanumérico de CNPJ.**
 
-> 🌎 [Read documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-fmt/README.md)
+> 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-fmt/README.md)
 
 Utilitário em JavaScript/TypeScript para formatar CNPJ (Cadastro Nacional da Pessoa Jurídica).
-
-## Suporte a plataformas
-
-| ![Node.js](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg) | ![Bun](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bun/bun-original.svg) | ![Deno](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/denojs/denojs-original.svg) | ![Chrome](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Firefox](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firefox/firefox-original.svg) | ![Safari](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/safari/safari-original.svg) | ![Opera](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opera/opera-original.svg) | ![IE](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ie10/ie10-original.svg) |
-|--- |--- |--- |--- | --- | --- | --- | --- | --- |
-| v16+ ✔ | v1.0+ ✔ | ⚠️ não testado | Última ✔ | Última ✔ | Última ✔ | Última ✔ | Última ✔ | 11 ✔ |
 
 ## Recursos
 

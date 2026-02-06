@@ -5,9 +5,10 @@ import type { CnpjFormatterOptions } from './cnpj-formatter-options';
  * Represents valid input types for CNPJ formatting.
  *
  * A CNPJ can be provided as:
+ *
  * - A string containing alphanumeric characters (with or without formatting)
- * - An array of strings, where each string represents a alphanumeric character
- *   or group of alphanumeric characters
+ * - An array of strings, where each string represents an alphanumeric character
+ *   or group of alphanumeric characters.
  */
 export type CnpjInput = string | string[];
 
@@ -32,10 +33,10 @@ export type OnFailCallback = (value: unknown, error?: Error) => string;
 /**
  * Configuration interface for CNPJ (Cadastro Nacional da Pessoa Jurídica)
  * formatting options. This interface defines all available options for
- * customizing how CNPJ numbers are formatted, including delimiter characters,
- * hidden character ranges, HTML escaping, URL encoding, and error handling. All
- * properties have default values and are optional when creating a new
- * `CnpjFormatterOptions` instance.
+ * customizing how CNPJ characters are formatted, including delimiter
+ * characters, hidden characters range, HTML escaping, URL encoding, and error
+ * handling. All properties have default values and are optional when creating a
+ * new `CnpjFormatterOptions` instance.
  */
 export interface CnpjFormatterOptionsType {
   /**
@@ -113,10 +114,11 @@ export interface CnpjFormatterOptionsType {
    * When `true`, HTML special characters (such as `<`, `>`, `&`, `"`, `'`) in
    * the formatted CNPJ string will be escaped to their HTML entity equivalents.
    * This is particularly useful when:
-   * - Using custom delimiters that may contain HTML characters
+   *
+   * - Using custom delimiters that may contain HTML characters.
    * - Displaying CNPJ numbers in HTML contexts where special characters could be
-   *   interpreted as HTML markup
-   * - Preventing XSS vulnerabilities when rendering user-provided CNPJ data
+   *   interpreted as HTML markup.
+   * - Preventing XSS vulnerabilities when rendering user-provided CNPJ data.
    *
    * @default false
    */
@@ -136,9 +138,10 @@ export interface CnpjFormatterOptionsType {
   /**
    * Callback function executed when CNPJ formatting fails. This function is
    * invoked when the formatter encounters an error during formatting, such as:
-   * - Invalid input (non-numeric characters, wrong length, etc.)
+   *
+   * - Invalid input (non-alphanumeric characters, wrong length, etc.)
    * - Invalid options (out-of-range indices, wrong types, etc.)
-   * - Other formatting errors
+   * - Other formatting errors.
    *
    * The callback receives the original input value and an optional error
    * object, and should return a string that will be used as the fallback output

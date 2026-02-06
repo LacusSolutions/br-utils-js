@@ -51,7 +51,9 @@ export function makeRollupConfig({
  */
 `;
 
-  /** @type {import('rollup').RollupOptions} */
+  /**
+   * @type {import('rollup').RollupOptions}
+   */
   const commonModulesOptions = {
     plugins: [
       nodeResolvePlugin(),

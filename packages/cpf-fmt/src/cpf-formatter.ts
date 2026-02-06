@@ -6,32 +6,24 @@ import { escapeHTML } from './utils';
 /**
  * @typedef {import('./exceptions').CpfFormatterOptionsTypeError} CpfFormatterOptionsTypeError
  *
+ *
  * @typedef {import('./exceptions').CpfFormatterOptionsHiddenRangeInvalidException} CpfFormatterOptionsHiddenRangeInvalidException
  */
 
 /**
  * A rarely-used 1-length character that is replaced with `hiddenKey` when
  * `hidden` is `true`.
- *
- * @constant
- * @type {string}
  */
 const HIDDEN_KEY_PLACEHOLDER = CpfFormatterOptions.DISALLOWED_KEY_CHARACTERS[0];
 
 /**
- * Formatter for CPF (Cadastro de Pessoas Físicas) identifiers. It normalizes
- * and optionally masks, HTML-escapes, or URL-encodes 11-digit CPF input.
- * Accepts a string or array of strings; non-numeric characters are stripped.
- * Invalid input or length is handled via the configured `onFail` callback
- * instead of throwing.
+ * Formatter for CPF (Cadastro de Pessoa Física) identifiers. It normalizes and
+ * optionally masks, HTML-escapes, or URL-encodes 11-digit CPF input. Accepts a
+ * string or array of strings; non-numeric characters are stripped. Invalid
+ * input or length is handled via the configured `onFail` callback instead of
+ * throwing.
  */
 export class CpfFormatter {
-  /**
-   * Default options used when no per-call options are provided.
-   *
-   * @private
-   * @type {CpfFormatterOptions}
-   */
   private _options: CpfFormatterOptions;
 
   /**
@@ -41,20 +33,15 @@ export class CpfFormatter {
    * per-call `options` argument. Options control masking, HTML escaping, URL
    * encoding, and the callback used when formatting fails.
    *
-   * When `defaultOptions` is a `CpfFormatterOptions` instance, that instance
-   * is used directly (no copy is created). Mutating it later (e.g. via the
+   * When `defaultOptions` is a `CpfFormatterOptions` instance, that instance is
+   * used directly (no copy is created). Mutating it later (e.g. via the
    * `options` getter or the original reference) affects future `format` calls
    * that do not pass per-call options. When a plain object or nothing is
    * passed, a new `CpfFormatterOptions` instance is created from it.
    *
-   * @param {CpfFormatterOptionsInput} [defaultOptions] - Initial options: a
-   *   plain object (merged into a new `CpfFormatterOptions`), a
-   *   `CpfFormatterOptions` instance (used as-is), or omitted for built-in
-   *   defaults.
-   *
-   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type
+   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type.
    * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
-   *   or `hiddenEnd` are out of valid range
+   *   or `hiddenEnd` are out of valid range.
    */
   public constructor(defaultOptions?: CpfFormatterOptionsInput) {
     this._options =
@@ -72,6 +59,7 @@ export class CpfFormatter {
    * value and an error; its return value is used as the result.
    *
    * When valid, the result may be further transformed according to options:
+   *
    * - If `hidden` is `true`, digits between `hiddenStart` and `hiddenEnd`
    *   (inclusive) are replaced with `hiddenKey`.
    * - If `escape` is `true`, HTML special characters are escaped.
@@ -80,20 +68,13 @@ export class CpfFormatter {
    * Per-call `options` are merged over the instance default options for this
    * call only; the instance defaults are unchanged.
    *
-   * @param {CpfInput} cpfInput - CPF as a string or array of strings (e.g.
-   *   raw digits or preformatted). Arrays are joined with no separator before
-   *   processing.
-   * @param {CpfFormatterOptionsInput} [options] - Overrides for this call.
-   *   Merged with instance defaults; omitted keys keep the default.
-   * @returns {string}
-   *
-   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type
+   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type.
    * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
-   *   or `hiddenEnd` are out of valid range
+   *   or `hiddenEnd` are out of valid range.
    * @throws {CpfFormatterInputTypeError} If the input is not a string or array
-   *   of strings
+   *   of strings.
    * @throws {CpfFormatterInputLengthException} If the input length is not
-   *   exactly 11 after sanitization
+   *   exactly 11 after sanitization.
    */
   public format(cpfInput: CpfInput, options?: CpfFormatterOptionsInput): string {
     const actualInput = cpfInput as unknown;
@@ -152,11 +133,9 @@ export class CpfFormatter {
    * Returns the default options used by this formatter when per-call options
    * are not provided.
    *
-   * The returned object is the same instance used internally; mutating it
-   * (e.g. via setters on `CpfFormatterOptions`) affects future `format`
-   * calls that do not pass `options`.
-   *
-   * @returns {CpfFormatterOptions}
+   * The returned object is the same instance used internally; mutating it (e.g.
+   * via setters on `CpfFormatterOptions`) affects future `format` calls that do
+   * not pass `options`.
    */
   public get options(): CpfFormatterOptions {
     return this._options;

@@ -1,39 +1,22 @@
-![cnpj-dv for JavaScript](https://br-utils.vercel.app/img/cover_cnpj-dv.jpg)
+![cnpj-dv para JavaScript](https://br-utils.vercel.app/img/cover_cnpj-dv.jpg)
 
-> 🚀 **Suporte total ao novo formato de CNPJ alfanumérico.**
+> 🚀 **Suporte completo ao [novo formato alfanumérico de CNPJ](https://github.com/user-attachments/files/23937961/calculodvcnpjalfanaumerico.pdf).**
 
-> 🌎 [Access documentation in English](./README.md)
+> 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-dv/README.md)
 
-Classe utilitária para calcular os dígitos verificadores de CNPJ (Cadastro Nacional de Pessoa Jurídica).
+Utilitário em JavaScript/TypeScript para calcular os dígitos verificadores de CNPJ (Cadastro Nacional da Pessoa Jurídica).
 
-## Funcionalidades
+## Recursos
 
-- ✅ **Suporte Alfanumérico**: Suporte total ao novo formato de CNPJ alfanumérico (introduzido em 2026)
-- ✅ **Múltiplos Formatos de Entrada**: Aceita strings ou arrays de strings
-- ✅ **Agnóstico a Formatação**: Remove automaticamente caracteres não alfanuméricos da entrada
-- ✅ **Auto-Expansão**: Expande automaticamente strings com múltiplos caracteres em arrays para caracteres individuais
-- ✅ **Validação de Entrada**: Rejeita CNPJs inválidos (base/filial zerados, dígitos repetidos)
-- ✅ **Avaliação Lazy**: Os dígitos verificadores são calculados apenas quando acessados (via propriedades)
+- ✅ **CNPJ alfanumérico**: Suporte completo ao novo formato alfanumérico de CNPJ (introduzido em 2026)
+- ✅ **Entrada flexível**: Aceita string ou array de strings
+- ✅ **Agnóstico ao formato**: Remove caracteres não alfanuméricos e converte para maiúsculas antes de processar
+- ✅ **Validação de entrada**: Rejeita CNPJs inválidos (base/filial zerados, dígitos repetidos)
+- ✅ **Avaliação lazy**: Dígitos verificadores são calculados apenas quando acessados (via propriedades)
 - ✅ **Cache**: Valores calculados são armazenados em cache para acessos subsequentes
-- ✅ **Suporte a TypeScript**: Definições TypeScript completas incluídas
-- ✅ **Zero Dependências**: Nenhuma dependência externa necessária
-- ✅ **Tratamento Completo de Erros**: Exceções específicas para diferentes cenários de erro
-
-## Algoritmo de Cálculo
-
-O pacote calcula os dígitos verificadores do CNPJ usando o algoritmo oficial brasileiro, com suporte total a caracteres alfanuméricos:
-
-1. **Primeiro Dígito Verificador (13ª posição)**:
-   - Usa os caracteres 1-12 da base do CNPJ
-   - Aplica os pesos da direita para esquerda: 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5
-   - Para caracteres alfanuméricos, usa o código ASCII menos 48 (o código ASCII de '0')
-   - Calcula: `resto = soma(valor_char × peso) % 11`
-   - Resultado: `0` se resto < 2, caso contrário `11 - resto`
-
-2. **Segundo Dígito Verificador (14ª posição)**:
-   - Usa os caracteres 1-12 + primeiro dígito verificador
-   - Aplica os pesos da direita para esquerda: 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6
-   - Mesma lógica de cálculo acima
+- ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
+- ✅ **Zero dependências**: Nenhuma dependência externa
+- ✅ **Tratamento de erros**: Exceções específicas para tipo, tamanho e CNPJ inválido
 
 ## Instalação
 
@@ -45,9 +28,9 @@ $ npm install --save @lacussoft/cnpj-dv
 $ bun add @lacussoft/cnpj-dv
 ```
 
-## Importação
+## Início rápido
 
-```js
+```ts
 // ES Modules
 import CnpjCheckDigits from '@lacussoft/cnpj-dv'
 
@@ -55,216 +38,137 @@ import CnpjCheckDigits from '@lacussoft/cnpj-dv'
 const CnpjCheckDigits = require('@lacussoft/cnpj-dv')
 ```
 
-ou importe através do seu arquivo HTML, usando CDN:
+Uso básico:
+
+```ts
+const checkDigits = new CnpjCheckDigits('914157320007')
+
+checkDigits.first   // '9'
+checkDigits.second  // '3'
+checkDigits.both    // '93'
+checkDigits.cnpj    // '91415732000793'
+```
+
+Com CNPJ alfanumérico (novo formato):
+
+```ts
+const checkDigits = new CnpjCheckDigits('MGKGMJ9X0001')
+
+checkDigits.first   // '6'
+checkDigits.second  // '8'
+checkDigits.both    // '68'
+checkDigits.cnpj    // 'MGKGMJ9X000168'
+```
+
+Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script>`; `CnpjCheckDigits` fica disponível globalmente:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cnpj-dv@latest/dist/cnpj-dv.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
-### Uso Básico
+O principal recurso deste pacote é a classe `CnpjCheckDigits`. Por meio da instância dela, você acessa as informações principais do CNPJ em relação aos dígitos verificadores:
 
-```js
-// Calcular dígitos verificadores a partir de uma base de CNPJ com 12 caracteres
-const checkDigits = new CnpjCheckDigits('914157320007')
+- **`constructor`**: `new CnpjCheckDigits(cnpjDigits: string | string[])` — 12–14 caracteres alfanuméricos (formatação removida, letras em maiúsculas).
+- **`first`**: Primeiro dígito verificador (13º caractere). Lazy, em cache.
+- **`second`**: Segundo dígito verificador (14º caractere). Lazy, em cache.
+- **`both`**: Ambos os dígitos concatenados.
+- **`cnpj`**: CNPJ completo com 14 caracteres (base + dígitos verificadores).
 
-console.log(checkDigits.first)   // retorna '9'
-console.log(checkDigits.second)  // retorna '3'
-console.log(checkDigits.both)    // retorna '93'
-console.log(checkDigits.cnpj)    // retorna '91415732000793'
-```
-
-```js
-// Funciona com CNPJs alfanuméricos (novo formato)
-const checkDigits = new CnpjCheckDigits('MGKGMJ9X0001')
-
-console.log(checkDigits.first)   // retorna '6'
-console.log(checkDigits.second)  // retorna '8'
-console.log(checkDigits.both)    // retorna '68'
-console.log(checkDigits.cnpj)    // retorna 'MGKGMJ9X000168'
-```
-
-### Formatos de Entrada
+### Formatos de entrada
 
 A classe `CnpjCheckDigits` aceita múltiplos formatos de entrada:
 
-#### Entrada como String
+**String:** dígitos/letras crus ou CNPJ formatado (ex.: `91.415.732/0007-93`, `MG.KGM.J9X/0001-93`). Letras minúsculas são convertidas para maiúsculas.
 
-```js
-// Apenas dígitos/caracteres
-const checkDigits = new CnpjCheckDigits('914157320007')
-const checkDigits = new CnpjCheckDigits('MGKGMJ9X000193')
+**Array de strings:** strings de um caractere ou de vários (expandidos automaticamente para caracteres individuais), ex.: `['9','1','4',…]`, `['91','415','732','0007']`, `['MG','KGM','J9X','0001']`.
 
-// CNPJ formatado
-const checkDigits = new CnpjCheckDigits('91.415.732/0007-93')
-const checkDigits = new CnpjCheckDigits('MG.KGM.J9X/0001-93')
+### Erros e exceções
 
-// note que letras minúsculas são transformadas em maiúsculas
-const checkDigits = new CnpjCheckDigits('mgkgmj9x0001')  // tratado como 'MGKGMJ9X0001'
-```
+Este pacote usa a distinção **Error vs Exception**: *errors* indicam uso incorreto da API (ex.: tipo errado); *exceptions* indicam dados inválidos ou ineligíveis (ex.: CNPJ inválido). Você pode capturar tipos específicos ou usar as classes base.
 
-#### Array de Strings
-
-```js
-// Array de strings de um único caractere
-const checkDigits = new CnpjCheckDigits(['9', '1', '4', '1', '5', '7', '3', '2', '0', '0', '0', '7'])
-
-// Array com strings de múltiplos caracteres (automaticamente expandido)
-const checkDigits = new CnpjCheckDigits(['914157320007'])        // expande para caracteres individuais
-const checkDigits = new CnpjCheckDigits(['91', '415', '732', '0007'])
-const checkDigits = new CnpjCheckDigits(['MG', 'KGM', 'J9X', '0001'])
-```
-
-## Tratamento de Erros
-
-Este projeto utiliza o conceito de **diferenciação Error/Exception**. Basicamente, _errors_ são usos incorretos do pacote, por exemplo, não seguir o tipo de argumento de uma função, e _exceptions_ são erros recuperáveis onde os dados ou o fluxo fogem das regras por algum motivo, por exemplo, um CNPJ inválido é fornecido à biblioteca, então os dígitos verificadores não podem ser calculados como esperado.
-
-Portanto, o pacote lança erros e exceções detalhados para diferentes situações:
-
-### `CnpjCheckDigitsInputTypeError`
-
-Lançado quando o tipo de entrada não é suportado (deve ser `string` ou `string[]`).
-
-```js
-import CnpjCheckDigits, { CnpjCheckDigitsInputTypeError } from '@lacussoft/cnpj-dv'
-
-try {
-  new CnpjCheckDigits(123456780009)  // entrada numérica não é permitida
-} catch (error) {
-  if (error instanceof CnpjCheckDigitsInputTypeError) {
-    console.log(error.message)  // CNPJ input must be of type string or string[]. Got number.
-  }
-}
-```
-
-### `CnpjCheckDigitsInputLengthException`
-
-Lançado quando a entrada não contém de 12 a 14 caracteres alfanuméricos.
-
-```js
-import CnpjCheckDigits, { CnpjCheckDigitsInputLengthException } from '@lacussoft/cnpj-dv'
-
-try {
-  new CnpjCheckDigits('12345678')  // apenas 8 caracteres
-} catch (error) {
-  if (error instanceof CnpjCheckDigitsInputLengthException) {
-    console.log(error.message)  // CNPJ input "12345678" does not contain 12 to 14 digits. Got 8.
-  }
-}
-```
-
-### `CnpjCheckDigitsInputInvalidException`
-
-Lançado quando a entrada é estruturalmente inválida, como:
-- ID base (primeiros 8 caracteres) é todo zeros ("00000000")
-- ID da filial (caracteres 9-12) é todo zeros ("0000")
-- Todos os 12 caracteres são repetidos com digitos numéricos (ex: "111111111111")
-
-```js
-import CnpjCheckDigits, { CnpjCheckDigitsInputInvalidException } from '@lacussoft/cnpj-dv'
-
-try {
-  new CnpjCheckDigits('000000000001')  // inválido: ID base é todo zeros
-} catch (error) {
-  if (error instanceof CnpjCheckDigitsInputInvalidException) {
-    console.log(error.message)  // CNPJ input "000000000001" is invalid. Base ID "00000000" is not eligible.
-    console.log(error.reason)   // Base ID "00000000" is not eligible.
-  }
-}
-
-try {
-  new CnpjCheckDigits('123456780000')  // inválido: ID da filial é todo zeros
-} catch (error) {
-  if (error instanceof CnpjCheckDigitsInputInvalidException) {
-    console.log(error.message)  // CNPJ input "123456780000" is invalid. Branch ID "0000" is not eligible.
-  }
-}
-
-try {
-  new CnpjCheckDigits('111111111111')  // inválido: todos os dígitos repetidos
-} catch (error) {
-  if (error instanceof CnpjCheckDigitsInputInvalidException) {
-    console.log(error.message)  // CNPJ input "111111111111" is invalid. Repeated digits are not considered valid.
-  }
-}
-```
-
-### Capturar qualquer erro do pacote
-
-Todos os type errors estendem de `CnpjCheckDigitsTypeError` e todas as exceptions estendem de `CnpjCheckDigitsException`, então você pode usar esses tipos para tratar qualquer erro lançado pelo módulo.
-
-```js
-import { CnpjCheckDigits, CnpjCheckDigitsException } from '@lacussoft/cnpj-dv'
-
-try {
-  // algum código arriscado
-} catch (error) {
-  if (error instanceof CnpjCheckDigitsException) {
-    // tratar exceções
-  }
-}
-```
-
-## Referência da API
-
-### Classe CnpjCheckDigits
-
-#### Construtor
+- **CnpjCheckDigitsTypeError** (_abstract_) — base para erros de tipo
+- **CnpjCheckDigitsInputTypeError** — entrada não é string nem string[]
+- **CnpjCheckDigitsException** (_abstract_) — base para exceções de dados/fluxo
+- **CnpjCheckDigitsInputLengthException** — tamanho após sanitização não é 12–14
+- **CnpjCheckDigitsInputInvalidException** — base/filial ineligíveis (ex.: tudo zero, todos os caracteres com dígitos repetidos)
 
 ```ts
-new CnpjCheckDigits(cnpjDigits: string | string[]): CnpjCheckDigits
+import CnpjCheckDigits, {
+  CnpjCheckDigitsInputTypeError,
+  CnpjCheckDigitsInputLengthException,
+  CnpjCheckDigitsInputInvalidException,
+  CnpjCheckDigitsException,
+} from '@lacussoft/cnpj-dv'
+
+// Tipo de entrada (ex.: número não permitido)
+try {
+  new CnpjCheckDigits(123456780009)
+} catch (e) {
+  if (e instanceof CnpjCheckDigitsInputTypeError) {
+    console.log(e.message)  // CNPJ input must be of type string or string[]. Got number.
+  }
+}
+
+// Tamanho (deve ser 12–14 caracteres alfanuméricos após sanitização)
+try {
+  new CnpjCheckDigits('12345678')
+} catch (e) {
+  if (e instanceof CnpjCheckDigitsInputLengthException) {
+    console.log(e.message)
+  }
+}
+
+// Inválido (ex.: base/filial zerados, dígitos repetidos)
+try {
+  new CnpjCheckDigits('000000000001')
+} catch (e) {
+  if (e instanceof CnpjCheckDigitsInputInvalidException) {
+    console.log(e.message)
+  }
+}
+
+// Qualquer exceção do pacote
+try {
+  // código arriscado
+} catch (e) {
+  if (e instanceof CnpjCheckDigitsException) {
+    // tratar
+  }
+}
 ```
 
-Cria uma nova instância de `CnpjCheckDigits` a partir dos caracteres base do CNPJ fornecidos.
+### Outros recursos disponíveis
 
-**Parâmetros:**
-- `cnpjDigits` (string | string[]): Os caracteres base do CNPJ (12-14 caracteres alfanuméricos). Pode ser:
-  - Uma string com 12-14 caracteres (caracteres de formatação são ignorados, letras são convertidas para maiúsculas)
-  - Um array de strings (cada string pode ter um ou múltiplos caracteres)
+- **`CNPJ_MIN_LENGTH`**: `12` (constante).
+- **`CNPJ_MAX_LENGTH`**: `14` (constante).
+- **Tipos**: `CnpjInput` (`string | string[]`).
+- **Exceções**: Ver acima.
 
-**Lança:**
-- `CnpjCheckDigitsInputTypeError`: Se o tipo de entrada não for suportado
-- `CnpjCheckDigitsInputLengthException`: Se a entrada não contiver 12-14 caracteres
-- `CnpjCheckDigitsInputInvalidException`: Se a entrada for estruturalmente inválida (ex: base/filial zerados, dígitos repetidos)
+## Algoritmo de cálculo
 
-**Retorna:**
-- `CnpjCheckDigits`: Uma nova instância pronta para calcular os dígitos verificadores
+Os dígitos verificadores seguem o algoritmo oficial brasileiro com suporte alfanumérico:
 
-#### Propriedades
+1. **Primeiro dígito (13ª posição):** caracteres 1–12, pesos 2–5 da direita para a esquerda; valor alfanumérico = ASCII − 48; `resto = soma(caractere × peso) % 11`; dígito = `0` se resto < 2, senão `11 − resto`.
+2. **Segundo dígito (14ª posição):** caracteres 1–13, pesos 2–6 da direita para a esquerda; mesma fórmula.
 
-##### `first: string`
+## Contribuição e suporte
 
-O primeiro dígito verificador (13º caractere do CNPJ). Calculado de forma lazy no primeiro acesso.
-
-##### `second: string`
-
-O segundo dígito verificador (14º caractere do CNPJ). Calculado de forma lazy no primeiro acesso.
-
-##### `both: string`
-
-Ambos os dígitos verificadores concatenados como uma string.
-
-##### `cnpj: string`
-
-O CNPJ completo como uma string de 14 caracteres (12 caracteres base + 2 dígitos verificadores).
-
-## Contribuição & Suporte
-
-Contribuições são bem-vindas! Por favor, consulte nossas [Diretrizes de Contribuição](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) para detalhes. Mas se você achar este projeto útil, por favor considere:
+Contribuições são bem-vindas! Consulte as [Diretrizes de contribuição](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md). Se o projeto for útil para você, considere:
 
 - ⭐ Dar uma estrela no repositório
-- 🤝 Contribuir com o código
+- 🤝 Contribuir com código
 - 💡 [Sugerir novas funcionalidades](https://github.com/LacusSolutions/br-utils-js/issues)
 - 🐛 [Reportar bugs](https://github.com/LacusSolutions/br-utils-js/issues)
 
 ## Licença
 
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE) para detalhes.
+Este projeto está sob a licença MIT — veja o arquivo [LICENSE](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE).
 
 ## Changelog
 
-Veja [CHANGELOG](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-dv/CHANGELOG.md) para uma lista de alterações e histórico de versões.
+Veja o [CHANGELOG](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-dv/CHANGELOG.md) para alterações e histórico de versões.
 
 ---
 

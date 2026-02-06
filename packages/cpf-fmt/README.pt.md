@@ -1,6 +1,6 @@
 ![cpf-fmt para JavaScript](https://br-utils.vercel.app/img/cover_cpf-fmt.jpg)
 
-> 🌎 [View documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-fmt/README.md)
+> 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-fmt/README.md)
 
 Utilitário em JavaScript/TypeScript para formatação de CPF (Cadastro de Pessoas Físicas).
 

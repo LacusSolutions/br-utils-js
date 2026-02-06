@@ -7,42 +7,26 @@
 [![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js)
 [![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE)
 
-> 🌎 [Acessar documentação em português](./README.pt.md)
+> 🌎 [Acessar documentação em português](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-dv/README.pt.md)
 
-Utility class to calculate check digits on CPF (Brazilian individual taxpayer ID).
+A JavaScript/TypeScript utility to calculate check digits on CPF (Brazilian Individual's Taxpayer ID).
 
-## Browser Support
+## Platform Support
 
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
-|--- | --- | --- | --- | --- | --- |
-| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
+| ![Node.js](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg) | ![Bun](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bun/bun-original.svg) | ![Deno](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/denojs/denojs-original.svg) | ![Chrome](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Firefox](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firefox/firefox-original.svg) | ![Safari](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/safari/safari-original.svg) | ![Opera](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opera/opera-original.svg) | ![IE](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ie10/ie10-original.svg) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| v16+ ✔ | v1.0+ ✔ | ⚠️ untested | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
 
 ## Features
 
-- ✅ **Multiple Input Formats**: Accepts strings or arrays of strings
-- ✅ **Format Agnostic**: Automatically strips non-numeric characters from string input
-- ✅ **Auto-Expansion**: Automatically expands multi-digit strings in arrays to individual digits
-- ✅ **Lazy Evaluation**: Check digits are calculated only when accessed (via properties)
+- ✅ **Flexible input**: Accepts strings or array of strings
+- ✅ **Format agnostic**: Automatically strips non-numeric characters from string input
+- ✅ **Auto-expansion**: Automatically expands multi-digit strings in arrays to individual digits
+- ✅ **Lazy evaluation**: Check digits are calculated only when accessed (via properties)
 - ✅ **Caching**: Calculated values are cached for subsequent access
-- ✅ **TypeScript Support**: Full TypeScript definitions included
-- ✅ **Zero Dependencies**: No external dependencies required
-- ✅ **Comprehensive Error Handling**: Specific exceptions for different error scenarios
-
-## Calculation Algorithm
-
-The package calculates CPF check digits using the official Brazilian algorithm:
-
-1. **First Check Digit (10th position)**:
-   - Uses digits 1-9 of the CPF base
-   - Applies weights: 10, 9, 8, 7, 6, 5, 4, 3, 2 (from left to right)
-   - Calculates: `remainder = 11 - (sum(digit × weight) % 11)`
-   - Result: `0` if remainder > 9, otherwise `remainder`
-
-2. **Second Check Digit (11th position)**:
-   - Uses digits 1-9 + first check digit
-   - Applies weights: 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 (from left to right)
-   - Calculates: `remainder = 11 - (sum(digit × weight) % 11)`
-   - Result: `0` if remainder > 9, otherwise `remainder`
+- ✅ **TypeScript support**: Full type definitions and strict-mode compatible
+- ✅ **Zero dependencies**: No external dependencies required
+- ✅ **Error handling**: Specific exceptions for type, length, and invalid CPF scenarios
 
 ## Installation
 
@@ -54,9 +38,9 @@ $ npm install --save @lacussoft/cpf-dv
 $ bun add @lacussoft/cpf-dv
 ```
 
-## Import
+## Quick Start
 
-```js
+```ts
 // ES Modules
 import CpfCheckDigits from '@lacussoft/cpf-dv'
 
@@ -64,7 +48,18 @@ import CpfCheckDigits from '@lacussoft/cpf-dv'
 const CpfCheckDigits = require('@lacussoft/cpf-dv')
 ```
 
-or import it through your HTML file, using CDN:
+Basic usage:
+
+```ts
+const checkDigits = new CpfCheckDigits('054496519')
+
+checkDigits.first   // '1'
+checkDigits.second  // '0'
+checkDigits.both    // '10'
+checkDigits.cpf     // '05449651910'
+```
+
+For legacy frontends, include the UMD build (e.g. minified) in a `<script>` tag; `CpfCheckDigits` is exposed globally:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cpf-dv@latest/dist/cpf-dv.min.js"></script>
@@ -72,159 +67,94 @@ or import it through your HTML file, using CDN:
 
 ## Usage
 
-### Basic Usage
+The main resource of this package is the class `CpfCheckDigits`. Through the instance of it, you can access the key information of the CPF regarding check digits:
 
-```js
-// Calculate check digits from a 9-digit CPF base
-const checkDigits = new CpfCheckDigits('054496519')
+- **`constructor`**: `new CpfCheckDigits(cpfDigits: string | string[])` — 9–11 digits (formatting stripped).
+- **`first`**: First check digit (10th digit of the CPF). Lazy, cached.
+- **`second`**: Second check digit (11th digit of the CPF). Lazy, cached.
+- **`both`**: Both check digits concatenated as a string.
+- **`cpf`**: The complete CPF as a string of 11 digits (9 base digits + 2 check digits).
 
-console.log(checkDigits.first)   // returns '1'
-console.log(checkDigits.second)  // returns '0'
-console.log(checkDigits.both)    // returns '10'
-console.log(checkDigits.cpf)     // returns '05449651910'
-```
-
-### Input Formats
+### Input formats
 
 The `CpfCheckDigits` class accepts multiple input formats:
 
-#### String Input
+**String input:** plain digits or formatted CPF (e.g. `054.496.519-10`). Non-numeric characters are automatically stripped. Use 9 digits (base only) or 11 digits (only first 9 are used).
 
-```js
-// Plain string (non-numeric characters are automatically stripped)
-const checkDigits = new CpfCheckDigits('054496519')
-const checkDigits = new CpfCheckDigits('054.496.519-10')  // formatting is ignored
-const checkDigits = new CpfCheckDigits('054496519')       // 9 digits
-const checkDigits = new CpfCheckDigits('05449651910')     // 11 digits (only first 9 are used)
-```
+**Array of strings:** single-character strings or multi-character strings (automatically flattened to individual digits), e.g. `['0','5','4','4','9','6','5','1','9']`, `['054496519']`, `['054','496','519']`.
 
-#### Array of Strings
+### Errors & Exceptions handling
 
-```js
-// Array of single-character strings
-const checkDigits = new CpfCheckDigits(['0', '5', '4', '4', '9', '6', '5', '1', '9'])
+This package uses **Error vs Exception** semantics: *errors* indicate incorrect API use (e.g. wrong type); *exceptions* indicate invalid or ineligible data (e.g. invalid CPF). You can catch specific types or use the base classes.
 
-// Array with multi-digit strings (automatically flattened)
-const checkDigits = new CpfCheckDigits(['054496519'])       // flattens to individual digits
-const checkDigits = new CpfCheckDigits(['054', '496', '519'])  // also flattens
-```
-
-## Error Handling
-
-This project uses the **Error/Exception differentiation** concept. Basically, _errors_ are incorrect use of the package, for example, not following the argument type of a function, and _exceptions_ are recoverable errors where the data or flow falls out of the rules for some reason, for example an invalid CPF is provided to the library, so the check digits cannot be calculated as expected.
-
-Therefore the package throws detailed errors and exceptions for different situations:
-
-### `CpfCheckDigitsInputTypeError`
-
-Thrown when the input type is not supported (must be `string` or `string[]`).
-
-```js
-import CpfCheckDigits, { CpfCheckDigitsInputTypeError } from '@lacussoft/cpf-dv'
-
-try {
-  new CpfCheckDigits(12345678901)  // numeric input is not allowed
-} catch (error) {
-  if (error instanceof CpfCheckDigitsInputTypeError) {
-    console.log(error.message)  // CPF input must be of type string or string[]. Got number.
-  }
-}
-```
-
-### `CpfCheckDigitsInputLengthException`
-
-Thrown when the input does not contain 9 to 11 digits.
-
-```js
-import CpfCheckDigits, { CpfCheckDigitsInputLengthException } from '@lacussoft/cpf-dv'
-
-try {
-  new CpfCheckDigits('12345678')  // only 8 digits
-} catch (error) {
-  if (error instanceof CpfCheckDigitsInputLengthException) {
-    console.log(error.message)  // CPF input "12345678" does not contain 9 to 11 digits. Got 8.
-  }
-}
-```
-
-### `CpfCheckDigitsInputInvalidException`
-
-Thrown when the input is forbidden for some restriction, like repeated digits like `111.111.111`, `222.222.222`, `333.333.333` and so on.
-
-```js
-import CpfCheckDigits, { CpfCheckDigitsInputInvalidException } from '@lacussoft/cpf-dv'
-
-try {
-  new CpfCheckDigits(['999', '999', '999'])
-} catch (error) {
-  if (error instanceof CpfCheckDigitsInputInvalidException) {
-    console.log(error.message)  // CPF input ["999","999","999"] is invalid. Repeated digits are not considered valid.
-  }
-}
-```
-
-### Catch any error from the package
-
-All type errors extend from `CpfCheckDigitsTypeError` and all exceptions extend from `CpfCheckDigitsException`, so you can use these types to handle any error thrown by the module.
-
-```js
-import { CpfCheckDigits, CpfCheckDigitsException } from '@lacussoft/cpf-dv'
-
-try {
-  // some risky code
-} catch (error) {
-  if (error instanceof CpfCheckDigitsException) {
-    // handle exceptions
-  }
-}
-```
-
-## API Reference
-
-### CpfCheckDigits Class
-
-#### Constructor
+- **CpfCheckDigitsTypeError** (_abstract_) — base for type errors
+- **CpfCheckDigitsInputTypeError** — input is not string or string[]
+- **CpfCheckDigitsException** (_abstract_) — base for data/flow exceptions
+- **CpfCheckDigitsInputLengthException** — sanitized length is not 9–11
+- **CpfCheckDigitsInputInvalidException** — input ineligible (e.g. repeated digits like 111.111.111)
 
 ```ts
-new CpfCheckDigits(cpfDigits: string | string[]): CpfCheckDigits
+import CpfCheckDigits, {
+  CpfCheckDigitsInputTypeError,
+  CpfCheckDigitsInputLengthException,
+  CpfCheckDigitsInputInvalidException,
+  CpfCheckDigitsException,
+} from '@lacussoft/cpf-dv'
+
+// Input type (e.g. number not allowed)
+try {
+  new CpfCheckDigits(12345678901)
+} catch (e) {
+  if (e instanceof CpfCheckDigitsInputTypeError) {
+    console.log(e.message)  // CPF input must be of type string or string[]. Got number.
+  }
+}
+
+// Length (must be 9–11 digits after sanitization)
+try {
+  new CpfCheckDigits('12345678')
+} catch (e) {
+  if (e instanceof CpfCheckDigitsInputLengthException) {
+    console.log(e.message)
+  }
+}
+
+// Invalid (e.g. repeated digits)
+try {
+  new CpfCheckDigits(['999', '999', '999'])
+} catch (e) {
+  if (e instanceof CpfCheckDigitsInputInvalidException) {
+    console.log(e.message)
+  }
+}
+
+// Any exception from the package
+try {
+  // risky code
+} catch (e) {
+  if (e instanceof CpfCheckDigitsException) {
+    // handle
+  }
+}
 ```
 
-Creates a new `CpfCheckDigits` instance from the provided CPF base digits.
+### Other Available Resources
 
-**Parameters:**
-- `cpfDigits` (string | string[]): The CPF base digits (9-11 digits). Can be:
-  - A string with 9-11 digits (formatting characters are ignored)
-  - An array of strings (each string can be a single-digit or multi-digit number)
+- **`CPF_MIN_LENGTH`**: `9` (constant).
+- **`CPF_MAX_LENGTH`**: `11` (constant).
+- **Types**: `CpfInput` (`string | string[]`).
+- **Exceptions**: See above.
 
-**Throws:**
-- `CpfCheckDigitsInputTypeError`: If the input type is not supported
-- `CpfCheckDigitsInputLengthException`: If the input does not contain 9-11 digits
-- `CpfCheckDigitsInputInvalidException`: If the input is invalid (e.g., repeated digits)
+## Calculation algorithm
 
-**Returns:**
-- `CpfCheckDigits`: A new instance ready to calculate check digits
+The package calculates CPF check digits using the official Brazilian algorithm:
 
-#### Properties
-
-##### `first: string`
-
-The first check digit (10th digit of the CPF). Calculated lazily on first access.
-
-##### `second: string`
-
-The second check digit (11th digit of the CPF). Calculated lazily on first access.
-
-##### `both: string`
-
-Both check digits concatenated as a string.
-
-##### `cpf: string`
-
-The complete CPF as a string of 11 digits (9 base digits + 2 check digits).
+1. **First check digit (10th position):** digits 1–9 of the CPF base; weights 10, 9, 8, 7, 6, 5, 4, 3, 2 (from left to right); `remainder = 11 - (sum(digit × weight) % 11)`; result is `0` if remainder > 9, otherwise `remainder`.
+2. **Second check digit (11th position):** digits 1–9 + first check digit; weights 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 (from left to right); same formula.
 
 ## Contribution & Support
 
-We welcome contributions! Please see our [Contributing Guidelines](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) for details. But if you find this project helpful, please consider:
+We welcome contributions! Please see our [Contributing Guidelines](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) for details. If you find this project helpful, please consider:
 
 - ⭐ Starring the repository
 - 🤝 Contributing to the codebase

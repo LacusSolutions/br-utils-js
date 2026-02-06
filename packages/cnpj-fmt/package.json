@@ -1,7 +1,7 @@
 {
   "name": "@lacussoft/cnpj-fmt",
   "version": "2.0.2",
-  "description": "Utility to format CNPJ (Brazilian legal entity ID)",
+  "description": "Utility to format CNPJ (Brazilian Business Tax ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
@@ -44,7 +44,7 @@
     "lint": "bun run lint:ci --fix",
     "lint:ci": "eslint src/ tests/ rollup.config.mjs",
     "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
-    "test:ci": "bun test"
+    "test:ci": "bun test --only-failures"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.6",
