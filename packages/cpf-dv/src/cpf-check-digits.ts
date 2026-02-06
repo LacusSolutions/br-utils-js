@@ -11,7 +11,7 @@ import { type CpfInput } from './types';
 export const CPF_MIN_LENGTH = 9;
 
 /**
- * Maximum number of digits accepted as input for the CNPJ check digits
+ * Maximum number of digits accepted as input for the CPF check digits
  * calculation.
  */
 export const CPF_MAX_LENGTH = 11;
