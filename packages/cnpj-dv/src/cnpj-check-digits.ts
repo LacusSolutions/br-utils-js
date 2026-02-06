@@ -28,7 +28,7 @@ const DELTA_FACTOR = '0'.charCodeAt(0);
 
 /**
  * Calculates and exposes CNPJ check digits from a valid base input. Validates
- * length, base ID, branch ID and rejects repeated-characters sequences.
+ * length, base ID, branch ID and rejects repeated-character sequences.
  */
 export class CnpjCheckDigits {
   private readonly _cnpjChars: string[];
