@@ -92,7 +92,7 @@ Este pacote usa a distinção **Error vs Exception**: *errors* indicam uso incor
 - **CnpjCheckDigitsInputTypeError** — entrada não é string nem string[]
 - **CnpjCheckDigitsException** (_abstract_) — base para exceções de dados/fluxo
 - **CnpjCheckDigitsInputLengthException** — tamanho após sanitização não é 12–14
-- **CnpjCheckDigitsInputInvalidException** — base/filial ineligíveis (ex.: todos zeros, dígitos repetidos)
+- **CnpjCheckDigitsInputInvalidException** — base/filial ineligíveis (ex.: tudo zero, todos os caracteres com digitos repetidos)
 
 ```ts
 import CnpjCheckDigits, {
