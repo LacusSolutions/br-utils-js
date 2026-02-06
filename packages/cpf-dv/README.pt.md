@@ -1,35 +1,19 @@
-![cpf-dv for JavaScript](https://br-utils.vercel.app/img/cover_cpf-dv.jpg)
+![cpf-dv para JavaScript](https://br-utils.vercel.app/img/cover_cpf-dv.jpg)
 
-> 🌎 [Access documentation in English](./README.md)
+> 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-dv/README.md)
 
-Classe utilitária para calcular os dígitos verificadores de CPF (Cadastro de Pessoa Física).
+Utilitário em JavaScript/TypeScript para calcular os dígitos verificadores de CPF (Cadastro de Pessoa Física).
 
-## Funcionalidades
+## Recursos
 
-- ✅ **Múltiplos Formatos de Entrada**: Aceita strings ou arrays de strings
-- ✅ **Agnóstico a Formatação**: Remove automaticamente caracteres não numéricos da entrada
-- ✅ **Auto-Expansão**: Expande automaticamente strings com múltiplos dígitos em arrays para dígitos individuais
-- ✅ **Avaliação Lazy**: Os dígitos verificadores são calculados apenas quando acessados (via propriedades)
+- ✅ **Entrada flexível**: Aceita string ou array de strings
+- ✅ **Agnóstico ao formato**: Remove automaticamente caracteres não numéricos da entrada
+- ✅ **Auto-expansão**: Expande automaticamente strings com múltiplos dígitos em arrays para dígitos individuais
+- ✅ **Avaliação lazy**: Dígitos verificadores são calculados apenas quando acessados (via propriedades)
 - ✅ **Cache**: Valores calculados são armazenados em cache para acessos subsequentes
-- ✅ **Suporte a TypeScript**: Definições TypeScript completas incluídas
-- ✅ **Zero Dependências**: Nenhuma dependência externa necessária
-- ✅ **Tratamento Completo de Erros**: Exceções específicas para diferentes cenários de erro
-
-## Algoritmo de Cálculo
-
-O pacote calcula os dígitos verificadores do CPF usando o algoritmo oficial brasileiro:
-
-1. **Primeiro Dígito Verificador (10ª posição)**:
-   - Usa os dígitos 1-9 da base do CPF
-   - Aplica os pesos: 10, 9, 8, 7, 6, 5, 4, 3, 2 (da esquerda para direita)
-   - Calcula: `resto = 11 - (soma(dígito × peso) % 11)`
-   - Resultado: `0` se resto > 9, caso contrário `resto`
-
-2. **Segundo Dígito Verificador (11ª posição)**:
-   - Usa os dígitos 1-9 + primeiro dígito verificador
-   - Aplica os pesos: 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 (da esquerda para direita)
-   - Calcula: `resto = 11 - (soma(dígito × peso) % 11)`
-   - Resultado: `0` se resto > 9, caso contrário `resto`
+- ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
+- ✅ **Zero dependências**: Nenhuma dependência externa
+- ✅ **Tratamento de erros**: Exceções específicas para tipo, tamanho e CPF inválido
 
 ## Instalação
 
@@ -41,9 +25,9 @@ $ npm install --save @lacussoft/cpf-dv
 $ bun add @lacussoft/cpf-dv
 ```
 
-## Importação
+## Início rápido
 
-```js
+```ts
 // ES Modules
 import CpfCheckDigits from '@lacussoft/cpf-dv'
 
@@ -51,180 +35,125 @@ import CpfCheckDigits from '@lacussoft/cpf-dv'
 const CpfCheckDigits = require('@lacussoft/cpf-dv')
 ```
 
-ou importe através do seu arquivo HTML, usando CDN:
+Uso básico:
+
+```ts
+const checkDigits = new CpfCheckDigits('054496519')
+
+checkDigits.first   // '1'
+checkDigits.second  // '0'
+checkDigits.both    // '10'
+checkDigits.cpf     // '05449651910'
+```
+
+Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script>`; `CpfCheckDigits` fica disponível globalmente:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cpf-dv@latest/dist/cpf-dv.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
-### Uso Básico
+O principal recurso deste pacote é a classe `CpfCheckDigits`. Por meio da instância dela, você acessa as informações principais do CPF em relação aos dígitos verificadores:
 
-```js
-// Calcular dígitos verificadores a partir de uma base de CPF com 9 dígitos
-const checkDigits = new CpfCheckDigits('054496519')
+- **`constructor`**: `new CpfCheckDigits(cpfDigits: string | string[])` — 9–11 dígitos (formatação removida).
+- **`first`**: Primeiro dígito verificador (10º dígito do CPF). Lazy, em cache.
+- **`second`**: Segundo dígito verificador (11º dígito do CPF). Lazy, em cache.
+- **`both`**: Ambos os dígitos verificadores concatenados em uma string.
+- **`cpf`**: O CPF completo como string de 11 dígitos (9 base + 2 dígitos verificadores).
 
-console.log(checkDigits.first)   // retorna '1'
-console.log(checkDigits.second)  // retorna '0'
-console.log(checkDigits.both)    // retorna '10'
-console.log(checkDigits.cpf)     // retorna '05449651910'
-```
-
-### Formatos de Entrada
+### Formatos de entrada
 
 A classe `CpfCheckDigits` aceita múltiplos formatos de entrada:
 
-#### Entrada como String
+**String:** dígitos crus ou CPF formatado (ex.: `054.496.519-10`). Caracteres não numéricos são removidos automaticamente. Use 9 dígitos (apenas base) ou 11 dígitos (apenas os 9 primeiros são usados).
 
-```js
-// String simples (caracteres não numéricos são removidos automaticamente)
-const checkDigits = new CpfCheckDigits('054496519')
-const checkDigits = new CpfCheckDigits('054.496.519-10')  // formatação é ignorada
-const checkDigits = new CpfCheckDigits('054496519')       // 9 dígitos
-const checkDigits = new CpfCheckDigits('05449651910')     // 11 dígitos (apenas os 9 primeiros são usados)
-```
+**Array de strings:** strings de um caractere ou de vários (expandidos automaticamente para dígitos individuais), ex.: `['0','5','4','4','9','6','5','1','9']`, `['054496519']`, `['054','496','519']`.
 
-#### Array de Strings
+### Erros e exceções
 
-```js
-// Array de strings de um único caractere
-const checkDigits = new CpfCheckDigits(['0', '5', '4', '4', '9', '6', '5', '1', '9'])
+Este pacote usa a distinção **Error vs Exception**: *errors* indicam uso incorreto da API (ex.: tipo errado); *exceptions* indicam dados inválidos ou ineligíveis (ex.: CPF inválido). Você pode capturar tipos específicos ou usar as classes base.
 
-// Array com strings de múltiplos dígitos (automaticamente expandido)
-const checkDigits = new CpfCheckDigits(['054496519'])       // expande para dígitos individuais
-const checkDigits = new CpfCheckDigits(['054', '496', '519'])  // também expande
-```
-
-## Tratamento de Erros
-
-Este projeto utiliza o conceito de **diferenciação Error/Exception**. Basicamente, _errors_ são usos incorretos do pacote, por exemplo, não seguir o tipo de argumento de uma função, e _exceptions_ são erros recuperáveis onde os dados ou o fluxo fogem das regras por algum motivo, por exemplo, um CPF inválido é fornecido à biblioteca, então os dígitos verificadores não podem ser calculados como esperado.
-
-Portanto, o pacote lança erros e exceções detalhados para diferentes situações:
-
-### `CpfCheckDigitsInputTypeError`
-
-Lançado quando o tipo de entrada não é suportado (deve ser `string` ou `string[]`).
-
-```js
-import CpfCheckDigits, { CpfCheckDigitsInputTypeError } from '@lacussoft/cpf-dv'
-
-try {
-  new CpfCheckDigits(12345678901)  // entrada numérica não é permitida
-} catch (error) {
-  if (error instanceof CpfCheckDigitsInputTypeError) {
-    console.log(error.message)  // CPF input must be of type string or string[]. Got number.
-  }
-}
-```
-
-### `CpfCheckDigitsInputLengthException`
-
-Lançado quando a entrada não contém de 9 a 11 dígitos.
-
-```js
-import CpfCheckDigits, { CpfCheckDigitsInputLengthException } from '@lacussoft/cpf-dv'
-
-try {
-  new CpfCheckDigits('12345678')  // apenas 8 dígitos
-} catch (error) {
-  if (error instanceof CpfCheckDigitsInputLengthException) {
-    console.log(error.message)  // CPF input "12345678" does not contain 9 to 11 digits. Got 8.
-  }
-}
-```
-
-### `CpfCheckDigitsInputInvalidException`
-
-Lançado quando a entrada é proibida por alguma restrição, como dígitos repetidos tipo `111.111.111`, `222.222.222`, `333.333.333` e assim por diante.
-
-```js
-import CpfCheckDigits, { CpfCheckDigitsInputInvalidException } from '@lacussoft/cpf-dv'
-
-try {
-  new CpfCheckDigits(['999', '999', '999'])
-} catch (error) {
-  if (error instanceof CpfCheckDigitsInputInvalidException) {
-    console.log(error.message)  // CPF input ["999","999","999"] is invalid. Repeated digits are not considered valid.
-  }
-}
-```
-
-### Capturar qualquer erro do pacote
-
-Todos os type errors estendem de `CpfCheckDigitsTypeError` e todas as exceptions estendem de `CpfCheckDigitsException`, então você pode usar esses tipos para tratar qualquer erro lançado pelo módulo.
-
-```js
-import { CpfCheckDigits, CpfCheckDigitsException } from '@lacussoft/cpf-dv'
-
-try {
-  // algum código arriscado
-} catch (error) {
-  if (error instanceof CpfCheckDigitsException) {
-    // tratar exceções
-  }
-}
-```
-
-## Referência da API
-
-### Classe CpfCheckDigits
-
-#### Construtor
+- **CpfCheckDigitsTypeError** (_abstract_) — base para erros de tipo
+- **CpfCheckDigitsInputTypeError** — entrada não é string nem string[]
+- **CpfCheckDigitsException** (_abstract_) — base para exceções de dados/fluxo
+- **CpfCheckDigitsInputLengthException** — tamanho após sanitização não é 9–11
+- **CpfCheckDigitsInputInvalidException** — entrada ineligível (ex.: dígitos repetidos como 111.111.111)
 
 ```ts
-new CpfCheckDigits(cpfDigits: string | string[]): CpfCheckDigits
+import CpfCheckDigits, {
+  CpfCheckDigitsInputTypeError,
+  CpfCheckDigitsInputLengthException,
+  CpfCheckDigitsInputInvalidException,
+  CpfCheckDigitsException,
+} from '@lacussoft/cpf-dv'
+
+// Tipo de entrada (ex.: número não permitido)
+try {
+  new CpfCheckDigits(12345678901)
+} catch (e) {
+  if (e instanceof CpfCheckDigitsInputTypeError) {
+    console.log(e.message)  // CPF input must be of type string or string[]. Got number.
+  }
+}
+
+// Tamanho (deve ser 9–11 dígitos após sanitização)
+try {
+  new CpfCheckDigits('12345678')
+} catch (e) {
+  if (e instanceof CpfCheckDigitsInputLengthException) {
+    console.log(e.message)
+  }
+}
+
+// Inválido (ex.: dígitos repetidos)
+try {
+  new CpfCheckDigits(['999', '999', '999'])
+} catch (e) {
+  if (e instanceof CpfCheckDigitsInputInvalidException) {
+    console.log(e.message)
+  }
+}
+
+// Qualquer exceção do pacote
+try {
+  // código arriscado
+} catch (e) {
+  if (e instanceof CpfCheckDigitsException) {
+    // tratar
+  }
+}
 ```
 
-Cria uma nova instância de `CpfCheckDigits` a partir dos dígitos base do CPF fornecidos.
+### Outros recursos disponíveis
 
-**Parâmetros:**
-- `cpfDigits` (string | string[]): Os dígitos base do CPF (9-11 dígitos). Pode ser:
-  - Uma string com 9-11 dígitos (caracteres de formatação são ignorados)
-  - Um array de strings (cada string pode ser um número de um ou múltiplos dígitos)
+- **`CpfCheckDigits`** (default): Classe para calcular os dígitos verificadores de CPF; o construtor aceita `string | string[]`.
+- **Tipos**: `CpfCheckDigitsTypeError`, `CpfCheckDigitsException` (classes base para erros e exceções).
+- **Exceções**: Ver lista acima.
 
-**Lança:**
-- `CpfCheckDigitsInputTypeError`: Se o tipo de entrada não for suportado
-- `CpfCheckDigitsInputLengthException`: Se a entrada não contiver 9-11 dígitos
-- `CpfCheckDigitsInputInvalidException`: Se a entrada for inválida (ex.: dígitos repetidos)
+## Algoritmo de cálculo
 
-**Retorna:**
-- `CpfCheckDigits`: Uma nova instância pronta para calcular os dígitos verificadores
+O pacote calcula os dígitos verificadores do CPF usando o algoritmo oficial brasileiro:
 
-#### Propriedades
+1. **Primeiro dígito (10ª posição):** dígitos 1–9 da base do CPF; pesos 10, 9, 8, 7, 6, 5, 4, 3, 2 (da esquerda para a direita); `resto = 11 - (soma(dígito × peso) % 11)`; resultado é `0` se resto > 9, caso contrário `resto`.
+2. **Segundo dígito (11ª posição):** dígitos 1–9 + primeiro dígito verificador; pesos 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 (da esquerda para a direita); mesma fórmula.
 
-##### `first: string`
+## Contribuição e suporte
 
-O primeiro dígito verificador (10º dígito do CPF). Calculado de forma lazy no primeiro acesso.
-
-##### `second: string`
-
-O segundo dígito verificador (11º dígito do CPF). Calculado de forma lazy no primeiro acesso.
-
-##### `both: string`
-
-Ambos os dígitos verificadores concatenados como uma string.
-
-##### `cpf: string`
-
-O CPF completo como uma string de 11 dígitos (9 dígitos base + 2 dígitos verificadores).
-
-## Contribuição & Suporte
-
-Contribuições são bem-vindas! Por favor, consulte nossas [Diretrizes de Contribuição](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) para detalhes. Mas se você achar este projeto útil, por favor considere:
+Contribuições são bem-vindas! Consulte as [Diretrizes de contribuição](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md). Se o projeto for útil para você, considere:
 
 - ⭐ Dar uma estrela no repositório
-- 🤝 Contribuir com o código
+- 🤝 Contribuir com código
 - 💡 [Sugerir novas funcionalidades](https://github.com/LacusSolutions/br-utils-js/issues)
 - 🐛 [Reportar bugs](https://github.com/LacusSolutions/br-utils-js/issues)
 
 ## Licença
 
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE) para detalhes.
+Este projeto está sob a licença MIT — veja o arquivo [LICENSE](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE).
 
 ## Changelog
 
-Veja [CHANGELOG](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-dv/CHANGELOG.md) para uma lista de alterações e histórico de versões.
+Veja o [CHANGELOG](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-dv/CHANGELOG.md) para alterações e histórico de versões.
 
 ---
 
