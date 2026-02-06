@@ -5,9 +5,9 @@ import type { CpfFormatterOptions } from './cpf-formatter-options';
  * Represents valid input types for CPF formatting.
  *
  * A CPF can be provided as:
+ *
  * - A string containing digits (with or without formatting)
- * - An array of strings, where each string represents a digit or group of
- *   digits
+ * - An array of strings, where each string represents a digit or group of digits.
  */
 export type CpfInput = string | string[];
 
@@ -30,12 +30,11 @@ export type Nullable<T> = null | T | undefined;
 export type OnFailCallback = (value: unknown, error?: Error) => string;
 
 /**
- * Configuration interface for CPF (Cadastro de Pessoas Físicas) formatting
- * options. This interface defines all available options for customizing how
- * CPF numbers are formatted, including delimiter characters, hidden digit
- * ranges, HTML escaping, URL encoding, and error handling. All properties have
- * default values and are optional when creating a new `CpfFormatterOptions`
- * instance.
+ * Configuration interface for CPF (Cadastro de Pessoa Física) formatting
+ * options. This interface defines all available options for customizing how CPF
+ * digits are formatted, including delimiter characters, hidden digits range,
+ * HTML escaping, URL encoding, and error handling. All properties have default
+ * values and are optional when creating a new `CpfFormatterOptions` instance.
  */
 export interface CpfFormatterOptionsType {
   /**
@@ -61,19 +60,19 @@ export interface CpfFormatterOptionsType {
 
   /**
    * The start index (inclusive) for hiding CPF digits. This is the first
-   * position (0-based) in the CPF string where digits will be replaced with
-   * the `hiddenKey` character when `hidden` is `true`. Must be an integer
-   * between `0` and `10` (`CPF_LENGTH - 1`).
+   * position (0-based) in the CPF string where digits will be replaced with the
+   * `hiddenKey` character when `hidden` is `true`. Must be an integer between
+   * `0` and `10` (`CPF_LENGTH - 1`).
    *
    * @default 3
    */
   hiddenStart: number;
 
   /**
-   * The end index (inclusive) for hiding CPF digits. This is the last
-   * position (0-based) in the CPF string where digits will be replaced with
-   * the `hiddenKey` character when `hidden` is `true`. Must be an integer
-   * between `0` and `10` (`CPF_LENGTH - 1`).
+   * The end index (inclusive) for hiding CPF digits. This is the last position
+   * (0-based) in the CPF string where digits will be replaced with the
+   * `hiddenKey` character when `hidden` is `true`. Must be an integer between
+   * `0` and `10` (`CPF_LENGTH - 1`).
    *
    * @default 10
    */
@@ -98,14 +97,15 @@ export interface CpfFormatterOptionsType {
   dashKey: string;
 
   /**
-   * Whether to escape HTML special characters in the formatted CPF string.
-   * When `true`, HTML special characters (such as `<`, `>`, `&`, `"`, `'`) in
-   * the formatted CPF string will be escaped to their HTML entity equivalents.
-   * This is particularly useful when:
-   * - Using custom delimiters that may contain HTML characters
+   * Whether to escape HTML special characters in the formatted CPF string. When
+   * `true`, HTML special characters (such as `<`, `>`, `&`, `"`, `'`) in the
+   * formatted CPF string will be escaped to their HTML entity equivalents. This
+   * is particularly useful when:
+   *
+   * - Using custom delimiters that may contain HTML characters.
    * - Displaying CPF numbers in HTML contexts where special characters could be
-   *   interpreted as HTML markup
-   * - Preventing XSS vulnerabilities when rendering user-provided CPF data
+   *   interpreted as HTML markup.
+   * - Preventing XSS vulnerabilities when rendering user-provided CPF data.
    *
    * @default false
    */
@@ -124,9 +124,10 @@ export interface CpfFormatterOptionsType {
   /**
    * Callback function executed when CPF formatting fails. This function is
    * invoked when the formatter encounters an error during formatting, such as:
+   *
    * - Invalid input (non-digit characters, wrong length, etc.)
    * - Invalid options (out-of-range indices, wrong types, etc.)
-   * - Other formatting errors
+   * - Other formatting errors.
    *
    * The callback receives the original input value and an optional error
    * object, and should return a string that will be used as the fallback output

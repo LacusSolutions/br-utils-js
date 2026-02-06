@@ -11,29 +11,20 @@ import type {
 } from './types';
 
 /**
- * The standard length of a CPF (Cadastro de Pessoas Físicas) identifier. A CPF
- * consists of 11 digits.
- *
- * @constant
- * @type {number}
+ * The standard length of a CPF (Cadastro de Pessoa Física) identifier (11
+ * digits).
  */
 export const CPF_LENGTH = 11;
 
 /**
- * Minimum valid index for the hidden range (inclusive).
- * Must be between 0 and CPF_LENGTH - 1.
- *
- * @constant
- * @type {number}
+ * Minimum valid index for the hidden range (inclusive). Must be between 0 and
+ * CPF_LENGTH - 1.
  */
 const MIN_HIDDEN_RANGE = 0;
 
 /**
- * Maximum valid index for the hidden range (inclusive).
- * Must be between 0 and CPF_LENGTH - 1.
- *
- * @constant
- * @type {number}
+ * Maximum valid index for the hidden range (inclusive). Must be between 0 and
+ * CPF_LENGTH - 1.
  */
 const MAX_HIDDEN_RANGE = CPF_LENGTH - 1;
 
@@ -68,20 +59,20 @@ export class CpfFormatterOptions {
   public static readonly DEFAULT_HIDDEN_END = 10;
 
   /**
-   * Default string used as the dot delimiter in formatted CPF. Used to
-   * separate the first groups of digits (XXX.XXX.XXX).
+   * Default string used as the dot delimiter in formatted CPF. Used to separate
+   * the first groups of digits (XXX.XXX.XXX).
    */
   public static readonly DEFAULT_DOT_KEY = '.';
 
   /**
-   * Default string used as the dash delimiter in formatted CPF. Used to separate
-   * the first group of digits from the check digits at the end (-XX).
+   * Default string used as the dash delimiter in formatted CPF. Used to
+   * separate the first group of digits from the check digits at the end (-XX).
    */
   public static readonly DEFAULT_DASH_KEY = '-';
 
   /**
-   * Default value for the `escape` option. When `false`, HTML special characters
-   * are not escaped.
+   * Default value for the `escape` option. When `false`, HTML special
+   * characters are not escaped.
    */
   public static readonly DEFAULT_ESCAPE = false;
 
@@ -104,8 +95,8 @@ export class CpfFormatterOptions {
    * `dashKey`). They are reserved for internal formatting logic.
    *
    * For now, it's only used to replace the hidden key placeholder in the
-   * CpfFormatter class. However, this set of characters is reserved for
-   * future use already.
+   * CpfFormatter class. However, this set of characters is reserved for future
+   * use already.
    */
   public static readonly DISALLOWED_KEY_CHARACTERS = Object.freeze([
     '\u00e5',
@@ -114,38 +105,28 @@ export class CpfFormatterOptions {
     '\u00f6',
   ]);
 
-  /**
-   * Internal storage for all formatter options.
-   *
-   * @private
-   * @type {CpfFormatterOptionsType}
-   */
   private _options = {} as CpfFormatterOptionsType;
 
   /**
    * Creates a new instance of `CpfFormatterOptions`.
    *
    * Options can be provided in multiple ways:
-   * 1. As a single options object or another `CpfFormatterOptions` instance
-   * 2. As multiple override objects that are merged in order (later overrides
-   *    take precedence)
+   *
+   * 1. As a single options object or another `CpfFormatterOptions` instance.
+   * 2. As multiple override objects that are merged in order (later overrides take
+   *    precedence)
    *
    * All options are optional and will default to their predefined values if not
    * provided. The `hiddenStart` and `hiddenEnd` options are validated to ensure
    * they are within the valid range [0, CPF_LENGTH - 1] and will be swapped if
    * `hiddenStart > hiddenEnd`.
    *
-   * @param {CpfFormatterOptionsInput} [defaultOptions] - Initial options
-   *   object or another `CpfFormatterOptions` instance
-   * @param {...CpfFormatterOptionsInput[]} overrides - Additional option
-   *   objects to merge, applied in order
-   *
-   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type
+   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type.
    * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
-   *   or `hiddenEnd` are out of valid range
+   *   or `hiddenEnd` are out of valid range.
    * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If any key
-   *   option (`hiddenKey`, `dotKey`, `dashKey`) contains a
-   *   disallowed character
+   *   option (`hiddenKey`, `dotKey`, `dashKey`) contains a disallowed
+   *   character.
    */
   public constructor(
     defaultOptions?: CpfFormatterOptionsInput,
@@ -170,8 +151,6 @@ export class CpfFormatterOptions {
    * Returns a shallow copy of all current options, frozen to prevent
    * modification. This is useful for creating immutable snapshots of the
    * current configuration.
-   *
-   * @returns {CpfFormatterOptionsType}
    */
   public get all(): CpfFormatterOptionsType {
     const options = { ...this._options };
@@ -183,8 +162,6 @@ export class CpfFormatterOptions {
    * Gets whether hidden digit replacement is enabled. When `true`, digits
    * within the `hiddenStart` to `hiddenEnd` range will be replaced with the
    * `hiddenKey` character.
-   *
-   * @returns {boolean}
    */
   public get hidden(): boolean {
     return this._options.hidden;
@@ -192,11 +169,9 @@ export class CpfFormatterOptions {
 
   /**
    * Sets whether hidden digit replacement is enabled. When set to `true`,
-   * digits within the `hiddenStart` to `hiddenEnd` range will be replaced
-   * with the `hiddenKey` character. The value is converted to a boolean using
+   * digits within the `hiddenStart` to `hiddenEnd` range will be replaced with
+   * the `hiddenKey` character. The value is converted to a boolean using
    * `Boolean()`, so truthy/falsy values are handled appropriately.
-   *
-   * @param {Nullable<boolean>} value
    */
   public set hidden(value: Nullable<boolean>) {
     let actualHidden = value ?? CpfFormatterOptions.DEFAULT_HIDDEN;
@@ -206,26 +181,22 @@ export class CpfFormatterOptions {
   }
 
   /**
-   * Gets the string used to replace hidden CPF digits. This string is
-   * used when `hidden` is `true` to mask digits in the range from
-   * `hiddenStart` to `hiddenEnd` (inclusive).
-   *
-   * @returns {string}
+   * Gets the string used to replace hidden CPF digits. This string is used when
+   * `hidden` is `true` to mask digits in the range from `hiddenStart` to
+   * `hiddenEnd` (inclusive).
    */
   public get hiddenKey(): string {
     return this._options.hiddenKey;
   }
 
   /**
-   * Sets the string used to replace hidden CPF digits. This string is used
-   * when `hidden` is `true` to mask digits in the range from `hiddenStart` to
+   * Sets the string used to replace hidden CPF digits. This string is used when
+   * `hidden` is `true` to mask digits in the range from `hiddenStart` to
    * `hiddenEnd` (inclusive).
    *
-   * @param {Nullable<string>} value
-   *
-   * @throws {CpfFormatterOptionsTypeError} If the value is not a string
+   * @throws {CpfFormatterOptionsTypeError} If the value is not a string.
    * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If the value
-   *   contains any disallowed key character
+   *   contains any disallowed key character.
    */
   public set hiddenKey(value: Nullable<string>) {
     const actualHiddenKey = value ?? CpfFormatterOptions.DEFAULT_HIDDEN_KEY;
@@ -244,8 +215,6 @@ export class CpfFormatterOptions {
    * position in the CPF string where digits will be replaced with the
    * `hiddenKey` string when `hidden` is `true`. Must be between `0` and `10`
    * (`CPF_LENGTH - 1`).
-   *
-   * @returns {number}
    */
   public get hiddenStart(): number {
     return this._options.hiddenStart;
@@ -255,12 +224,12 @@ export class CpfFormatterOptions {
    * Sets the start index (inclusive) for hiding CPF digits. This is the first
    * position in the CPF string where digits will be replaced with the
    * `hiddenKey` when `hidden` is `true`. The value is validated and will be
-   * swapped with `hiddenEnd` if necessary to ensure `hiddenStart <= hiddenEnd`.
+   * swapped with `hiddenEnd` if necessary to ensure `hiddenStart <=
+   * hiddenEnd`.
    *
-   * @param {Nullable<number>} value
-   *
-   * @throws {CpfFormatterOptionsTypeError} If the value is not an integer
-   * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If the value is out of valid range [0, CPF_LENGTH - 1]
+   * @throws {CpfFormatterOptionsTypeError} If the value is not an integer.
+   * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If the value is
+   *   out of valid range [0, CPF_LENGTH - 1]
    */
   public set hiddenStart(value: Nullable<number>) {
     this.setHiddenRange(value, this._options.hiddenEnd);
@@ -271,8 +240,6 @@ export class CpfFormatterOptions {
    * position in the CPF string where digits will be replaced with the
    * `hiddenKey` string when `hidden` is `true`. Must be between `0` and `10`
    * (`CPF_LENGTH - 1`).
-   *
-   * @returns {number}
    */
   public get hiddenEnd(): number {
     return this._options.hiddenEnd;
@@ -282,11 +249,10 @@ export class CpfFormatterOptions {
    * Sets the end index (inclusive) for hiding CPF digits. This is the last
    * position in the CPF string where digits will be replaced with the
    * `hiddenKey` when `hidden` is `true`. The value is validated and will be
-   * swapped with `hiddenStart` if necessary to ensure `hiddenStart <= hiddenEnd`.
+   * swapped with `hiddenStart` if necessary to ensure `hiddenStart <=
+   * hiddenEnd`.
    *
-   * @param {Nullable<number>} value
-   *
-   * @throws {CpfFormatterOptionsTypeError} If the value is not an integer
+   * @throws {CpfFormatterOptionsTypeError} If the value is not an integer.
    * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If the value is
    *   out of valid range [`0`, `CPF_LENGTH - 1`]
    */
@@ -295,26 +261,22 @@ export class CpfFormatterOptions {
   }
 
   /**
-   * Gets the string used as the dot delimiter. This string is used to
-   * separate the first groups of digits in the formatted CPF (e.g., `"."` in
+   * Gets the string used as the dot delimiter. This string is used to separate
+   * the first groups of digits in the formatted CPF (e.g., `"."` in
    * "123.456.789-10").
-   *
-   * @returns {string}
    */
   public get dotKey(): string {
     return this._options.dotKey;
   }
 
   /**
-   * Sets the string used as the dot delimiter. This string is used to
-   * separate the first groups of digits in the formatted CPF (e.g., `"."` in
+   * Sets the string used as the dot delimiter. This string is used to separate
+   * the first groups of digits in the formatted CPF (e.g., `"."` in
    * `"123.456.789-10"`).
    *
-   * @param {Nullable<string>} value
-   *
-   * @throws {CpfFormatterOptionsTypeError} If the value is not a string
+   * @throws {CpfFormatterOptionsTypeError} If the value is not a string.
    * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If the value
-   *   contains any disallowed key character
+   *   contains any disallowed key character.
    */
   public set dotKey(value: Nullable<string>) {
     const actualDotKey = value ?? CpfFormatterOptions.DEFAULT_DOT_KEY;
@@ -329,26 +291,22 @@ export class CpfFormatterOptions {
   }
 
   /**
-   * Gets the string used as the dash delimiter. This string is used to
-   * separate the check digits at the end in the formatted CPF (e.g., `"-"` in
+   * Gets the string used as the dash delimiter. This string is used to separate
+   * the check digits at the end in the formatted CPF (e.g., `"-"` in
    * `"123.456.789-10"`).
-   *
-   * @returns {string}
    */
   public get dashKey(): string {
     return this._options.dashKey;
   }
 
   /**
-   * Sets the string used as the dash delimiter. This string is used to
-   * separate the check digits at the end in the formatted CPF (e.g., `"-"` in
+   * Sets the string used as the dash delimiter. This string is used to separate
+   * the check digits at the end in the formatted CPF (e.g., `"-"` in
    * `"123.456.789-10"`).
    *
-   * @param {Nullable<string>} value
-   *
-   * @throws {CpfFormatterOptionsTypeError} If the value is not a string
+   * @throws {CpfFormatterOptionsTypeError} If the value is not a string.
    * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If the value
-   *   contains any disallowed key character
+   *   contains any disallowed key character.
    */
   public set dashKey(value: Nullable<string>) {
     const actualDashKey = value ?? CpfFormatterOptions.DEFAULT_DASH_KEY;
@@ -367,8 +325,6 @@ export class CpfFormatterOptions {
    * (like `<`, `>`, `&`, etc.) in the formatted CPF string will be escaped.
    * This is useful when using custom delimiters that may contain HTML
    * characters or when displaying CPF in HTML.
-   *
-   * @returns {boolean}
    */
   public get escape(): boolean {
     return this._options.escape;
@@ -381,8 +337,6 @@ export class CpfFormatterOptions {
    * characters or when displaying CPF in HTML. The value is converted to a
    * boolean using `Boolean()`, so truthy/falsy values are handled
    * appropriately.
-   *
-   * @param {Nullable<boolean>} value
    */
   public set escape(value: Nullable<boolean>) {
     let actualEscape = value ?? CpfFormatterOptions.DEFAULT_ESCAPE;
@@ -392,23 +346,19 @@ export class CpfFormatterOptions {
   }
 
   /**
-   * Gets whether URL encoding is enabled. When `true`, the formatted CPF
-   * string will be URL-encoded, making it safe to use in URL query parameters
-   * or path segments.
-   *
-   * @returns {boolean}
+   * Gets whether URL encoding is enabled. When `true`, the formatted CPF string
+   * will be URL-encoded, making it safe to use in URL query parameters or path
+   * segments.
    */
   public get encode(): boolean {
     return this._options.encode;
   }
 
   /**
-   * Sets whether URL encoding is enabled. When set to `true`, the formatted
-   * CPF string will be URL-encoded, making it safe to use in URL query parameters
+   * Sets whether URL encoding is enabled. When set to `true`, the formatted CPF
+   * string will be URL-encoded, making it safe to use in URL query parameters
    * or path segments. The value is converted to a boolean using `Boolean()`, so
    * truthy/falsy values are handled appropriately.
-   *
-   * @param {Nullable<boolean>} value
    */
   public set encode(value: Nullable<boolean>) {
     let actualEncode = value ?? CpfFormatterOptions.DEFAULT_ENCODE;
@@ -422,8 +372,6 @@ export class CpfFormatterOptions {
    * called when the formatter encounters an error (e.g., invalid input, invalid
    * options). It receives the input value and an optional error object, and
    * should return a string to use as the fallback output.
-   *
-   * @returns {OnFailCallback}
    */
   public get onFail(): OnFailCallback {
     return this._options.onFail;
@@ -435,9 +383,7 @@ export class CpfFormatterOptions {
    * options). It receives the input value and an optional error object, and
    * should return a string to use as the fallback output.
    *
-   * @param {Nullable<OnFailCallback>} value
-   *
-   * @throws {CpfFormatterOptionsTypeError} If the value is not a function
+   * @throws {CpfFormatterOptionsTypeError} If the value is not a function.
    */
   public set onFail(value: Nullable<OnFailCallback>) {
     const actualOnFail = value ?? CpfFormatterOptions.DEFAULT_ON_FAIL;
@@ -457,16 +403,9 @@ export class CpfFormatterOptions {
    * used internally by the `hiddenStart` and `hiddenEnd` setters to maintain
    * consistency.
    *
-   * @param {Nullable<number>} hiddenStart - The start index (inclusive) for
-   *   hiding digits, or `null`/`undefined` for default (3)
-   * @param {Nullable<number>} hiddenEnd - The end index (inclusive) for hiding
-   *   digits, or `null`/`undefined` for default (10)
-   *
-   * @returns {this}
-   *
-   * @throws {CpfFormatterOptionsTypeError} If either value is not an integer
-   * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If either value
-   *   is out of valid range [`0`, `CPF_LENGTH - 1`]
+   * @throws {CpfFormatterOptionsTypeError} If either value is not an integer.
+   * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If either value is
+   *   out of valid range [`0`, `CPF_LENGTH - 1`]
    */
   public setHiddenRange(hiddenStart: Nullable<number>, hiddenEnd: Nullable<number>): this {
     let actualHiddenStart = hiddenStart ?? CpfFormatterOptions.DEFAULT_HIDDEN_START;
@@ -514,17 +453,12 @@ export class CpfFormatterOptions {
    * not included in the object retain their current values. You can pass either
    * a partial options object or another `CpfFormatterOptions` instance.
    *
-   * @param {CpfFormatterOptionsInput} options - An
-   *   options object or another `CpfFormatterOptions` instance
-   *
-   * @returns {this}
-   *
-   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type
+   * @throws {CpfFormatterOptionsTypeError} If any option has an invalid type.
    * @throws {CpfFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
-   *   or `hiddenEnd` are out of valid range
+   *   or `hiddenEnd` are out of valid range.
    * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If any key
-   *   option (`hiddenKey`, `dotKey`, `dashKey`) contains a
-   *   disallowed character
+   *   option (`hiddenKey`, `dotKey`, `dashKey`) contains a disallowed
+   *   character.
    */
   public set(options: CpfFormatterOptionsInput): this {
     this.hidden = options.hidden ?? this.hidden;
@@ -545,10 +479,6 @@ export class CpfFormatterOptions {
 
   /**
    * Throws if the given string contains any disallowed key character.
-   *
-   * @private
-   * @param {keyof CpfFormatterOptionsType} optionName - Option being set.
-   * @param {string} value - String value to validate.
    *
    * @throws {CpfFormatterOptionsForbiddenKeyCharacterException} If `value`
    *   contains any character from `getDisallowedKeyCharacters()`.

@@ -3,265 +3,327 @@ import { describe, expect, it } from 'bun:test';
 import { describeType } from '../src/utils';
 
 describe('describeType', (): void => {
-  describe('when given null', (): void => {
+  describe('when given `null`', (): void => {
     it('returns "null"', (): void => {
-      expect(describeType(null)).toBe('null');
+      const result = describeType(null);
+
+      expect(result).toBe('null');
     });
   });
 
-  describe('when given undefined', (): void => {
+  describe('when given `undefined`', (): void => {
     it('returns "undefined"', (): void => {
-      expect(describeType(undefined)).toBe('undefined');
+      const result = describeType(undefined);
+
+      expect(result).toBe('undefined');
     });
   });
 
   describe('when given a string', (): void => {
-    it('returns "string" for a regular string', (): void => {
-      expect(describeType('hello')).toBe('string');
+    it('returns "string" for a non-empty string', (): void => {
+      const result = describeType('hello');
+
+      expect(result).toBe('string');
     });
 
     it('returns "string" for an empty string', (): void => {
-      expect(describeType('')).toBe('string');
+      const result = describeType('');
+
+      expect(result).toBe('string');
     });
 
     it('returns "string" for a string with whitespace', (): void => {
-      expect(describeType('   ')).toBe('string');
+      const result = describeType('   ');
+
+      expect(result).toBe('string');
     });
   });
 
   describe('when given a number', (): void => {
-    it('returns "number" for a positive integer', (): void => {
-      expect(describeType(42)).toBe('number');
+    it('returns "integer" for a positive integer', (): void => {
+      const result = describeType(42);
+
+      expect(result).toBe('integer number');
     });
 
-    it('returns "number" for a negative integer', (): void => {
-      expect(describeType(-42)).toBe('number');
+    it('returns "integer" for a negative integer', (): void => {
+      const result = describeType(-42);
+
+      expect(result).toBe('integer number');
     });
 
-    it('returns "number" for zero', (): void => {
-      expect(describeType(0)).toBe('number');
+    it('returns "integer" for zero', (): void => {
+      const result = describeType(0);
+
+      expect(result).toBe('integer number');
     });
 
-    it('returns "number" for a float', (): void => {
-      expect(describeType(3.14)).toBe('number');
+    it('returns "float" for a positive float', (): void => {
+      const result = describeType(3.14);
+
+      expect(result).toBe('float number');
     });
 
-    it('returns "number" for NaN', (): void => {
-      expect(describeType(NaN)).toBe('number');
+    it('returns "float" for a negative float', (): void => {
+      const result = describeType(-3.14);
+
+      expect(result).toBe('float number');
     });
 
-    it('returns "number" for Infinity', (): void => {
-      expect(describeType(Infinity)).toBe('number');
+    it('returns "NaN" for `NaN`', (): void => {
+      const result = describeType(NaN);
+
+      expect(result).toBe('NaN');
     });
 
-    it('returns "number" for -Infinity', (): void => {
-      expect(describeType(-Infinity)).toBe('number');
+    it('returns "Infinity" for positive `Infinity`', (): void => {
+      const result = describeType(Infinity);
+
+      expect(result).toBe('Infinity');
+    });
+
+    it('returns "Infinity" for negative `Infinity`', (): void => {
+      const result = describeType(-Infinity);
+
+      expect(result).toBe('Infinity');
     });
   });
 
   describe('when given a boolean', (): void => {
-    it('returns "boolean" for true', (): void => {
-      expect(describeType(true)).toBe('boolean');
+    it('returns "boolean" for `true`', (): void => {
+      const result = describeType(true);
+
+      expect(result).toBe('boolean');
     });
 
-    it('returns "boolean" for false', (): void => {
-      expect(describeType(false)).toBe('boolean');
+    it('returns "boolean" for `false`', (): void => {
+      const result = describeType(false);
+
+      expect(result).toBe('boolean');
     });
   });
 
   describe('when given a bigint', (): void => {
-    it('returns "bigint" for a positive bigint', (): void => {
-      expect(describeType(BigInt(123))).toBe('bigint');
+    it('returns "bigint" for a positive `bigint`', (): void => {
+      const result = describeType(BigInt(123));
+
+      expect(result).toBe('bigint');
     });
 
-    it('returns "bigint" for a negative bigint', (): void => {
-      expect(describeType(BigInt(-123))).toBe('bigint');
+    it('returns "bigint" for a negative `bigint`', (): void => {
+      const result = describeType(BigInt(-123));
+
+      expect(result).toBe('bigint');
     });
 
-    it('returns "bigint" for zero bigint', (): void => {
-      expect(describeType(BigInt(0))).toBe('bigint');
+    it('returns "bigint" for zero `bigint`', (): void => {
+      const result = describeType(BigInt(0));
+
+      expect(result).toBe('bigint');
     });
 
-    it('returns "bigint" for a large bigint', (): void => {
-      expect(describeType(BigInt('9007199254740991000'))).toBe('bigint');
+    it('returns "bigint" for a large `bigint`', (): void => {
+      const result = describeType(BigInt('9007199254740991000'));
+
+      expect(result).toBe('bigint');
     });
   });
 
   describe('when given a symbol', (): void => {
-    it('returns "symbol" for a named symbol', (): void => {
-      expect(describeType(Symbol('test'))).toBe('symbol');
+    it('returns "symbol" for a named `symbol`', (): void => {
+      const result = describeType(Symbol('test'));
+
+      expect(result).toBe('symbol');
     });
 
     it('returns "symbol" for an anonymous symbol', (): void => {
-      expect(describeType(Symbol())).toBe('symbol');
+      const result = describeType(Symbol());
+
+      expect(result).toBe('symbol');
     });
 
     it('returns "symbol" for Symbol.for', (): void => {
-      expect(describeType(Symbol.for('global'))).toBe('symbol');
+      const result = describeType(Symbol.for('global'));
+
+      expect(result).toBe('symbol');
     });
 
     it('returns "symbol" for well-known symbols', (): void => {
-      expect(describeType(Symbol.iterator)).toBe('symbol');
+      const result = describeType(Symbol.iterator);
+
+      expect(result).toBe('symbol');
     });
   });
 
   describe('when given a function', (): void => {
     it('returns "function" for an arrow function', (): void => {
-      expect(describeType(() => {})).toBe('function');
+      const result = describeType(() => {});
+
+      expect(result).toBe('function');
     });
 
     it('returns "function" for a regular function', (): void => {
-      expect(describeType(function test() {})).toBe('function');
+      const result = describeType(function test() {});
+
+      expect(result).toBe('function');
     });
 
     it('returns "function" for an async function', (): void => {
-      expect(describeType(async () => {})).toBe('function');
+      const result = describeType(async () => {});
+
+      expect(result).toBe('function');
     });
 
     it('returns "function" for a class', (): void => {
-      expect(describeType(class TestClass {})).toBe('function');
+      const result = describeType(class TestClass {});
+
+      expect(result).toBe('function');
     });
   });
 
   describe('when given non-array objects', (): void => {
     it('returns "object" for a plain object', (): void => {
-      expect(describeType({ key: 'value' })).toBe('object');
+      const result = describeType({ key: 'value' });
+
+      expect(result).toBe('object');
     });
 
-    it('returns "object" for an empty object', (): void => {
-      expect(describeType({})).toBe('object');
+    it('returns "object" for a literal empty object', (): void => {
+      const result = describeType({});
+
+      expect(result).toBe('object');
     });
 
     it('returns "object" for a Date', (): void => {
-      expect(describeType(new Date())).toBe('object');
+      const result = describeType(new Date());
+
+      expect(result).toBe('object');
     });
 
     it('returns "object" for a RegExp', (): void => {
-      expect(describeType(/test/)).toBe('object');
+      const result = describeType(/test/);
+
+      expect(result).toBe('object');
     });
 
     it('returns "object" for an Error', (): void => {
-      expect(describeType(new Error('test'))).toBe('object');
+      const result = describeType(new Error('test'));
+
+      expect(result).toBe('object');
     });
 
     it('returns "object" for a Promise', (): void => {
-      expect(describeType(Promise.resolve())).toBe('object');
+      const result = describeType(Promise.resolve());
+
+      expect(result).toBe('object');
     });
 
     it('returns "object" for a WeakMap', (): void => {
-      expect(describeType(new WeakMap())).toBe('object');
+      const result = describeType(new WeakMap());
+
+      expect(result).toBe('object');
     });
 
     it('returns "object" for a WeakSet', (): void => {
-      expect(describeType(new WeakSet())).toBe('object');
-    });
-  });
+      const result = describeType(new WeakSet());
 
-  describe('when given a Set', (): void => {
-    it('returns "Set" for an empty Set', (): void => {
-      expect(describeType(new Set())).toBe('Set');
+      expect(result).toBe('object');
     });
 
-    it('returns "Set" for a Set with numbers', (): void => {
-      expect(describeType(new Set([1, 2, 3]))).toBe('Set');
+    it('returns "object" for a Set', (): void => {
+      const result = describeType(new Set());
+
+      expect(result).toBe('object');
     });
 
-    it('returns "Set" for a Set with strings', (): void => {
-      expect(describeType(new Set(['a', 'b', 'c']))).toBe('Set');
-    });
+    it('returns "object" for a Map', (): void => {
+      const result = describeType(new Map());
 
-    it('returns "Set" for a Set with mixed types', (): void => {
-      expect(describeType(new Set([1, 'a', true]))).toBe('Set');
-    });
-  });
-
-  describe('when given a Map', (): void => {
-    it('returns "Map" for an empty Map', (): void => {
-      expect(describeType(new Map())).toBe('Map');
-    });
-
-    it('returns "Map" for a Map with entries', (): void => {
-      expect(describeType(new Map([['key', 'value']]))).toBe('Map');
-    });
-
-    it('returns "Map" for a Map with number keys', (): void => {
-      expect(
-        describeType(
-          new Map([
-            [1, 'one'],
-            [2, 'two'],
-          ]),
-        ),
-      ).toBe('Map');
-    });
-
-    it('returns "Map" for a Map with mixed value types', (): void => {
-      expect(
-        describeType(
-          new Map<string, unknown>([
-            ['a', 1],
-            ['b', 'two'],
-          ]),
-        ),
-      ).toBe('Map');
+      expect(result).toBe('object');
     });
   });
 
   describe('when given an empty array', (): void => {
     it('returns "Array (empty)"', (): void => {
-      expect(describeType([])).toBe('Array (empty)');
+      const result = describeType([]);
+
+      expect(result).toBe('Array (empty)');
     });
   });
 
   describe('when given a homogeneous array', (): void => {
     it('returns "string[]" for an array of strings', (): void => {
-      expect(describeType(['a', 'b', 'c'])).toBe('string[]');
+      const result = describeType(['a', 'b', 'c']);
+
+      expect(result).toBe('string[]');
     });
 
     it('returns "number[]" for an array of numbers', (): void => {
-      expect(describeType([1, 2, 3])).toBe('number[]');
+      const result = describeType([1, 2, 3]);
+
+      expect(result).toBe('number[]');
     });
 
     it('returns "boolean[]" for an array of booleans', (): void => {
-      expect(describeType([true, false, true])).toBe('boolean[]');
+      const result = describeType([true, false, true]);
+
+      expect(result).toBe('boolean[]');
     });
 
     it('returns "object[]" for an array of objects', (): void => {
-      expect(describeType([{}, { a: 1 }, null])).toBe('object[]');
+      const result = describeType([{}, { a: 1 }, null]);
+
+      expect(result).toBe('object[]');
     });
 
     it('returns "undefined[]" for an array of undefined values', (): void => {
-      expect(describeType([undefined, undefined])).toBe('undefined[]');
+      const result = describeType([undefined, undefined]);
+
+      expect(result).toBe('undefined[]');
     });
 
     it('returns "bigint[]" for an array of bigints', (): void => {
-      expect(describeType([BigInt(1), BigInt(2), BigInt(3)])).toBe('bigint[]');
+      const result = describeType([BigInt(1), BigInt(2), BigInt(3)]);
+
+      expect(result).toBe('bigint[]');
     });
 
     it('returns "symbol[]" for an array of symbols', (): void => {
-      expect(describeType([Symbol('a'), Symbol('b')])).toBe('symbol[]');
+      const result = describeType([Symbol('a'), Symbol('b')]);
+
+      expect(result).toBe('symbol[]');
     });
 
     it('returns "function[]" for an array of functions', (): void => {
-      expect(describeType([(): void => {}, function test(): void {}])).toBe('function[]');
+      const result = describeType([(): void => {}, function test(): void {}]);
+
+      expect(result).toBe('function[]');
     });
   });
 
   describe('when given a heterogeneous array', (): void => {
     it('returns "(number | string)[]" for mixed numbers and strings', (): void => {
-      expect(describeType([1, 'a', 2, 'b'])).toBe('(number | string)[]');
+      const result = describeType([1, 'a', 2, 'b']);
+
+      expect(result).toBe('(number | string)[]');
     });
 
     it('returns "(string | number | boolean)[]" for mixed types', (): void => {
-      expect(describeType(['hello', 42, true])).toBe('(string | number | boolean)[]');
+      const result = describeType(['hello', 42, true]);
+
+      expect(result).toBe('(string | number | boolean)[]');
     });
 
     it('returns "(number | object)[]" for numbers and objects', (): void => {
-      expect(describeType([1, {}, 2, { a: 1 }])).toBe('(number | object)[]');
+      const result = describeType([1, {}, 2, { a: 1 }]);
+
+      expect(result).toBe('(number | object)[]');
     });
 
     it('returns "(string | undefined)[]" for strings and undefined', (): void => {
-      expect(describeType(['a', undefined, 'b'])).toBe('(string | undefined)[]');
+      const result = describeType(['a', undefined, 'b']);
+
+      expect(result).toBe('(string | undefined)[]');
     });
   });
 });

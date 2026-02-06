@@ -2,18 +2,18 @@
  * Describes the type of a value for error messages.
  *
  * @example
- * describeType(null)          // 'null'
- * describeType(undefined)     // 'undefined'
- * describeType('hello')       // 'string'
- * describeType(true)          // 'boolean'
- * describeType(42)            // 'integer number'
- * describeType(3.14)          // 'float number'
- * describeType(NaN)           // 'NaN'
- * describeType(Infinity)      // 'Infinity'
- * describeType([])            // 'Array (empty)'
- * describeType([1, 2, 3])     // 'number[]'
- * describeType([1, 'a', 2])   // '(number | string)[]'
- * describeType({})            // 'object'
+ *   describeType(null); // 'null'
+ *   describeType(undefined); // 'undefined'
+ *   describeType('hello'); // 'string'
+ *   describeType(true); // 'boolean'
+ *   describeType(42); // 'integer number'
+ *   describeType(3.14); // 'float number'
+ *   describeType(NaN); // 'NaN'
+ *   describeType(Infinity); // 'Infinity'
+ *   describeType([]); // 'Array (empty)'
+ *   describeType([1, 2, 3]); // 'number[]'
+ *   describeType([1, 'a', 2]); // '(number | string)[]'
+ *   describeType({}); // 'object'
  */
 export function describeType(value: unknown): string {
   if (!Array.isArray(value)) {
@@ -63,8 +63,8 @@ export function describeType(value: unknown): string {
  * `>`, `"`, and `'` with their corresponding HTML entities.
  *
  * @example
- * escapeHTML('Tom & Jerry')                     // 'Tom &amp; Jerry'
- * escapeHTML('<script>alert("XSS")</script>')   // '&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;'
+ *   escapeHTML('Tom & Jerry'); // 'Tom &amp; Jerry'
+ *   escapeHTML('<script>alert("XSS")</script>'); // '&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;'
  */
 export function escapeHTML(value: string): string {
   return value

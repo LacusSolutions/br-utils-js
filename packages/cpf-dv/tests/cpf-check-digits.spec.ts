@@ -223,7 +223,7 @@ describe('CpfCheckDigits', (): void => {
       let calculateSpy: Mock<never>;
 
       beforeEach(() => {
-        calculateSpy = spyOn(CpfCheckDigits.prototype, 'calculate' as keyof CpfCheckDigits);
+        calculateSpy = spyOn(CpfCheckDigits.prototype, '_calculate' as keyof CpfCheckDigits);
       });
 
       afterEach(() => {
@@ -274,7 +274,7 @@ describe('CpfCheckDigits', (): void => {
       let calculateSpy: Mock<never>;
 
       beforeEach(() => {
-        calculateSpy = spyOn(CpfCheckDigits.prototype, 'calculate' as keyof CpfCheckDigits);
+        calculateSpy = spyOn(CpfCheckDigits.prototype, '_calculate' as keyof CpfCheckDigits);
       });
 
       afterEach(() => {

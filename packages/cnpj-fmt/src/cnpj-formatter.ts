@@ -6,15 +6,13 @@ import { escapeHTML } from './utils';
 /**
  * @typedef {import('./exceptions').CnpjFormatterOptionsTypeError} CnpjFormatterOptionsTypeError
  *
+ *
  * @typedef {import('./exceptions').CnpjFormatterOptionsHiddenRangeInvalidException} CnpjFormatterOptionsHiddenRangeInvalidException
  */
 
 /**
  * A rarely-used 1-length character that is replaced with `hiddenKey` when
  * `hidden` is `true`.
- *
- * @constant
- * @type {string}
  */
 const HIDDEN_KEY_PLACEHOLDER = CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS[0];
 
@@ -27,12 +25,6 @@ const HIDDEN_KEY_PLACEHOLDER = CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS[0]
  * instead of throwing.
  */
 export class CnpjFormatter {
-  /**
-   * Default options used when no per-call options are provided.
-   *
-   * @private
-   * @type {CnpjFormatterOptions}
-   */
   private _options: CnpjFormatterOptions;
 
   /**
@@ -48,14 +40,9 @@ export class CnpjFormatter {
    * that do not pass per-call options. When a plain object or nothing is
    * passed, a new `CnpjFormatterOptions` instance is created from it.
    *
-   * @param {CnpjFormatterOptionsInput} [defaultOptions] - Initial options: a
-   *   plain object (merged into a new `CnpjFormatterOptions`), a
-   *   `CnpjFormatterOptions` instance (used as-is), or omitted for built-in
-   *   defaults.
-   *
-   * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type
+   * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type.
    * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
-   *   or `hiddenEnd` are out of valid range
+   *   or `hiddenEnd` are out of valid range.
    */
   public constructor(defaultOptions?: CnpjFormatterOptionsInput) {
     this._options =
@@ -74,6 +61,7 @@ export class CnpjFormatter {
    * the result.
    *
    * When valid, the result may be further transformed according to options:
+   *
    * - If `hidden` is `true`, characters between `hiddenStart` and `hiddenEnd`
    *   (inclusive) are replaced with `hiddenKey`.
    * - If `escape` is `true`, HTML special characters are escaped.
@@ -82,20 +70,13 @@ export class CnpjFormatter {
    * Per-call `options` are merged over the instance default options for this
    * call only; the instance defaults are unchanged.
    *
-   * @param {CnpjInput} cnpjInput - CNPJ as a string or array of strings (e.g.
-   *   raw digits or preformatted). Arrays are joined with no separator before
-   *   processing.
-   * @param {CnpjFormatterOptionsInput} [options] - Overrides for this call.
-   *   Merged with instance defaults; omitted keys keep the default.
-   * @returns {string}
-   *
-   * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type
+   * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type.
    * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
-   *   or `hiddenEnd` are out of valid range
+   *   or `hiddenEnd` are out of valid range.
    * @throws {CnpjFormatterInputTypeError} If the input is not a string or array
-   *   of strings
+   *   of strings.
    * @throws {CnpjFormatterInputLengthException} If the input length is not
-   *   exactly 14 after sanitization
+   *   exactly 14 after sanitization.
    */
   public format(cnpjInput: CnpjInput, options?: CnpjFormatterOptionsInput): string {
     const actualInput = cnpjInput as unknown;
@@ -158,11 +139,9 @@ export class CnpjFormatter {
    * Returns the default options used by this formatter when per-call options
    * are not provided.
    *
-   * The returned object is the same instance used internally; mutating it
-   * (e.g. via setters on `CnpjFormatterOptions`) affects future `format`
-   * calls that do not pass `options`.
-   *
-   * @returns {CnpjFormatterOptions}
+   * The returned object is the same instance used internally; mutating it (e.g.
+   * via setters on `CnpjFormatterOptions`) affects future `format` calls that
+   * do not pass `options`.
    */
   public get options(): CnpjFormatterOptions {
     return this._options;
