@@ -32,8 +32,8 @@ export abstract class CnpjFormatterTypeError extends TypeError {
 
 /**
  * Error raised when the input provided to the CNPJ formatter is not of the
- * expected type {@link CnpjInput}. The error message includes both the the
- * actual input type and the expected type.
+ * expected type {@link CnpjInput}. The error message includes both the actual
+ * input type and the expected type.
  */
 export class CnpjFormatterInputTypeError extends CnpjFormatterTypeError {
   public constructor(actualInput: unknown, expectedType: string) {
