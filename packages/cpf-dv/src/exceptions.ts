@@ -72,7 +72,7 @@ export abstract class CpfCheckDigitsException extends Error {
 /**
  * Error raised when the input `{@link CpfInput}` (after optional processing)
  * does not have the required length to calculate the check digits. A valid CPF
- * input must contain between 9 and 11 anumeric characters. The error message
+ * input must contain between 9 and 11 numeric characters. The error message
  * distinguishes between the original input and the evaluated one (which strips
  * punctuation characters).
  */
