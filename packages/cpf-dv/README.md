@@ -140,8 +140,9 @@ try {
 
 ### Other Available Resources
 
-- **`CpfCheckDigits`** (default): Class to compute CPF check digits; constructor accepts `string | string[]`.
-- **Types**: `CpfCheckDigitsTypeError`, `CpfCheckDigitsException` (base classes for errors and exceptions).
+- **`CPF_MIN_LENGTH`**: `9` (constant).
+- **`CPF_MAX_LENGTH`**: `11` (constant).
+- **Types**: `CpfInput` (`string | string[]`).
 - **Exceptions**: See above.
 
 ## Calculation algorithm

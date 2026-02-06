@@ -127,9 +127,10 @@ try {
 
 ### Outros recursos disponíveis
 
-- **`CpfCheckDigits`** (default): Classe para calcular os dígitos verificadores de CPF; o construtor aceita `string | string[]`.
-- **Tipos**: `CpfCheckDigitsTypeError`, `CpfCheckDigitsException` (classes base para erros e exceções).
-- **Exceções**: Ver lista acima.
+- **`CPF_MIN_LENGTH`**: `9` (constante).
+- **`CPF_MAX_LENGTH`**: `11` (constante).
+- **Types**: `CpfInput` (`string | string[]`).
+- **Exceções**: Ver acima.
 
 ## Algoritmo de cálculo
 
