@@ -9,7 +9,7 @@
 
 > 🚀 **Full support to the new alphanumeric CNPJ format.**
 
-> 🌎 [Acessar documentação em português](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-fmt/README.pt.md)
+> 🌎 [Acessar documentação em português](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-gen/README.pt.md)
 
 A JavaScript/TypeScript utility to generate valid CNPJ (Brazilian Business Tax ID) values.
 
