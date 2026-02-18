@@ -13,7 +13,7 @@ Utilitário em JavaScript/TypeScript para gerar CNPJs válidos (Cadastro Naciona
 - ✅ **Formatação**: Opção de retornar a string no formato padrão (`00.000.000/0000-00`)
 - ✅ **Gerador reutilizável**: Classe `CnpjGenerator` com opções padrão e sobrescritas por chamada
 - ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
-- ✅ **Zero dependências**: Nenhuma dependência externa; usa apenas `@lacussoft/cnpj-dv` para o cálculo dos dígitos verificadores
+- ✅ **Dependências mínimas**: Depende apenas do pacote interno `@lacussoft/cnpj-dv` para o cálculo dos dígitos verificadores
 - ✅ **Tratamento de erros**: Erros de tipo e exceções específicas para opções inválidas
 
 ## Instalação
