@@ -99,9 +99,9 @@ export class CnpjGeneratorOptionPrefixInvalidException extends CnpjGeneratorExce
  */
 export class CnpjGeneratorOptionTypeInvalidException extends CnpjGeneratorException {
   public readonly actualInput: string;
-  public readonly expectedValues: string[];
+  public readonly expectedValues: readonly string[];
 
-  public constructor(actualInput: string, expectedValues: string[]) {
+  public constructor(actualInput: string, expectedValues: readonly string[]) {
     super(
       `CNPJ generator option "type" accepts only the following values: "${expectedValues.join('", "')}". Got "${actualInput}".`,
     );
