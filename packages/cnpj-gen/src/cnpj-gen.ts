@@ -4,7 +4,7 @@ import type { CnpjGeneratorOptionsInput } from './types';
 /**
  * Helper function to simplify the usage of the {@link CnpjGenerator} class.
  *
- * If no options are provided, it generates an 14-character unformatted
+ * If no options are provided, it generates a 14-character unformatted
  * alphanumeric CNPJ (e.g., `AB123CDE000155`). using default settings. If
  * options are provided, they control prefix, type, and whether the result is
  * formatted.
