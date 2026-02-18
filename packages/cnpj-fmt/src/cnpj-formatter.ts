@@ -73,10 +73,6 @@ export class CnpjFormatter {
    * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type.
    * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
    *   or `hiddenEnd` are out of valid range.
-   * @throws {CnpjFormatterInputTypeError} If the input is not a string or array
-   *   of strings.
-   * @throws {CnpjFormatterInputLengthException} If the input length is not
-   *   exactly 14 after sanitization.
    */
   public format(cnpjInput: CnpjInput, options?: CnpjFormatterOptionsInput): string {
     const actualInput = cnpjInput as unknown;

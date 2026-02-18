@@ -64,7 +64,7 @@ Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script
 
 ### Opções de formatação
 
-Todas as opções são opcionais. Chaves no nível raiz (sem objetos aninhados `delimiters` ou `hiddenRange`):
+Todas as opções são opcionais:
 
 | Opção | Tipo | Padrão | Descrição |
 |--------|------|---------|-------------|

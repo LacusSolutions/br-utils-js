@@ -1,37 +1,21 @@
-import cnpjFmt from '@lacussoft/cnpj-fmt';
-import numOnly from 'num-only';
-
-import calculateDigit from './calculate-digit';
-import mergeOptions from './merge-options';
-import type { CnpjGeneratorOptions } from './merge-options';
-import numberGenerator from './number-generator';
+import { CnpjGenerator } from './cnpj-generator';
+import type { CnpjGeneratorOptionsInput } from './types';
 
 /**
- * Generate a valid CNPJ (Brazilian company ID) numeric sequence.
+ * Helper function to simplify the usage of the {@link CnpjGenerator} class.
+ *
+ * If no options are provided, it generates a 14-character unformatted
+ * alphanumeric CNPJ (e.g., `AB123CDE000155`). using default settings. If
+ * options are provided, they control prefix, type, and whether the result is
+ * formatted.
+ *
+ * @throws {CnpjGeneratorOptionsTypeError} If any option has an invalid type.
+ * @throws {CnpjGeneratorOptionPrefixInvalidException} If the `prefix` option
+ *   contains an invalid combination of characters.
+ * @throws {CnpjGeneratorOptionTypeInvalidException} If the `type` option is not
+ *   one of the allowed values.
+ * @see CnpjGenerator for detailed option descriptions.
  */
-function cnpjGen(options?: CnpjGeneratorOptions): string {
-  const userOptions = mergeOptions(options);
-  const baseSequence = numOnly(userOptions.prefix);
-  const prefixLength = baseSequence.length;
-
-  if (prefixLength < 0 || prefixLength > 12) {
-    throw new Error('Option "prefix" must be a string containing between 1 and 12 digits.');
-  }
-  if (prefixLength > 8 && baseSequence.slice(8) === '0000') {
-    throw new Error('The branch ID (characters 8 to 11) cannot be "0000".');
-  }
-
-  const branchID = [0, 0, 0, Math.ceil(Math.random() * 9)];
-  const cnpjSequence = baseSequence
-    .split('')
-    .map(Number)
-    .concat(numberGenerator(8 - prefixLength))
-    .concat(branchID.slice(0, 12 - prefixLength));
-
-  cnpjSequence.push(calculateDigit(cnpjSequence));
-  cnpjSequence.push(calculateDigit(cnpjSequence));
-
-  return userOptions.format ? cnpjFmt(cnpjSequence.join('')) : cnpjSequence.join('');
+export function cnpjGen(options?: CnpjGeneratorOptionsInput): string {
+  return new CnpjGenerator(options).generate();
 }
-
-export default cnpjGen;

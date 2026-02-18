@@ -77,7 +77,7 @@ For legacy frontends, include the UMD build (e.g. minified) in a `<script>` tag;
 
 ### Formatting options
 
-All options are optional. Flat keys (no nested `delimiters` or `hiddenRange`):
+All options are optional:
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|

@@ -8,6 +8,11 @@ import type { CnpjFormatterOptionsInput, CnpjInput } from './types';
  * returns the traditional CNPJ format (e.g. `12.345.678/0009-10`). Invalid
  * input or length is handled by the configured `onFail` callback instead of
  * throwing.
+ *
+ * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type.
+ * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart` or
+ *   `hiddenEnd` are out of valid range.
+ * @see CnpjFormatter for detailed option descriptions.
  */
 export function cnpjFmt(cnpjInput: CnpjInput, options?: CnpjFormatterOptionsInput): string {
   return new CnpjFormatter(options).format(cnpjInput);

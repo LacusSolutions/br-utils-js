@@ -149,6 +149,130 @@ describe('package distributions', (): void => {
         });
       });
     });
+
+    describe('file `cnpj-fmt.min.js`', (): void => {
+      const filePath = Bun.resolveSync('../dist/cnpj-fmt.min.js', import.meta.dir);
+      const file = Bun.file(filePath);
+
+      it('exists', async (): Promise<void> => {
+        await expect(file.exists()).resolves.toBe(true);
+      });
+
+      describe('when evaluated', (): void => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let cnpjFmt: any;
+
+        beforeAll(async (): Promise<void> => {
+          const fileContent = await file.text();
+          const makeGlobalInstance = new Function(`${fileContent}\nreturn cnpjFmt;`);
+
+          cnpjFmt = makeGlobalInstance();
+        });
+
+        it('exposes a global `cnpjFmt` helper function', async (): Promise<void> => {
+          expect(cnpjFmt).toBeFunction();
+          expect(cnpjFmt('01ABC234000X56')).toBe('01.ABC.234/000X-56');
+        });
+
+        it('exposes resources through the global `cnpjFmt` variable', async (): Promise<void> => {
+          expect(cnpjFmt.CnpjFormatter).toBeTypeOf('function');
+          expect(cnpjFmt.CnpjFormatterOptions).toBeTypeOf('function');
+          expect(cnpjFmt.CnpjFormatterTypeError).toBeTypeOf('function');
+          expect(cnpjFmt.InputTypeError).toBeTypeOf('function');
+          expect(cnpjFmt.OptionsTypeError).toBeTypeOf('function');
+          expect(cnpjFmt.CnpjFormatterException).toBeTypeOf('function');
+          expect(cnpjFmt.InputLengthException).toBeTypeOf('function');
+          expect(cnpjFmt.OptionsHiddenRangeInvalidException).toBeTypeOf('function');
+          expect(cnpjFmt.OptionsForbiddenKeyCharacterException).toBeTypeOf('function');
+          expect(cnpjFmt.CNPJ_LENGTH).toBe(14);
+        });
+
+        it('exposes an instantiable `CnpjFormatter` class', async (): Promise<void> => {
+          const { CnpjFormatter } = cnpjFmt;
+          const formatter = new CnpjFormatter({ hidden: true });
+          const formattedCnpj = formatter.format('AB123XYZ000123');
+
+          expect(formattedCnpj).toBe('AB.123.***/****-**');
+        });
+
+        it('exposes an instantiable `CnpjFormatterOptions` class', async (): Promise<void> => {
+          const { CnpjFormatterOptions } = cnpjFmt;
+          const options = new CnpjFormatterOptions({
+            hidden: true,
+            hiddenKey: 'X',
+            dotKey: ' ',
+            slashKey: '|',
+            dashKey: '_',
+          });
+
+          expect(options.hidden).toBe(true);
+          expect(options.hiddenKey).toBe('X');
+          expect(options.dotKey).toBe(' ');
+          expect(options.slashKey).toBe('|');
+          expect(options.dashKey).toBe('_');
+        });
+
+        it('exposes an instantiable `InputTypeError` class', async (): Promise<void> => {
+          const { InputTypeError } = cnpjFmt;
+          const error = new InputTypeError(123, 'string');
+
+          expect(error.actualInput).toBe(123);
+          expect(error.actualType).toBe('integer number');
+          expect(error.expectedType).toBe('string');
+          expect(error.message).toBe('CNPJ input must be of type string. Got integer number.');
+        });
+
+        it('exposes an instantiable `OptionsTypeError` class', async (): Promise<void> => {
+          const { OptionsTypeError } = cnpjFmt;
+          const error = new OptionsTypeError('hidden', 123, 'boolean');
+
+          expect(error.actualInput).toBe(123);
+          expect(error.optionName).toBe('hidden');
+          expect(error.actualType).toBe('integer number');
+          expect(error.expectedType).toBe('boolean');
+          expect(error.message).toBe(
+            'CNPJ formatting option "hidden" must be of type boolean. Got integer number.',
+          );
+        });
+
+        it('exposes an instantiable `OptionsHiddenRangeInvalidException` class', async (): Promise<void> => {
+          const { OptionsHiddenRangeInvalidException } = cnpjFmt;
+          const exception = new OptionsHiddenRangeInvalidException('hiddenStart', 123, 0, 13);
+
+          expect(exception.actualInput).toBe(123);
+          expect(exception.optionName).toBe('hiddenStart');
+          expect(exception.minExpectedValue).toBe(0);
+          expect(exception.maxExpectedValue).toBe(13);
+          expect(exception.message).toBe(
+            'CNPJ formatting option "hiddenStart" must be an integer between 0 and 13. Got 123.',
+          );
+        });
+
+        it('exposes an instantiable `OptionsForbiddenKeyCharacterException` class', async (): Promise<void> => {
+          const { OptionsForbiddenKeyCharacterException } = cnpjFmt;
+          const exception = new OptionsForbiddenKeyCharacterException('dotKey', 'x', ['x']);
+
+          expect(exception.actualInput).toBe('x');
+          expect(exception.optionName).toBe('dotKey');
+          expect(exception.forbiddenCharacters).toEqual(['x']);
+          expect(exception.message).toBe(
+            'Value "x" for CNPJ formatting option "dotKey" contains disallowed characters ("x").',
+          );
+        });
+
+        it('exposes an instantiable `InputLengthException` class', async (): Promise<void> => {
+          const { InputLengthException } = cnpjFmt;
+          const exception = new InputLengthException('ABC.123', 'ABC123', 14);
+
+          expect(exception.actualInput).toBe('ABC.123');
+          expect(exception.evaluatedInput).toBe('ABC123');
+          expect(exception.expectedLength).toBe(14);
+          expect(exception.message).toBe(
+            'CNPJ input "ABC.123" does not contain 14 characters. Got 6 in "ABC123".',
+          );
+        });
+      });
+    });
   });
 
   describe('CommonJS module (index.cjs)', (): void => {
