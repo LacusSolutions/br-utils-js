@@ -420,7 +420,7 @@ describe('CnpjGenerator', (): void => {
 
               expect(result).toHaveLength(18);
               expect(result).not.toMatch(/[a-z]/);
-              expect(result).toMatch(new RegExp(`^AB.123.CDE/${pattern}{4}-\\d{2}$`));
+              expect(result).toMatch(new RegExp(`^AB\\.123\\.CDE/${pattern}{4}-\\d{2}$`));
             });
           },
         );

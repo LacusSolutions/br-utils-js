@@ -351,7 +351,7 @@ describe('CnpjCheckDigits', (): void => {
 
           expect(cnpjCheckDigits).toBeDefined();
           expect(cnpjCheckDigits.cnpj.length).toBe(14);
-          expect(cnpjCheckDigits.cnpj).toMatch(new RegExp(`^${stringifiedInput}`));
+          expect(cnpjCheckDigits.cnpj.startsWith(stringifiedInput)).toBe(true);
         },
       );
     });
