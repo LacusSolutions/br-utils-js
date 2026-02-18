@@ -29,6 +29,8 @@ const CNPJ_BRANCH_ID_LENGTH = 4;
 const CNPJ_BRANCH_ID_LAST_INDEX = CNPJ_BASE_ID_LAST_INDEX + CNPJ_BRANCH_ID_LENGTH;
 const CNPJ_INVALID_BRANCH_ID = '0'.repeat(CNPJ_BRANCH_ID_LENGTH);
 
+const CNPJ_TYPE_OPTIONS = ['alphabetic', 'alphanumeric', 'numeric'];
+
 /**
  * Class to store the options for the CNPJ generator. This class provides a
  * centralized way to configure how CNPJ characters are generated, including
@@ -185,10 +187,8 @@ export class CnpjGeneratorOptions {
       throw new CnpjGeneratorOptionsTypeError('type', actualType, 'string');
     }
 
-    const cnpjTypeOptions = ['alphabetic', 'alphanumeric', 'numeric'];
-
-    if (!cnpjTypeOptions.includes(actualType)) {
-      throw new CnpjGeneratorOptionTypeInvalidException(actualType, cnpjTypeOptions);
+    if (!CNPJ_TYPE_OPTIONS.includes(actualType)) {
+      throw new CnpjGeneratorOptionTypeInvalidException(actualType, CNPJ_TYPE_OPTIONS);
     }
 
     this._options.type = actualType;
