@@ -31,7 +31,7 @@ describe('package distributions', () => {
       });
 
       describe('when evaluated', () => {
-        it('exposes a global CnpjCheckDigits class', async () => {
+        it('exposes a global `CnpjCheckDigits` class', async () => {
           const fileContent = await file.text();
           const makeGlobalClass = new Function(`${fileContent}\nreturn CnpjCheckDigits;`);
           const CnpjCheckDigitsClass = makeGlobalClass();
@@ -54,7 +54,7 @@ describe('package distributions', () => {
       });
     });
 
-    describe('cnpj-dv.min.js', () => {
+    describe('file `cnpj-dv.min.js`', () => {
       const filePath = Bun.resolveSync('../dist/cnpj-dv.min.js', import.meta.dir);
       const file = Bun.file(filePath);
 
@@ -63,7 +63,7 @@ describe('package distributions', () => {
       });
 
       describe('when evaluated', () => {
-        it('exposes a global CnpjCheckDigits class', async () => {
+        it('exposes a global `CnpjCheckDigits` class', async () => {
           const fileContent = await file.text();
           const makeGlobalClass = new Function(`${fileContent}\nreturn CnpjCheckDigits;`);
           const CnpjCheckDigitsClass = makeGlobalClass();
