@@ -52,12 +52,6 @@
     "test:ci": "bun test"
   },
   "dependencies": {
-    "@lacussoft/cnpj-fmt": "workspace:^2.0.2",
-    "deepmerge": "^4.3.1",
-    "num-only": "^1.2.9"
-  },
-  "devDependencies": {
-    "@types/deepmerge": "^2.2.3",
-    "cnpj": "^5.0.0"
+    "@lacussoft/cnpj-dv": "workspace:^1.0.0"
   }
 }
