@@ -16,7 +16,10 @@ import type {
  */
 export const CNPJ_LENGTH = 14;
 
-const CNPJ_PREFIX_MAX_LENGTH = CNPJ_LENGTH - 2;
+/**
+ * Maximum length of the prefix (base ID and branch ID) of a CNPJ.
+ */
+export const CNPJ_PREFIX_MAX_LENGTH = CNPJ_LENGTH - 2;
 
 const CNPJ_BASE_ID_LENGTH = 8;
 const CNPJ_BASE_ID_LAST_INDEX = CNPJ_BASE_ID_LENGTH - 1;
