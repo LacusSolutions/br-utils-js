@@ -12,10 +12,6 @@ import type { CnpjFormatterOptionsInput, CnpjInput } from './types';
  * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type.
  * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart` or
  *   `hiddenEnd` are out of valid range.
- * @throws {CnpjFormatterInputTypeError} If the input is not a string or array
- *   of strings.
- * @throws {CnpjFormatterInputLengthException} If the input length is not
- *   exactly 14 after sanitization.
  * @see CnpjFormatter for detailed option descriptions.
  */
 export function cnpjFmt(cnpjInput: CnpjInput, options?: CnpjFormatterOptionsInput): string {
