@@ -55,7 +55,9 @@ describe('package distributions', (): void => {
           expect(cnpjGen.OptionPrefixInvalidException?.name).toBe(
             'CnpjGeneratorOptionPrefixInvalidException',
           );
-          expect(cnpjGen.OptionsTypeError?.name).toBe('CnpjGeneratorOptionsTypeError');
+          expect(cnpjGen.OptionTypeInvalidException?.name).toBe(
+            'CnpjGeneratorOptionTypeInvalidException',
+          );
           expect(cnpjGen.CNPJ_LENGTH).toBe(14);
           expect(cnpjGen.CNPJ_PREFIX_MAX_LENGTH).toBe(12);
         });
