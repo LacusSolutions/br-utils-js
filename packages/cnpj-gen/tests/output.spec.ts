@@ -64,10 +64,10 @@ describe('package distributions', (): void => {
 
         it('exposes an instantiable `CnpjGenerator` class', async (): Promise<void> => {
           const { CnpjGenerator } = cnpjGen;
-          const generator = new CnpjGenerator({ hidden: true });
-          const generatedCnpj = generator.generate();
+          const generator = new CnpjGenerator({ type: 'numeric' });
+          const generatedCnpj = generator.generate({ type: 'numeric' });
 
-          expect(generatedCnpj).toMatch(/^[0-9A-Z]{14}$/);
+          expect(generatedCnpj).toMatch(/^\d{14}$/);
         });
 
         it('exposes an instantiable `CnpjGeneratorOptions` class', async (): Promise<void> => {
