@@ -105,7 +105,9 @@ describe('CnpjGenerator', (): void => {
     type CnpjGeneratorFn = (options?: CnpjGeneratorOptionsInput) => string;
     type CnpjGeneratorFactory = (options: Partial<CnpjGeneratorOptionsType>) => CnpjGeneratorFn;
 
-    const createGeneratorWithLiteralObjectOptionsInConstructor: CnpjGeneratorFactory = (options) => {
+    const createGeneratorWithLiteralObjectOptionsInConstructor: CnpjGeneratorFactory = (
+      options,
+    ) => {
       const generator = new CnpjGenerator(options);
 
       return generator.generate.bind(generator);
@@ -162,7 +164,7 @@ describe('CnpjGenerator', (): void => {
 
             expect(result).toHaveLength(14);
             expect(result).not.toMatch(/[a-z]/);
-            expect(result).not.toMatch(/[\.\/\-]/);
+            expect(result).not.toMatch(/[./-]/);
             expect(result).toMatch(/^[0-9A-Z]+$/);
           }
         });
@@ -181,7 +183,7 @@ describe('CnpjGenerator', (): void => {
           const results = new Set<string>();
 
           for (let i = 0; i < 100; i++) {
-            const result = generate()
+            const result = generate();
 
             results.add(result);
           }
@@ -199,7 +201,7 @@ describe('CnpjGenerator', (): void => {
 
             expect(result).toHaveLength(18);
             expect(result).not.toMatch(/[a-z]/);
-            expect(result).toMatch(/[\.\/\-]{1}/g);
+            expect(result).toMatch(/[./-]/g);
             expect(result).toMatch(/[0-9A-Z]{2,4}/g);
           }
         });
@@ -216,7 +218,9 @@ describe('CnpjGenerator', (): void => {
           for (let i = 0; i < 100; i++) {
             const result = generate();
 
-            expect(result).toMatch(/^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}\/[0-9A-Z]{4}-[0-9A-Z]{2}$/i);
+            expect(result).toMatch(
+              /^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}\/[0-9A-Z]{4}-[0-9A-Z]{2}$/i,
+            );
           }
         });
 
@@ -226,7 +230,7 @@ describe('CnpjGenerator', (): void => {
           const results = new Set<string>();
 
           for (let i = 0; i < 100; i++) {
-            const result = generate()
+            const result = generate();
 
             results.add(result);
           }
@@ -270,7 +274,7 @@ describe('CnpjGenerator', (): void => {
 
             expect(result).toHaveLength(14);
             expect(result).toMatch(/^[0-9A-Z]+$/);
-            expect(result).toMatch(new RegExp('^' + prefix));
+            expect(result).toMatch(new RegExp(`^${prefix}`));
           }
         });
 
@@ -279,31 +283,34 @@ describe('CnpjGenerator', (): void => {
           ['alphabetic', 'ABCDEFGHIJKL'],
           ['alphanumeric', 'AB123CDE0001'],
         ])('ignores characters after the 12th position with %s prefix', (_, prefix): void => {
-          const generate = createGenerator({ prefix: prefix + 'XY' });
+          const generate = createGenerator({ prefix: `${prefix}XY` });
 
           const result = generate();
 
           expect(result).toHaveLength(14);
-          expect(result).not.toMatch(new RegExp('XY$'));
-          expect(result).toMatch(new RegExp('^' + prefix + '\\d{2}$'));
+          expect(result).not.toMatch(/XY$/);
+          expect(result).toMatch(new RegExp(`^${prefix}\\d{2}$`));
         });
 
         it.each([
           ['numeric', '123456780009'],
           ['alphabetic', 'ABCDEFGHIJKL'],
           ['alphanumeric', 'AB123CDE0001'],
-        ])('always generates the same CNPJ with the same 12-character %s prefix', (_, prefix): void => {
-          const generate = createGenerator({ prefix });
-          const results = new Set<string>();
+        ])(
+          'always generates the same CNPJ with the same 12-character %s prefix',
+          (_, prefix): void => {
+            const generate = createGenerator({ prefix });
+            const results = new Set<string>();
 
-          for (let i = 0; i < 100; i++) {
-            const result = generate({ prefix });
+            for (let i = 0; i < 100; i++) {
+              const result = generate({ prefix });
 
-            results.add(result);
-          }
+              results.add(result);
+            }
 
-          expect(results.size).toBe(1);
-        });
+            expect(results.size).toBe(1);
+          },
+        );
 
         it('strips non-alphanumeric characters from prefix before generating', (): void => {
           const generate = createGenerator({ prefix: 'AB.12.CDE/0001', format: false });
@@ -327,8 +334,8 @@ describe('CnpjGenerator', (): void => {
 
             expect(result).toHaveLength(14);
             expect(result).not.toMatch(/[a-z]/);
-            expect(result).not.toMatch(/[\.\/\-]/i);
-            expect(result).toMatch(new RegExp('^' + pattern + '{12}\\d{2}$'));
+            expect(result).not.toMatch(/[./-]/);
+            expect(result).toMatch(new RegExp(`^${pattern}{12}\\d{2}$`));
           }
         });
 
@@ -338,7 +345,7 @@ describe('CnpjGenerator', (): void => {
           const results = new Set<string>();
 
           for (let i = 0; i < 100; i++) {
-            const result = generate()
+            const result = generate();
 
             results.add(result);
           }
@@ -356,7 +363,7 @@ describe('CnpjGenerator', (): void => {
 
             expect(result).toHaveLength(18);
             expect(result).not.toMatch(/[a-z]/);
-            expect(result).toMatch(/^AB\.123\.CDE\/000[0-9A-Z]\-\d{2}$/);
+            expect(result).toMatch(/^AB\.123\.CDE\/000[0-9A-Z]-\d{2}$/);
           });
         });
 
@@ -372,8 +379,9 @@ describe('CnpjGenerator', (): void => {
 
             expect(result).toHaveLength(18);
             expect(result).not.toMatch(/[a-z]/);
-            expect(result).toMatch(new RegExp(
-              '^' + pattern + '{2}\\.' + pattern + '{3}\\.' + pattern + '{3}/' + pattern + '{4}-\\d{2}$'));
+            expect(result).toMatch(
+              new RegExp(`^${pattern}{2}\\.${pattern}{3}\\.${pattern}{3}/${pattern}{4}-\\d{2}$`),
+            );
           });
         });
 
@@ -389,8 +397,8 @@ describe('CnpjGenerator', (): void => {
 
             expect(result).toHaveLength(14);
             expect(result).not.toMatch(/[a-z]/);
-            expect(result).not.toMatch(/[\.\/\-]/i);
-            expect(result).toMatch(new RegExp('^AB123CDE' + pattern + '{4}\\d{2}$'));
+            expect(result).not.toMatch(/[./-]/);
+            expect(result).toMatch(new RegExp(`^AB123CDE${pattern}{4}\\d{2}$`));
           });
         });
 
@@ -398,18 +406,24 @@ describe('CnpjGenerator', (): void => {
           ['numeric', '\\d'],
           ['alphabetic', '[A-Z]'],
           ['alphanumeric', '[0-9A-Z]'],
-        ])('when `format = true`, `prefix = "AB123CDE"` and `type = "%s"`', (type, pattern): void => {
-          const generate = createGenerator({
-            format: true, prefix: 'AB123CDE', type: type as CnpjType });
+        ])(
+          'when `format = true`, `prefix = "AB123CDE"` and `type = "%s"`',
+          (type, pattern): void => {
+            const generate = createGenerator({
+              format: true,
+              prefix: 'AB123CDE',
+              type: type as CnpjType,
+            });
 
-          it('returns an 18-character CNPJ', (): void => {
-            const result = generate();
+            it('returns an 18-character CNPJ', (): void => {
+              const result = generate();
 
-            expect(result).toHaveLength(18);
-            expect(result).not.toMatch(/[a-z]/);
-            expect(result).toMatch(new RegExp('^AB.123.CDE/' + pattern + '{4}-\\d{2}$'));
-          });
-        });
+              expect(result).toHaveLength(18);
+              expect(result).not.toMatch(/[a-z]/);
+              expect(result).toMatch(new RegExp(`^AB.123.CDE/${pattern}{4}-\\d{2}$`));
+            });
+          },
+        );
       });
     });
 
@@ -440,9 +454,7 @@ describe('CnpjGenerator', (): void => {
       });
 
       it('uses the same options on retry', (): void => {
-        randomSequenceSpy
-          .mockImplementationOnce(() => '0000')
-          .mockImplementationOnce(() => '0001');
+        randomSequenceSpy.mockImplementationOnce(() => '0000').mockImplementationOnce(() => '0001');
 
         const result = new CnpjGenerator({ prefix: '12345678' }).generate();
 
