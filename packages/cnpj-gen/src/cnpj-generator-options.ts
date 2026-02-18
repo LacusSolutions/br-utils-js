@@ -262,7 +262,7 @@ export class CnpjGeneratorOptions {
    * @throws {CnpjGeneratorOptionPrefixInvalidException} If the prefix has 12
    *   characters that are all the same digit.
    */
-  private _validatePrefixNonRepeatedDigits(cnpjPrefix: string, originalInput: string): void {
+  private _validatePrefixNonRepeatedDigits(cnpjPrefix: string, actualInput: string): void {
     if (cnpjPrefix.length < CNPJ_PREFIX_MAX_LENGTH) {
       return;
     }
@@ -272,7 +272,7 @@ export class CnpjGeneratorOptions {
 
     if (uniqueCharacters.size === 1 && /^\d$/.test(eligibleCnpjPrefix[0])) {
       throw new CnpjGeneratorOptionPrefixInvalidException(
-        originalInput,
+        actualInput,
         'Repeated digits are not considered valid.',
       );
     }
