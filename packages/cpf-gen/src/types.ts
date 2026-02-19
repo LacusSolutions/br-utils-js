@@ -25,7 +25,7 @@ export interface CpfGeneratorOptionsType {
   format: boolean;
 
   /**
-   * A partial string containing 0 to 12 digits to use as the start of the
+   * A partial string containing 0 to 9 digits to use as the start of the
    * generated CPF. Only digits are kept; the rest is stripped. If provided,
    * only the missing digits are generated randomly. For example, if the prefix
    * `123456` (6 digits) is given, only the next 3 digits are randomly generated
