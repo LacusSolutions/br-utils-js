@@ -190,7 +190,7 @@ export class CpfGeneratorOptions {
     const eligibleCpfPrefix = cpfPrefix.slice(0, CPF_PREFIX_MAX_LENGTH);
     const uniqueDigits = new Set(eligibleCpfPrefix);
 
-    if (uniqueDigits.size === 1 && /^\d$/.test(eligibleCpfPrefix[0])) {
+    if (uniqueDigits.size === 1) {
       throw new CpfGeneratorOptionPrefixInvalidException(
         cpfPrefix,
         'Repeated digits are not considered valid.',
