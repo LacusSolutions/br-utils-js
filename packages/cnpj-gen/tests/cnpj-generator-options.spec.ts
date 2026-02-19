@@ -267,7 +267,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(() => {
           options.prefix = '00000000';
         }).toThrow(
-          'CNPJ generator option "prefix" with value "00000000" is invalid. Base ID "00000000" is not eligible.',
+          'CNPJ generator option "prefix" with value "00000000" is invalid. Zeroed base ID is not eligible.',
         );
       });
 
@@ -277,7 +277,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(() => {
           options.prefix = '123456780000';
         }).toThrow(
-          'CNPJ generator option "prefix" with value "123456780000" is invalid. Branch ID "0000" is not eligible.',
+          'CNPJ generator option "prefix" with value "123456780000" is invalid. Zeroed branch ID is not eligible.',
         );
       });
 

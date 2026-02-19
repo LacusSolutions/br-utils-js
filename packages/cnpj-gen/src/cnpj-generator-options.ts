@@ -23,11 +23,11 @@ export const CNPJ_PREFIX_MAX_LENGTH = CNPJ_LENGTH - 2;
 
 const CNPJ_BASE_ID_LENGTH = 8;
 const CNPJ_BASE_ID_LAST_INDEX = CNPJ_BASE_ID_LENGTH - 1;
-const CNPJ_INVALID_BASE_ID = '0'.repeat(CNPJ_BASE_ID_LENGTH);
+const ZEROED_CNPJ_BASE_ID = '0'.repeat(CNPJ_BASE_ID_LENGTH);
 
 const CNPJ_BRANCH_ID_LENGTH = 4;
 const CNPJ_BRANCH_ID_LAST_INDEX = CNPJ_BASE_ID_LAST_INDEX + CNPJ_BRANCH_ID_LENGTH;
-const CNPJ_INVALID_BRANCH_ID = '0'.repeat(CNPJ_BRANCH_ID_LENGTH);
+const ZEROED_CNPJ_BRANCH_ID = '0'.repeat(CNPJ_BRANCH_ID_LENGTH);
 
 const CNPJ_TYPE_OPTIONS = ['alphabetic', 'alphanumeric', 'numeric'];
 
@@ -71,6 +71,8 @@ export class CnpjGeneratorOptions {
    * @throws {CnpjGeneratorOptionsTypeError} If any option has an invalid type.
    * @throws {CnpjGeneratorOptionPrefixInvalidException} If the `prefix` option
    *   contains invalid combination of characters.
+   * @throws {CnpjGeneratorOptionTypeInvalidException} If the `type` option is
+   *   not one of the allowed values.
    */
   public constructor(
     defaultOptions?: CnpjGeneratorOptionsInput,
@@ -155,7 +157,7 @@ export class CnpjGeneratorOptions {
 
     this._validatePrefixBaseId(actualPrefix);
     this._validatePrefixBranchId(actualPrefix);
-    this._validatePrefixNonRepeatedDigits(actualPrefix, actualPrefix);
+    this._validatePrefixNonRepeatedDigits(actualPrefix);
 
     this._options.prefix = actualPrefix;
   }
@@ -201,6 +203,10 @@ export class CnpjGeneratorOptions {
    * a partial options object or another `CnpjGeneratorOptions` instance.
    *
    * @throws {CnpjGeneratorOptionsTypeError} If any option has an invalid type.
+   * @throws {CnpjGeneratorOptionPrefixInvalidException} If the `prefix` option
+   *   contains invalid combination of characters or is too long.
+   * @throws {CnpjGeneratorOptionTypeInvalidException} If the `type` option is
+   *   not one of the allowed values.
    */
   public set(options: CnpjGeneratorOptionsInput): this {
     this.format = options.format ?? this.format;
@@ -223,10 +229,10 @@ export class CnpjGeneratorOptions {
 
     const cnpjBaseIdString = partialCnpj.slice(0, CNPJ_BASE_ID_LAST_INDEX + 1);
 
-    if (cnpjBaseIdString === CNPJ_INVALID_BASE_ID) {
+    if (cnpjBaseIdString === ZEROED_CNPJ_BASE_ID) {
       throw new CnpjGeneratorOptionPrefixInvalidException(
         partialCnpj,
-        `Base ID "${CNPJ_INVALID_BASE_ID}" is not eligible.`,
+        `Zeroed base ID is not eligible.`,
       );
     }
   }
@@ -248,10 +254,10 @@ export class CnpjGeneratorOptions {
       CNPJ_BRANCH_ID_LAST_INDEX + 1,
     );
 
-    if (cnpjBranchIdString === CNPJ_INVALID_BRANCH_ID) {
+    if (cnpjBranchIdString === ZEROED_CNPJ_BRANCH_ID) {
       throw new CnpjGeneratorOptionPrefixInvalidException(
         partialCnpj,
-        `Branch ID "${CNPJ_INVALID_BRANCH_ID}" is not eligible.`,
+        `Zeroed branch ID is not eligible.`,
       );
     }
   }
@@ -262,7 +268,7 @@ export class CnpjGeneratorOptions {
    * @throws {CnpjGeneratorOptionPrefixInvalidException} If the prefix has 12
    *   characters that are all the same digit.
    */
-  private _validatePrefixNonRepeatedDigits(cnpjPrefix: string, actualInput: string): void {
+  private _validatePrefixNonRepeatedDigits(cnpjPrefix: string): void {
     if (cnpjPrefix.length < CNPJ_PREFIX_MAX_LENGTH) {
       return;
     }
@@ -272,7 +278,7 @@ export class CnpjGeneratorOptions {
 
     if (uniqueCharacters.size === 1 && /^\d$/.test(eligibleCnpjPrefix[0])) {
       throw new CnpjGeneratorOptionPrefixInvalidException(
-        actualInput,
+        cnpjPrefix,
         'Repeated digits are not considered valid.',
       );
     }

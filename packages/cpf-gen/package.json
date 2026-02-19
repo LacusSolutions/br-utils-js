@@ -1,7 +1,7 @@
 {
   "name": "@lacussoft/cpf-gen",
   "version": "2.0.2",
-  "description": "Utility function to generate valid CPF (Brazilian personal ID)",
+  "description": "Utility to generate CPF (Brazilian Individual's Taxpayer ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
@@ -35,29 +35,19 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": {
-        "default": "./dist/index.cjs"
-      },
-      "import": {
-        "default": "./dist/index.mjs"
-      }
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     }
   },
   "scripts": {
     "build": "rollup --config",
     "type-check": "tsc --noEmit",
-    "lint": "eslint --fix src/ tests/ rollup.config.mjs",
-    "pretest": "bun run build --silent",
-    "test": "bun test --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
-    "test:ci": "bun test"
+    "lint": "bun run lint:ci --fix",
+    "lint:ci": "eslint src/ tests/ rollup.config.mjs",
+    "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
+    "test:ci": "bun test --only-failures"
   },
   "dependencies": {
-    "@lacussoft/cpf-fmt": "workspace:^2.0.2",
-    "deepmerge": "^4.3.1",
-    "num-only": "^1.2.9"
-  },
-  "devDependencies": {
-    "@types/deepmerge": "^2.2.3",
-    "cpf-check": "^3.0.0"
+    "@lacussoft/cpf-dv": "workspace:*"
   }
 }

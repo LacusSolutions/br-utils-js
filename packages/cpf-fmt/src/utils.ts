@@ -33,10 +33,6 @@ export function describeType(value: unknown): string {
       return 'float number';
     }
 
-    if (typeof value !== 'object') {
-      return typeof value;
-    }
-
     if (value === null) {
       return 'null';
     }

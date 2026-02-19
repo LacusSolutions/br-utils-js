@@ -1,12 +1,15 @@
-**/.*
-
+.DS_Store
+.vscode/
 src/
 tests/
+
+**/.*
+**/*.log
+**/*.config.js
 
 bun.lock
 bun.lockb
 yarn.lock
-pnpm-lock.yml
 pnpm-lock.yaml
 package-lock.json
 rollup.config.*

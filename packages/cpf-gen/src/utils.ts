@@ -1,5 +1,29 @@
+const NUMERIC_CHARACTERS = '0123456789';
+
 /**
- * Describes the type of a value for error messages.
+ * Generates a random sequence of digits with the given length.
+ *
+ * @example
+ *   randomSequence(10); // e.g. '9956000611'
+ */
+export function randomSequence(size: number): string {
+  const charactersSequence: string[] = [];
+
+  while (charactersSequence.length < size) {
+    const random = Math.random();
+    const randomFloat = random * NUMERIC_CHARACTERS.length;
+    const randomInteger = Math.floor(randomFloat);
+    const randomCharacter = NUMERIC_CHARACTERS[randomInteger];
+
+    charactersSequence.push(randomCharacter);
+  }
+
+  return charactersSequence.join('');
+}
+
+/**
+ * Returns a human-readable description of a value's type, suitable for use in
+ * error messages.
  *
  * @example
  *   describeType(null); // 'null'
@@ -52,21 +76,4 @@ export function describeType(value: unknown): string {
   }
 
   return `(${uniqueTypes.join(' | ')})[]`;
-}
-
-/**
- * Escapes HTML special characters in a string. It basically replaces `&`, `<`,
- * `>`, `"`, and `'` with their corresponding HTML entities.
- *
- * @example
- *   escapeHTML('Tom & Jerry'); // 'Tom &amp; Jerry'
- *   escapeHTML('<script>alert("XSS")</script>'); // '&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;'
- */
-export function escapeHTML(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
 }
