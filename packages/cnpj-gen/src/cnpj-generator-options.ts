@@ -71,6 +71,8 @@ export class CnpjGeneratorOptions {
    * @throws {CnpjGeneratorOptionsTypeError} If any option has an invalid type.
    * @throws {CnpjGeneratorOptionPrefixInvalidException} If the `prefix` option
    *   contains invalid combination of characters.
+   * @throws {CnpjGeneratorOptionTypeInvalidException} If the `type` option is
+   *   not one of the allowed values.
    */
   public constructor(
     defaultOptions?: CnpjGeneratorOptionsInput,
@@ -201,6 +203,10 @@ export class CnpjGeneratorOptions {
    * a partial options object or another `CnpjGeneratorOptions` instance.
    *
    * @throws {CnpjGeneratorOptionsTypeError} If any option has an invalid type.
+   * @throws {CnpjGeneratorOptionPrefixInvalidException} If the `prefix` option
+   *   contains invalid combination of characters or is too long.
+   * @throws {CnpjGeneratorOptionTypeInvalidException} If the `type` option is
+   *   not one of the allowed values.
    */
   public set(options: CnpjGeneratorOptionsInput): this {
     this.format = options.format ?? this.format;
