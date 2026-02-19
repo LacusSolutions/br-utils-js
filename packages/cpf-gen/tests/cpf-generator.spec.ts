@@ -243,7 +243,7 @@ describe('CpfGenerator', (): void => {
           expect(result).toMatch(/^123456789\d{2}$/);
         });
 
-        it('always generates the same CPF with the same 11-digit prefix', (): void => {
+        it('always generates the same CPF with the same 9-digit prefix', (): void => {
           const generate = createGenerator({ prefix: '987654321' });
           const results = new Set<string>();
 
