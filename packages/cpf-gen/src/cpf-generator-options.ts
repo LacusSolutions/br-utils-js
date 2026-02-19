@@ -27,7 +27,7 @@ const CPF_INVALID_BASE_ID = '0'.repeat(CPF_BASE_ID_LENGTH);
 export class CpfGeneratorOptions {
   /**
    * Default value for the `format` option. When `true`, the generated CPF
-   * string will have the standard formatting (`00.000.000/0000-00`).
+   * string will have the standard formatting (`000.000.000-00`).
    */
   public static readonly DEFAULT_FORMAT = false;
 
