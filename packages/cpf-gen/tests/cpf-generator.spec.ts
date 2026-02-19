@@ -147,7 +147,7 @@ describe('CpfGenerator', (): void => {
       describe('when no options are passed', (): void => {
         const generate = createGenerator({});
 
-        it('returns a 11-digit string with only numbers', (): void => {
+        it('returns an 11-digit string with only numbers', (): void => {
           for (let i = 0; i < 100; i++) {
             const result = generate();
 
@@ -176,7 +176,7 @@ describe('CpfGenerator', (): void => {
       describe('when `format` option is `true`', (): void => {
         const generate = createGenerator({ format: true });
 
-        it('returns an 14-character string with numbers and punctuation', (): void => {
+        it('returns a 14-character string with numbers and punctuation', (): void => {
           for (let i = 0; i < 100; i++) {
             const result = generate();
 
@@ -221,7 +221,7 @@ describe('CpfGenerator', (): void => {
           ['1234567'],
           ['12345678'],
           ['123456789'],
-        ])('returns a 11-digit string with with prefix "%s"', (prefix): void => {
+        ])('returns an 11-digit string with with prefix "%s"', (prefix): void => {
           const generate = createGenerator({ prefix });
 
           for (let i = 0; i < 100; i++) {
