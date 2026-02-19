@@ -156,7 +156,7 @@ export class CpfGeneratorOptions {
   }
 
   /**
-   * Throws if the prefix's first 8 digits (base ID) are all zeros.
+   * Throws if the prefix's digits are all zeros.
    *
    * @throws {CpfGeneratorOptionPrefixInvalidException} If the prefix's first 8
    *   digits are all zeros.
