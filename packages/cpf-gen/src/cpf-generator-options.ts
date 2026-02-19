@@ -177,7 +177,7 @@ export class CpfGeneratorOptions {
   }
 
   /**
-   * Throws if the prefix has 12 digits and they are all the same digit.
+   * Throws if the prefix has 9 digits and they are all the same number.
    *
    * @throws {CpfGeneratorOptionPrefixInvalidException} If the prefix has 12
    *   digits that are all the same digit.
