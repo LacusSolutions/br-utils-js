@@ -4,7 +4,7 @@ import type { CpfGeneratorOptionsInput } from './types';
 /**
  * Helper function to simplify the usage of the {@link CpfGenerator} class.
  *
- * If no options are provided, it generates a 11-digit unformatted numeric CPF
+ * If no options are provided, it generates an 11-digit unformatted numeric CPF
  * (e.g., `12345678901`) using default settings. If options are provided, they
  * control prefix and whether the result is formatted.
  *
