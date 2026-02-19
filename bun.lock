@@ -82,13 +82,7 @@
       "name": "@lacussoft/cpf-gen",
       "version": "2.0.2",
       "dependencies": {
-        "@lacussoft/cpf-fmt": "^2.0.2",
-        "deepmerge": "^4.3.1",
-        "num-only": "^1.2.9",
-      },
-      "devDependencies": {
-        "@types/deepmerge": "^2.2.3",
-        "cpf-check": "^3.0.0",
+        "@lacussoft/cpf-dv": "workspace:*",
       },
     },
     "packages/cpf-utils": {
@@ -570,8 +564,6 @@
 
     "@types/debug": ["@types/debug@4.1.12", "", { "dependencies": { "@types/ms": "*" } }, "sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ=="],
 
-    "@types/deepmerge": ["@types/deepmerge@2.2.3", "", { "dependencies": { "deepmerge": "*" } }, "sha512-ct4srnukH/SHdVPyJIFV73YJIt9PTYTaqQbjrCvRrbc9LxHdGcJb132SuWwnDTPyx5UjCVS/I00wj0i5IXfqSA=="],
-
     "@types/estree": ["@types/estree@1.0.8", "", {}, "sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w=="],
 
     "@types/json-schema": ["@types/json-schema@7.0.15", "", {}, "sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA=="],
@@ -753,8 +745,6 @@
     "cosmiconfig": ["cosmiconfig@9.0.0", "", { "dependencies": { "env-paths": "^2.2.1", "import-fresh": "^3.3.0", "js-yaml": "^4.1.0", "parse-json": "^5.2.0" }, "peerDependencies": { "typescript": ">=4.9.5" }, "optionalPeers": ["typescript"] }, "sha512-itvL5h8RETACmOTFc4UfIyB2RfEHi71Ax6E/PivVxq9NseKbOWpeyHEOIbmAw1rs8Ak0VursQNww7lf7YtUwzg=="],
 
     "cosmiconfig-typescript-loader": ["cosmiconfig-typescript-loader@6.2.0", "", { "dependencies": { "jiti": "^2.6.1" }, "peerDependencies": { "@types/node": "*", "cosmiconfig": ">=9", "typescript": ">=5" } }, "sha512-GEN39v7TgdxgIoNcdkRE3uiAzQt3UXLyHbRHD6YoL048XAeOomyxaP+Hh/+2C6C2wYjxJ2onhJcsQp+L4YEkVQ=="],
-
-    "cpf-check": ["cpf-check@3.0.0", "", {}, "sha512-IwUJdDJ57kheRXiO7govTBOcKsLK/AdDrVKfk6rYCCNDcOBUiY9zmUY0fWI4/S/oIpbhHWMcOD0O2DLawuwiBw=="],
 
     "cpf-utils": ["cpf-utils@workspace:packages/cpf-utils"],
 
