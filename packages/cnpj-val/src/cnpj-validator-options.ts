@@ -29,7 +29,7 @@ export class CnpjValidatorOptions {
   /**
    * Default type of characters to validate for the CNPJ.
    */
-  public static readonly DEFAULT_TYPE = 'alphanumeric';
+  public static readonly DEFAULT_TYPE: CnpjType = 'alphanumeric';
 
   private _options = {} as CnpjValidatorOptionsType;
 
