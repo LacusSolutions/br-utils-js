@@ -66,6 +66,8 @@ export class CnpjValidator {
    * Per-call `options` are merged over the instance default options for this
    * call only; the instance defaults are unchanged.
    *
+   * @throws {CnpjValidatorInputTypeError} If the input is not a string or array
+   *   of strings.
    * @throws {CnpjValidatorOptionsTypeError} If any option has an invalid type.
    * @throws {CnpjValidatorOptionTypeInvalidException} If the `type` option is
    *   not one of the allowed values.

@@ -8,6 +8,8 @@ import type { CnpjInput, CnpjValidatorOptionsInput } from './types';
  * using default settings. If options are provided, they control case
  * sensitivity and the type of characters to be validated.
  *
+ * @throws {CnpjValidatorInputTypeError} If the input is not a string or array
+ *   of strings.
  * @throws {CnpjValidatorOptionsTypeError} If any option has an invalid type.
  * @throws {CnpjValidatorOptionTypeInvalidException} If the `type` option is not
  *   one of the allowed values.
