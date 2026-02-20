@@ -90,7 +90,7 @@ All options are optional:
 | `dashKey` | string | `'-'` | Dash delimiter (e.g. before check digits `…-90`) |
 | `escape` | boolean | `false` | When `true`, escape HTML special characters in the result |
 | `encode` | boolean | `false` | When `true`, URL-encode the result (e.g. for query params) |
-| `onFail` | (value, error?) => string | `() => ''` | Callback when sanitized input length ≠ 14; return value is used as result (invalid input type throws instead) |
+| `onFail` | (value, error) => string | `() => ''` | Callback when sanitized input length ≠ 14; return value is used as result |
 
 Example with all options:
 
