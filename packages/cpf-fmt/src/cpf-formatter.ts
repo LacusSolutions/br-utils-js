@@ -96,7 +96,7 @@ export class CpfFormatter {
     if (formattedCpf.length !== CPF_LENGTH) {
       const error = new CpfFormatterInputLengthException(cpfInput, formattedCpf, CPF_LENGTH);
 
-      return actualOptions.onFail(actualInput, error);
+      return actualOptions.onFail(cpfInput, error);
     }
 
     if (actualOptions.hidden) {
