@@ -18,7 +18,7 @@
 - **Default validation is alphanumeric and case-sensitive**: Without options, validation accepts 14-character alphanumeric CNPJ and is case-sensitive (lowercase letters in an otherwise valid alphanumeric CNPJ yield `false`). Use `type: 'numeric'` for numeric-only validation and `caseSensitive: false` to accept lowercase letters. Numeric-only CNPJ strings behave the same as in v2 when passed as a string.
 - **Stricter validation rules**:
   - Base ID composed only by zeros (first 8 characters "00000000") is considered invalid and will cause validation to return `false`.
-  - CNPJs which first 12 characters are composed by numbers and the same number ("111111111111", "222222222222", "333333333333", etc) are invalid. Note that this rule only applies to numbers, not letters. Alphanumeric CNPJs with repeated letters are acceptable according to the official government agencies.
+  - CNPJs whose first 12 characters are composed by numbers and the same number ("111111111111", "222222222222", "333333333333", etc.) are invalid. Note that this rule only applies to numbers, not letters. Alphanumeric CNPJs with repeated letters are acceptable according to the official government agencies.
 
 ### New features
 
