@@ -52,6 +52,18 @@ export class CnpjFormatter {
   }
 
   /**
+   * Returns the default options used by this formatter when per-call options
+   * are not provided.
+   *
+   * The returned object is the same instance used internally; mutating it (e.g.
+   * via setters on `CnpjFormatterOptions`) affects future `format` calls that
+   * do not pass `options`.
+   */
+  public get options(): CnpjFormatterOptions {
+    return this._options;
+  }
+
+  /**
    * Formats a CNPJ value into a normalized 14-character alphanumeric string.
    *
    * Input is normalized by stripping non-alphanumeric characters and converting
@@ -129,18 +141,6 @@ export class CnpjFormatter {
     }
 
     return formattedCnpj;
-  }
-
-  /**
-   * Returns the default options used by this formatter when per-call options
-   * are not provided.
-   *
-   * The returned object is the same instance used internally; mutating it (e.g.
-   * via setters on `CnpjFormatterOptions`) affects future `format` calls that
-   * do not pass `options`.
-   */
-  public get options(): CnpjFormatterOptions {
-    return this._options;
   }
 }
 
