@@ -52,9 +52,9 @@ export class CnpjValidator {
    * Returns the default options used by this validator when per-call options
    * are not provided.
    *
-   * The returned object is the same instance used internally; mutating it (e.g.
-   * via setters on `CnpjValidatorOptions`) affects future `generate` calls that
-   * do not pass `options`.
+   * Note that the returned object is the same instance used internally;
+   * mutating it (e.g. via setters on `CnpjValidatorOptions`) affects future
+   * `isValid` calls that do not pass `options`.
    */
   public get options(): CnpjValidatorOptions {
     return this._options;
