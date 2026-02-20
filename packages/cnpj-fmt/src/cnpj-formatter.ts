@@ -98,7 +98,7 @@ export class CnpjFormatter {
     if (formattedCnpj.length !== CNPJ_LENGTH) {
       const error = new CnpjFormatterInputLengthException(cnpjInput, formattedCnpj, CNPJ_LENGTH);
 
-      return actualOptions.onFail(actualInput, error);
+      return actualOptions.onFail(cnpjInput, error);
     }
 
     if (actualOptions.hidden) {
