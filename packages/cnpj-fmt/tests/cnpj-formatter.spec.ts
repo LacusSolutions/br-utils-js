@@ -269,19 +269,6 @@ describe('CnpjFormatter', (): void => {
     });
 
     describe('when input is not string or array of strings', (): void => {
-      const makeErrorHandlingSpy = (type: string) => {
-        return (value: unknown, error?: Error): string => {
-          const inputTypeError = error as CnpjFormatterInputTypeError;
-
-          expect(inputTypeError).toBeInstanceOf(CnpjFormatterInputTypeError);
-          expect(inputTypeError.expectedType).toBe('string or string[]');
-          expect(inputTypeError.actualInput).toBe(value);
-          expect(inputTypeError.actualType).toBe(type);
-
-          return `ERROR: "${value}"`;
-        };
-      };
-
       it.each([
         { input: null, type: 'null' },
         { input: undefined, type: 'undefined' },
@@ -291,11 +278,20 @@ describe('CnpjFormatter', (): void => {
         { input: true, type: 'boolean' },
         { input: {}, type: 'object' },
       ])(
-        'fails with CnpjFormatterInputTypeError on input of $input ($type)',
+        'throws CnpjFormatterInputTypeError on input of $input ($type)',
         ({ input, type }): void => {
-          format(input as unknown as string, {
-            onFail: makeErrorHandlingSpy(type),
-          });
+          try {
+            format(input as unknown as string);
+
+            expect.unreachable();
+          } catch (error: unknown) {
+            const inputTypeError = error as CnpjFormatterInputTypeError;
+
+            expect(error).toBeInstanceOf(CnpjFormatterInputTypeError);
+            expect(inputTypeError.expectedType).toBe('string or string[]');
+            expect(inputTypeError.actualInput).toBe(input);
+            expect(inputTypeError.actualType).toBe(type);
+          }
         },
       );
     });

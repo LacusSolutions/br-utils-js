@@ -21,8 +21,8 @@ const HIDDEN_KEY_PLACEHOLDER = CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS[0]
  * normalizes and optionally masks, HTML-escapes, or URL-encodes 14-character
  * alphanumeric CNPJ input. Accepts a string or array of strings;
  * non-alphanumeric characters are stripped and the result is uppercased.
- * Invalid input or length is handled via the configured `onFail` callback
- * instead of throwing.
+ * Invalid input type is handled by throwing; invalid length is handled via the
+ * configured `onFail` callback instead of throwing.
  */
 export class CnpjFormatter {
   private _options: CnpjFormatterOptions;
@@ -87,25 +87,18 @@ export class CnpjFormatter {
    *   or `hiddenEnd` are out of valid range.
    */
   public format(cnpjInput: CnpjInput, options?: CnpjFormatterOptionsInput): string {
-    const actualInput = cnpjInput as unknown;
-    const nonArrayInput = Array.isArray(actualInput) ? actualInput.join('') : actualInput;
+    const actualInput = this._toStringInput(cnpjInput);
     const actualOptions = options
       ? new CnpjFormatterOptions(this._options, options)
       : this._options;
 
-    if (typeof nonArrayInput !== 'string') {
-      const error = new CnpjFormatterInputTypeError(cnpjInput, 'string or string[]');
-
-      return actualOptions.onFail(nonArrayInput, error);
-    }
-
-    const alphanumericOnly = nonArrayInput.replace(/[^0-9A-Z]/gi, '');
+    const alphanumericOnly = actualInput.replace(/[^0-9A-Z]/gi, '');
     let formattedCnpj = alphanumericOnly.toUpperCase();
 
     if (formattedCnpj.length !== CNPJ_LENGTH) {
       const error = new CnpjFormatterInputLengthException(cnpjInput, formattedCnpj, CNPJ_LENGTH);
 
-      return actualOptions.onFail(nonArrayInput, error);
+      return actualOptions.onFail(actualInput, error);
     }
 
     if (actualOptions.hidden) {
@@ -141,6 +134,30 @@ export class CnpjFormatter {
     }
 
     return formattedCnpj;
+  }
+
+  /**
+   * Normalizes the input to a string.
+   *
+   * @throws {CnpjFormatterInputTypeError} If the input is not a string or array
+   *   of strings.
+   */
+  private _toStringInput(cnpjInput: unknown): string {
+    if (typeof cnpjInput === 'string') {
+      return cnpjInput;
+    }
+
+    if (Array.isArray(cnpjInput)) {
+      for (const item of cnpjInput) {
+        if (typeof item !== 'string') {
+          throw new CnpjFormatterInputTypeError(cnpjInput, 'string or string[]');
+        }
+      }
+
+      return cnpjInput.join('');
+    }
+
+    throw new CnpjFormatterInputTypeError(cnpjInput, 'string or string[]');
   }
 }
 
