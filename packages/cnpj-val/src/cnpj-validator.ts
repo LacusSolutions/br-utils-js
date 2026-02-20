@@ -73,17 +73,12 @@ export class CnpjValidator {
    *   not one of the allowed values.
    */
   public isValid(cnpjInput: CnpjInput, options?: CnpjValidatorOptionsInput): boolean {
-    const actualInput = cnpjInput as unknown;
-    const nonArrayInput = Array.isArray(actualInput) ? actualInput.join('') : actualInput;
+    const actualInput = this._toStringInput(cnpjInput);
     const actualOptions = options
       ? new CnpjValidatorOptions(this._options, options)
       : this._options;
 
-    if (typeof nonArrayInput !== 'string') {
-      throw new CnpjValidatorInputTypeError(cnpjInput, 'string or string[]');
-    }
-
-    let sanitizedCnpj = nonArrayInput;
+    let sanitizedCnpj = actualInput;
 
     if (!actualOptions.caseSensitive) {
       sanitizedCnpj = sanitizedCnpj.toUpperCase();
@@ -110,6 +105,30 @@ export class CnpjValidator {
     } catch {
       return false;
     }
+  }
+
+  /**
+   * Normalizes the input to a string.
+   *
+   * @throws {CnpjValidatorInputTypeError} If the input is not a string or array
+   *   of strings.
+   */
+  private _toStringInput(cnpjInput: unknown): string {
+    if (typeof cnpjInput === 'string') {
+      return cnpjInput;
+    }
+
+    if (Array.isArray(cnpjInput)) {
+      for (const item of cnpjInput) {
+        if (typeof item !== 'string') {
+          throw new CnpjValidatorInputTypeError(cnpjInput, 'string or string[]');
+        }
+      }
+
+      return cnpjInput.join('');
+    }
+
+    throw new CnpjValidatorInputTypeError(cnpjInput, 'string or string[]');
   }
 }
 
