@@ -9,7 +9,7 @@ import type {
   Nullable,
 } from './types';
 
-const CNPJ_TYPE_OPTIONS = ['alphanumeric', 'numeric'];
+const CNPJ_TYPE_OPTIONS: readonly CnpjType[] = ['alphanumeric', 'numeric'];
 
 /**
  * Class to store the options for the CNPJ generator. This class provides a
