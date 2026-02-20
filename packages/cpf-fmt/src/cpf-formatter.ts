@@ -51,6 +51,18 @@ export class CpfFormatter {
   }
 
   /**
+   * Returns the default options used by this formatter when per-call options
+   * are not provided.
+   *
+   * The returned object is the same instance used internally; mutating it (e.g.
+   * via setters on `CpfFormatterOptions`) affects future `format` calls that do
+   * not pass `options`.
+   */
+  public get options(): CpfFormatterOptions {
+    return this._options;
+  }
+
+  /**
    * Formats a CPF value into a normalized 11-digit string.
    *
    * Input is normalized by stripping non-numeric characters. If the result
@@ -127,18 +139,6 @@ export class CpfFormatter {
     }
 
     return formattedCpf;
-  }
-
-  /**
-   * Returns the default options used by this formatter when per-call options
-   * are not provided.
-   *
-   * The returned object is the same instance used internally; mutating it (e.g.
-   * via setters on `CpfFormatterOptions`) affects future `format` calls that do
-   * not pass `options`.
-   */
-  public get options(): CpfFormatterOptions {
-    return this._options;
   }
 }
 
