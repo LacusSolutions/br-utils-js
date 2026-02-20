@@ -1,23 +1,11 @@
-import cpfGen from '@lacussoft/cpf-gen';
-import numOnly from 'num-only';
+import { CpfValidator } from './cpf-validator';
+import type { CpfInput } from './types';
 
 /**
- * Validate a given CPF (Brazilian ID document) char sequence.
+ * Helper function to simplify the usage of the {@link CpfValidator} class.
+ *
+ * @throws {CpfValidatorInputTypeError} If input is not string or string[].
  */
-function cpfVal(cpfString: string): boolean {
-  const CPF_LENGTH = 11;
-  const cpfDigits = numOnly(cpfString);
-
-  if (cpfDigits.length !== CPF_LENGTH) {
-    return false;
-  }
-
-  return (
-    cpfDigits ===
-    cpfGen({
-      prefix: cpfDigits.substring(0, 9),
-    })
-  );
+export function cpfVal(cpfInput: CpfInput): boolean {
+  return new CpfValidator().isValid(cpfInput);
 }
-
-export default cpfVal;
