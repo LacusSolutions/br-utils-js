@@ -100,9 +100,12 @@ import { CnpjValidator } from '@lacussoft/cnpj-val'
 
 const validator = new CnpjValidator({ type: 'numeric', caseSensitive: false })
 
-validator.isValid('98.765.432/0001-98')       // true
-validator.isValid('1QB5UKALpyfp59', { caseSensitive: true })  // override for this call: false
-validator.options                              // current default options (CnpjValidatorOptions)
+validator.options                         // current default options (CnpjValidatorOptions)
+validator.isValid('98.765.432/0001-98')   // true
+validator.isValid('1QB5UKALpyfp59', {     // override for this call: false
+  type: 'alphanumeric',
+  caseSensitive: true,
+})
 ```
 
 - **`constructor`**: `new CnpjValidator(defaultOptions?)` — optional default options (plain object or `CnpjValidatorOptions` instance).
