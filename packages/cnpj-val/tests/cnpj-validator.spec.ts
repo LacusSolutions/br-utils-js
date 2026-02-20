@@ -146,8 +146,8 @@ describe('CnpjValidator', (): void => {
     };
 
     interface InputType {
-      input: string;
-      type: CnpjInput;
+      input: CnpjInput;
+      type: string;
     }
 
     function createInputsSet(cnpj: string): InputType[] {
