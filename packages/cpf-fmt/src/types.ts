@@ -1,5 +1,6 @@
 /* eslint-disable @eslint-community/eslint-comments/disable-enable-pair, perfectionist/sort-interfaces */
 import type { CpfFormatterOptions } from './cpf-formatter-options';
+import { type CpfFormatterException } from './exceptions';
 
 /**
  * Represents valid input types for CPF formatting.
@@ -27,7 +28,7 @@ export type Nullable<T> = null | T | undefined;
  * issues. The callback receives the original input value and an optional error
  * object, and should return a string to use as the fallback output.
  */
-export type OnFailCallback = (value: unknown, error?: Error) => string;
+export type OnFailCallback = (value: unknown, error: CpfFormatterException) => string;
 
 /**
  * Configuration interface for CPF (Cadastro de Pessoa Física) formatting

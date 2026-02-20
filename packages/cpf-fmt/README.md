@@ -85,7 +85,7 @@ All options are optional. Flat keys (no nested `delimiters` or `hiddenRange`):
 | `dashKey` | string | `'-'` | Dash delimiter (e.g. before check digits `…-58`) |
 | `escape` | boolean | `false` | When `true`, escape HTML special characters in the result |
 | `encode` | boolean | `false` | When `true`, URL-encode the result (e.g. for query params) |
-| `onFail` | (value, error?) => string | `() => ''` | Callback when input is invalid or length ≠ 11; return value is used as result |
+| `onFail` | (value, error?) => string | `() => ''` | Callback when sanitized input length ≠ 11; return value is used as result |
 
 Example with all options:
 
@@ -107,7 +107,7 @@ cpfFmt(cpf, {
 
 ### `cpfFmt` (helper function)
 
-Formats a CPF string. With no options, returns the standard format (e.g. `123.456.789-10`). Invalid input or length is handled by the `onFail` callback instead of throwing. This is a more convenient way to use the library. However, under the hood, it instantiates a `CpfFormatter` and immediately calls `format`.
+Formats a CPF string. With no options, returns the standard format (e.g. `123.456.789-10`). Invalid input **type** (not a string or array of strings) causes `CpfFormatterInputTypeError` to be thrown. Invalid **length** (after stripping non-numeric characters, the result is not 11 digits) is handled by the `onFail` callback instead of throwing. This is a more convenient way to use the library. However, under the hood, it instantiates a `CpfFormatter` and immediately calls `format`.
 
 - **`cpfInput`** (string or array of strings): Raw or already formatted 11-digits value (after sanitization).
 - **`options`** (optional): See [formatting options](#formatting-options).
@@ -142,7 +142,7 @@ formatter.format('12345678910', { hidden: false })   // override for this call: 
 
 ### Exceptions
 
-When using `CpfFormatter` with invalid options or when you throw on failure, you may see:
+When using `CpfFormatter`, invalid input type (non-string, non–array of strings) always throws. Invalid options throw when building options. Invalid length is passed to `onFail` by default. You may see:
 
 - **CpfFormatterTypeError** (base for type errors)
 - **CpfFormatterInputTypeError** — input is not string or string[]

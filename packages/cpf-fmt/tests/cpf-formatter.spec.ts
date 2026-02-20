@@ -116,19 +116,6 @@ describe('CpfFormatter', (): void => {
     });
 
     describe('when input is not string or array of strings', (): void => {
-      const makeErrorHandlingSpy = (type: string) => {
-        return (value: unknown, error?: Error): string => {
-          const inputTypeError = error as CpfFormatterInputTypeError;
-
-          expect(inputTypeError).toBeInstanceOf(CpfFormatterInputTypeError);
-          expect(inputTypeError.expectedType).toBe('string or string[]');
-          expect(inputTypeError.actualInput).toBe(value);
-          expect(inputTypeError.actualType).toBe(type);
-
-          return `ERROR: "${value}"`;
-        };
-      };
-
       it.each([
         { input: null, type: 'null' },
         { input: undefined, type: 'undefined' },
@@ -138,11 +125,20 @@ describe('CpfFormatter', (): void => {
         { input: true, type: 'boolean' },
         { input: {}, type: 'object' },
       ])(
-        'fails with CpfFormatterInputTypeError on input of $input ($type)',
+        'throws CpfFormatterInputTypeError on input of $input ($type)',
         ({ input, type }): void => {
-          format(input as unknown as string, {
-            onFail: makeErrorHandlingSpy(type),
-          });
+          try {
+            format(input as unknown as string);
+
+            expect.unreachable();
+          } catch (error) {
+            const inputTypeError = error as CpfFormatterInputTypeError;
+
+            expect(error).toBeInstanceOf(CpfFormatterInputTypeError);
+            expect(inputTypeError.expectedType).toBe('string or string[]');
+            expect(inputTypeError.actualInput).toBe(input);
+            expect(inputTypeError.actualType).toBe(type);
+          }
         },
       );
     });
