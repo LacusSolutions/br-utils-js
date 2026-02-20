@@ -153,7 +153,10 @@ describe('CnpjValidator', (): void => {
 
     function createInputsSet(cnpj: string): InputType[] {
       const unformattedString = cnpj;
-      const formattedString = cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d+)/, '$1.$2.$3/$4-$5');
+      const formattedString = cnpj.replace(
+        /([0-9A-Z]{2})([0-9A-Z]{3})([0-9A-Z]{3})([0-9A-Z]{4})(\d+)/i,
+        '$1.$2.$3/$4-$5',
+      );
       const unformattedArray = unformattedString.split('');
       const formattedArray = formattedString.split('');
       const groupedArray = formattedString.split(/[./-]/);
