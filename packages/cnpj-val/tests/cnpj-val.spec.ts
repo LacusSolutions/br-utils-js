@@ -15,7 +15,7 @@ describe('cnpjVal', (): void => {
   });
 
   describe('when called', (): void => {
-    it('calls the `generate` method on the `CnpjGenerator` instance', (): void => {
+    it('calls the `isValid` method on the `CnpjValidator` instance', (): void => {
       cnpjVal('12345678910');
 
       expect(isValidSpy).toHaveBeenCalledWith('12345678910');
