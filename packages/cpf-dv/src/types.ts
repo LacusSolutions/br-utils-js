@@ -6,4 +6,8 @@
  * - A string containing digits (with or without formatting)
  * - An array of strings, where each string represents a digit or group of digits.
  */
-export type CpfInput = string | string[];
+export type CpfInput =
+  | readonly (number | string)[]
+  | readonly number[]
+  | readonly string[]
+  | string;
