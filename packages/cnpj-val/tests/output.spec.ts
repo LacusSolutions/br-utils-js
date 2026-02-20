@@ -363,12 +363,6 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjValidatorTypeError');
     });
 
-    it('exports `CnpjValidatorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjValidatorTypeError');
-    });
-
     it('declares the `CnpjValidatorInputTypeError` class', (): void => {
       expect(content).toContain('declare class CnpjValidatorInputTypeError');
     });
