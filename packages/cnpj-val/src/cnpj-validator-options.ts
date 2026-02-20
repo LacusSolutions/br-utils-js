@@ -12,10 +12,10 @@ import type {
 const CNPJ_TYPE_OPTIONS: readonly CnpjType[] = ['alphanumeric', 'numeric'];
 
 /**
- * Class to store the options for the CNPJ generator. This class provides a
- * centralized way to configure how CNPJ characters are generated, including
- * partial start string, formatting, and the type of characters to be generated
- * (numeric, alphabetic, or alphanumeric).
+ * Class to store the options for the CNPJ validator. This class provides a
+ * centralized way to configure how CNPJs are validated, including case
+ * sensitivity and the type of format that should be considered valid (`numeric`
+ * or `alphanumeric`).
  */
 export class CnpjValidatorOptions {
   /**
