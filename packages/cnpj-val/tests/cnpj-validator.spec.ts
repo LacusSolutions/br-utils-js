@@ -1,8 +1,9 @@
-import { describe, expect, it } from 'bun:test';
+import { beforeEach, describe, expect, it } from 'bun:test';
 
 import { CnpjValidator } from '../src/cnpj-validator';
 import { CnpjValidatorOptions } from '../src/cnpj-validator-options';
 import {
+  CnpjValidatorInputTypeError,
   CnpjValidatorOptionsTypeError,
   CnpjValidatorOptionTypeInvalidException,
 } from '../src/exceptions';
@@ -300,6 +301,56 @@ describe('CnpjValidator', (): void => {
             expect(result).toBe(false);
           },
         );
+      });
+    });
+
+    describe('when called with invalid arguments', (): void => {
+      let validator: CnpjValidator;
+
+      beforeEach(() => {
+        validator = new CnpjValidator();
+      });
+
+      it('throws a `CnpjValidatorInputTypeError` with `undefined`', (): void => {
+        expect(() => {
+          validator.isValid(undefined as unknown as CnpjInput);
+        }).toThrow(CnpjValidatorInputTypeError);
+      });
+
+      it('throws a `CnpjValidatorInputTypeError` with `null`', (): void => {
+        expect(() => {
+          validator.isValid(null as unknown as CnpjInput);
+        }).toThrow(CnpjValidatorInputTypeError);
+      });
+
+      it('throws a `CnpjValidatorInputTypeError` with integer number', (): void => {
+        expect(() => {
+          validator.isValid(42 as unknown as CnpjInput);
+        }).toThrow(CnpjValidatorInputTypeError);
+      });
+
+      it('throws a `CnpjValidatorInputTypeError` with float number', (): void => {
+        expect(() => {
+          validator.isValid(3.14 as unknown as CnpjInput);
+        }).toThrow(CnpjValidatorInputTypeError);
+      });
+
+      it('throws a `CnpjValidatorInputTypeError` with boolean', (): void => {
+        expect(() => {
+          validator.isValid(true as unknown as CnpjInput);
+        }).toThrow(CnpjValidatorInputTypeError);
+      });
+
+      it('throws a `CnpjValidatorInputTypeError` with object', (): void => {
+        expect(() => {
+          validator.isValid({ not: 'a string' } as unknown as CnpjInput);
+        }).toThrow(CnpjValidatorInputTypeError);
+      });
+
+      it('throws a `CnpjValidatorInputTypeError` with array of numbers', (): void => {
+        expect(() => {
+          validator.isValid([1, 2, 3] as unknown as CnpjInput);
+        }).toThrow(CnpjValidatorInputTypeError);
       });
     });
   });
