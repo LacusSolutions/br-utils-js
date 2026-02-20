@@ -10,7 +10,7 @@ import type { CnpjFormatterOptions } from './cnpj-formatter-options';
  * - An array of strings, where each string represents an alphanumeric character
  *   or group of alphanumeric characters.
  */
-export type CnpjInput = string | string[];
+export type CnpjInput = readonly string[] | string;
 
 /**
  * A utility type that represents a value that can be `null`, `undefined`, or
