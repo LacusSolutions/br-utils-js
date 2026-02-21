@@ -97,8 +97,7 @@
       "name": "@lacussoft/cpf-val",
       "version": "2.0.2",
       "dependencies": {
-        "@lacussoft/cpf-gen": "workspace:^2.0.2",
-        "num-only": "^1.2.9",
+        "@lacussoft/cpf-dv": "workspace:*",
       },
     },
   },
@@ -1268,8 +1267,6 @@
     "node-releases": ["node-releases@2.0.27", "", {}, "sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA=="],
 
     "nth-check": ["nth-check@2.1.1", "", { "dependencies": { "boolbase": "^1.0.0" } }, "sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w=="],
-
-    "num-only": ["num-only@1.2.9", "", {}, "sha512-NDQtXUj5s/dXXe6bwsRQ1CvdalMj58n4R9i6TIdSqh8aSirSFPu3Xxt2mCq5+LAL+rYy0kMu06eBUnHOALCX5g=="],
 
     "object-assign": ["object-assign@4.1.1", "", {}, "sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg=="],
 

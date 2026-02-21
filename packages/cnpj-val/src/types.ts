@@ -6,7 +6,7 @@ import type { CnpjValidatorOptions } from './cnpj-validator-options';
  *
  * A CNPJ may be given as:
  *
- * - A string of alphanumeric characters (with or without formatting), or.
+ * - A string of alphanumeric characters (with or without formatting).
  * - An array of strings, each representing one or more alphanumeric characters.
  */
 export type CnpjInput = readonly string[] | string;
