@@ -107,7 +107,7 @@ try {
   new CnpjCheckDigits(123456780009)
 } catch (e) {
   if (e instanceof CnpjCheckDigitsInputTypeError) {
-    console.log(e.message)  // CNPJ input must be of type string or string[]. Got number.
+    console.log(e.message)  // CNPJ input must be of type string or string[]. Got integer number.
   }
 }
 
