@@ -77,7 +77,7 @@ Todas as opções são opcionais:
 | `hiddenEnd` | number | `13` | Índice final (0–13, inclusivo) do intervalo a ocultar |
 | `escape` | boolean | `false` | Se `true`, escapa caracteres especiais HTML no resultado |
 | `encode` | boolean | `false` | Se `true`, codifica o resultado para URL (ex.: query params) |
-| `onFail` | (value, error) => string | `() => ''` | Callback quando o tamanho da entrada sanitizada ≠ 14; o retorno é usado como resultado |
+| `onFail` | (value, exception) => string | `() => ''` | Callback quando o tamanho da entrada sanitizada ≠ 14; o retorno é usado como resultado |
 
 Exemplo com todas as opções:
 
@@ -92,7 +92,7 @@ cnpjFmt(cnpj, {
   dashKey: '_-_',
   escape: true,
   encode: true,
-  onFail(value, error) {
+  onFail(value, exception) {
     return String(value)
   },
 })

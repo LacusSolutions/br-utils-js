@@ -29,7 +29,7 @@ export type Nullable<T> = null | T | undefined;
  * issues. The callback receives the original input value and the exception
  * object, and should return a string to use as the fallback output.
  */
-export type OnFailCallback = (value: unknown, error: CnpjFormatterException) => string;
+export type OnFailCallback = (value: unknown, exception: CnpjFormatterException) => string;
 
 /**
  * Configuration interface for CNPJ (Cadastro Nacional da Pessoa Jurídica)
