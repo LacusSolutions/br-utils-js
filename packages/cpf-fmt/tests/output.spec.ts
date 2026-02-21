@@ -261,7 +261,7 @@ describe('package distributions', (): void => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('declares the `cpfFmt` function', (): void => {
+    it('declares `cpfFmt` function', (): void => {
       expect(content).toContain('declare function cpfFmt');
     });
 
@@ -277,7 +277,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('cpfFmt');
     });
 
-    it('declares the `CpfFormatter` class', (): void => {
+    it('declares `CpfFormatter` class', (): void => {
       expect(content).toContain('declare class CpfFormatter');
     });
 
@@ -287,7 +287,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfFormatter');
     });
 
-    it('declares the `CpfFormatterOptions` class', (): void => {
+    it('declares `CpfFormatterOptions` class', (): void => {
       expect(content).toContain('declare class CpfFormatterOptions');
     });
 
@@ -297,7 +297,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptions');
     });
 
-    it('declares the `CPF_LENGTH` constant', (): void => {
+    it('declares `CPF_LENGTH` constant', (): void => {
       expect(content).toContain('declare const CPF_LENGTH');
     });
 
@@ -307,7 +307,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CPF_LENGTH');
     });
 
-    it('declares the `CpfFormatterTypeError` abstract class', (): void => {
+    it('declares `CpfFormatterTypeError` abstract class', (): void => {
       expect(content).toContain('declare abstract class CpfFormatterTypeError');
     });
 
@@ -317,7 +317,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfFormatterTypeError');
     });
 
-    it('declares the `CpfFormatterInputTypeError` class', (): void => {
+    it('declares `CpfFormatterInputTypeError` class', (): void => {
       expect(content).toContain('declare class CpfFormatterInputTypeError');
     });
 
@@ -327,7 +327,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfFormatterInputTypeError');
     });
 
-    it('declares the `CpfFormatterOptionsTypeError` class', (): void => {
+    it('declares `CpfFormatterOptionsTypeError` class', (): void => {
       expect(content).toContain('declare class CpfFormatterOptionsTypeError');
     });
 
@@ -337,7 +337,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptionsTypeError');
     });
 
-    it('declares the `CpfFormatterException` abstract class', (): void => {
+    it('declares `CpfFormatterException` abstract class', (): void => {
       expect(content).toContain('declare abstract class CpfFormatterException');
     });
 
@@ -347,7 +347,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfFormatterException');
     });
 
-    it('declares the `CpfFormatterInputLengthException` class', (): void => {
+    it('declares `CpfFormatterInputLengthException` class', (): void => {
       expect(content).toContain('declare class CpfFormatterInputLengthException');
     });
 
@@ -357,7 +357,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfFormatterInputLengthException');
     });
 
-    it('declares the `CpfFormatterOptionsHiddenRangeInvalidException` class', (): void => {
+    it('declares `CpfFormatterOptionsHiddenRangeInvalidException` class', (): void => {
       expect(content).toContain('declare class CpfFormatterOptionsHiddenRangeInvalidException');
     });
 
@@ -367,7 +367,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptionsHiddenRangeInvalidException');
     });
 
-    it('declares the `CpfFormatterOptionsForbiddenKeyCharacterException` class', (): void => {
+    it('declares `CpfFormatterOptionsForbiddenKeyCharacterException` class', (): void => {
       expect(content).toContain('declare class CpfFormatterOptionsForbiddenKeyCharacterException');
     });
 

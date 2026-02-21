@@ -130,7 +130,7 @@ describe('package distributions', () => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('declares the CpfCheckDigits class', async () => {
+    it('declares CpfCheckDigits class', async () => {
       const content = await file.text();
 
       expect(content).toContain('declare class CpfCheckDigits');

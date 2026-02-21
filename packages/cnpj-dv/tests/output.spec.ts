@@ -130,7 +130,7 @@ describe('package distributions', () => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('declares the CnpjCheckDigits class', async () => {
+    it('declares CnpjCheckDigits class', async () => {
       const content = await file.text();
 
       expect(content).toContain('declare class CnpjCheckDigits');

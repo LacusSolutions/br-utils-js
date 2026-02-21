@@ -387,7 +387,7 @@ describe('package distributions', (): void => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('declares the `cnpjFmt` function', (): void => {
+    it('declares `cnpjFmt` function', (): void => {
       expect(content).toContain('declare function cnpjFmt');
     });
 
@@ -403,7 +403,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('cnpjFmt');
     });
 
-    it('declares the `CnpjFormatter` class', (): void => {
+    it('declares `CnpjFormatter` class', (): void => {
       expect(content).toContain('declare class CnpjFormatter');
     });
 
@@ -413,7 +413,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjFormatter');
     });
 
-    it('declares the `CnpjFormatterOptions` class', (): void => {
+    it('declares `CnpjFormatterOptions` class', (): void => {
       expect(content).toContain('declare class CnpjFormatterOptions');
     });
 
@@ -423,7 +423,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjFormatterOptions');
     });
 
-    it('declares the `CNPJ_LENGTH` constant', (): void => {
+    it('declares `CNPJ_LENGTH` constant', (): void => {
       expect(content).toContain('declare const CNPJ_LENGTH');
     });
 
@@ -433,7 +433,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CNPJ_LENGTH');
     });
 
-    it('declares the `CnpjFormatterTypeError` abstract class', (): void => {
+    it('declares `CnpjFormatterTypeError` abstract class', (): void => {
       expect(content).toContain('declare abstract class CnpjFormatterTypeError');
     });
 
@@ -443,7 +443,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjFormatterTypeError');
     });
 
-    it('declares the `CnpjFormatterInputTypeError` class', (): void => {
+    it('declares `CnpjFormatterInputTypeError` class', (): void => {
       expect(content).toContain('declare class CnpjFormatterInputTypeError');
     });
 
@@ -453,7 +453,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjFormatterInputTypeError');
     });
 
-    it('declares the `CnpjFormatterOptionsTypeError` class', (): void => {
+    it('declares `CnpjFormatterOptionsTypeError` class', (): void => {
       expect(content).toContain('declare class CnpjFormatterOptionsTypeError');
     });
 
@@ -463,7 +463,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjFormatterOptionsTypeError');
     });
 
-    it('declares the `CnpjFormatterException` abstract class', (): void => {
+    it('declares `CnpjFormatterException` abstract class', (): void => {
       expect(content).toContain('declare abstract class CnpjFormatterException');
     });
 
@@ -473,7 +473,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjFormatterException');
     });
 
-    it('declares the `CnpjFormatterInputLengthException` class', (): void => {
+    it('declares `CnpjFormatterInputLengthException` class', (): void => {
       expect(content).toContain('declare class CnpjFormatterInputLengthException');
     });
 
@@ -483,7 +483,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjFormatterInputLengthException');
     });
 
-    it('declares the `CnpjFormatterOptionsHiddenRangeInvalidException` class', (): void => {
+    it('declares `CnpjFormatterOptionsHiddenRangeInvalidException` class', (): void => {
       expect(content).toContain('declare class CnpjFormatterOptionsHiddenRangeInvalidException');
     });
 
@@ -493,7 +493,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjFormatterOptionsHiddenRangeInvalidException');
     });
 
-    it('declares the `CnpjFormatterOptionsForbiddenKeyCharacterException` class', (): void => {
+    it('declares `CnpjFormatterOptionsForbiddenKeyCharacterException` class', (): void => {
       expect(content).toContain('declare class CnpjFormatterOptionsForbiddenKeyCharacterException');
     });
 

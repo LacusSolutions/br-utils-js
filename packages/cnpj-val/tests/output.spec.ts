@@ -307,7 +307,7 @@ describe('package distributions', (): void => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('declares the `cnpjVal` function', (): void => {
+    it('declares `cnpjVal` function', (): void => {
       expect(content).toContain('declare function cnpjVal');
     });
 
@@ -323,7 +323,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('cnpjVal');
     });
 
-    it('declares the `CnpjValidator` class', (): void => {
+    it('declares `CnpjValidator` class', (): void => {
       expect(content).toContain('declare class CnpjValidator');
     });
 
@@ -333,7 +333,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjValidator');
     });
 
-    it('declares the `CnpjValidatorOptions` class', (): void => {
+    it('declares `CnpjValidatorOptions` class', (): void => {
       expect(content).toContain('declare class CnpjValidatorOptions');
     });
 
@@ -343,7 +343,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjValidatorOptions');
     });
 
-    it('declares the `CNPJ_LENGTH` constant', (): void => {
+    it('declares `CNPJ_LENGTH` constant', (): void => {
       expect(content).toContain('declare const CNPJ_LENGTH');
     });
 
@@ -353,7 +353,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CNPJ_LENGTH');
     });
 
-    it('declares the `CnpjValidatorTypeError` abstract class', (): void => {
+    it('declares `CnpjValidatorTypeError` abstract class', (): void => {
       expect(content).toContain('declare abstract class CnpjValidatorTypeError');
     });
 
@@ -363,7 +363,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjValidatorTypeError');
     });
 
-    it('declares the `CnpjValidatorInputTypeError` class', (): void => {
+    it('declares `CnpjValidatorInputTypeError` class', (): void => {
       expect(content).toContain('declare class CnpjValidatorInputTypeError');
     });
 
@@ -373,7 +373,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjValidatorInputTypeError');
     });
 
-    it('declares the `CnpjValidatorOptionsTypeError` class', (): void => {
+    it('declares `CnpjValidatorOptionsTypeError` class', (): void => {
       expect(content).toContain('declare class CnpjValidatorOptionsTypeError');
     });
 
@@ -383,7 +383,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjValidatorOptionsTypeError');
     });
 
-    it('declares the `CnpjValidatorException` abstract class', (): void => {
+    it('declares `CnpjValidatorException` abstract class', (): void => {
       expect(content).toContain('declare abstract class CnpjValidatorException');
     });
 
@@ -393,7 +393,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjValidatorException');
     });
 
-    it('declares the `CnpjValidatorOptionTypeInvalidException` class', (): void => {
+    it('declares `CnpjValidatorOptionTypeInvalidException` class', (): void => {
       expect(content).toContain('declare class CnpjValidatorOptionTypeInvalidException');
     });
 

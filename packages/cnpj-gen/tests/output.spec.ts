@@ -321,7 +321,7 @@ describe('package distributions', (): void => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('declares the `cnpjGen` function', (): void => {
+    it('declares `cnpjGen` function', (): void => {
       expect(content).toContain('declare function cnpjGen');
     });
 
@@ -337,7 +337,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('cnpjGen');
     });
 
-    it('declares the `CnpjGenerator` class', (): void => {
+    it('declares `CnpjGenerator` class', (): void => {
       expect(content).toContain('declare class CnpjGenerator');
     });
 
@@ -347,7 +347,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjGenerator');
     });
 
-    it('declares the `CnpjGeneratorOptions` class', (): void => {
+    it('declares `CnpjGeneratorOptions` class', (): void => {
       expect(content).toContain('declare class CnpjGeneratorOptions');
     });
 
@@ -357,7 +357,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjGeneratorOptions');
     });
 
-    it('declares the `CNPJ_LENGTH` constant', (): void => {
+    it('declares `CNPJ_LENGTH` constant', (): void => {
       expect(content).toContain('declare const CNPJ_LENGTH');
     });
 
@@ -367,7 +367,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CNPJ_LENGTH');
     });
 
-    it('declares the `CNPJ_PREFIX_MAX_LENGTH` constant', (): void => {
+    it('declares `CNPJ_PREFIX_MAX_LENGTH` constant', (): void => {
       expect(content).toContain('declare const CNPJ_PREFIX_MAX_LENGTH');
     });
 
@@ -377,7 +377,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CNPJ_PREFIX_MAX_LENGTH');
     });
 
-    it('declares the `CnpjGeneratorTypeError` abstract class', (): void => {
+    it('declares `CnpjGeneratorTypeError` abstract class', (): void => {
       expect(content).toContain('declare abstract class CnpjGeneratorTypeError');
     });
 
@@ -387,7 +387,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjGeneratorTypeError');
     });
 
-    it('declares the `CnpjGeneratorOptionsTypeError` class', (): void => {
+    it('declares `CnpjGeneratorOptionsTypeError` class', (): void => {
       expect(content).toContain('declare class CnpjGeneratorOptionsTypeError');
     });
 
@@ -397,7 +397,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjGeneratorOptionsTypeError');
     });
 
-    it('declares the `CnpjGeneratorException` abstract class', (): void => {
+    it('declares `CnpjGeneratorException` abstract class', (): void => {
       expect(content).toContain('declare abstract class CnpjGeneratorException');
     });
 
@@ -407,7 +407,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjGeneratorException');
     });
 
-    it('declares the `CnpjGeneratorOptionPrefixInvalidException` class', (): void => {
+    it('declares `CnpjGeneratorOptionPrefixInvalidException` class', (): void => {
       expect(content).toContain('declare class CnpjGeneratorOptionPrefixInvalidException');
     });
 
@@ -417,7 +417,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CnpjGeneratorOptionPrefixInvalidException');
     });
 
-    it('declares the `CnpjGeneratorOptionTypeInvalidException` class', (): void => {
+    it('declares `CnpjGeneratorOptionTypeInvalidException` class', (): void => {
       expect(content).toContain('declare class CnpjGeneratorOptionTypeInvalidException');
     });
 

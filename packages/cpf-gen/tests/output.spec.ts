@@ -285,7 +285,7 @@ describe('package distributions', (): void => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('declares the `cpfGen` function', (): void => {
+    it('declares `cpfGen` function', (): void => {
       expect(content).toContain('declare function cpfGen');
     });
 
@@ -301,7 +301,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('cpfGen');
     });
 
-    it('declares the `CpfGenerator` class', (): void => {
+    it('declares `CpfGenerator` class', (): void => {
       expect(content).toContain('declare class CpfGenerator');
     });
 
@@ -311,7 +311,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfGenerator');
     });
 
-    it('declares the `CpfGeneratorOptions` class', (): void => {
+    it('declares `CpfGeneratorOptions` class', (): void => {
       expect(content).toContain('declare class CpfGeneratorOptions');
     });
 
@@ -321,7 +321,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfGeneratorOptions');
     });
 
-    it('declares the `CPF_LENGTH` constant', (): void => {
+    it('declares `CPF_LENGTH` constant', (): void => {
       expect(content).toContain('declare const CPF_LENGTH');
     });
 
@@ -331,7 +331,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CPF_LENGTH');
     });
 
-    it('declares the `CPF_PREFIX_MAX_LENGTH` constant', (): void => {
+    it('declares `CPF_PREFIX_MAX_LENGTH` constant', (): void => {
       expect(content).toContain('declare const CPF_PREFIX_MAX_LENGTH');
     });
 
@@ -341,7 +341,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CPF_PREFIX_MAX_LENGTH');
     });
 
-    it('declares the `CpfGeneratorTypeError` abstract class', (): void => {
+    it('declares `CpfGeneratorTypeError` abstract class', (): void => {
       expect(content).toContain('declare abstract class CpfGeneratorTypeError');
     });
 
@@ -351,7 +351,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfGeneratorTypeError');
     });
 
-    it('declares the `CpfGeneratorOptionsTypeError` class', (): void => {
+    it('declares `CpfGeneratorOptionsTypeError` class', (): void => {
       expect(content).toContain('declare class CpfGeneratorOptionsTypeError');
     });
 
@@ -361,7 +361,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfGeneratorOptionsTypeError');
     });
 
-    it('declares the `CpfGeneratorException` abstract class', (): void => {
+    it('declares `CpfGeneratorException` abstract class', (): void => {
       expect(content).toContain('declare abstract class CpfGeneratorException');
     });
 
@@ -371,7 +371,7 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfGeneratorException');
     });
 
-    it('declares the `CpfGeneratorOptionPrefixInvalidException` class', (): void => {
+    it('declares `CpfGeneratorOptionPrefixInvalidException` class', (): void => {
       expect(content).toContain('declare class CpfGeneratorOptionPrefixInvalidException');
     });
 
