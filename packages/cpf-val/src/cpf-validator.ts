@@ -20,14 +20,8 @@ export class CpfValidator {
    * @throws {CpfValidatorInputTypeError} If input is not string or string[].
    */
   public isValid(cpfInput: CpfInput): boolean {
-    const actualInput = cpfInput as unknown;
-    const nonArrayInput = Array.isArray(actualInput) ? actualInput.join('') : actualInput;
-
-    if (typeof nonArrayInput !== 'string') {
-      throw new CpfValidatorInputTypeError(cpfInput, 'string or string[]');
-    }
-
-    const sanitizedCpf = nonArrayInput.replace(/\D/g, '');
+    const actualInput = this._toStringInput(cpfInput);
+    const sanitizedCpf = actualInput.replace(/\D/g, '');
 
     if (sanitizedCpf.length !== CPF_LENGTH) {
       return false;
@@ -40,6 +34,30 @@ export class CpfValidator {
     } catch {
       return false;
     }
+  }
+
+  /**
+   * Normalizes the input to a string.
+   *
+   * @throws {CpfValidatorInputTypeError} If the input is not a string or array
+   *   of strings.
+   */
+  private _toStringInput(cpfInput: unknown): string {
+    if (typeof cpfInput === 'string') {
+      return cpfInput;
+    }
+
+    if (Array.isArray(cpfInput)) {
+      for (const item of cpfInput) {
+        if (typeof item !== 'string') {
+          throw new CpfValidatorInputTypeError(cpfInput, 'string or string[]');
+        }
+      }
+
+      return cpfInput.join('');
+    }
+
+    throw new CpfValidatorInputTypeError(cpfInput, 'string or string[]');
   }
 }
 
