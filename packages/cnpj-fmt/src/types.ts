@@ -26,7 +26,7 @@ export type Nullable<T> = null | T | undefined;
  *
  * This function is invoked when the CNPJ formatter encounters an error during
  * formatting, such as invalid input, invalid options, or other formatting
- * issues. The callback receives the original input value and an optional error
+ * issues. The callback receives the original input value and the exception
  * object, and should return a string to use as the fallback output.
  */
 export type OnFailCallback = (value: unknown, error: CnpjFormatterException) => string;
