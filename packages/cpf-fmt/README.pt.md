@@ -72,7 +72,7 @@ Todas as opções são opcionais. Chaves planas (sem objetos aninhados `delimite
 | `dashKey` | string | `'-'` | Delimitador de hífen (ex.: antes dos dígitos verificadores `…-58`) |
 | `escape` | boolean | `false` | Quando `true`, aplica escape a caracteres especiais HTML no resultado |
 | `encode` | boolean | `false` | Quando `true`, codifica o resultado para URL (ex.: para parâmetros de query) |
-| `onFail` | (value, error) => string | `() => ''` | Callback quando o tamanho da entrada sanitizada ≠ 11; o retorno é usado como resultado |
+| `onFail` | (value, exception) => string | `() => ''` | Callback quando o tamanho da entrada sanitizada ≠ 11; o retorno é usado como resultado |
 
 Exemplo com todas as opções:
 
@@ -86,7 +86,7 @@ cpfFmt(cpf, {
   dashKey: '_-_',
   escape: true,
   encode: true,
-  onFail(value, error) {
+  onFail(value, exception) {
     return String(value)
   },
 })

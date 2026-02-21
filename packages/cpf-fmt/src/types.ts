@@ -28,7 +28,7 @@ export type Nullable<T> = null | T | undefined;
  * issues. The callback receives the original input value and the exception
  * object, and should return a string to use as the fallback output.
  */
-export type OnFailCallback = (value: unknown, error: CpfFormatterException) => string;
+export type OnFailCallback = (value: unknown, exception: CpfFormatterException) => string;
 
 /**
  * Configuration interface for CPF (Cadastro de Pessoa Física) formatting

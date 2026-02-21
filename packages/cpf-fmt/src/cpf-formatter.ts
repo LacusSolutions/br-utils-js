@@ -94,9 +94,9 @@ export class CpfFormatter {
     let formattedCpf = digitsOnly;
 
     if (formattedCpf.length !== CPF_LENGTH) {
-      const error = new CpfFormatterInputLengthException(cpfInput, formattedCpf, CPF_LENGTH);
+      const exception = new CpfFormatterInputLengthException(cpfInput, formattedCpf, CPF_LENGTH);
 
-      return actualOptions.onFail(cpfInput, error);
+      return actualOptions.onFail(cpfInput, exception);
     }
 
     if (actualOptions.hidden) {

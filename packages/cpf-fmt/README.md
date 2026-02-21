@@ -85,7 +85,7 @@ All options are optional. Flat keys (no nested `delimiters` or `hiddenRange`):
 | `dashKey` | string | `'-'` | Dash delimiter (e.g. before check digits `…-58`) |
 | `escape` | boolean | `false` | When `true`, escape HTML special characters in the result |
 | `encode` | boolean | `false` | When `true`, URL-encode the result (e.g. for query params) |
-| `onFail` | (value, error) => string | `() => ''` | Callback when sanitized input length ≠ 11; return value is used as result |
+| `onFail` | (value, exception) => string | `() => ''` | Callback when sanitized input length ≠ 11; return value is used as result |
 
 Example with all options:
 
@@ -99,7 +99,7 @@ cpfFmt(cpf, {
   dashKey: '_-_',
   escape: true,
   encode: true,
-  onFail(value, error) {
+  onFail(value, exception) {
     return String(value)
   },
 })
