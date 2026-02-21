@@ -154,7 +154,7 @@ try {
   cnpjVal(12345678000198)
 } catch (e) {
   if (e instanceof CnpjValidatorInputTypeError) {
-    console.log(e.message)  // CNPJ input must be of type string or string[]. Got number.
+    console.log(e.message)  // CNPJ input must be of type string or string[]. Got integer number.
   }
 }
 
