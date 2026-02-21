@@ -257,12 +257,6 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfValidatorTypeError');
     });
 
-    it('exports `CpfValidatorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CpfValidatorTypeError');
-    });
-
     it('declares `CpfValidatorInputTypeError` class', (): void => {
       expect(content).toContain('declare class CpfValidatorInputTypeError');
     });
