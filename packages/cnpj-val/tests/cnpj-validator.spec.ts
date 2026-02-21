@@ -88,7 +88,7 @@ describe('CnpjValidator', (): void => {
         }).toThrow(CnpjValidatorOptionTypeInvalidException);
       });
 
-      it('throws CnpjValidatorOptionsTypeError for non-string prefix', (): void => {
+      it('throws CnpjValidatorOptionsTypeError for non-string type', (): void => {
         expect(() => {
           new CnpjValidator({ type: 123 as unknown as CnpjType });
         }).toThrow(CnpjValidatorOptionsTypeError);
