@@ -30,7 +30,7 @@ export abstract class CpfValidatorTypeError extends TypeError {
 }
 
 /**
- * Error raised when the input provided to the CPF formatter is not of the
+ * Error raised when the input provided to the CPF validator is not of the
  * expected type {@link CpfInput}. The error message includes both the actual
  * input type and the expected type.
  */
