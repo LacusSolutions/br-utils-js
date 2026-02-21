@@ -31,6 +31,13 @@
     "url": "https://github.com/LacusSolutions/br-utils-js/issues"
   },
   "homepage": "https://cnpj-utils.vercel.app/",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "README.pt.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "exports": {
