@@ -106,7 +106,7 @@ try {
   new CpfCheckDigits(12345678901)
 } catch (e) {
   if (e instanceof CpfCheckDigitsInputTypeError) {
-    console.log(e.message)  // CPF input must be of type string or string[]. Got number.
+    console.log(e.message)  // CPF input must be of type string or string[]. Got integer number.
   }
 }
 
