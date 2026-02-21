@@ -29,7 +29,7 @@ const CNPJ_BRANCH_ID_LENGTH = 4;
 const CNPJ_BRANCH_ID_LAST_INDEX = CNPJ_BASE_ID_LAST_INDEX + CNPJ_BRANCH_ID_LENGTH;
 const ZEROED_CNPJ_BRANCH_ID = '0'.repeat(CNPJ_BRANCH_ID_LENGTH);
 
-const CNPJ_TYPE_OPTIONS = ['alphabetic', 'alphanumeric', 'numeric'];
+const CNPJ_TYPE_OPTIONS: readonly CnpjType[] = ['alphabetic', 'alphanumeric', 'numeric'];
 
 /**
  * Class to store the options for the CNPJ generator. This class provides a
@@ -52,7 +52,7 @@ export class CnpjGeneratorOptions {
   /**
    * Default type of characters to generate for the CNPJ.
    */
-  public static readonly DEFAULT_TYPE = 'alphanumeric';
+  public static readonly DEFAULT_TYPE: CnpjType = 'alphanumeric';
 
   private _options = {} as CnpjGeneratorOptionsType;
 

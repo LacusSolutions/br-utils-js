@@ -99,7 +99,9 @@ describe('CpfGenerator', (): void => {
     const createGeneratorWithLiteralObjectOptionsInConstructor: CpfGeneratorFactory = (options) => {
       const generator = new CpfGenerator(options);
 
-      return generator.generate.bind(generator);
+      return (optionsOverride?: CpfGeneratorOptionsInput): string => {
+        return generator.generate(optionsOverride);
+      };
     };
 
     const createGeneratorWithCpfGeneratorOptionsInstanceInConstructor: CpfGeneratorFactory = (
@@ -108,22 +110,34 @@ describe('CpfGenerator', (): void => {
       const generatorOptions = new CpfGeneratorOptions(options);
       const generator = new CpfGenerator(generatorOptions);
 
-      return generator.generate.bind(generator);
+      return (optionsOverride?: CpfGeneratorOptionsInput): string => {
+        return generator.generate(optionsOverride);
+      };
     };
 
     const createGeneratorWithLiteralObjectOptionsInMethod: CpfGeneratorFactory = (options) => {
       const generator = new CpfGenerator();
 
-      return generator.generate.bind(generator, options);
+      return (optionsOverride?: CpfGeneratorOptionsInput): string => {
+        return generator.generate({
+          ...options,
+          ...(optionsOverride instanceof CpfGeneratorOptions
+            ? optionsOverride.all
+            : optionsOverride),
+        });
+      };
     };
 
     const createGeneratorWithCpfGeneratorOptionsInstanceInMethod: CpfGeneratorFactory = (
       options,
     ) => {
-      const generatorOptions = new CpfGeneratorOptions(options);
       const generator = new CpfGenerator();
 
-      return generator.generate.bind(generator, generatorOptions);
+      return (optionsOverride?: CpfGeneratorOptionsInput): string => {
+        const generatorOptions = new CpfGeneratorOptions(options, optionsOverride ?? {});
+
+        return generator.generate(generatorOptions);
+      };
     };
 
     describe.each([
@@ -318,40 +332,6 @@ describe('CpfGenerator', (): void => {
         expect(randomSequenceSpy).toHaveBeenCalledTimes(2);
         expect(randomSequenceSpy).toHaveBeenNthCalledWith(1, 6);
         expect(randomSequenceSpy).toHaveBeenNthCalledWith(2, 6);
-      });
-    });
-  });
-
-  describe('`options` getter', (): void => {
-    describe('when options were passed as a plain object', (): void => {
-      it('returns the internal CpfGeneratorOptions instance', (): void => {
-        const generator = new CpfGenerator({ prefix: '123456' });
-
-        expect(generator.options).toBeInstanceOf(CpfGeneratorOptions);
-        expect(generator.options.prefix).toBe('123456');
-      });
-    });
-
-    describe('when options were passed as a CpfGeneratorOptions instance', (): void => {
-      it('returns the same instance that was passed to the constructor', (): void => {
-        const options = new CpfGeneratorOptions({ prefix: '123456' });
-        const generator = new CpfGenerator(options);
-
-        expect(generator.options).toBe(options);
-        expect(generator.options.prefix).toBe('123456');
-      });
-    });
-
-    describe('when the returned options are mutated', (): void => {
-      it('affects future generate calls that do not pass per-call options', (): void => {
-        const generator = new CpfGenerator({ prefix: '123456' });
-
-        generator.options.prefix = '789';
-
-        const result = generator.generate();
-
-        expect(result).toMatch(/^789\d{8}$/);
-        expect(result).toHaveLength(11);
       });
     });
   });

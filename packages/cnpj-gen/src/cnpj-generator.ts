@@ -55,6 +55,18 @@ export class CnpjGenerator {
   }
 
   /**
+   * Returns the default options used by this generator when per-call options
+   * are not provided.
+   *
+   * The returned object is the same instance used internally; mutating it (e.g.
+   * via setters on `CnpjGeneratorOptions`) affects future `generate` calls that
+   * do not pass `options`.
+   */
+  public get options(): CnpjGeneratorOptions {
+    return this._options;
+  }
+
+  /**
    * Generates a valid CNPJ value.
    *
    * Builds a 14-character CNPJ from the configured prefix (if any), a random
@@ -104,18 +116,6 @@ export class CnpjGenerator {
     }
 
     return generatedCnpj;
-  }
-
-  /**
-   * Returns the default options used by this generator when per-call options
-   * are not provided.
-   *
-   * The returned object is the same instance used internally; mutating it (e.g.
-   * via setters on `CnpjGeneratorOptions`) affects future `generate` calls that
-   * do not pass `options`.
-   */
-  public get options(): CnpjGeneratorOptions {
-    return this._options;
   }
 }
 

@@ -77,7 +77,7 @@ Todas as opções são opcionais:
 | `hiddenEnd` | number | `13` | Índice final (0–13, inclusivo) do intervalo a ocultar |
 | `escape` | boolean | `false` | Se `true`, escapa caracteres especiais HTML no resultado |
 | `encode` | boolean | `false` | Se `true`, codifica o resultado para URL (ex.: query params) |
-| `onFail` | (value, error?) => string | `() => ''` | Callback quando a entrada é inválida ou o tamanho ≠ 14; o retorno é usado como resultado |
+| `onFail` | (value, exception) => string | `() => ''` | Callback quando o tamanho da entrada sanitizada ≠ 14; o retorno é usado como resultado |
 
 Exemplo com todas as opções:
 
@@ -92,7 +92,7 @@ cnpjFmt(cnpj, {
   dashKey: '_-_',
   escape: true,
   encode: true,
-  onFail(value, error) {
+  onFail(value, exception) {
     return String(value)
   },
 })
@@ -100,7 +100,7 @@ cnpjFmt(cnpj, {
 
 ### `cnpjFmt` (função auxiliar)
 
-Formata uma string de CNPJ. Sem opções, retorna o formato padrão (ex.: `91.415.732/0007-93`). Entrada inválida ou tamanho incorreto é tratado pelo callback `onFail` em vez de lançar exceção. É a forma mais prática de usar a biblioteca; internamente instancia um `CnpjFormatter` e chama `format`.
+Formata uma string de CNPJ. Sem opções, retorna o formato padrão (ex.: `91.415.732/0007-93`). Entrada com **tipo** inválido (não é string nem array de strings) faz o código lançar `CnpjFormatterInputTypeError`. **Tamanho** inválido (após remover caracteres não alfanuméricos, o resultado não tem 14 caracteres) é tratado pelo callback `onFail` em vez de lançar exceção. É a forma mais prática de usar a biblioteca; internamente instancia um `CnpjFormatter` e chama `format`.
 
 - **`cnpjInput`** (string ou array de strings): CNPJ bruto ou já formatado, 14 caracteres alfanuméricos (após sanitização).
 - **`options`** (opcional): Ver [opções de formatação](#opções-de-formatação).
@@ -135,7 +135,7 @@ formatter.format('RK0CMT3W000100', { hidden: false })   // sobrescreve nesta cha
 
 ### Exceções
 
-Ao usar `CnpjFormatter` com opções inválidas ou quando se lança exceção em caso de falha, você pode encontrar:
+Ao usar `CnpjFormatter`, tipo de entrada inválido (não string, não array de strings) sempre lança exceção. Opções inválidas lançam ao construir as opções. Tamanho inválido é repassado ao `onFail` por padrão. Você pode encontrar:
 
 - **CnpjFormatterTypeError** (base para erros de tipo)
 - **CnpjFormatterInputTypeError** — entrada não é string nem string[]

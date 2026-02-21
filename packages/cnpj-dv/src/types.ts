@@ -7,4 +7,4 @@
  * - An array of strings, where each string represents an alphanumeric character
  *   or group of alphanumeric characters.
  */
-export type CnpjInput = string | string[];
+export type CnpjInput = readonly string[] | string;

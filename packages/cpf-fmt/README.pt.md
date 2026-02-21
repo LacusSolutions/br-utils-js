@@ -72,7 +72,7 @@ Todas as opções são opcionais. Chaves planas (sem objetos aninhados `delimite
 | `dashKey` | string | `'-'` | Delimitador de hífen (ex.: antes dos dígitos verificadores `…-58`) |
 | `escape` | boolean | `false` | Quando `true`, aplica escape a caracteres especiais HTML no resultado |
 | `encode` | boolean | `false` | Quando `true`, codifica o resultado para URL (ex.: para parâmetros de query) |
-| `onFail` | (value, error?) => string | `() => ''` | Callback quando a entrada é inválida ou o comprimento ≠ 11; o valor retornado é usado como resultado |
+| `onFail` | (value, exception) => string | `() => ''` | Callback quando o tamanho da entrada sanitizada ≠ 11; o retorno é usado como resultado |
 
 Exemplo com todas as opções:
 
@@ -86,7 +86,7 @@ cpfFmt(cpf, {
   dashKey: '_-_',
   escape: true,
   encode: true,
-  onFail(value, error) {
+  onFail(value, exception) {
     return String(value)
   },
 })
@@ -94,7 +94,7 @@ cpfFmt(cpf, {
 
 ### `cpfFmt` (função auxiliar)
 
-Formata uma string de CPF. Sem opções, retorna o formato padrão (ex.: `123.456.789-10`). Entrada inválida ou comprimento incorreto é tratado pelo callback `onFail` em vez de lançar exceção. É a forma mais prática de usar a biblioteca. Internamente, instancia um `CpfFormatter` e chama `format` em seguida.
+Formata uma string de CPF. Sem opções, retorna o formato padrão (ex.: `123.456.789-10`). Entrada com **tipo** inválido (não é string nem array de strings) faz o código lançar `CpfFormatterInputTypeError`. **Comprimento** inválido (após remover caracteres não numéricos, o resultado não tem 11 dígitos) é tratado pelo callback `onFail` em vez de lançar exceção. É a forma mais prática de usar a biblioteca. Internamente, instancia um `CpfFormatter` e chama `format` em seguida.
 
 - **`cpfInput`** (string ou array de strings): Valor com 11 dígitos, bruto ou já formatado (após sanitização).
 - **`options`** (opcional): Veja [opções de formatação](#opções-de-formatação).
@@ -129,7 +129,7 @@ formatter.format('12345678910', { hidden: false })   // sobrescreve nesta chamad
 
 ### Exceções
 
-Ao usar `CpfFormatter` com opções inválidas ou quando você lança em caso de falha, podem ocorrer:
+Ao usar `CpfFormatter`, tipo de entrada inválido (não string, não array de strings) sempre lança exceção. Opções inválidas lançam ao construir as opções. Comprimento inválido é repassado ao `onFail` por padrão. Podem ocorrer:
 
 - **CpfFormatterTypeError** (base para erros de tipo)
 - **CpfFormatterInputTypeError** — a entrada não é string nem string[]

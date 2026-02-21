@@ -1,7 +1,7 @@
 {
   "name": "@lacussoft/cnpj-val",
   "version": "2.0.2",
-  "description": "Utility function to validate CNPJ (Brazilian employer ID)",
+  "description": "Utility to validate CNPJ (Brazilian Business Tax ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
@@ -34,24 +34,19 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": {
-        "default": "./dist/index.cjs"
-      },
-      "import": {
-        "default": "./dist/index.mjs"
-      }
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     }
   },
   "scripts": {
     "build": "rollup --config",
     "type-check": "tsc --noEmit",
-    "lint": "eslint --fix src/ tests/ rollup.config.mjs",
-    "pretest": "bun run build --silent",
+    "lint": "bun run lint:ci --fix",
+    "lint:ci": "eslint src/ tests/ rollup.config.mjs",
     "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
-    "test:ci": "bun test"
+    "test:ci": "bun test --only-failures"
   },
   "dependencies": {
-    "@lacussoft/cnpj-gen": "workspace:^2.0.2",
-    "num-only": "^1.2.9"
+    "@lacussoft/cnpj-dv": "workspace:*"
   }
 }

@@ -20,8 +20,8 @@ const HIDDEN_KEY_PLACEHOLDER = CpfFormatterOptions.DISALLOWED_KEY_CHARACTERS[0];
  * Formatter for CPF (Cadastro de Pessoa Física) identifiers. It normalizes and
  * optionally masks, HTML-escapes, or URL-encodes 11-digit CPF input. Accepts a
  * string or array of strings; non-numeric characters are stripped. Invalid
- * input or length is handled via the configured `onFail` callback instead of
- * throwing.
+ * input type is handled by throwing; invalid length is handled via the
+ * configured `onFail` callback instead of throwing.
  */
 export class CpfFormatter {
   private _options: CpfFormatterOptions;
@@ -51,12 +51,24 @@ export class CpfFormatter {
   }
 
   /**
+   * Returns the default options used by this formatter when per-call options
+   * are not provided.
+   *
+   * The returned object is the same instance used internally; mutating it (e.g.
+   * via setters on `CpfFormatterOptions`) affects future `format` calls that do
+   * not pass `options`.
+   */
+  public get options(): CpfFormatterOptions {
+    return this._options;
+  }
+
+  /**
    * Formats a CPF value into a normalized 11-digit string.
    *
    * Input is normalized by stripping non-numeric characters. If the result
-   * length is not exactly 11, or if the input is not a string or array of
-   * strings, the configured `onFail` callback is invoked with the original
-   * value and an error; its return value is used as the result.
+   * length is not exactly 11, the configured `onFail` callback is invoked with
+   * the string value and an error; its return value is used as the result. If
+   * the input is not a string or array of strings, this method throws.
    *
    * When valid, the result may be further transformed according to options:
    *
@@ -73,27 +85,18 @@ export class CpfFormatter {
    *   or `hiddenEnd` are out of valid range.
    * @throws {CpfFormatterInputTypeError} If the input is not a string or array
    *   of strings.
-   * @throws {CpfFormatterInputLengthException} If the input length is not
-   *   exactly 11 after sanitization.
    */
   public format(cpfInput: CpfInput, options?: CpfFormatterOptionsInput): string {
-    const actualInput = cpfInput as unknown;
-    const nonArrayInput = Array.isArray(actualInput) ? actualInput.join('') : actualInput;
+    const actualInput = this._toStringInput(cpfInput);
     const actualOptions = options ? new CpfFormatterOptions(this._options, options) : this._options;
 
-    if (typeof nonArrayInput !== 'string') {
-      const error = new CpfFormatterInputTypeError(cpfInput, 'string or string[]');
-
-      return actualOptions.onFail(nonArrayInput, error);
-    }
-
-    const digitsOnly = nonArrayInput.replace(/\D/g, '');
+    const digitsOnly = actualInput.replace(/\D/g, '');
     let formattedCpf = digitsOnly;
 
     if (formattedCpf.length !== CPF_LENGTH) {
-      const error = new CpfFormatterInputLengthException(cpfInput, formattedCpf, CPF_LENGTH);
+      const exception = new CpfFormatterInputLengthException(cpfInput, formattedCpf, CPF_LENGTH);
 
-      return actualOptions.onFail(nonArrayInput, error);
+      return actualOptions.onFail(cpfInput, exception);
     }
 
     if (actualOptions.hidden) {
@@ -130,15 +133,27 @@ export class CpfFormatter {
   }
 
   /**
-   * Returns the default options used by this formatter when per-call options
-   * are not provided.
+   * Normalizes the input to a string.
    *
-   * The returned object is the same instance used internally; mutating it (e.g.
-   * via setters on `CpfFormatterOptions`) affects future `format` calls that do
-   * not pass `options`.
+   * @throws {CpfFormatterInputTypeError} If the input is not a string or array
+   *   of strings.
    */
-  public get options(): CpfFormatterOptions {
-    return this._options;
+  private _toStringInput(cpfInput: unknown): string {
+    if (typeof cpfInput === 'string') {
+      return cpfInput;
+    }
+
+    if (Array.isArray(cpfInput)) {
+      for (const item of cpfInput) {
+        if (typeof item !== 'string') {
+          throw new CpfFormatterInputTypeError(cpfInput, 'string or string[]');
+        }
+      }
+
+      return cpfInput.join('');
+    }
+
+    throw new CpfFormatterInputTypeError(cpfInput, 'string or string[]');
   }
 }
 

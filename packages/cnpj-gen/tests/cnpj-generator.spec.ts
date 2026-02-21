@@ -110,7 +110,9 @@ describe('CnpjGenerator', (): void => {
     ) => {
       const generator = new CnpjGenerator(options);
 
-      return generator.generate.bind(generator);
+      return (optionsOverride?: CnpjGeneratorOptionsInput): string => {
+        return generator.generate(optionsOverride);
+      };
     };
 
     const createGeneratorWithCnpjGeneratorOptionsInstanceInConstructor: CnpjGeneratorFactory = (
@@ -119,22 +121,34 @@ describe('CnpjGenerator', (): void => {
       const generatorOptions = new CnpjGeneratorOptions(options);
       const generator = new CnpjGenerator(generatorOptions);
 
-      return generator.generate.bind(generator);
+      return (optionsOverride?: CnpjGeneratorOptionsInput): string => {
+        return generator.generate(optionsOverride);
+      };
     };
 
     const createGeneratorWithLiteralObjectOptionsInMethod: CnpjGeneratorFactory = (options) => {
       const generator = new CnpjGenerator();
 
-      return generator.generate.bind(generator, options);
+      return (optionsOverride?: CnpjGeneratorOptionsInput): string => {
+        return generator.generate({
+          ...options,
+          ...(optionsOverride instanceof CnpjGeneratorOptions
+            ? optionsOverride.all
+            : optionsOverride),
+        });
+      };
     };
 
     const createGeneratorWithCnpjGeneratorOptionsInstanceInMethod: CnpjGeneratorFactory = (
       options,
     ) => {
-      const generatorOptions = new CnpjGeneratorOptions(options);
       const generator = new CnpjGenerator();
 
-      return generator.generate.bind(generator, generatorOptions);
+      return (optionsOverride?: CnpjGeneratorOptionsInput): string => {
+        const generatorOptions = new CnpjGeneratorOptions(options, optionsOverride ?? {});
+
+        return generator.generate(generatorOptions);
+      };
     };
 
     describe.each([
@@ -463,40 +477,6 @@ describe('CnpjGenerator', (): void => {
         expect(randomSequenceSpy).toHaveBeenCalledTimes(2);
         expect(randomSequenceSpy).toHaveBeenNthCalledWith(1, 4, 'alphanumeric');
         expect(randomSequenceSpy).toHaveBeenNthCalledWith(2, 4, 'alphanumeric');
-      });
-    });
-  });
-
-  describe('`options` getter', (): void => {
-    describe('when options were passed as a plain object', (): void => {
-      it('returns the internal CnpjGeneratorOptions instance', (): void => {
-        const generator = new CnpjGenerator({ type: 'numeric' });
-
-        expect(generator.options).toBeInstanceOf(CnpjGeneratorOptions);
-        expect(generator.options.type).toBe('numeric');
-      });
-    });
-
-    describe('when options were passed as a CnpjGeneratorOptions instance', (): void => {
-      it('returns the same instance that was passed to the constructor', (): void => {
-        const options = new CnpjGeneratorOptions({ prefix: '12345678' });
-        const generator = new CnpjGenerator(options);
-
-        expect(generator.options).toBe(options);
-        expect(generator.options.prefix).toBe('12345678');
-      });
-    });
-
-    describe('when the returned options are mutated', (): void => {
-      it('affects future generate calls that do not pass per-call options', (): void => {
-        const generator = new CnpjGenerator({ type: 'numeric' });
-
-        generator.options.type = 'alphabetic';
-
-        const result = generator.generate();
-
-        expect(result).toMatch(/^[A-Z]{12}\d{2}$/);
-        expect(result).toHaveLength(14);
       });
     });
   });

@@ -1,5 +1,6 @@
 /* eslint-disable @eslint-community/eslint-comments/disable-enable-pair, perfectionist/sort-interfaces */
 import type { CpfFormatterOptions } from './cpf-formatter-options';
+import { type CpfFormatterException } from './exceptions';
 
 /**
  * Represents valid input types for CPF formatting.
@@ -9,7 +10,7 @@ import type { CpfFormatterOptions } from './cpf-formatter-options';
  * - A string containing digits (with or without formatting)
  * - An array of strings, where each string represents a digit or group of digits.
  */
-export type CpfInput = string | string[];
+export type CpfInput = readonly string[] | string;
 
 /**
  * A utility type that represents a value that can be `null`, `undefined`, or
@@ -24,10 +25,10 @@ export type Nullable<T> = null | T | undefined;
  *
  * This function is invoked when the CPF formatter encounters an error during
  * formatting, such as invalid input, invalid options, or other formatting
- * issues. The callback receives the original input value and an optional error
+ * issues. The callback receives the original input value and the exception
  * object, and should return a string to use as the fallback output.
  */
-export type OnFailCallback = (value: unknown, error?: Error) => string;
+export type OnFailCallback = (value: unknown, exception: CpfFormatterException) => string;
 
 /**
  * Configuration interface for CPF (Cadastro de Pessoa Física) formatting

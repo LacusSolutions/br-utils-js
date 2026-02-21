@@ -90,7 +90,7 @@ All options are optional:
 | `dashKey` | string | `'-'` | Dash delimiter (e.g. before check digits `…-90`) |
 | `escape` | boolean | `false` | When `true`, escape HTML special characters in the result |
 | `encode` | boolean | `false` | When `true`, URL-encode the result (e.g. for query params) |
-| `onFail` | (value, error?) => string | `() => ''` | Callback when input is invalid or length ≠ 14; return value is used as result |
+| `onFail` | (value, exception) => string | `() => ''` | Callback when sanitized input length ≠ 14; return value is used as result |
 
 Example with all options:
 
@@ -105,7 +105,7 @@ cnpjFmt(cnpj, {
   dashKey: '_-_',
   escape: true,
   encode: true,
-  onFail(value, error) {
+  onFail(value, exception) {
     return String(value)
   },
 })
@@ -113,7 +113,7 @@ cnpjFmt(cnpj, {
 
 ### `cnpjFmt` (helper function)
 
-Formats a CNPJ string. With no options, returns the standard format (e.g. `91.415.732/0007-93`). Invalid input or length is handled by the `onFail` callback instead of throwing. This is a more convenient way to use the library. However, under the hood, it instantiates a `CnpjFormatter` and immediately calls `format`.
+Formats a CNPJ string. With no options, returns the standard format (e.g. `91.415.732/0007-93`). Invalid input **type** (not a string or array of strings) causes `CnpjFormatterInputTypeError` to be thrown. Invalid **length** (after stripping non-alphanumeric characters, the result is not 14 characters) is handled by the `onFail` callback instead of throwing. This is a more convenient way to use the library. However, under the hood, it instantiates a `CnpjFormatter` and immediately calls `format`.
 
 - **`cnpjInput`** (string or array of strings): Raw or already formatted 14-alphanumeric-chars (after sanitization).
 - **`options`** (optional): See [formatting options](#formatting-options).
@@ -148,7 +148,7 @@ formatter.format('RK0CMT3W000100', { hidden: false }) // override for this call:
 
 ### Exceptions
 
-When using `CnpjFormatter` with invalid options or when you throw on failure, you may see:
+When using `CnpjFormatter`, invalid input type (non-string, non–array of strings) always throws. Invalid options throw when building options. Invalid length is passed to `onFail` by default. You may see:
 
 - **CnpjFormatterTypeError** (base for type errors)
 - **CnpjFormatterInputTypeError** — input is not string or string[]

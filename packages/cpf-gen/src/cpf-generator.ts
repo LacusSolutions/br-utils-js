@@ -48,6 +48,18 @@ export class CpfGenerator {
   }
 
   /**
+   * Returns the default options used by this generator when per-call options
+   * are not provided.
+   *
+   * The returned object is the same instance used internally; mutating it (e.g.
+   * via setters on `CpfGeneratorOptions`) affects future `generate` calls that
+   * do not pass `options`.
+   */
+  public get options(): CpfGeneratorOptions {
+    return this._options;
+  }
+
+  /**
    * Generates a valid CPF value.
    *
    * Builds a 9-digit CPF from the configured prefix (if any), a random sequence
@@ -91,18 +103,6 @@ export class CpfGenerator {
     }
 
     return generatedCpf;
-  }
-
-  /**
-   * Returns the default options used by this generator when per-call options
-   * are not provided.
-   *
-   * The returned object is the same instance used internally; mutating it (e.g.
-   * via setters on `CpfGeneratorOptions`) affects future `generate` calls that
-   * do not pass `options`.
-   */
-  public get options(): CpfGeneratorOptions {
-    return this._options;
   }
 }
 
