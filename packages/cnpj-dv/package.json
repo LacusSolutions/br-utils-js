@@ -7,10 +7,6 @@
     "name": "Julio L. Muller",
     "url": "https://github.com/juliolmuller"
   },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
   "keywords": [
     "cnpj",
     "verificar",
@@ -23,6 +19,7 @@
     "pt-br",
     "br"
   ],
+  "homepage": "https://cnpj-utils.vercel.app/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LacusSolutions/br-utils-js.git"
@@ -30,7 +27,6 @@
   "bugs": {
     "url": "https://github.com/LacusSolutions/br-utils-js/issues"
   },
-  "homepage": "https://cnpj-utils.vercel.app/",
   "files": [
     "dist/**/*",
     "README.md",
@@ -38,13 +34,19 @@
     "CHANGELOG.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "sideEffects": false,
   "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
