@@ -1,14 +1,24 @@
 import Bun, { $ } from 'bun';
 import { beforeAll, describe, expect, it } from 'bun:test';
 
-function extractExportedResources(content: string): string[] {
+function extractExported(what: 'resources' | 'types', content: string): string[] {
+  const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
+
   return (
     content
-      ?.match(/export \{([^}]+)\}/)
+      ?.match(regex)
       ?.at(1)
       ?.split(',')
       ?.map((resource) => resource.trim()) ?? []
   );
+}
+
+function extractExportedResources(content: string): string[] {
+  return extractExported('resources', content);
+}
+
+function extractExportedTypes(content: string): string[] {
+  return extractExported('types', content);
 }
 
 describe('package distributions', (): void => {
@@ -232,79 +242,59 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
 
     beforeAll(async (): Promise<void> => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
     });
 
     it('exists', async (): Promise<void> => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('exports `cnpjGen` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cnpjGen` as default', (): void => {
       expect(exportedResources).toContain('cnpjGen as default');
     });
 
-    it('exports `cnpjGen` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cnpjGen` as named', (): void => {
       expect(exportedResources).toContain('cnpjGen');
     });
 
-    it('exports `CnpjGenerator` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjGenerator` as named', (): void => {
       expect(exportedResources).toContain('CnpjGenerator');
     });
 
-    it('exports `CnpjGeneratorOptions` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjGeneratorOptions` as named', (): void => {
       expect(exportedResources).toContain('CnpjGeneratorOptions');
     });
 
-    it('exports `CNPJ_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
+    it('exports `CnpjGeneratorTypeError` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorTypeError');
+    });
 
+    it('exports `CnpjGeneratorOptionsTypeError` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorOptionsTypeError');
+    });
+
+    it('exports `CnpjGeneratorException` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorException');
+    });
+
+    it('exports `CnpjGeneratorOptionPrefixInvalidException` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorOptionPrefixInvalidException');
+    });
+
+    it('exports `CnpjGeneratorOptionTypeInvalidException` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorOptionTypeInvalidException');
+    });
+
+    it('exports `CNPJ_LENGTH` as named', (): void => {
       expect(exportedResources).toContain('CNPJ_LENGTH');
     });
 
     it('exports `CNPJ_PREFIX_MAX_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
       expect(exportedResources).toContain('CNPJ_PREFIX_MAX_LENGTH');
-    });
-
-    it('exports `CnpjGeneratorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorTypeError');
-    });
-
-    it('exports `CnpjGeneratorOptionsTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorOptionsTypeError');
-    });
-
-    it('exports `CnpjGeneratorException` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorException');
-    });
-
-    it('exports `CnpjGeneratorOptionPrefixInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorOptionPrefixInvalidException');
-    });
-
-    it('exports `CnpjGeneratorOptionTypeInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorOptionTypeInvalidException');
     });
   });
 
@@ -312,9 +302,13 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
+    let exportedTypes: string[];
 
     beforeAll(async (): Promise<void> => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
+      exportedTypes = extractExportedTypes(content);
     });
 
     it('exists', async (): Promise<void> => {
@@ -325,15 +319,11 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare function cnpjGen');
     });
 
-    it('exports `cnpjGen` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cnpjGen` as default', (): void => {
       expect(exportedResources).toContain('cnpjGen as default');
     });
 
-    it('exports `cnpjGen` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cnpjGen` as named', (): void => {
       expect(exportedResources).toContain('cnpjGen');
     });
 
@@ -341,9 +331,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CnpjGenerator');
     });
 
-    it('exports `CnpjGenerator` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjGenerator` as named', (): void => {
       expect(exportedResources).toContain('CnpjGenerator');
     });
 
@@ -351,19 +339,55 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CnpjGeneratorOptions');
     });
 
-    it('exports `CnpjGeneratorOptions` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjGeneratorOptions` as named', (): void => {
       expect(exportedResources).toContain('CnpjGeneratorOptions');
+    });
+
+    it('declares `CnpjGeneratorTypeError` abstract class', (): void => {
+      expect(content).toContain('declare abstract class CnpjGeneratorTypeError');
+    });
+
+    it('exports `CnpjGeneratorTypeError` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorTypeError');
+    });
+
+    it('declares `CnpjGeneratorOptionsTypeError` class', (): void => {
+      expect(content).toContain('declare class CnpjGeneratorOptionsTypeError');
+    });
+
+    it('exports `CnpjGeneratorOptionsTypeError` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorOptionsTypeError');
+    });
+
+    it('declares `CnpjGeneratorException` abstract class', (): void => {
+      expect(content).toContain('declare abstract class CnpjGeneratorException');
+    });
+
+    it('exports `CnpjGeneratorException` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorException');
+    });
+
+    it('declares `CnpjGeneratorOptionPrefixInvalidException` class', (): void => {
+      expect(content).toContain('declare class CnpjGeneratorOptionPrefixInvalidException');
+    });
+
+    it('exports `CnpjGeneratorOptionPrefixInvalidException` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorOptionPrefixInvalidException');
+    });
+
+    it('declares `CnpjGeneratorOptionTypeInvalidException` class', (): void => {
+      expect(content).toContain('declare class CnpjGeneratorOptionTypeInvalidException');
+    });
+
+    it('exports `CnpjGeneratorOptionTypeInvalidException` as named', (): void => {
+      expect(exportedResources).toContain('CnpjGeneratorOptionTypeInvalidException');
     });
 
     it('declares `CNPJ_LENGTH` constant', (): void => {
       expect(content).toContain('declare const CNPJ_LENGTH');
     });
 
-    it('exports `CNPJ_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CNPJ_LENGTH` as named', (): void => {
       expect(exportedResources).toContain('CNPJ_LENGTH');
     });
 
@@ -372,59 +396,31 @@ describe('package distributions', (): void => {
     });
 
     it('exports `CNPJ_PREFIX_MAX_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
       expect(exportedResources).toContain('CNPJ_PREFIX_MAX_LENGTH');
     });
 
-    it('declares `CnpjGeneratorTypeError` abstract class', (): void => {
-      expect(content).toContain('declare abstract class CnpjGeneratorTypeError');
+    it('declares `CnpjType` type', (): void => {
+      expect(content).toContain('type CnpjType');
     });
 
-    it('exports `CnpjGeneratorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorTypeError');
+    it('exports `CnpjType` as named', (): void => {
+      expect(exportedTypes).toContain('CnpjType');
     });
 
-    it('declares `CnpjGeneratorOptionsTypeError` class', (): void => {
-      expect(content).toContain('declare class CnpjGeneratorOptionsTypeError');
+    it('declares `CnpjGeneratorOptionsInput` type', (): void => {
+      expect(content).toContain('type CnpjGeneratorOptionsInput');
     });
 
-    it('exports `CnpjGeneratorOptionsTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorOptionsTypeError');
+    it('exports `CnpjGeneratorOptionsInput` as named', (): void => {
+      expect(exportedTypes).toContain('CnpjGeneratorOptionsInput');
     });
 
-    it('declares `CnpjGeneratorException` abstract class', (): void => {
-      expect(content).toContain('declare abstract class CnpjGeneratorException');
+    it('declares `CnpjGeneratorOptionsType` type', (): void => {
+      expect(content).toContain('interface CnpjGeneratorOptionsType');
     });
 
-    it('exports `CnpjGeneratorException` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorException');
-    });
-
-    it('declares `CnpjGeneratorOptionPrefixInvalidException` class', (): void => {
-      expect(content).toContain('declare class CnpjGeneratorOptionPrefixInvalidException');
-    });
-
-    it('exports `CnpjGeneratorOptionPrefixInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorOptionPrefixInvalidException');
-    });
-
-    it('declares `CnpjGeneratorOptionTypeInvalidException` class', (): void => {
-      expect(content).toContain('declare class CnpjGeneratorOptionTypeInvalidException');
-    });
-
-    it('exports `CnpjGeneratorOptionTypeInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CnpjGeneratorOptionTypeInvalidException');
+    it('exports `CnpjGeneratorOptionsType` as named', (): void => {
+      expect(exportedTypes).toContain('CnpjGeneratorOptionsType');
     });
   });
 });
