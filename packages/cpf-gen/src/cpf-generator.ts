@@ -1,8 +1,8 @@
 import CpfCheckDigits, { CpfCheckDigitsException } from '@lacussoft/cpf-dv';
+import { generateRandomSequence } from '@lacussoft/utils';
 
 import { CPF_PREFIX_MAX_LENGTH, CpfGeneratorOptions } from './cpf-generator-options';
 import type { CpfGeneratorOptionsInput } from './types';
-import { randomSequence } from './utils';
 
 /**
  * @typedef {import('./exceptions').CpfGeneratorOptionsTypeError} CpfGeneratorOptionsTypeError
@@ -76,7 +76,7 @@ export class CpfGenerator {
   public generate(options?: CpfGeneratorOptionsInput): string {
     const actualOptions = options ? new CpfGeneratorOptions(this._options, options) : this._options;
     const digitsToGenerate = CPF_PREFIX_MAX_LENGTH - actualOptions.prefix.length;
-    const generatedDigits = randomSequence(digitsToGenerate);
+    const generatedDigits = generateRandomSequence(digitsToGenerate, 'numeric');
     let generatedCpf = actualOptions.prefix + generatedDigits;
 
     try {
