@@ -9,7 +9,7 @@ Utilitário em JavaScript/TypeScript para validar CPFs (Cadastro de Pessoas Fís
 - ✅ **Entrada flexível**: Aceita string ou array de strings (formatado ou bruto)
 - ✅ **Agnóstico ao formato**: Remove caracteres não numéricos antes da validação
 - ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
-- ✅ **Dependências mínimas**: Depende apenas do pacote interno `@lacussoft/cpf-dv` para verificação dos dígitos verificadores
+- ✅ **Dependências mínimas**: Sem dependências externas, apenas pacotes internos como `@lacussoft/utils`, e `@lacussoft/cpf-dv` para o cálculo dos dígitos verificadores
 - ✅ **Tratamento de erros**: Erro de tipo específico para tipo de entrada inválido
 
 ## Instalação

@@ -54,6 +54,7 @@
     "test:ci": "bun test --only-failures"
   },
   "dependencies": {
-    "@lacussoft/cpf-dv": "workspace:*"
+    "@lacussoft/cpf-dv": "workspace:*",
+    "@lacussoft/utils": "workspace:*"
   }
 }
