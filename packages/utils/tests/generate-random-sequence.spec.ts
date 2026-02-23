@@ -1,7 +1,7 @@
 import { describe, expect, it, type Test } from 'bun:test';
 
 import { generateRandomSequence } from '../src/generate-random-sequence';
-import type { CnpjType } from '../src/types';
+import type { SequenceType } from '../src/types';
 
 describe('generateRandomSequence', (): void => {
   interface Sequence {
@@ -9,7 +9,7 @@ describe('generateRandomSequence', (): void => {
     result: string;
   }
 
-  function assertEach(times: number, size: number, type: CnpjType): Test<[Sequence]> {
+  function assertEach(times: number, size: number, type: SequenceType): Test<[Sequence]> {
     const results: Sequence[] = [];
 
     for (let i = 0; i < times; i++) {
