@@ -21,7 +21,6 @@ A JavaScript/TypeScript reusable utilities library for Lacus Solutions' packages
 - ✅ **Type description**: Human-readable type strings for error messages (primitives, arrays, `NaN`, `Infinity`)
 - ✅ **HTML escaping**: Escape `&`, `<`, `>`, `"`, `'` for safe output and XSS mitigation
 - ✅ **Random sequences**: Generate numeric, alphabetic, or alphanumeric sequences of any length
-- ✅ **TypeScript support**: Full type definitions and `CnpjType` for sequence generation
 - ✅ **Zero dependencies**: No external dependencies
 
 ## Installation
@@ -118,7 +117,7 @@ Escapes HTML special characters: `&` → `&amp;`, `<` → `&lt;`, `>` → `&gt;`
 
 See [`src/escape-html.ts`](src/escape-html.ts) and [`tests/escape-html.spec.ts`](tests/escape-html.spec.ts).
 
-### `generateRandomSequence(size: number, type: CnpjType): string`
+### `generateRandomSequence(size: number, type: SequenceType): string`
 
 Generates a random character sequence of the given length and type.
 
@@ -136,8 +135,8 @@ See [`src/generate-random-sequence.ts`](src/generate-random-sequence.ts), [`src/
 |--------|------|-------------|
 | `describeType` | `(value: unknown) => string` | Type description for error messages |
 | `escapeHTML` | `(value: string) => string` | HTML entity escaping |
-| `generateRandomSequence` | `(size: number, type: CnpjType) => string` | Random sequence generation |
-| `CnpjType` | `'alphabetic' \| 'alphanumeric' \| 'numeric'` | Type for sequence kind |
+| `generateRandomSequence` | `(size: number, type: SequenceType) => string` | Random sequence generation |
+| `SequenceType` | `'alphabetic' \| 'alphanumeric' \| 'numeric'` | Type for sequence kind |
 
 Default export: frozen object `{ describeType, escapeHTML, generateRandomSequence }`.
 

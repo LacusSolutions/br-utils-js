@@ -1,4 +1,4 @@
-import type { CnpjType } from './types';
+import type { SequenceType } from './types';
 
 const NUMERIC_CHARACTERS = '0123456789';
 const ALPHABETIC_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -13,7 +13,7 @@ const ALPHANUMERIC_CHARACTERS = NUMERIC_CHARACTERS + ALPHABETIC_CHARACTERS;
  *   generateRandomSequence(6, 'alphabetic'); // e.g. 'AXQMZB'
  *   generateRandomSequence(8, 'alphanumeric'); // e.g. '8ZFB2K09'
  */
-export function generateRandomSequence(size: number, type: CnpjType): string {
+export function generateRandomSequence(size: number, type: SequenceType): string {
   const charactersSequence: string[] = [];
   let charactersRange = ALPHANUMERIC_CHARACTERS;
 

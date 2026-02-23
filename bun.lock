@@ -41,16 +41,23 @@
     "packages/cnpj-dv": {
       "name": "@lacussoft/cnpj-dv",
       "version": "0.0.0",
+      "dependencies": {
+        "@lacussoft/utils": "workspace:*",
+      },
     },
     "packages/cnpj-fmt": {
       "name": "@lacussoft/cnpj-fmt",
       "version": "2.0.2",
+      "dependencies": {
+        "@lacussoft/utils": "workspace:*",
+      },
     },
     "packages/cnpj-gen": {
       "name": "@lacussoft/cnpj-gen",
       "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cnpj-dv": "workspace:*",
+        "@lacussoft/utils": "workspace:*",
       },
     },
     "packages/cnpj-utils": {
@@ -67,21 +74,29 @@
       "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cnpj-dv": "workspace:*",
+        "@lacussoft/utils": "workspace:*",
       },
     },
     "packages/cpf-dv": {
       "name": "@lacussoft/cpf-dv",
       "version": "0.0.0",
+      "dependencies": {
+        "@lacussoft/utils": "workspace:*",
+      },
     },
     "packages/cpf-fmt": {
       "name": "@lacussoft/cpf-fmt",
       "version": "2.0.2",
+      "dependencies": {
+        "@lacussoft/utils": "workspace:*",
+      },
     },
     "packages/cpf-gen": {
       "name": "@lacussoft/cpf-gen",
       "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cpf-dv": "workspace:*",
+        "@lacussoft/utils": "workspace:*",
       },
     },
     "packages/cpf-utils": {
@@ -98,7 +113,12 @@
       "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cpf-dv": "workspace:*",
+        "@lacussoft/utils": "workspace:*",
       },
+    },
+    "packages/utils": {
+      "name": "@lacussoft/utils",
+      "version": "0.0.0",
     },
   },
   "packages": {
@@ -479,6 +499,8 @@
     "@lacussoft/cpf-gen": ["@lacussoft/cpf-gen@workspace:packages/cpf-gen"],
 
     "@lacussoft/cpf-val": ["@lacussoft/cpf-val@workspace:packages/cpf-val"],
+
+    "@lacussoft/utils": ["@lacussoft/utils@workspace:packages/utils"],
 
     "@manypkg/find-root": ["@manypkg/find-root@1.1.0", "", { "dependencies": { "@babel/runtime": "^7.5.5", "@types/node": "^12.7.1", "find-up": "^4.1.0", "fs-extra": "^8.1.0" } }, "sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA=="],
 
