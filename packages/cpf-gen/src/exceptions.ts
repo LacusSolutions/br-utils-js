@@ -1,5 +1,6 @@
+import { describeType } from '@lacussoft/utils';
+
 import type { CpfGeneratorOptionsType } from './types';
-import { describeType } from './utils';
 
 /**
  * Base error class for all `cpf-gen` type-related errors.

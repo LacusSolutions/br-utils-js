@@ -13,7 +13,7 @@ Utilitário em JavaScript/TypeScript para formatar CNPJ (Cadastro Nacional da Pe
 - ✅ **Agnóstico ao formato**: Remove caracteres não alfanuméricos e converte para maiúsculas antes de formatar
 - ✅ **Customizável**: Delimitadores (ponto, barra, hífen), mascaramento (intervalo + caractere de substituição), escape HTML e codificação para URL
 - ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
-- ✅ **Zero dependências**: Nenhuma dependência externa
+- ✅ **Dependências mínimas**: Sem dependências externas, apenas pacotes internos como `@lacussoft/utils`
 - ✅ **Tratamento de erros**: Callback `onFail` configurável; uso opcional de classes de exceção específicas
 
 ## Instalação

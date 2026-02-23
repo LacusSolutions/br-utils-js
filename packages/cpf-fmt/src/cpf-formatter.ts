@@ -1,7 +1,8 @@
+import { escapeHTML } from '@lacussoft/utils';
+
 import { CPF_LENGTH, CpfFormatterOptions } from './cpf-formatter-options';
 import { CpfFormatterInputLengthException, CpfFormatterInputTypeError } from './exceptions';
 import type { CpfFormatterOptionsInput, CpfInput } from './types';
-import { escapeHTML } from './utils';
 
 /**
  * @typedef {import('./exceptions').CpfFormatterOptionsTypeError} CpfFormatterOptionsTypeError

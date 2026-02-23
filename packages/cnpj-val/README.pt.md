@@ -13,7 +13,7 @@ Utilitário em JavaScript/TypeScript para validar CNPJs (Cadastro Nacional da Pe
 - ✅ **Agnóstico ao formato**: Remove caracteres não alfanuméricos e opcionalmente converte para maiúsculas antes de validar
 - ✅ **Sensibilidade a maiúsculas opcional**: Com `caseSensitive` em `false`, letras minúsculas são aceitas para CNPJ alfanumérico
 - ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
-- ✅ **Dependências mínimas**: Depende apenas do pacote interno `@lacussoft/cnpj-dv` para verificação dos dígitos verificadores
+- ✅ **Dependências mínimas**: Sem dependências externas, apenas pacotes internos como `@lacussoft/utils`, e `@lacussoft/cnpj-dv` para o cálculo dos dígitos verificadores
 - ✅ **Tratamento de erros**: Erros de tipo e exceções específicas para opções ou tipo de entrada inválidos
 
 ## Instalação

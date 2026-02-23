@@ -1,8 +1,8 @@
 import CnpjCheckDigits, { CnpjCheckDigitsException } from '@lacussoft/cnpj-dv';
+import { generateRandomSequence } from '@lacussoft/utils';
 
 import { CNPJ_PREFIX_MAX_LENGTH, CnpjGeneratorOptions } from './cnpj-generator-options';
 import type { CnpjGeneratorOptionsInput } from './types';
-import { randomSequence } from './utils';
 
 /**
  * @typedef {import('./exceptions').CnpjGeneratorOptionsTypeError} CnpjGeneratorOptionsTypeError
@@ -87,7 +87,7 @@ export class CnpjGenerator {
       ? new CnpjGeneratorOptions(this._options, options)
       : this._options;
     const charactersToGenerate = CNPJ_PREFIX_MAX_LENGTH - actualOptions.prefix.length;
-    const generatedCharacters = randomSequence(charactersToGenerate, actualOptions.type);
+    const generatedCharacters = generateRandomSequence(charactersToGenerate, actualOptions.type);
     let generatedCnpj = actualOptions.prefix + generatedCharacters;
 
     try {

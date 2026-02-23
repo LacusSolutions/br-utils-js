@@ -1,3 +1,4 @@
+import * as lacusUtils from '@lacussoft/utils';
 import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
 
 import { CpfGenerator } from '../src/cpf-generator';
@@ -7,7 +8,6 @@ import {
   CpfGeneratorOptionsTypeError,
 } from '../src/exceptions';
 import type { CpfGeneratorOptionsInput, CpfGeneratorOptionsType } from '../src/types';
-import * as utils from '../src/utils';
 
 describe('CpfGenerator', (): void => {
   describe('constructor', (): void => {
@@ -298,7 +298,7 @@ describe('CpfGenerator', (): void => {
       let randomSequenceSpy: ReturnType<typeof spyOn>;
 
       beforeEach((): void => {
-        randomSequenceSpy = spyOn(utils, 'randomSequence');
+        randomSequenceSpy = spyOn(lacusUtils, 'generateRandomSequence');
       });
 
       afterEach((): void => {
@@ -330,8 +330,8 @@ describe('CpfGenerator', (): void => {
         expect(result).toHaveLength(14);
         expect(result.startsWith('111.222.333-')).toBe(true);
         expect(randomSequenceSpy).toHaveBeenCalledTimes(2);
-        expect(randomSequenceSpy).toHaveBeenNthCalledWith(1, 6);
-        expect(randomSequenceSpy).toHaveBeenNthCalledWith(2, 6);
+        expect(randomSequenceSpy).toHaveBeenNthCalledWith(1, 6, 'numeric');
+        expect(randomSequenceSpy).toHaveBeenNthCalledWith(2, 6, 'numeric');
       });
     });
   });

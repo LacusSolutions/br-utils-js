@@ -1,5 +1,6 @@
+import { describeType } from '@lacussoft/utils';
+
 import type { CnpjFormatterOptionsType, CnpjInput } from './types';
-import { describeType } from './utils';
 
 /**
  * Base error class for all `cnpj-fmt` type-related errors.

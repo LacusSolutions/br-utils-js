@@ -10,7 +10,7 @@ Utilitário em JavaScript/TypeScript para gerar CPFs válidos (Cadastro de Pesso
 - ✅ **Formatação**: Opção de retornar a string no formato padrão (`000.000.000-00`)
 - ✅ **Gerador reutilizável**: Classe `CpfGenerator` com opções padrão e sobrescritas por chamada
 - ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
-- ✅ **Dependências mínimas**: Depende apenas do pacote interno `@lacussoft/cpf-dv` para o cálculo dos dígitos verificadores
+- ✅ **Dependências mínimas**: Sem dependências externas, apenas pacotes internos como `@lacussoft/utils`, e `@lacussoft/cpf-dv` para o cálculo dos dígitos verificadores
 - ✅ **Tratamento de erros**: Erros de tipo e exceções específicas para opções inválidas
 
 ## Instalação

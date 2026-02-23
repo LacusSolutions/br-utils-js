@@ -23,7 +23,7 @@ A JavaScript/TypeScript utility to generate valid CPF (Brazilian Individual's Ta
 - ✅ **Formatting**: Option to return the standard formatted string (`000.000.000-00`)
 - ✅ **Reusable generator**: `CpfGenerator` class with default options and per-call overrides
 - ✅ **TypeScript support**: Full type definitions and strict-mode compatible
-- ✅ **Minimal dependencies**: Only depends on internal package `@lacussoft/cpf-dv` for check digits calculation
+- ✅ **Minimal dependencies**: No external dependencies, only internal packages `@lacussoft/utils`, and `@lacussoft/cpf-dv` for check digits calculation.
 - ✅ **Error handling**: Specific type errors and exceptions for invalid options
 
 ## Installation

@@ -1,5 +1,6 @@
+import { describeType } from '@lacussoft/utils';
+
 import type { CpfFormatterOptionsType, CpfInput } from './types';
-import { describeType } from './utils';
 
 /**
  * Base error class for all `cpf-fmt` type-related errors.

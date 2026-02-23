@@ -1,4 +1,4 @@
-import { describeType } from './utils';
+import { describeType } from '@lacussoft/utils';
 
 /**
  * Base error class for all `cpf-val` type-related errors.

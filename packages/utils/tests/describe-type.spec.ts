@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 
-import { describeType } from '../src/utils';
+import { describeType } from '../src/describe-type';
 
 describe('describeType', (): void => {
   describe('when given `null`', (): void => {

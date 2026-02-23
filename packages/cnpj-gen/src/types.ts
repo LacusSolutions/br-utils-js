@@ -1,4 +1,6 @@
 /* eslint-disable @eslint-community/eslint-comments/disable-enable-pair */
+import type { SequenceType } from '@lacussoft/utils';
+
 import type { CnpjGeneratorOptions } from './cnpj-generator-options';
 
 /**
@@ -9,7 +11,7 @@ import type { CnpjGeneratorOptions } from './cnpj-generator-options';
  * - `numeric`: Generates a sequence of numbers-only characters (`0-9`).
  * - `alphabetic`: Generates a sequence of alphabetic characters (`A-Z`).
  */
-export type CnpjType = 'alphabetic' | 'alphanumeric' | 'numeric';
+export type CnpjType = SequenceType;
 
 /**
  * A utility type that represents a value that can be `null`, `undefined`, or
