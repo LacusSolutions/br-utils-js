@@ -1,7 +1,8 @@
+import { escapeHTML } from '@lacussoft/utils';
+
 import { CNPJ_LENGTH, CnpjFormatterOptions } from './cnpj-formatter-options';
 import { CnpjFormatterInputLengthException, CnpjFormatterInputTypeError } from './exceptions';
 import type { CnpjFormatterOptionsInput, CnpjInput } from './types';
-import { escapeHTML } from './utils';
 
 /**
  * @typedef {import('./exceptions').CnpjFormatterOptionsTypeError} CnpjFormatterOptionsTypeError

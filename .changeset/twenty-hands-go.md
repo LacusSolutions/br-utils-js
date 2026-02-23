@@ -7,7 +7,6 @@
 - 🆕 **Alphanumeric CNPJ** — Full support for the new [14-character alphanumeric CNPJ](https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2023/julho/cnpj-alfa-numerico) (digits and letters); input is sanitized and uppercased before formatting.
 - 🏗️ **Class-based API** — `CnpjFormatter` lets you set default options once and reuse them; `format()` accepts string or array of strings.
 - ✨ **Flat options** — Delimiters and masking use top-level options (`dotKey`, `slashKey`, `dashKey`, `hiddenKey`, `hiddenStart`, `hiddenEnd`) plus `escape`, `encode`, and `onFail`.
-- 🪶 **Zero dependencies** — No external packages; built-in HTML escaping and no deepmerge/num-only.
 - 🛡️ **Structured errors** — Typed exceptions (`CnpjFormatterInputTypeError`, `CnpjFormatterInputLengthException`, options errors) for clearer error handling.
 
 ### BREAKING CHANGES
@@ -33,4 +32,4 @@
 ### Improvements
 
 - **New PT-BR documentation**: New [README in Brazilian Portuguese](./README.pt.md).
-- **Zero dependencies**: Removed `html-escaper`, `deepmerge`, and `num-only`; in-house HTML escaping and option handling.
+- **Minimal dependencies**: Removed `html-escaper`, `deepmerge`, and `num-only`; in-house HTML escaping and option handling. It only depends on internal package `@lacussoft/utils` now.

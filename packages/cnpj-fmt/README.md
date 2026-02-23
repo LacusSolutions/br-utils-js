@@ -26,7 +26,7 @@ A JavaScript/TypeScript utility to format CNPJ (Brazilian Business Tax ID).
 - ✅ **Format agnostic**: Strips non-alphanumeric characters and uppercases before formatting
 - ✅ **Customizable**: Delimiters (dot, slash, dash), masking (range + replacement), HTML escape, URL encode
 - ✅ **TypeScript support**: Full type definitions and strict-mode compatible
-- ✅ **Zero dependencies**: No external dependencies
+- ✅ **Minimal dependencies**: No external dependencies, only on internal package `@lacussoft/utils`
 - ✅ **Error handling**: Configurable `onFail` callback; optional use of specific exception classes
 
 ## Installation
