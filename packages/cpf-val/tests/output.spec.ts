@@ -187,6 +187,10 @@ describe('package distributions', (): void => {
       expect(exportedResources).toContain('CpfValidatorInputTypeError');
     });
 
+    it('exports `CpfValidatorException` as named', (): void => {
+      expect(exportedResources).toContain('CpfValidatorException');
+    });
+
     it('exports `CPF_LENGTH` as named', (): void => {
       expect(exportedResources).toContain('CPF_LENGTH');
     });
@@ -247,6 +251,10 @@ describe('package distributions', (): void => {
 
     it('declares `CpfValidatorException` abstract class', (): void => {
       expect(content).toContain('declare abstract class CpfValidatorException');
+    });
+
+    it('exports `CpfValidatorException` as named', (): void => {
+      expect(exportedResources).toContain('CpfValidatorException');
     });
 
     it('declares `CPF_LENGTH` constant', (): void => {
