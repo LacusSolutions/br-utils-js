@@ -1,4 +1,4 @@
-import CpfCheckDigits, { CpfCheckDigitsException } from '@lacussoft/cpf-dv';
+import { CpfCheckDigits, CpfCheckDigitsException } from '@lacussoft/cpf-dv';
 import { generateRandomSequence } from '@lacussoft/utils';
 
 import { CPF_PREFIX_MAX_LENGTH, CpfGeneratorOptions } from './cpf-generator-options';

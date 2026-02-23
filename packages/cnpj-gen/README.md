@@ -140,7 +140,7 @@ options.all      // frozen shallow copy of current options
 - **`CnpjGeneratorOptions`**: Class holding options (`format`, `prefix`, `type`) with validation and merge.
 - **`CNPJ_LENGTH`**: `14` (constant).
 - **`CNPJ_PREFIX_MAX_LENGTH`**: `12` (constant).
-- **Types**: `CnpjType`, `CnpjGeneratorOptionsInput`, `CnpjGeneratorOptionsType`, `Nullable<T>`.
+- **Types**: `CnpjType`, `CnpjGeneratorOptionsInput`, `CnpjGeneratorOptionsType`.
 
 ### Errors & Exceptions
 

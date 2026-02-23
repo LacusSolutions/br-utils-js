@@ -1,8 +1,10 @@
+import { type Nullable } from '@lacussoft/utils';
+
 import {
   CpfGeneratorOptionPrefixInvalidException,
   CpfGeneratorOptionsTypeError,
 } from './exceptions';
-import type { CpfGeneratorOptionsInput, CpfGeneratorOptionsType, Nullable } from './types';
+import type { CpfGeneratorOptionsInput, CpfGeneratorOptionsType } from './types';
 
 /**
  * The standard length of a CPF (Cadastro de Pessoa Física) identifier (11

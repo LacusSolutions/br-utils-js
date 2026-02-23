@@ -1,13 +1,10 @@
+import { type Nullable } from '@lacussoft/utils';
+
 import {
   CnpjValidatorOptionsTypeError,
   CnpjValidatorOptionTypeInvalidException,
 } from './exceptions';
-import type {
-  CnpjType,
-  CnpjValidatorOptionsInput,
-  CnpjValidatorOptionsType,
-  Nullable,
-} from './types';
+import type { CnpjType, CnpjValidatorOptionsInput, CnpjValidatorOptionsType } from './types';
 
 const CNPJ_TYPE_OPTIONS: readonly CnpjType[] = ['alphanumeric', 'numeric'];
 

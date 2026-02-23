@@ -1,4 +1,4 @@
-import CnpjCheckDigits from '@lacussoft/cnpj-dv';
+import { CnpjCheckDigits } from '@lacussoft/cnpj-dv';
 
 import { CnpjValidatorOptions } from './cnpj-validator-options';
 import { CnpjValidatorInputTypeError } from './exceptions';

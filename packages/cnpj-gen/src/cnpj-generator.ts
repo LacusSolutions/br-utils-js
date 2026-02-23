@@ -1,4 +1,4 @@
-import CnpjCheckDigits, { CnpjCheckDigitsException } from '@lacussoft/cnpj-dv';
+import { CnpjCheckDigits, CnpjCheckDigitsException } from '@lacussoft/cnpj-dv';
 import { generateRandomSequence } from '@lacussoft/utils';
 
 import { CNPJ_PREFIX_MAX_LENGTH, CnpjGeneratorOptions } from './cnpj-generator-options';

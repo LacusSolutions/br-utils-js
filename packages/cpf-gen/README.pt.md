@@ -118,7 +118,7 @@ options.all      // cópia superficial congelada das opções atuais
 - **`CpfGeneratorOptions`**: Classe que armazena as opções (`format`, `prefix`) com validação e merge.
 - **`CPF_LENGTH`**: `11` (constante).
 - **`CPF_PREFIX_MAX_LENGTH`**: `9` (constante).
-- **Tipos**: `CpfGeneratorOptionsInput`, `CpfGeneratorOptionsType`, `Nullable<T>`.
+- **Tipos**: `CpfGeneratorOptionsInput`, `CpfGeneratorOptionsType`.
 
 ### Erros e exceções
 

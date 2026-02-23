@@ -1,14 +1,11 @@
+import { type Nullable } from '@lacussoft/utils';
+
 import {
   CpfFormatterOptionsForbiddenKeyCharacterException,
   CpfFormatterOptionsHiddenRangeInvalidException,
   CpfFormatterOptionsTypeError,
 } from './exceptions';
-import type {
-  CpfFormatterOptionsInput,
-  CpfFormatterOptionsType,
-  Nullable,
-  OnFailCallback,
-} from './types';
+import type { CpfFormatterOptionsInput, CpfFormatterOptionsType, OnFailCallback } from './types';
 
 /**
  * The standard length of a CPF (Cadastro de Pessoa Física) identifier (11

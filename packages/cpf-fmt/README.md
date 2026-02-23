@@ -138,7 +138,7 @@ formatter.format('12345678910', { hidden: false })   // override for this call: 
 - **`CpfFormatter`**: Class to format CPF with optional default options; accepts `string | string[]` in `format()`.
 - **`CpfFormatterOptions`**: Class holding options (dotKey, dashKey, hidden, hiddenKey, hiddenStart, hiddenEnd, escape, encode, onFail). Supports merge via constructor or `set()`.
 - **`CPF_LENGTH`**: `11` (constant).
-- **Types**: `CpfInput`, `CpfFormatterOptionsInput`, `CpfFormatterOptionsType`, `OnFailCallback`, `Nullable<T>`.
+- **Types**: `CpfInput`, `CpfFormatterOptionsInput`, `CpfFormatterOptionsType`, `OnFailCallback`.
 
 ### Exceptions
 

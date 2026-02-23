@@ -144,7 +144,7 @@ formatter.format('RK0CMT3W000100', { hidden: false }) // override for this call:
 - **`CnpjFormatter`**: Class to format CNPJ with optional default options; accepts `string | string[]` in `format()`.
 - **`CnpjFormatterOptions`**: Class holding options (dotKey, slashKey, dashKey, hidden, hiddenKey, hiddenStart, hiddenEnd, escape, encode, onFail). Supports merge via constructor or `set()`.
 - **`CNPJ_LENGTH`**: `14` (constant).
-- **Types**: `CnpjInput`, `CnpjFormatterOptionsInput`, `CnpjFormatterOptionsType`, `OnFailCallback`, `Nullable<T>`.
+- **Types**: `CnpjInput`, `CnpjFormatterOptionsInput`, `CnpjFormatterOptionsType`, `OnFailCallback`.
 
 ### Exceptions
 

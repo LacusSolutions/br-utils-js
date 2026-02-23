@@ -1,14 +1,11 @@
+import { type Nullable } from '@lacussoft/utils';
+
 import {
   CnpjFormatterOptionsForbiddenKeyCharacterException,
   CnpjFormatterOptionsHiddenRangeInvalidException,
   CnpjFormatterOptionsTypeError,
 } from './exceptions';
-import type {
-  CnpjFormatterOptionsInput,
-  CnpjFormatterOptionsType,
-  Nullable,
-  OnFailCallback,
-} from './types';
+import type { CnpjFormatterOptionsInput, CnpjFormatterOptionsType, OnFailCallback } from './types';
 
 /**
  * The standard length of a CNPJ (Cadastro Nacional da Pessoa Jurídica)
