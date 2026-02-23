@@ -20,13 +20,6 @@ export type CnpjInput = readonly string[] | string;
 export type CnpjType = 'alphanumeric' | 'numeric';
 
 /**
- * Utility type for values that may be `null`, `undefined`, or `T`. Used for
- * optional parameters and properties that can be set to `null` or left
- * `undefined` to use defaults.
- */
-export type Nullable<T> = null | T | undefined;
-
-/**
  * Resolved CNPJ (Cadastro Nacional da Pessoa Jurídica) validator/generator
  * options used internally. All properties have defaults when creating a
  * `CnpjValidatorOptions` instance.

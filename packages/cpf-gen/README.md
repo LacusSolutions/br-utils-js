@@ -131,7 +131,7 @@ options.all      // frozen shallow copy of current options
 - **`CpfGeneratorOptions`**: Class holding options (`format`, `prefix`) with validation and merge.
 - **`CPF_LENGTH`**: `11` (constant).
 - **`CPF_PREFIX_MAX_LENGTH`**: `9` (constant).
-- **Types**: `CpfGeneratorOptionsInput`, `CpfGeneratorOptionsType`, `Nullable<T>`.
+- **Types**: `CpfGeneratorOptionsInput`, `CpfGeneratorOptionsType`.
 
 ### Errors & Exceptions
 

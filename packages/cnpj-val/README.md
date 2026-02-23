@@ -142,7 +142,7 @@ options.all            // frozen shallow copy of current options
 - **`CnpjValidator`**: Class to validate CNPJ with optional default options and per-call overrides.
 - **`CnpjValidatorOptions`**: Class holding options (`caseSensitive`, `type`) with validation and merge.
 - **`CNPJ_LENGTH`**: `14` (constant).
-- **Types**: `CnpjType`, `CnpjInput`, `CnpjValidatorOptionsInput`, `CnpjValidatorOptionsType`, `Nullable<T>`.
+- **Types**: `CnpjType`, `CnpjInput`, `CnpjValidatorOptionsInput`, `CnpjValidatorOptionsType`.
 
 ### Errors & Exceptions
 

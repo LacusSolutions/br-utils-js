@@ -1,14 +1,24 @@
 import Bun, { $ } from 'bun';
 import { beforeAll, describe, expect, it } from 'bun:test';
 
-function extractExportedResources(content: string): string[] {
+function extractExported(what: 'resources' | 'types', content: string): string[] {
+  const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
+
   return (
     content
-      ?.match(/export \{([^}]+)\}/)
+      ?.match(regex)
       ?.at(1)
       ?.split(',')
       ?.map((resource) => resource.trim()) ?? []
   );
+}
+
+function extractExportedResources(content: string): string[] {
+  return extractExported('resources', content);
+}
+
+function extractExportedTypes(content: string): string[] {
+  return extractExported('types', content);
 }
 
 describe('package distributions', (): void => {
@@ -34,7 +44,7 @@ describe('package distributions', (): void => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let cpfVal: any;
 
-        beforeAll(async (): Promise<void> => {
+        beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalInstance = new Function(`${fileContent}\nreturn cpfVal;`);
 
@@ -87,7 +97,7 @@ describe('package distributions', (): void => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let cpfVal: any;
 
-        beforeAll(async (): Promise<void> => {
+        beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalInstance = new Function(`${fileContent}\nreturn cpfVal;`);
 
@@ -146,55 +156,43 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
     });
 
     it('exists', async (): Promise<void> => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('exports `cpfVal` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfVal` as default', (): void => {
       expect(exportedResources).toContain('cpfVal as default');
     });
 
-    it('exports `cpfVal` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfVal` as named', (): void => {
       expect(exportedResources).toContain('cpfVal');
     });
 
-    it('exports `CpfValidator` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfValidator` as named', (): void => {
       expect(exportedResources).toContain('CpfValidator');
     });
 
-    it('exports `CPF_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CPF_LENGTH');
-    });
-
-    it('exports `CpfValidatorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfValidatorTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfValidatorTypeError');
     });
 
-    it('exports `CpfValidatorInputTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfValidatorInputTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfValidatorInputTypeError');
     });
 
-    it('exports `CpfValidatorException` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfValidatorException` as named', (): void => {
       expect(exportedResources).toContain('CpfValidatorException');
+    });
+
+    it('exports `CPF_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CPF_LENGTH');
     });
   });
 
@@ -202,9 +200,13 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
+    let exportedTypes: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
+      exportedTypes = extractExportedTypes(content);
     });
 
     it('exists', async (): Promise<void> => {
@@ -215,15 +217,11 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare function cpfVal');
     });
 
-    it('exports `cpfVal` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfVal` as default', (): void => {
       expect(exportedResources).toContain('cpfVal as default');
     });
 
-    it('exports `cpfVal` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfVal` as named', (): void => {
       expect(exportedResources).toContain('cpfVal');
     });
 
@@ -231,29 +229,15 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfValidator');
     });
 
-    it('exports `CpfValidator` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfValidator` as named', (): void => {
       expect(exportedResources).toContain('CpfValidator');
-    });
-
-    it('declares `CPF_LENGTH` constant', (): void => {
-      expect(content).toContain('declare const CPF_LENGTH');
-    });
-
-    it('exports `CPF_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CPF_LENGTH');
     });
 
     it('declares `CpfValidatorTypeError` abstract class', (): void => {
       expect(content).toContain('declare abstract class CpfValidatorTypeError');
     });
 
-    it('exports `CpfValidatorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfValidatorTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfValidatorTypeError');
     });
 
@@ -261,14 +245,32 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfValidatorInputTypeError');
     });
 
-    it('exports `CpfValidatorInputTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfValidatorInputTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfValidatorInputTypeError');
     });
 
     it('declares `CpfValidatorException` abstract class', (): void => {
       expect(content).toContain('declare abstract class CpfValidatorException');
+    });
+
+    it('exports `CpfValidatorException` as named', (): void => {
+      expect(exportedResources).toContain('CpfValidatorException');
+    });
+
+    it('declares `CPF_LENGTH` constant', (): void => {
+      expect(content).toContain('declare const CPF_LENGTH');
+    });
+
+    it('exports `CPF_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CPF_LENGTH');
+    });
+
+    it('declares `CpfInput` type', (): void => {
+      expect(content).toContain('type CpfInput');
+    });
+
+    it('exports `CpfInput` as named', (): void => {
+      expect(exportedTypes).toContain('CpfInput');
     });
   });
 });

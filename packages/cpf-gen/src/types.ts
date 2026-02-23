@@ -2,14 +2,6 @@
 import type { CpfGeneratorOptions } from './cpf-generator-options';
 
 /**
- * A utility type that represents a value that can be `null`, `undefined`, or
- * the specified type `T`. This type is used for optional parameters and
- * properties that can be explicitly set to `null` or left `undefined` to use
- * default values.
- */
-export type Nullable<T> = null | T | undefined;
-
-/**
  * Configuration type for CPF (Cadastro de Pessoa Física) generation options.
  * Defines the resolved options used internally: format (standard formatting)
  * and prefix (partial start string). All properties have default values when

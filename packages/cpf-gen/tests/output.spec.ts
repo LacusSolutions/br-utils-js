@@ -1,14 +1,24 @@
 import Bun, { $ } from 'bun';
 import { beforeAll, describe, expect, it } from 'bun:test';
 
-function extractExportedResources(content: string): string[] {
+function extractExported(what: 'resources' | 'types', content: string): string[] {
+  const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
+
   return (
     content
-      ?.match(/export \{([^}]+)\}/)
+      ?.match(regex)
       ?.at(1)
       ?.split(',')
       ?.map((resource) => resource.trim()) ?? []
   );
+}
+
+function extractExportedResources(content: string): string[] {
+  return extractExported('resources', content);
+}
+
+function extractExportedTypes(content: string): string[] {
+  return extractExported('types', content);
 }
 
 describe('package distributions', (): void => {
@@ -34,7 +44,7 @@ describe('package distributions', (): void => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let cpfGen: any;
 
-        beforeAll(async (): Promise<void> => {
+        beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalInstance = new Function(`${fileContent}\nreturn cpfGen;`);
 
@@ -116,7 +126,7 @@ describe('package distributions', (): void => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let cpfGen: any;
 
-        beforeAll(async (): Promise<void> => {
+        beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalInstance = new Function(`${fileContent}\nreturn cpfGen;`);
 
@@ -202,73 +212,55 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
     });
 
     it('exists', async (): Promise<void> => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('exports `cpfGen` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfGen` as default', (): void => {
       expect(exportedResources).toContain('cpfGen as default');
     });
 
-    it('exports `cpfGen` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfGen` as named', (): void => {
       expect(exportedResources).toContain('cpfGen');
     });
 
-    it('exports `CpfGenerator` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGenerator` as named', (): void => {
       expect(exportedResources).toContain('CpfGenerator');
     });
 
-    it('exports `CpfGeneratorOptions` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorOptions` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorOptions');
     });
 
-    it('exports `CPF_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CPF_LENGTH');
-    });
-
-    it('exports `CPF_PREFIX_MAX_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CPF_PREFIX_MAX_LENGTH');
-    });
-
-    it('exports `CpfGeneratorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorTypeError');
     });
 
-    it('exports `CpfGeneratorOptionsTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorOptionsTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorOptionsTypeError');
     });
 
-    it('exports `CpfGeneratorException` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorException` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorException');
     });
 
-    it('exports `CpfGeneratorOptionPrefixInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorOptionPrefixInvalidException` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorOptionPrefixInvalidException');
+    });
+
+    it('exports `CPF_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CPF_LENGTH');
+    });
+
+    it('exports `CPF_PREFIX_MAX_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CPF_PREFIX_MAX_LENGTH');
     });
   });
 
@@ -276,9 +268,13 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
+    let exportedTypes: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
+      exportedTypes = extractExportedTypes(content);
     });
 
     it('exists', async (): Promise<void> => {
@@ -289,15 +285,11 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare function cpfGen');
     });
 
-    it('exports `cpfGen` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfGen` as default', (): void => {
       expect(exportedResources).toContain('cpfGen as default');
     });
 
-    it('exports `cpfGen` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfGen` as named', (): void => {
       expect(exportedResources).toContain('cpfGen');
     });
 
@@ -305,9 +297,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfGenerator');
     });
 
-    it('exports `CpfGenerator` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGenerator` as named', (): void => {
       expect(exportedResources).toContain('CpfGenerator');
     });
 
@@ -315,39 +305,15 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfGeneratorOptions');
     });
 
-    it('exports `CpfGeneratorOptions` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorOptions` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorOptions');
-    });
-
-    it('declares `CPF_LENGTH` constant', (): void => {
-      expect(content).toContain('declare const CPF_LENGTH');
-    });
-
-    it('exports `CPF_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CPF_LENGTH');
-    });
-
-    it('declares `CPF_PREFIX_MAX_LENGTH` constant', (): void => {
-      expect(content).toContain('declare const CPF_PREFIX_MAX_LENGTH');
-    });
-
-    it('exports `CPF_PREFIX_MAX_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CPF_PREFIX_MAX_LENGTH');
     });
 
     it('declares `CpfGeneratorTypeError` abstract class', (): void => {
       expect(content).toContain('declare abstract class CpfGeneratorTypeError');
     });
 
-    it('exports `CpfGeneratorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorTypeError');
     });
 
@@ -355,9 +321,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfGeneratorOptionsTypeError');
     });
 
-    it('exports `CpfGeneratorOptionsTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorOptionsTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorOptionsTypeError');
     });
 
@@ -365,9 +329,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare abstract class CpfGeneratorException');
     });
 
-    it('exports `CpfGeneratorException` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorException` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorException');
     });
 
@@ -375,10 +337,40 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfGeneratorOptionPrefixInvalidException');
     });
 
-    it('exports `CpfGeneratorOptionPrefixInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfGeneratorOptionPrefixInvalidException` as named', (): void => {
       expect(exportedResources).toContain('CpfGeneratorOptionPrefixInvalidException');
+    });
+
+    it('declares `CPF_LENGTH` constant', (): void => {
+      expect(content).toContain('declare const CPF_LENGTH');
+    });
+
+    it('exports `CPF_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CPF_LENGTH');
+    });
+
+    it('declares `CPF_PREFIX_MAX_LENGTH` constant', (): void => {
+      expect(content).toContain('declare const CPF_PREFIX_MAX_LENGTH');
+    });
+
+    it('exports `CPF_PREFIX_MAX_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CPF_PREFIX_MAX_LENGTH');
+    });
+
+    it('declares `CpfGeneratorOptionsInput` type', (): void => {
+      expect(content).toContain('type CpfGeneratorOptionsInput');
+    });
+
+    it('exports `CpfGeneratorOptionsInput` as named', (): void => {
+      expect(exportedTypes).toContain('CpfGeneratorOptionsInput');
+    });
+
+    it('declares `CpfGeneratorOptionsType` type', (): void => {
+      expect(content).toContain('interface CpfGeneratorOptionsType');
+    });
+
+    it('exports `CpfGeneratorOptionsType` as named', (): void => {
+      expect(exportedTypes).toContain('CpfGeneratorOptionsType');
     });
   });
 });

@@ -127,7 +127,7 @@ options.all      // cópia superficial congelada das opções atuais
 - **`CnpjGeneratorOptions`**: Classe que armazena as opções (`format`, `prefix`, `type`) com validação e merge.
 - **`CNPJ_LENGTH`**: `14` (constante).
 - **`CNPJ_PREFIX_MAX_LENGTH`**: `12` (constante).
-- **Tipos**: `CnpjType`, `CnpjGeneratorOptionsInput`, `CnpjGeneratorOptionsType`, `Nullable<T>`.
+- **Tipos**: `CnpjType`, `CnpjGeneratorOptionsInput`, `CnpjGeneratorOptionsType`.
 
 ### Erros e exceções
 

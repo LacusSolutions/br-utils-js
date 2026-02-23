@@ -1,14 +1,24 @@
 import Bun, { $ } from 'bun';
 import { beforeAll, describe, expect, it } from 'bun:test';
 
-function extractExportedResources(content: string): string[] {
+function extractExported(what: 'resources' | 'types', content: string): string[] {
+  const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
+
   return (
     content
-      ?.match(/export \{([^}]+)\}/)
+      ?.match(regex)
       ?.at(1)
       ?.split(',')
       ?.map((resource) => resource.trim()) ?? []
   );
+}
+
+function extractExportedResources(content: string): string[] {
+  return extractExported('resources', content);
+}
+
+function extractExportedTypes(content: string): string[] {
+  return extractExported('types', content);
 }
 
 describe('package distributions', (): void => {
@@ -34,7 +44,7 @@ describe('package distributions', (): void => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let cpfFmt: any;
 
-        beforeAll(async (): Promise<void> => {
+        beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalInstance = new Function(`${fileContent}\nreturn cpfFmt;`);
 
@@ -166,85 +176,63 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
     });
 
     it('exists', async (): Promise<void> => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('exports `cpfFmt` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfFmt` as default', (): void => {
       expect(exportedResources).toContain('cpfFmt as default');
     });
 
-    it('exports `cpfFmt` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfFmt` as named', (): void => {
       expect(exportedResources).toContain('cpfFmt');
     });
 
-    it('exports `CpfFormatter` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatter` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatter');
     });
 
-    it('exports `CpfFormatterOptions` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterOptions` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptions');
     });
 
-    it('exports `CPF_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CPF_LENGTH');
-    });
-
-    it('exports `CpfFormatterTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterTypeError');
     });
 
-    it('exports `CpfFormatterInputTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterInputTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterInputTypeError');
     });
 
-    it('exports `CpfFormatterOptionsTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterOptionsTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptionsTypeError');
     });
 
-    it('exports `CpfFormatterException` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterException` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterException');
     });
 
-    it('exports `CpfFormatterInputLengthException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterInputLengthException` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterInputLengthException');
     });
 
-    it('exports `CpfFormatterOptionsHiddenRangeInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterOptionsHiddenRangeInvalidException` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptionsHiddenRangeInvalidException');
     });
 
-    it('exports `CpfFormatterOptionsForbiddenKeyCharacterException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterOptionsForbiddenKeyCharacterException` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptionsForbiddenKeyCharacterException');
+    });
+
+    it('exports `CPF_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CPF_LENGTH');
     });
   });
 
@@ -252,9 +240,13 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
+    let exportedTypes: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
+      exportedTypes = extractExportedTypes(content);
     });
 
     it('exists', async (): Promise<void> => {
@@ -265,15 +257,11 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare function cpfFmt');
     });
 
-    it('exports `cpfFmt` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfFmt` as default', (): void => {
       expect(exportedResources).toContain('cpfFmt as default');
     });
 
-    it('exports `cpfFmt` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cpfFmt` as named', (): void => {
       expect(exportedResources).toContain('cpfFmt');
     });
 
@@ -281,9 +269,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfFormatter');
     });
 
-    it('exports `CpfFormatter` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatter` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatter');
     });
 
@@ -291,29 +277,15 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfFormatterOptions');
     });
 
-    it('exports `CpfFormatterOptions` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterOptions` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptions');
-    });
-
-    it('declares `CPF_LENGTH` constant', (): void => {
-      expect(content).toContain('declare const CPF_LENGTH');
-    });
-
-    it('exports `CPF_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CPF_LENGTH');
     });
 
     it('declares `CpfFormatterTypeError` abstract class', (): void => {
       expect(content).toContain('declare abstract class CpfFormatterTypeError');
     });
 
-    it('exports `CpfFormatterTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterTypeError');
     });
 
@@ -321,9 +293,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfFormatterInputTypeError');
     });
 
-    it('exports `CpfFormatterInputTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterInputTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterInputTypeError');
     });
 
@@ -331,9 +301,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfFormatterOptionsTypeError');
     });
 
-    it('exports `CpfFormatterOptionsTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterOptionsTypeError` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptionsTypeError');
     });
 
@@ -341,9 +309,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare abstract class CpfFormatterException');
     });
 
-    it('exports `CpfFormatterException` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterException` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterException');
     });
 
@@ -351,9 +317,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfFormatterInputLengthException');
     });
 
-    it('exports `CpfFormatterInputLengthException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterInputLengthException` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterInputLengthException');
     });
 
@@ -361,9 +325,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfFormatterOptionsHiddenRangeInvalidException');
     });
 
-    it('exports `CpfFormatterOptionsHiddenRangeInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterOptionsHiddenRangeInvalidException` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptionsHiddenRangeInvalidException');
     });
 
@@ -371,10 +333,48 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CpfFormatterOptionsForbiddenKeyCharacterException');
     });
 
-    it('exports `CpfFormatterOptionsForbiddenKeyCharacterException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CpfFormatterOptionsForbiddenKeyCharacterException` as named', (): void => {
       expect(exportedResources).toContain('CpfFormatterOptionsForbiddenKeyCharacterException');
+    });
+
+    it('declares `CPF_LENGTH` constant', (): void => {
+      expect(content).toContain('declare const CPF_LENGTH');
+    });
+
+    it('exports `CPF_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CPF_LENGTH');
+    });
+
+    it('declares `CpfInput` type', (): void => {
+      expect(content).toContain('type CpfInput');
+    });
+
+    it('exports `CpfInput` as named', (): void => {
+      expect(exportedTypes).toContain('CpfInput');
+    });
+
+    it('declares `OnFailCallback` type', (): void => {
+      expect(content).toContain('type OnFailCallback');
+    });
+
+    it('exports `OnFailCallback` as named', (): void => {
+      expect(exportedTypes).toContain('OnFailCallback');
+    });
+
+    it('declares `CpfFormatterOptionsInput` type', (): void => {
+      expect(content).toContain('type CpfFormatterOptionsInput');
+    });
+
+    it('exports `CpfFormatterOptionsInput` as named', (): void => {
+      expect(exportedTypes).toContain('CpfFormatterOptionsInput');
+    });
+
+    it('declares `CpfFormatterOptionsType` type', (): void => {
+      expect(content).toContain('interface CpfFormatterOptionsType');
+    });
+
+    it('exports `CpfFormatterOptionsType` as named', (): void => {
+      expect(exportedTypes).toContain('CpfFormatterOptionsType');
     });
   });
 });

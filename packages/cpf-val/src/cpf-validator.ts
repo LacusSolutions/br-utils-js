@@ -1,4 +1,4 @@
-import CpfCheckDigits from '@lacussoft/cpf-dv';
+import { CpfCheckDigits } from '@lacussoft/cpf-dv';
 
 import { CpfValidatorInputTypeError } from './exceptions';
 import type { CpfInput } from './types';

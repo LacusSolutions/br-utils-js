@@ -129,7 +129,7 @@ options.all            // cópia superficial congelada das opções atuais
 - **`CnpjValidator`**: Classe para validar CNPJ com opções padrão opcionais e sobrescritas por chamada.
 - **`CnpjValidatorOptions`**: Classe que armazena as opções (`caseSensitive`, `type`) com validação e merge.
 - **`CNPJ_LENGTH`**: `14` (constante).
-- **Tipos**: `CnpjType`, `CnpjInput`, `CnpjValidatorOptionsInput`, `CnpjValidatorOptionsType`, `Nullable<T>`.
+- **Tipos**: `CnpjType`, `CnpjInput`, `CnpjValidatorOptionsInput`, `CnpjValidatorOptionsType`.
 
 ### Erros e exceções
 

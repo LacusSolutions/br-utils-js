@@ -14,14 +14,6 @@ import type { CnpjGeneratorOptions } from './cnpj-generator-options';
 export type CnpjType = SequenceType;
 
 /**
- * A utility type that represents a value that can be `null`, `undefined`, or
- * the specified type `T`. This type is used for optional parameters and
- * properties that can be explicitly set to `null` or left `undefined` to use
- * default values.
- */
-export type Nullable<T> = null | T | undefined;
-
-/**
  * Configuration type for CNPJ (Cadastro Nacional da Pessoa Jurídica) generation
  * options. Defines the resolved options used internally: format (standard
  * formatting), prefix (partial start string), and type (character set). All

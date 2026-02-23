@@ -16,7 +16,6 @@ import type {
   CnpjGeneratorOptionsInput as BaseCnpjGeneratorOptionsInput,
   CnpjGeneratorOptionsType as BaseCnpjGeneratorOptionsType,
   CnpjType as BaseCnpjType,
-  Nullable as BaseNullable,
 } from './types';
 
 function cnpjGen(options?: BaseCnpjGeneratorOptionsInput): string {
@@ -41,7 +40,6 @@ namespace cnpjGen {
   export type CnpjType = BaseCnpjType;
   export type CnpjGeneratorOptionsInput = BaseCnpjGeneratorOptionsInput;
   export type CnpjGeneratorOptionsType = BaseCnpjGeneratorOptionsType;
-  export type Nullable<T> = BaseNullable<T>;
 }
 
 export default cnpjGen;
