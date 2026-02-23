@@ -1,14 +1,24 @@
 import Bun, { $ } from 'bun';
 import { beforeAll, describe, expect, it } from 'bun:test';
 
-function extractExportedResources(content: string): string[] {
+function extractExported(what: 'resources' | 'types', content: string): string[] {
+  const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
+
   return (
     content
-      ?.match(/export \{([^}]+)\}/)
+      ?.match(regex)
       ?.at(1)
       ?.split(',')
       ?.map((resource) => resource.trim()) ?? []
   );
+}
+
+function extractExportedResources(content: string): string[] {
+  return extractExported('resources', content);
+}
+
+function extractExportedTypes(content: string): string[] {
+  return extractExported('types', content);
 }
 
 describe('package distributions', (): void => {
@@ -224,73 +234,55 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
 
     beforeAll(async (): Promise<void> => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
     });
 
     it('exists', async (): Promise<void> => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('exports `cnpjVal` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cnpjVal` as default', (): void => {
       expect(exportedResources).toContain('cnpjVal as default');
     });
 
-    it('exports `cnpjVal` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cnpjVal` as named', (): void => {
       expect(exportedResources).toContain('cnpjVal');
     });
 
-    it('exports `CnpjValidator` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidator` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidator');
     });
 
-    it('exports `CnpjValidatorOptions` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorOptions` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorOptions');
     });
 
-    it('exports `CNPJ_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CNPJ_LENGTH');
-    });
-
-    it('exports `CnpjValidatorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorTypeError` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorTypeError');
     });
 
-    it('exports `CnpjValidatorInputTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorInputTypeError` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorInputTypeError');
     });
 
-    it('exports `CnpjValidatorOptionsTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorOptionsTypeError` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorOptionsTypeError');
     });
 
-    it('exports `CnpjValidatorException` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorException` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorException');
     });
 
-    it('exports `CnpjValidatorOptionTypeInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorOptionTypeInvalidException` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorOptionTypeInvalidException');
+    });
+
+    it('exports `CNPJ_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CNPJ_LENGTH');
     });
   });
 
@@ -298,9 +290,13 @@ describe('package distributions', (): void => {
     const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
     const file = Bun.file(filePath);
     let content: string;
+    let exportedResources: string[];
+    let exportedTypes: string[];
 
     beforeAll(async (): Promise<void> => {
       content = await file.text();
+      exportedResources = extractExportedResources(content);
+      exportedTypes = extractExportedTypes(content);
     });
 
     it('exists', async (): Promise<void> => {
@@ -311,15 +307,11 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare function cnpjVal');
     });
 
-    it('exports `cnpjVal` function as default', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cnpjVal` as default', (): void => {
       expect(exportedResources).toContain('cnpjVal as default');
     });
 
-    it('exports `cnpjVal` function as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `cnpjVal` as named', (): void => {
       expect(exportedResources).toContain('cnpjVal');
     });
 
@@ -327,9 +319,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CnpjValidator');
     });
 
-    it('exports `CnpjValidator` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidator` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidator');
     });
 
@@ -337,29 +327,15 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CnpjValidatorOptions');
     });
 
-    it('exports `CnpjValidatorOptions` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorOptions` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorOptions');
-    });
-
-    it('declares `CNPJ_LENGTH` constant', (): void => {
-      expect(content).toContain('declare const CNPJ_LENGTH');
-    });
-
-    it('exports `CNPJ_LENGTH` constant as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
-      expect(exportedResources).toContain('CNPJ_LENGTH');
     });
 
     it('declares `CnpjValidatorTypeError` abstract class', (): void => {
       expect(content).toContain('declare abstract class CnpjValidatorTypeError');
     });
 
-    it('exports `CnpjValidatorTypeError` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorTypeError` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorTypeError');
     });
 
@@ -367,9 +343,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CnpjValidatorInputTypeError');
     });
 
-    it('exports `CnpjValidatorInputTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorInputTypeError` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorInputTypeError');
     });
 
@@ -377,9 +351,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CnpjValidatorOptionsTypeError');
     });
 
-    it('exports `CnpjValidatorOptionsTypeError` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorOptionsTypeError` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorOptionsTypeError');
     });
 
@@ -387,9 +359,7 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare abstract class CnpjValidatorException');
     });
 
-    it('exports `CnpjValidatorException` abstract class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorException` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorException');
     });
 
@@ -397,10 +367,48 @@ describe('package distributions', (): void => {
       expect(content).toContain('declare class CnpjValidatorOptionTypeInvalidException');
     });
 
-    it('exports `CnpjValidatorOptionTypeInvalidException` class as named', (): void => {
-      const exportedResources = extractExportedResources(content);
-
+    it('exports `CnpjValidatorOptionTypeInvalidException` as named', (): void => {
       expect(exportedResources).toContain('CnpjValidatorOptionTypeInvalidException');
+    });
+
+    it('declares `CNPJ_LENGTH` constant', (): void => {
+      expect(content).toContain('declare const CNPJ_LENGTH');
+    });
+
+    it('exports `CNPJ_LENGTH` as named', (): void => {
+      expect(exportedResources).toContain('CNPJ_LENGTH');
+    });
+
+    it('declares `CnpjInput` type', (): void => {
+      expect(content).toContain('type CnpjInput');
+    });
+
+    it('exports `CnpjInput` as named', (): void => {
+      expect(exportedTypes).toContain('CnpjInput');
+    });
+
+    it('declares `CnpjType` type', (): void => {
+      expect(content).toContain('type CnpjType');
+    });
+
+    it('exports `CnpjType` as named', (): void => {
+      expect(exportedTypes).toContain('CnpjType');
+    });
+
+    it('declares `CnpjValidatorOptionsInput` type', (): void => {
+      expect(content).toContain('type CnpjValidatorOptionsInput');
+    });
+
+    it('exports `CnpjValidatorOptionsInput` as named', (): void => {
+      expect(exportedTypes).toContain('CnpjValidatorOptionsInput');
+    });
+
+    it('declares `CnpjValidatorOptionsType` type', (): void => {
+      expect(content).toContain('interface CnpjValidatorOptionsType');
+    });
+
+    it('exports `CnpjValidatorOptionsType` as named', (): void => {
+      expect(exportedTypes).toContain('CnpjValidatorOptionsType');
     });
   });
 });
