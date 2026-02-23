@@ -34,7 +34,7 @@ describe('package distributions', (): void => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let lacusUtils: any;
 
-        beforeAll(async (): Promise<void> => {
+        beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalInstance = new Function(`${fileContent}\nreturn lacusUtils;`);
 
@@ -87,7 +87,7 @@ describe('package distributions', (): void => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let lacusUtils: any;
 
-        beforeAll(async (): Promise<void> => {
+        beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalInstance = new Function(`${fileContent}\nreturn lacusUtils;`);
 
@@ -147,7 +147,7 @@ describe('package distributions', (): void => {
     const file = Bun.file(filePath);
     let content: string;
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
     });
 
@@ -179,7 +179,7 @@ describe('package distributions', (): void => {
     const file = Bun.file(filePath);
     let content: string;
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
     });
 

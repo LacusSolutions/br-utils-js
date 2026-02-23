@@ -115,7 +115,7 @@ describe('package distributions', () => {
     let content: string;
     let exportedResources: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
       exportedResources = extractExportedResources(content);
     });
@@ -124,35 +124,35 @@ describe('package distributions', () => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('exports `CpfCheckDigits` as default', async () => {
+    it('exports `CpfCheckDigits` as default', () => {
       expect(exportedResources).toContain('CpfCheckDigits as default');
     });
 
-    it('exports `CpfCheckDigits` as named', async () => {
+    it('exports `CpfCheckDigits` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigits');
     });
 
-    it('exports `CpfCheckDigitsTypeError` as named', async () => {
+    it('exports `CpfCheckDigitsTypeError` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigitsTypeError');
     });
 
-    it('exports `CpfCheckDigitsInputTypeError` as named', async () => {
+    it('exports `CpfCheckDigitsInputTypeError` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigitsInputTypeError');
     });
 
-    it('exports `CpfCheckDigitsException` as named', async () => {
+    it('exports `CpfCheckDigitsException` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigitsException');
     });
 
-    it('exports `CpfCheckDigitsInputInvalidException` as named', async () => {
+    it('exports `CpfCheckDigitsInputInvalidException` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigitsInputInvalidException');
     });
 
-    it('exports `CPF_MIN_LENGTH` as named', async () => {
+    it('exports `CPF_MIN_LENGTH` as named', () => {
       expect(exportedResources).toContain('CPF_MIN_LENGTH');
     });
 
-    it('exports `CPF_MAX_LENGTH` as named', async () => {
+    it('exports `CPF_MAX_LENGTH` as named', () => {
       expect(exportedResources).toContain('CPF_MAX_LENGTH');
     });
   });
@@ -164,7 +164,7 @@ describe('package distributions', () => {
     let exportedResources: string[];
     let exportedTypes: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
       exportedResources = extractExportedResources(content);
       exportedTypes = extractExportedTypes(content);
@@ -174,71 +174,71 @@ describe('package distributions', () => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('declares `CpfCheckDigits` class', async () => {
+    it('declares `CpfCheckDigits` class', () => {
       expect(content).toContain('declare class CpfCheckDigits');
     });
 
-    it('exports `CpfCheckDigits` as default', async () => {
+    it('exports `CpfCheckDigits` as default', () => {
       expect(exportedResources).toContain('CpfCheckDigits as default');
     });
 
-    it('exports `CpfCheckDigits` as named', async () => {
+    it('exports `CpfCheckDigits` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigits');
     });
 
-    it('declares `CpfCheckDigitsTypeError` abstract class', async () => {
+    it('declares `CpfCheckDigitsTypeError` abstract class', () => {
       expect(content).toContain('declare abstract class CpfCheckDigitsTypeError');
     });
 
-    it('exports `CpfCheckDigitsTypeError` as named', async () => {
+    it('exports `CpfCheckDigitsTypeError` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigitsTypeError');
     });
 
-    it('declares `CpfCheckDigitsInputTypeError` class', async () => {
+    it('declares `CpfCheckDigitsInputTypeError` class', () => {
       expect(content).toContain('declare class CpfCheckDigitsInputTypeError');
     });
 
-    it('exports `CpfCheckDigitsInputTypeError` as named', async () => {
+    it('exports `CpfCheckDigitsInputTypeError` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigitsInputTypeError');
     });
 
-    it('declares `CpfCheckDigitsException` abstract class', async () => {
+    it('declares `CpfCheckDigitsException` abstract class', () => {
       expect(content).toContain('declare abstract class CpfCheckDigitsException');
     });
 
-    it('exports `CpfCheckDigitsException` as named', async () => {
+    it('exports `CpfCheckDigitsException` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigitsException');
     });
 
-    it('declares `CpfCheckDigitsInputInvalidException` class', async () => {
+    it('declares `CpfCheckDigitsInputInvalidException` class', () => {
       expect(content).toContain('declare class CpfCheckDigitsInputInvalidException');
     });
 
-    it('exports `CpfCheckDigitsInputInvalidException` as named', async () => {
+    it('exports `CpfCheckDigitsInputInvalidException` as named', () => {
       expect(exportedResources).toContain('CpfCheckDigitsInputInvalidException');
     });
 
-    it('declares `CPF_MIN_LENGTH` constant', async () => {
+    it('declares `CPF_MIN_LENGTH` constant', () => {
       expect(content).toContain('declare const CPF_MIN_LENGTH');
     });
 
-    it('exports `CPF_MIN_LENGTH` as named', async () => {
+    it('exports `CPF_MIN_LENGTH` as named', () => {
       expect(exportedResources).toContain('CPF_MIN_LENGTH');
     });
 
-    it('declares `CPF_MAX_LENGTH` constant', async () => {
+    it('declares `CPF_MAX_LENGTH` constant', () => {
       expect(content).toContain('declare const CPF_MAX_LENGTH');
     });
 
-    it('exports `CPF_MAX_LENGTH` as named', async () => {
+    it('exports `CPF_MAX_LENGTH` as named', () => {
       expect(exportedResources).toContain('CPF_MAX_LENGTH');
     });
 
-    it('declares `CpfInput` type', async () => {
+    it('declares `CpfInput` type', () => {
       expect(content).toContain('type CpfInput');
     });
 
-    it('exports `CpfInput` as named', async () => {
+    it('exports `CpfInput` as named', () => {
       expect(exportedTypes).toContain('CpfInput');
     });
   });

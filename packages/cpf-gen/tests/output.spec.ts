@@ -44,7 +44,7 @@ describe('package distributions', (): void => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let cpfGen: any;
 
-        beforeAll(async (): Promise<void> => {
+        beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalInstance = new Function(`${fileContent}\nreturn cpfGen;`);
 
@@ -126,7 +126,7 @@ describe('package distributions', (): void => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let cpfGen: any;
 
-        beforeAll(async (): Promise<void> => {
+        beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalInstance = new Function(`${fileContent}\nreturn cpfGen;`);
 
@@ -214,7 +214,7 @@ describe('package distributions', (): void => {
     let content: string;
     let exportedResources: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
       exportedResources = extractExportedResources(content);
     });
@@ -271,7 +271,7 @@ describe('package distributions', (): void => {
     let exportedResources: string[];
     let exportedTypes: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
       exportedResources = extractExportedResources(content);
       exportedTypes = extractExportedTypes(content);

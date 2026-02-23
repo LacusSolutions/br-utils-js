@@ -115,7 +115,7 @@ describe('package distributions', () => {
     let content: string;
     let exportedResources: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
       exportedResources = extractExportedResources(content);
     });
@@ -124,35 +124,35 @@ describe('package distributions', () => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('exports `CnpjCheckDigits` as default', async () => {
+    it('exports `CnpjCheckDigits` as default', () => {
       expect(exportedResources).toContain('CnpjCheckDigits as default');
     });
 
-    it('exports `CnpjCheckDigits` as named', async () => {
+    it('exports `CnpjCheckDigits` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigits');
     });
 
-    it('exports `CnpjCheckDigitsTypeError` as named', async () => {
+    it('exports `CnpjCheckDigitsTypeError` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigitsTypeError');
     });
 
-    it('exports `CnpjCheckDigitsInputTypeError` as named', async () => {
+    it('exports `CnpjCheckDigitsInputTypeError` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigitsInputTypeError');
     });
 
-    it('exports `CnpjCheckDigitsException` as named', async () => {
+    it('exports `CnpjCheckDigitsException` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigitsException');
     });
 
-    it('exports `CnpjCheckDigitsInputInvalidException` as named', async () => {
+    it('exports `CnpjCheckDigitsInputInvalidException` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigitsInputInvalidException');
     });
 
-    it('exports `CNPJ_MAX_LENGTH` as named', async () => {
+    it('exports `CNPJ_MAX_LENGTH` as named', () => {
       expect(exportedResources).toContain('CNPJ_MAX_LENGTH');
     });
 
-    it('exports `CNPJ_MIN_LENGTH` as named', async () => {
+    it('exports `CNPJ_MIN_LENGTH` as named', () => {
       expect(exportedResources).toContain('CNPJ_MIN_LENGTH');
     });
   });
@@ -164,7 +164,7 @@ describe('package distributions', () => {
     let exportedResources: string[];
     let exportedTypes: string[];
 
-    beforeAll(async (): Promise<void> => {
+    beforeAll(async () => {
       content = await file.text();
       exportedResources = extractExportedResources(content);
       exportedTypes = extractExportedTypes(content);
@@ -174,63 +174,63 @@ describe('package distributions', () => {
       await expect(file.exists()).resolves.toBe(true);
     });
 
-    it('declares `CnpjCheckDigits` class', async () => {
+    it('declares `CnpjCheckDigits` class', () => {
       expect(content).toContain('declare class CnpjCheckDigits');
     });
 
-    it('exports `CnpjCheckDigits` as default', async () => {
+    it('exports `CnpjCheckDigits` as default', () => {
       expect(exportedResources).toContain('CnpjCheckDigits as default');
     });
 
-    it('exports `CnpjCheckDigits` as named', async () => {
+    it('exports `CnpjCheckDigits` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigits');
     });
 
-    it('declares `CnpjCheckDigitsTypeError` abstract class', async () => {
+    it('declares `CnpjCheckDigitsTypeError` abstract class', () => {
       expect(content).toContain('declare abstract class CnpjCheckDigitsTypeError');
     });
 
-    it('exports `CnpjCheckDigitsTypeError` as named', async () => {
+    it('exports `CnpjCheckDigitsTypeError` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigitsTypeError');
     });
 
-    it('declares `CnpjCheckDigitsInputTypeError` class', async () => {
+    it('declares `CnpjCheckDigitsInputTypeError` class', () => {
       expect(content).toContain('declare class CnpjCheckDigitsInputTypeError');
     });
 
-    it('exports `CnpjCheckDigitsInputTypeError` as named', async () => {
+    it('exports `CnpjCheckDigitsInputTypeError` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigitsInputTypeError');
     });
 
-    it('declares `CnpjCheckDigitsException` abstract class', async () => {
+    it('declares `CnpjCheckDigitsException` abstract class', () => {
       expect(content).toContain('declare abstract class CnpjCheckDigitsException');
     });
 
-    it('exports `CnpjCheckDigitsException` as named', async () => {
+    it('exports `CnpjCheckDigitsException` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigitsException');
     });
 
-    it('declares `CnpjCheckDigitsInputInvalidException` class', async () => {
+    it('declares `CnpjCheckDigitsInputInvalidException` class', () => {
       expect(content).toContain('declare class CnpjCheckDigitsInputInvalidException');
     });
 
-    it('exports `CnpjCheckDigitsInputInvalidException` as named', async () => {
+    it('exports `CnpjCheckDigitsInputInvalidException` as named', () => {
       expect(exportedResources).toContain('CnpjCheckDigitsInputInvalidException');
     });
 
-    it('declares `CNPJ_MAX_LENGTH` constant', async () => {
+    it('declares `CNPJ_MAX_LENGTH` constant', () => {
       expect(content).toContain('declare const CNPJ_MAX_LENGTH');
     });
 
-    it('exports `CNPJ_MAX_LENGTH` as named', async () => {
+    it('exports `CNPJ_MAX_LENGTH` as named', () => {
       expect(exportedResources).toContain('CNPJ_MAX_LENGTH');
     });
 
-    it('declares `CNPJ_MIN_LENGTH` constant', async () => {
+    it('declares `CNPJ_MIN_LENGTH` constant', () => {
       expect(content).toContain('declare const CNPJ_MIN_LENGTH');
     });
 
-    it('exports `CNPJ_MIN_LENGTH` as named', async () => {
+    it('exports `CNPJ_MIN_LENGTH` as named', () => {
       expect(exportedResources).toContain('CNPJ_MIN_LENGTH');
     });
 
