@@ -1,0 +1,50 @@
+{
+  "name": "@lacussoft/utils",
+  "version": "0.0.0",
+  "description": "Reusable utilities for Lacus SOlutions JavaScript/TypeScript packages",
+  "license": "MIT",
+  "author": {
+    "name": "Julio L. Muller",
+    "url": "https://github.com/juliolmuller"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "keywords": [
+    "utils",
+    "utilities",
+    "helpers"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LacusSolutions/br-utils-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LacusSolutions/br-utils-js/issues"
+  },
+  "homepage": "https://github.com/LacusSolutions/br-utils-js#readme",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "rollup --config",
+    "type-check": "tsc --noEmit",
+    "lint": "bun run lint:ci --fix",
+    "lint:ci": "eslint src/ tests/ rollup.config.mjs",
+    "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
+    "test:ci": "bun test --only-failures"
+  }
+}
