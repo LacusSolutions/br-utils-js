@@ -54,5 +54,8 @@
     "lint:ci": "eslint src/ tests/ rollup.config.mjs",
     "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
     "test:ci": "bun test --only-failures"
+  },
+  "dependencies": {
+    "@lacussoft/utils": "workspace:*"
   }
 }
