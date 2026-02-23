@@ -10,7 +10,7 @@ Utilitário em JavaScript/TypeScript para formatação de CPF (Cadastro de Pesso
 - ✅ **Agnóstico ao formato**: remove caracteres não numéricos antes de formatar
 - ✅ **Personalizável**: delimitadores (ponto, hífen), mascaramento (intervalo + substituição), escape HTML, codificação de URL
 - ✅ **Suporte a TypeScript**: definições de tipo completas e compatível com modo estrito
-- ✅ **Zero dependências**: sem dependências externas
+- ✅ **Dependências mínimas**: Sem dependências externas, apenas pacotes internos como `@lacussoft/utils`
 - ✅ **Tratamento de erros**: callback `onFail` configurável; uso opcional de classes de exceção específicas
 
 ## Instalação
