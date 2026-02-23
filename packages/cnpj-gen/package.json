@@ -55,6 +55,7 @@
     "test:ci": "bun test --only-failures"
   },
   "dependencies": {
-    "@lacussoft/cnpj-dv": "workspace:*"
+    "@lacussoft/cnpj-dv": "workspace:*",
+    "@lacussoft/utils": "workspace:*"
   }
 }

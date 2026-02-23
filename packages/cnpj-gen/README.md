@@ -26,7 +26,7 @@ A JavaScript/TypeScript utility to generate valid CNPJ (Brazilian Business Tax I
 - ✅ **Formatting**: Option to return the standard formatted string (`00.000.000/0000-00`)
 - ✅ **Reusable generator**: `CnpjGenerator` class with default options and per-call overrides
 - ✅ **TypeScript support**: Full type definitions and strict-mode compatible
-- ✅ **Minimal dependencies**: Only depends on internal package `@lacussoft/cnpj-dv` for check digits calculation.
+- ✅ **Minimal dependencies**: No external dependencies, only on internal package `@lacussoft/utils`, and `@lacussoft/cnpj-dv` for check digits calculation.
 - ✅ **Error handling**: Specific type errors and exceptions for invalid options
 
 ## Installation

@@ -1,3 +1,4 @@
+import * as lacusUtils from '@lacussoft/utils';
 import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
 
 import { CnpjGenerator } from '../src/cnpj-generator';
@@ -8,7 +9,6 @@ import {
   CnpjGeneratorOptionTypeInvalidException,
 } from '../src/exceptions';
 import type { CnpjGeneratorOptionsInput, CnpjGeneratorOptionsType, CnpjType } from '../src/types';
-import * as utils from '../src/utils';
 
 describe('CnpjGenerator', (): void => {
   describe('constructor', (): void => {
@@ -445,7 +445,7 @@ describe('CnpjGenerator', (): void => {
       let randomSequenceSpy: ReturnType<typeof spyOn>;
 
       beforeEach((): void => {
-        randomSequenceSpy = spyOn(utils, 'randomSequence');
+        randomSequenceSpy = spyOn(lacusUtils, 'generateRandomSequence');
       });
 
       afterEach((): void => {
