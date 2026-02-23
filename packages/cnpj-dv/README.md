@@ -28,7 +28,7 @@ A JavaScript/TypeScript utility to calculate check digits on CNPJ (Brazilian Bus
 - ✅ **Lazy evaluation**: Check digits are calculated only when accessed (via properties)
 - ✅ **Caching**: Calculated values are cached for subsequent access
 - ✅ **TypeScript support**: Full type definitions and strict-mode compatible
-- ✅ **Zero dependencies**: No external dependencies
+- ✅ **Minimal dependencies**: No external dependencies, only on internal package `@lacussoft/utils`
 - ✅ **Error handling**: Specific exceptions for type, length, and invalid CNPJ scenarios
 
 ## Installation

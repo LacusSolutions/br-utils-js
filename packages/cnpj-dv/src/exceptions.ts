@@ -1,5 +1,6 @@
+import { describeType } from '@lacussoft/utils';
+
 import { type CnpjInput } from './types';
-import { describeType } from './utils';
 
 /**
  * Base error for all `cnpj-dv` type-related errors.
