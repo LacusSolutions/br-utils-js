@@ -26,7 +26,7 @@ A JavaScript/TypeScript utility to validate CNPJ (Brazilian Business Tax ID) val
 - ✅ **Format agnostic**: Strips non-alphanumeric characters and optionally uppercases before validation
 - ✅ **Optional case sensitivity**: When `caseSensitive` is `false`, lowercase letters are accepted for alphanumeric CNPJ
 - ✅ **TypeScript support**: Full type definitions and strict-mode compatible
-- ✅ **Minimal dependencies**: Only depends on internal package `@lacussoft/cnpj-dv` for check digits verification
+- ✅ **Minimal dependencies**: No external dependencies, only on internal package `@lacussoft/utils`, and `@lacussoft/cnpj-dv` for check digits calculation.
 - ✅ **Error handling**: Specific type errors and exceptions for invalid options or input type
 
 ## Installation

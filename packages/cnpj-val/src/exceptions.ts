@@ -1,5 +1,6 @@
+import { describeType } from '@lacussoft/utils';
+
 import type { CnpjValidatorOptionsType } from './types';
-import { describeType } from './utils';
 
 /**
  * Base error class for all `cnpj-val` type-related errors.
