@@ -16,7 +16,6 @@ import type {
   CnpjType as BaseCnpjType,
   CnpjValidatorOptionsInput as BaseCnpjValidatorOptionsInput,
   CnpjValidatorOptionsType as BaseCnpjValidatorOptionsType,
-  Nullable as BaseNullable,
 } from './types';
 
 function cnpjVal(cnpjInput: BaseCnpjInput, options?: BaseCnpjValidatorOptionsInput): boolean {
@@ -40,7 +39,6 @@ namespace cnpjVal {
   export type CnpjType = BaseCnpjType;
   export type CnpjValidatorOptionsInput = BaseCnpjValidatorOptionsInput;
   export type CnpjValidatorOptionsType = BaseCnpjValidatorOptionsType;
-  export type Nullable<T> = BaseNullable<T>;
 }
 
 export default cnpjVal;

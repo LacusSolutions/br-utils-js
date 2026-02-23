@@ -14,7 +14,6 @@ import {
 import type {
   CpfGeneratorOptionsInput as BaseCpfGeneratorOptionsInput,
   CpfGeneratorOptionsType as BaseCpfGeneratorOptionsType,
-  Nullable as BaseNullable,
 } from './types';
 
 function cpfGen(options?: BaseCpfGeneratorOptionsInput): string {
@@ -36,7 +35,6 @@ namespace cpfGen {
   // Type aliases
   export type CpfGeneratorOptionsInput = BaseCpfGeneratorOptionsInput;
   export type CpfGeneratorOptionsType = BaseCpfGeneratorOptionsType;
-  export type Nullable<T> = BaseNullable<T>;
 }
 
 export default cpfGen;

@@ -17,7 +17,6 @@ import type {
   CpfFormatterOptionsInput as BaseCpfFormatterOptionsInput,
   CpfFormatterOptionsType as BaseCpfFormatterOptionsType,
   CpfInput as BaseCpfInput,
-  Nullable as BaseNullable,
   OnFailCallback as BaseOnFailCallback,
 } from './types';
 
@@ -45,7 +44,6 @@ namespace cpfFmt {
   export type CpfFormatterOptionsInput = BaseCpfFormatterOptionsInput;
   export type CpfFormatterOptionsType = BaseCpfFormatterOptionsType;
   export type OnFailCallback = BaseOnFailCallback;
-  export type Nullable<T> = BaseNullable<T>;
 }
 
 export default cpfFmt;

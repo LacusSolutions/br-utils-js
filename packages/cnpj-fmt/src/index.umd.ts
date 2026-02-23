@@ -17,7 +17,6 @@ import type {
   CnpjFormatterOptionsInput as BaseCnpjFormatterOptionsInput,
   CnpjFormatterOptionsType as BaseCnpjFormatterOptionsType,
   CnpjInput as BaseCnpjInput,
-  Nullable as BaseNullable,
   OnFailCallback as BaseOnFailCallback,
 } from './types';
 
@@ -45,7 +44,6 @@ namespace cnpjFmt {
   export type OptionsInput = BaseCnpjFormatterOptionsInput;
   export type CnpjFormatterOptionsType = BaseCnpjFormatterOptionsType;
   export type OnFailCallback = BaseOnFailCallback;
-  export type Nullable<T> = BaseNullable<T>;
 }
 
 export default cnpjFmt;
