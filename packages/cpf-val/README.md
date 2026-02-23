@@ -22,7 +22,7 @@ A JavaScript/TypeScript utility to validate CPF (Brazilian Individual's Taxpayer
 - ✅ **Flexible input**: Accepts string or array of strings (formatted or raw)
 - ✅ **Format agnostic**: Strips non-numeric characters before validation
 - ✅ **TypeScript support**: Full type definitions and strict-mode compatible
-- ✅ **Minimal dependencies**: No external dependencies, only on internal package `@lacussoft/utils`, and `@lacussoft/cpf-dv` for check digits calculation.
+- ✅ **Minimal dependencies**: No external dependencies, only internal packages `@lacussoft/utils`, and `@lacussoft/cpf-dv` for check digits calculation.
 - ✅ **Error handling**: Specific type error for invalid input type
 
 ## Installation
