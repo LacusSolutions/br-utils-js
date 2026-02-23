@@ -1,7 +1,7 @@
 {
   "name": "@lacussoft/utils",
   "version": "0.0.0",
-  "description": "Reusable utilities for Lacus SOlutions JavaScript/TypeScript packages",
+  "description": "Reusable utilities for Lacus Solutions JavaScript/TypeScript packages",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
