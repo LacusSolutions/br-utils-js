@@ -1,5 +1,4 @@
 import babelPlugin from '@rollup/plugin-babel';
-import commonJsPlugin from '@rollup/plugin-commonjs';
 import nodeResolvePlugin from '@rollup/plugin-node-resolve';
 import terserPlugin from '@rollup/plugin-terser';
 import typeScriptPlugin from '@rollup/plugin-typescript';
@@ -57,7 +56,6 @@ export function makeRollupConfig({
   const commonModulesOptions = {
     plugins: [
       nodeResolvePlugin(),
-      commonJsPlugin(),
       esBuildPlugin({
         target: 'esnext',
       }),
@@ -94,12 +92,16 @@ export function makeRollupConfig({
         deletePlugin({
           targets: ['dist/*'],
         }),
-        nodeResolvePlugin(),
-        commonJsPlugin(),
+        nodeResolvePlugin({
+          extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.node'],
+        }),
         typeScriptPlugin(),
         babelPlugin({
           babelHelpers: 'bundled',
-          presets: [['@babel/preset-env', { targets: '> 0.25%, not dead' }]],
+          presets: [
+            '@babel/preset-typescript',
+            ['@babel/preset-env', { targets: '> 0.25%, not dead' }],
+          ],
           extensions: ['.ts', '.js'],
         }),
       ],

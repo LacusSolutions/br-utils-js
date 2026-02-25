@@ -91,14 +91,15 @@
     "test:br-utils": "bun run --filter './**/br-utils' test"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
+    "@babel/preset-typescript": "^7.28.5",
     "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^20.4.2",
     "@commitlint/config-conventional": "^20.4.2",
     "@commitlint/config-workspace-scopes": "^20.4.0",
     "@commitlint/prompt-cli": "^20.4.2",
     "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "~0.4.4",
     "@rollup/plugin-typescript": "^12.3.0",
@@ -113,6 +114,7 @@
     "rollup-plugin-delete": "^3.0.2",
     "rollup-plugin-dts": "^6.3.0",
     "rollup-plugin-esbuild": "^6.2.1",
+    "tslib": "^2.8.1",
     "typescript": "^5.9.3"
   }
 }
