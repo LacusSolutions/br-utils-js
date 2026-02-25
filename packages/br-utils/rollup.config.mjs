@@ -7,6 +7,7 @@ export default makeRollupConfig({
   cjsExports: 'named',
   cjsEntryPoint: 'src/module.ts',
   esmEntryPoint: 'src/module.ts',
+  esmExports: 'named',
   umdEntryPoint: 'src/dist.ts',
   umdGlobalName: 'brUtils',
   umdDistFileName: 'br-utils',

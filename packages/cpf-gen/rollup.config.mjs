@@ -4,9 +4,7 @@ import packageMeta from './package.json' with { type: 'json' };
 export default makeRollupConfig({
   bannerTitle: 'Lacus Solutions :: cpf-gen',
   creationYear: 2021,
-  cjsEntryPoint: 'src/index.cjs.ts',
-  esmEntryPoint: 'src/index.esm.ts',
-  umdEntryPoint: 'src/index.umd.ts',
+  esmExports: 'named',
   umdGlobalName: 'cpfGen',
   umdDistFileName: 'cpf-gen',
   packageMeta,

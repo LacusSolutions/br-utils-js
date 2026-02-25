@@ -1,11 +1,8 @@
-import babelPlugin from '@rollup/plugin-babel';
-import nodeResolvePlugin from '@rollup/plugin-node-resolve';
-import terserPlugin from '@rollup/plugin-terser';
-import typeScriptPlugin from '@rollup/plugin-typescript';
 import { defineConfig } from 'rollup';
-import deletePlugin from 'rollup-plugin-delete';
-import declarationsPlugin from 'rollup-plugin-dts';
-import esBuildPlugin from 'rollup-plugin-esbuild';
+
+import { makeCommonJSRollupConfig } from './build-cjs.js';
+import { makeESModuleRollupConfig } from './build-esm.js';
+import { makeUMDRollupConfig } from './build-umd.js';
 
 /**
  * @param {Object} buildParams
@@ -23,15 +20,15 @@ export function makeRollupConfig({
   bannerTitle,
   packageMeta: { author, license, version, ...packageMeta },
   creationYear,
-  cjsEntryPoint = 'src/index.ts',
+  cjsEntryPoint = 'src/index.cjs.ts',
   cjsExports = 'default',
-  esmEntryPoint = 'src/index.ts',
-  esmExports = 'named',
+  esmEntryPoint = 'src/index.esm.ts',
+  esmExports = 'auto',
   umdDistFileName,
-  umdEntryPoint = 'src/index.ts',
+  umdEntryPoint = 'src/index.umd.ts',
   umdGlobalName,
 }) {
-  if (!bannerTitle || !creationYear || !umdGlobalName || !umdDistFileName) {
+  if (!bannerTitle || !creationYear) {
     throw new Error('Missing build params in `makeRollupConfig`.');
   }
 
@@ -50,106 +47,30 @@ export function makeRollupConfig({
  */
 `;
 
-  /**
-   * @type {import('rollup').RollupOptions}
-   */
-  const commonModulesOptions = {
-    plugins: [
-      nodeResolvePlugin(),
-      esBuildPlugin({
-        target: 'esnext',
-      }),
-    ],
-    external: [
-      ...Object.keys(packageMeta.dependencies || {}),
-      ...Object.keys(packageMeta.devDependencies || {}),
-      ...Object.keys(packageMeta.peerDependencies || {}),
-    ],
-  };
+  const externalDependencies = [
+    ...Object.keys(packageMeta.dependencies || {}),
+    ...Object.keys(packageMeta.devDependencies || {}),
+    ...Object.keys(packageMeta.peerDependencies || {}),
+  ];
 
   return defineConfig([
-    // UMD for legacy browsers
-    {
-      input: umdEntryPoint,
-      output: [
-        {
-          name: umdGlobalName,
-          file: `dist/${umdDistFileName}.js`,
-          format: 'umd',
-          sourcemap: 'inline',
-          banner: bundleBanner,
-        },
-        {
-          name: umdGlobalName,
-          file: `dist/${umdDistFileName}.min.js`,
-          format: 'umd',
-          sourcemap: 'inline',
-          banner: bundleBanner,
-          plugins: [terserPlugin()],
-        },
-      ],
-      plugins: [
-        deletePlugin({
-          targets: ['dist/*'],
-        }),
-        nodeResolvePlugin({
-          extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.node'],
-        }),
-        typeScriptPlugin(),
-        babelPlugin({
-          babelHelpers: 'bundled',
-          presets: [
-            '@babel/preset-typescript',
-            ['@babel/preset-env', { targets: '> 0.25%, not dead' }],
-          ],
-          extensions: ['.ts', '.js'],
-        }),
-      ],
-    },
-
-    // CommonJS
-    {
-      input: cjsEntryPoint,
-      output: [
-        {
-          file: 'dist/index.cjs',
-          format: 'cjs',
-          sourcemap: 'inline',
-          exports: cjsExports,
-        },
-        {
-          file: 'dist/index.mjs',
-          format: 'es',
-          sourcemap: 'inline',
-          exports: esmExports,
-        },
-      ],
-      ...commonModulesOptions,
-    },
-
-    // ES Module
-    {
-      input: esmEntryPoint,
-      output: [
-        {
-          file: 'dist/index.mjs',
-          format: 'es',
-          sourcemap: 'inline',
-          exports: esmExports,
-        },
-      ],
-      ...commonModulesOptions,
-    },
-
-    // Types declaration
-    {
-      input: esmEntryPoint,
-      output: {
-        file: 'dist/index.d.ts',
-        format: 'es',
-        exports: esmExports,
-      },
-      plugins: [declarationsPlugin()],
-    },
+    makeUMDRollupConfig({
+      banner: bundleBanner,
+      entryPoint: umdEntryPoint,
+      distFileName: umdDistFileName,
+      globalName: umdGlobalName,
+    }),
+    makeCommonJSRollupConfig({
+      banner: bundleBanner,
+      entryPoint: cjsEntryPoint,
+      exportType: cjsExports,
+      externalDependencies,
+    }),
+    makeESModuleRollupConfig({
+      banner: bundleBanner,
+      entryPoint: esmEntryPoint,
+      exportType: esmExports,
+      externalDependencies,
+    }),
   ]);
 }
