@@ -31,10 +31,14 @@ export function makeUMDRollupConfig({ entryPoint, distFileName, banner, globalNa
         {
           file: `dist/${distFileName}.min.js`,
           format: 'umd',
-          sourcemap: 'hidden',
           name: globalName,
           banner,
-          plugins: [terserPlugin()],
+          plugins: [
+            terserPlugin({
+              keep_classnames: true,
+              keep_fnames: true,
+            }),
+          ],
         },
       ],
       plugins: [
