@@ -31,7 +31,7 @@ export function makeCommonJSRollupConfig({ banner, entryPoint, exportType, exter
     {
       input: entryPoint,
       output: {
-        file: 'dist/index.cjs',
+        file: 'dist/index.d.cts',
         format: 'es',
         banner,
       },
