@@ -1,20 +1,22 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
-    "baseUrl": ".",
-    "paths": {},
     "target": "ES5",
     "module": "esnext",
-    "moduleResolution": "node",
-    "useDefineForClassFields": false,
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "allowJs": false,
-    "noEmit": false,
-    "strict": true,
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "resolveJsonModule": true,
-    "removeComments": false
-  }
+    "skipLibCheck": true,
+    "strict": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": ["**/src/**/*.ts", "**/tests/**/*.ts"],
+  "exclude": ["**/node_modules/**", "**/dist/**"]
 }
