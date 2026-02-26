@@ -27,7 +27,7 @@ export function generateRandomSequence(size: number, type: SequenceType): string
     const random = Math.random();
     const randomFloat = random * charactersRange.length;
     const randomInteger = Math.floor(randomFloat);
-    const randomCharacter = charactersRange[randomInteger];
+    const randomCharacter = charactersRange[randomInteger]!;
 
     charactersSequence.push(randomCharacter);
   }
