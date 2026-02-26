@@ -273,7 +273,7 @@ export class CnpjGeneratorOptions {
     const eligibleCnpjPrefix = cnpjPrefix.slice(0, CNPJ_PREFIX_MAX_LENGTH);
     const uniqueCharacters = new Set(eligibleCnpjPrefix);
 
-    if (uniqueCharacters.size === 1 && /^\d$/.test(eligibleCnpjPrefix[0])) {
+    if (uniqueCharacters.size === 1 && /^\d$/.test(eligibleCnpjPrefix[0] ?? '')) {
       throw new CnpjGeneratorOptionPrefixInvalidException(
         cnpjPrefix,
         'Repeated digits are not considered valid.',

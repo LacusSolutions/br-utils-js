@@ -10,7 +10,8 @@ import type { CnpjGeneratorOptionsType } from './types';
  * chain setup and automatically sets the error name from the constructor.
  */
 export abstract class CnpjGeneratorTypeError extends TypeError {
-  public readonly name: string;
+  public override readonly name: string;
+
   public readonly actualInput: unknown;
   public readonly actualType: string;
   public readonly expectedType: string;
@@ -66,7 +67,7 @@ export class CnpjGeneratorOptionsTypeError extends CnpjGeneratorTypeError {
  * chain setup and automatically sets the error name from the constructor.
  */
 export abstract class CnpjGeneratorException extends Error {
-  public readonly name: string;
+  public override readonly name: string;
 
   public constructor(message: string) {
     super(message);
