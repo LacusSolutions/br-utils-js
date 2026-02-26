@@ -34,17 +34,16 @@ describe('package distributions', () => {
         it('follows the API', () => {
           const api = { ...DefaultClass };
 
-          expect(api).toEqual(
-            expect.objectContaining({
-              CnpjCheckDigits: expect.anything(),
-              CnpjCheckDigitsTypeError: expect.anything(),
-              CnpjCheckDigitsInputTypeError: expect.anything(),
-              CnpjCheckDigitsException: expect.anything(),
-              CnpjCheckDigitsInputInvalidException: expect.anything(),
-              CNPJ_MIN_LENGTH: expect.any(Number),
-              CNPJ_MAX_LENGTH: expect.any(Number),
-            }),
-          );
+          expect(api).toEqual({
+            CnpjCheckDigits: expect.anything(),
+            CnpjCheckDigitsTypeError: expect.anything(),
+            CnpjCheckDigitsInputTypeError: expect.anything(),
+            CnpjCheckDigitsException: expect.anything(),
+            CnpjCheckDigitsInputInvalidException: expect.anything(),
+            CnpjCheckDigitsInputLengthException: expect.anything(),
+            CNPJ_MIN_LENGTH: expect.any(Number),
+            CNPJ_MAX_LENGTH: expect.any(Number),
+          });
         });
 
         it('exposes a global `CnpjCheckDigits` class', async () => {
@@ -61,6 +60,9 @@ describe('package distributions', () => {
           expect(DefaultClass.CnpjCheckDigitsException?.name).toBe('CnpjCheckDigitsException');
           expect(DefaultClass.CnpjCheckDigitsInputInvalidException?.name).toBe(
             'CnpjCheckDigitsInputInvalidException',
+          );
+          expect(DefaultClass.CnpjCheckDigitsInputLengthException?.name).toBe(
+            'CnpjCheckDigitsInputLengthException',
           );
           expect(DefaultClass.CNPJ_MIN_LENGTH).toBe(12);
           expect(DefaultClass.CNPJ_MAX_LENGTH).toBe(14);
