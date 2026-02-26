@@ -34,20 +34,18 @@ describe('package distributions', (): void => {
         it('follows the API', () => {
           const api = { ...cnpjFmt };
 
-          expect(api).toEqual(
-            expect.objectContaining({
-              CnpjFormatter: expect.anything(),
-              CnpjFormatterOptions: expect.anything(),
-              CnpjFormatterTypeError: expect.anything(),
-              CnpjFormatterInputTypeError: expect.anything(),
-              CnpjFormatterOptionsTypeError: expect.anything(),
-              CnpjFormatterException: expect.anything(),
-              CnpjFormatterInputLengthException: expect.anything(),
-              CnpjFormatterOptionsHiddenRangeInvalidException: expect.anything(),
-              CnpjFormatterOptionsForbiddenKeyCharacterException: expect.anything(),
-              CNPJ_LENGTH: expect.any(Number),
-            }),
-          );
+          expect(api).toEqual({
+            CnpjFormatter: expect.anything(),
+            CnpjFormatterOptions: expect.anything(),
+            CnpjFormatterTypeError: expect.anything(),
+            CnpjFormatterInputTypeError: expect.anything(),
+            CnpjFormatterOptionsTypeError: expect.anything(),
+            CnpjFormatterException: expect.anything(),
+            CnpjFormatterInputLengthException: expect.anything(),
+            CnpjFormatterOptionsHiddenRangeInvalidException: expect.anything(),
+            CnpjFormatterOptionsForbiddenKeyCharacterException: expect.anything(),
+            CNPJ_LENGTH: expect.any(Number),
+          });
         });
 
         it('exposes a global `cnpjFmt` function', async (): Promise<void> => {
