@@ -4,7 +4,6 @@ import packageMeta from './package.json' with { type: 'json' };
 export default makeRollupConfig({
   bannerTitle: 'Lacus Solutions :: cnpj-fmt',
   creationYear: 2021,
-  esmExports: 'named',
   umdGlobalName: 'cnpjFmt',
   umdDistFileName: 'cnpj-fmt',
   packageMeta,

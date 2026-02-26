@@ -10,7 +10,8 @@ import type { CnpjFormatterOptionsType, CnpjInput } from './types';
  * chain setup and automatically sets the error name from the constructor.
  */
 export abstract class CnpjFormatterTypeError extends TypeError {
-  public readonly name: string;
+  public override readonly name: string;
+
   public readonly actualInput: unknown;
   public readonly actualType: string;
   public readonly expectedType: string;
@@ -84,7 +85,7 @@ export class CnpjFormatterOptionsTypeError extends CnpjFormatterTypeError {
  * chain setup and automatically sets the error name from the constructor.
  */
 export abstract class CnpjFormatterException extends Error {
-  public readonly name: string;
+  public override readonly name: string;
 
   public constructor(message: string) {
     super(message);
