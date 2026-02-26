@@ -1,11 +1,5 @@
-import * as main from './cnpj-check-digits';
-import * as exceptions from './exceptions';
-import * as types from './types';
+import * as all from './index.esm';
 
-class CnpjCheckDigits extends main.CnpjCheckDigits {}
+class CnpjCheckDigits extends all.CnpjCheckDigits {}
 
-export default Object.assign(CnpjCheckDigits, {
-  ...main,
-  ...exceptions,
-  ...types,
-});
+export default Object.assign(CnpjCheckDigits, all);
