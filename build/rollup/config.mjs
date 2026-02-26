@@ -54,19 +54,19 @@ export function makeRollupConfig({
   ];
 
   return defineConfig([
-    makeUMDRollupConfig({
+    ...makeUMDRollupConfig({
       banner: bundleBanner,
       entryPoint: umdEntryPoint,
       distFileName: umdDistFileName,
       globalName: umdGlobalName,
     }),
-    makeCommonJSRollupConfig({
+    ...makeCommonJSRollupConfig({
       banner: bundleBanner,
       entryPoint: cjsEntryPoint,
       exportType: cjsExports,
       externalDependencies,
     }),
-    makeESModuleRollupConfig({
+    ...makeESModuleRollupConfig({
       banner: bundleBanner,
       entryPoint: esmEntryPoint,
       exportType: esmExports,
