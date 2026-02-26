@@ -1,5 +1,7 @@
 import * as all from './index.esm';
 
-class CnpjCheckDigits extends all.CnpjCheckDigits {}
+const { default: _, ...rest } = all;
 
-export default Object.assign(CnpjCheckDigits, all);
+class CnpjCheckDigits extends rest.CnpjCheckDigits {}
+
+export default Object.assign(CnpjCheckDigits, rest);

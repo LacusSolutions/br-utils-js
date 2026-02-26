@@ -22,36 +22,52 @@ describe('package distributions', () => {
 
       describe('when evaluated', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let RootClass: any;
+        let DefaultClass: any;
 
         beforeAll(async () => {
           const fileContent = await file.text();
           const makeGlobalClass = new Function(`${fileContent}\nreturn CnpjCheckDigits;`);
 
-          RootClass = makeGlobalClass();
+          DefaultClass = makeGlobalClass();
+        });
+
+        it('follows the API', () => {
+          const api = { ...DefaultClass };
+
+          expect(api).toEqual(
+            expect.objectContaining({
+              CnpjCheckDigits: expect.anything(),
+              CnpjCheckDigitsTypeError: expect.anything(),
+              CnpjCheckDigitsInputTypeError: expect.anything(),
+              CnpjCheckDigitsException: expect.anything(),
+              CnpjCheckDigitsInputInvalidException: expect.anything(),
+              CNPJ_MIN_LENGTH: expect.any(Number),
+              CNPJ_MAX_LENGTH: expect.any(Number),
+            }),
+          );
         });
 
         it('exposes a global `CnpjCheckDigits` class', async () => {
-          expect(RootClass).toBeFunction();
-          expect(RootClass.name).toBe('CnpjCheckDigits');
+          expect(DefaultClass).toBeFunction();
+          expect(DefaultClass.name).toBe('CnpjCheckDigits');
         });
 
         it('exposes other resources through the global variable', async (): Promise<void> => {
-          expect(RootClass.CnpjCheckDigits?.name).toBe('CnpjCheckDigits');
-          expect(RootClass.CnpjCheckDigitsTypeError?.name).toBe('CnpjCheckDigitsTypeError');
-          expect(RootClass.CnpjCheckDigitsInputTypeError?.name).toBe(
+          expect(DefaultClass.CnpjCheckDigits?.name).toBe('CnpjCheckDigits');
+          expect(DefaultClass.CnpjCheckDigitsTypeError?.name).toBe('CnpjCheckDigitsTypeError');
+          expect(DefaultClass.CnpjCheckDigitsInputTypeError?.name).toBe(
             'CnpjCheckDigitsInputTypeError',
           );
-          expect(RootClass.CnpjCheckDigitsException?.name).toBe('CnpjCheckDigitsException');
-          expect(RootClass.CnpjCheckDigitsInputInvalidException?.name).toBe(
+          expect(DefaultClass.CnpjCheckDigitsException?.name).toBe('CnpjCheckDigitsException');
+          expect(DefaultClass.CnpjCheckDigitsInputInvalidException?.name).toBe(
             'CnpjCheckDigitsInputInvalidException',
           );
-          expect(RootClass.CNPJ_MIN_LENGTH).toBe(12);
-          expect(RootClass.CNPJ_MAX_LENGTH).toBe(14);
+          expect(DefaultClass.CNPJ_MIN_LENGTH).toBe(12);
+          expect(DefaultClass.CNPJ_MAX_LENGTH).toBe(14);
         });
 
         it('exposes an instantiable `CnpjCheckDigits` class (root)', async () => {
-          const instance = new RootClass('914157320007');
+          const instance = new DefaultClass('914157320007');
 
           expect(instance.first).toBe('9');
           expect(instance.second).toBe('3');
@@ -59,7 +75,7 @@ describe('package distributions', () => {
         });
 
         it('exposes an instantiable `CnpjCheckDigits` class (inner)', async () => {
-          const instance = new RootClass.CnpjCheckDigits('914157320007');
+          const instance = new DefaultClass.CnpjCheckDigits('914157320007');
 
           expect(instance.first).toBe('9');
           expect(instance.second).toBe('3');
@@ -67,7 +83,7 @@ describe('package distributions', () => {
         });
 
         it('exposes an instantiable `CnpjCheckDigitsInputTypeError` class', async () => {
-          const instance = new RootClass.CnpjCheckDigitsInputTypeError(123, 'string');
+          const instance = new DefaultClass.CnpjCheckDigitsInputTypeError(123, 'string');
 
           expect(instance.actualInput).toBe(123);
           expect(instance.actualType).toBe('integer number');
@@ -76,7 +92,10 @@ describe('package distributions', () => {
         });
 
         it('exposes an instantiable `CnpjCheckDigitsInputInvalidException` class', async () => {
-          const instance = new RootClass.CnpjCheckDigitsInputInvalidException('123', 'some reason');
+          const instance = new DefaultClass.CnpjCheckDigitsInputInvalidException(
+            '123',
+            'some reason',
+          );
 
           expect(instance.actualInput).toBe('123');
           expect(instance.reason).toBe('some reason');
