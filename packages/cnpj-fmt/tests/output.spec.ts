@@ -53,7 +53,7 @@ describe('package distributions', (): void => {
           expect(cnpjFmt.name).toBe('cnpjFmt');
         });
 
-        it('exposes resources through the global `cnpjFmt` variable', async (): Promise<void> => {
+        it('exposes other resources through the global `cnpjFmt` variable', async (): Promise<void> => {
           expect(cnpjFmt.CnpjFormatter?.name).toBe('CnpjFormatter');
           expect(cnpjFmt.CnpjFormatterOptions?.name).toBe('CnpjFormatterOptions');
           expect(cnpjFmt.CnpjFormatterTypeError?.name).toBe('CnpjFormatterTypeError');
