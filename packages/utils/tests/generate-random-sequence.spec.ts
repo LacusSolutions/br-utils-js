@@ -3,7 +3,7 @@ import { describe, expect, it, type Test } from 'bun:test';
 import { generateRandomSequence } from '../src/generate-random-sequence';
 import type { SequenceType } from '../src/types';
 
-describe('generateRandomSequence', (): void => {
+describe('generateRandomSequence', () => {
   interface Sequence {
     index: number;
     result: string;
@@ -22,12 +22,12 @@ describe('generateRandomSequence', (): void => {
     return it.each(results);
   }
 
-  describe('when generating numeric sequences', (): void => {
+  describe('when generating numeric sequences', () => {
     assertEach(
       20,
       32,
       'numeric',
-    )('generated 32-length sequences (#$index)', ({ result }): void => {
+    )('generated 32-length sequences (#$index)', ({ result }) => {
       expect(result).toHaveLength(32);
     });
 
@@ -35,7 +35,7 @@ describe('generateRandomSequence', (): void => {
       50,
       100,
       'numeric',
-    )('does not contain letters (#$index)', ({ result }): void => {
+    )('does not contain letters (#$index)', ({ result }) => {
       expect(result).not.toMatch(/\D/);
     });
 
@@ -43,17 +43,17 @@ describe('generateRandomSequence', (): void => {
       50,
       100,
       'numeric',
-    )('only contains numbers (#$index)', ({ result }): void => {
+    )('only contains numbers (#$index)', ({ result }) => {
       expect(result).toMatch(/^\d+$/);
     });
   });
 
-  describe('when generating alphabetic sequences', (): void => {
+  describe('when generating alphabetic sequences', () => {
     assertEach(
       20,
       32,
       'alphabetic',
-    )('generated 32-length sequences (#$index)', ({ result }): void => {
+    )('generated 32-length sequences (#$index)', ({ result }) => {
       expect(result).toHaveLength(32);
     });
 
@@ -61,7 +61,7 @@ describe('generateRandomSequence', (): void => {
       50,
       100,
       'alphabetic',
-    )('does not contain numbers (#$index)', ({ result }): void => {
+    )('does not contain numbers (#$index)', ({ result }) => {
       expect(result).not.toMatch(/\d/);
     });
 
@@ -69,7 +69,7 @@ describe('generateRandomSequence', (): void => {
       50,
       100,
       'alphabetic',
-    )('does not contain lowercase letters (#$index)', ({ result }): void => {
+    )('does not contain lowercase letters (#$index)', ({ result }) => {
       expect(result).not.toMatch(/[a-z]/);
     });
 
@@ -77,17 +77,17 @@ describe('generateRandomSequence', (): void => {
       50,
       100,
       'alphabetic',
-    )('only contains uppercase letters (#$index)', ({ result }): void => {
+    )('only contains uppercase letters (#$index)', ({ result }) => {
       expect(result).toMatch(/^[A-Z]+$/);
     });
   });
 
-  describe('when generating alphanumeric sequences', (): void => {
+  describe('when generating alphanumeric sequences', () => {
     assertEach(
       20,
       32,
       'alphanumeric',
-    )('generated 32-length sequences (#$index)', ({ result }): void => {
+    )('generated 32-length sequences (#$index)', ({ result }) => {
       expect(result).toHaveLength(32);
     });
 
@@ -95,7 +95,7 @@ describe('generateRandomSequence', (): void => {
       50,
       100,
       'alphanumeric',
-    )('does not contain lowercase letters (#$index)', ({ result }): void => {
+    )('does not contain lowercase letters (#$index)', ({ result }) => {
       expect(result).not.toMatch(/[a-z]/);
     });
 
@@ -103,7 +103,7 @@ describe('generateRandomSequence', (): void => {
       50,
       100,
       'alphanumeric',
-    )('only contains numbers and uppercase letters (#$index)', ({ result }): void => {
+    )('only contains numbers and uppercase letters (#$index)', ({ result }) => {
       expect(result).toMatch(/^[0-9A-Z]+$/);
     });
   });
