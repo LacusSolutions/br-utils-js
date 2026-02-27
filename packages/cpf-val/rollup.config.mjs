@@ -4,7 +4,6 @@ import packageMeta from './package.json' with { type: 'json' };
 export default makeRollupConfig({
   bannerTitle: 'Lacus Solutions :: cpf-val',
   creationYear: 2021,
-  esmExports: 'named',
   umdGlobalName: 'cpfVal',
   umdDistFileName: 'cpf-val',
   packageMeta,
