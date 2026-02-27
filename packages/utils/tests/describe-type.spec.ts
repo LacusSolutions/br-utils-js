@@ -295,7 +295,7 @@ describe('describeType', () => {
     });
 
     it('returns "function[]" for an array of functions', () => {
-      const result = describeType([() => {}, function test() {}]);
+      const result = describeType([(): void => {}, function test(): void {}]);
 
       expect(result).toBe('function[]');
     });
