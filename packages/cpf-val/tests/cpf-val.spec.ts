@@ -3,19 +3,19 @@ import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { cpfVal } from '../src/cpf-val';
 import { CpfValidator } from '../src/cpf-validator';
 
-describe('cpfVal', (): void => {
+describe('cpfVal', () => {
   let isValidSpy: ReturnType<typeof spyOn>;
 
-  beforeEach((): void => {
+  beforeEach(() => {
     isValidSpy = spyOn(CpfValidator.prototype, 'isValid').mockImplementation((): boolean => true);
   });
 
-  afterEach((): void => {
+  afterEach(() => {
     isValidSpy.mockRestore();
   });
 
-  describe('when called', (): void => {
-    it('calls the `isValid` method on the `CpfValidator` instance', (): void => {
+  describe('when called', () => {
+    it('calls the `isValid` method on the `CpfValidator` instance', () => {
       cpfVal('12345678910');
 
       expect(isValidSpy).toHaveBeenCalledWith('12345678910');
