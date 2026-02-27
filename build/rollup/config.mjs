@@ -6,8 +6,8 @@ import { makeUMDRollupConfig } from './build-umd.js';
 
 /**
  * @param {Object} buildParams
- * @param {any} buildParams.packageMeta
  * @param {string} buildParams.bannerTitle
+ * @param {number} buildParams.creationYear
  * @param {string} [buildParams.cjsEntryPoint]
  * @param {'default' | 'named'} [buildParams.cjsExports]
  * @param {string} [buildParams.esmEntryPoint]
@@ -15,10 +15,10 @@ import { makeUMDRollupConfig } from './build-umd.js';
  * @param {string} buildParams.umdDistFileName
  * @param {string} [buildParams.umdEntryPoint]
  * @param {string} buildParams.umdGlobalName
+ * @param {any} buildParams.packageMeta
  */
 export function makeRollupConfig({
   bannerTitle,
-  packageMeta: { author, license, version, ...packageMeta },
   creationYear,
   cjsEntryPoint = 'src/index.cjs.ts',
   cjsExports = 'default',
@@ -27,6 +27,7 @@ export function makeRollupConfig({
   umdDistFileName,
   umdEntryPoint = 'src/index.umd.ts',
   umdGlobalName,
+  packageMeta: { author, license, version, ...packageMeta },
 }) {
   if (!bannerTitle || !creationYear) {
     throw new Error('Missing build params in `makeRollupConfig`.');
