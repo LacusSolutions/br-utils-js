@@ -1,49 +1,7 @@
-import { cpfFmt as baseCpfFmt } from './cpf-fmt';
-import { CpfFormatter as BaseCpfFormatter } from './cpf-formatter';
-import {
-  CpfFormatterOptions as BaseCpfFormatterOptions,
-  CPF_LENGTH as BaseCpfLength,
-} from './cpf-formatter-options';
-import {
-  CpfFormatterException as BaseCpfFormatterException,
-  CpfFormatterInputLengthException as BaseCpfFormatterInputLengthException,
-  CpfFormatterInputTypeError as BaseCpfFormatterInputTypeError,
-  CpfFormatterOptionsForbiddenKeyCharacterException as BaseCpfFormatterOptionsForbiddenKeyCharacterException,
-  CpfFormatterOptionsHiddenRangeInvalidException as BaseCpfFormatterOptionsHiddenRangeInvalidException,
-  CpfFormatterOptionsTypeError as BaseCpfFormatterOptionsTypeError,
-  CpfFormatterTypeError as BaseCpfFormatterTypeError,
-} from './exceptions';
-import type {
-  CpfFormatterOptionsInput as BaseCpfFormatterOptionsInput,
-  CpfFormatterOptionsType as BaseCpfFormatterOptionsType,
-  CpfInput as BaseCpfInput,
-  OnFailCallback as BaseOnFailCallback,
-} from './types';
+import * as all from './index.esm';
 
-function cpfFmt(cpfInput: BaseCpfInput, options?: BaseCpfFormatterOptionsInput): string {
-  return baseCpfFmt(cpfInput, options);
-}
+const { default: _, cpfFmt: baseCnpjFmt, ...rest } = all;
 
-namespace cpfFmt {
-  // Runtime values (re-exported with original names)
-  export const CPF_LENGTH = BaseCpfLength;
-  export const CpfFormatter = BaseCpfFormatter;
-  export const CpfFormatterOptions = BaseCpfFormatterOptions;
-  export const CpfFormatterTypeError = BaseCpfFormatterTypeError;
-  export const CpfFormatterInputTypeError = BaseCpfFormatterInputTypeError;
-  export const CpfFormatterOptionsTypeError = BaseCpfFormatterOptionsTypeError;
-  export const CpfFormatterException = BaseCpfFormatterException;
-  export const CpfFormatterInputLengthException = BaseCpfFormatterInputLengthException;
-  export const CpfFormatterOptionsHiddenRangeInvalidException =
-    BaseCpfFormatterOptionsHiddenRangeInvalidException;
-  export const CpfFormatterOptionsForbiddenKeyCharacterException =
-    BaseCpfFormatterOptionsForbiddenKeyCharacterException;
+const cpfFmt: typeof baseCnpjFmt = (...args) => baseCnpjFmt(...args);
 
-  // Type aliases
-  export type CpfInput = BaseCpfInput;
-  export type CpfFormatterOptionsInput = BaseCpfFormatterOptionsInput;
-  export type CpfFormatterOptionsType = BaseCpfFormatterOptionsType;
-  export type OnFailCallback = BaseOnFailCallback;
-}
-
-export default cpfFmt;
+export default Object.assign(cpfFmt, rest);

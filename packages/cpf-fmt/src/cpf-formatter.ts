@@ -15,7 +15,7 @@ import type { CpfFormatterOptionsInput, CpfInput } from './types';
  * A rarely-used 1-length character that is replaced with `hiddenKey` when
  * `hidden` is `true`.
  */
-const HIDDEN_KEY_PLACEHOLDER = CpfFormatterOptions.DISALLOWED_KEY_CHARACTERS[0];
+const HIDDEN_KEY_PLACEHOLDER = CpfFormatterOptions.DISALLOWED_KEY_CHARACTERS[0]!;
 
 /**
  * Formatter for CPF (Cadastro de Pessoa Física) identifiers. It normalizes and
