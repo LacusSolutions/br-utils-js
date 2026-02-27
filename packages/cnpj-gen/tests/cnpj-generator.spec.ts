@@ -280,7 +280,7 @@ describe('CnpjGenerator', () => {
           ['ABCDEFGHIJK'],
           ['ABCDEFGHIJKL'],
           ['AB123CDE0001'],
-        ])('returns a 14-character string with with prefix "%s"', (prefix) => {
+        ])('returns a 14-character string with prefix "%s"', (prefix) => {
           const generate = createGenerator({ prefix });
 
           for (let i = 0; i < 100; i++) {
