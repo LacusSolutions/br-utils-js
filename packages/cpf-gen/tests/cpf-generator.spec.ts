@@ -235,7 +235,7 @@ describe('CpfGenerator', () => {
           ['1234567'],
           ['12345678'],
           ['123456789'],
-        ])('returns an 11-digit string with with prefix "%s"', (prefix) => {
+        ])('returns an 11-digit string with prefix "%s"', (prefix) => {
           const generate = createGenerator({ prefix });
 
           for (let i = 0; i < 100; i++) {
