@@ -1,7 +1,7 @@
 import * as all from './index.esm';
 
-const { default: _, cpfVal: baseCnpjVal, ...rest } = all;
+const { default: _, cpfVal: baseCpfVal, ...rest } = all;
 
-const cpfVal: typeof baseCnpjVal = (...args) => baseCnpjVal(...args);
+const cpfVal: typeof baseCpfVal = (...args) => baseCpfVal(...args);
 
 export default Object.assign(cpfVal, rest);
