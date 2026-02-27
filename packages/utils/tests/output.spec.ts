@@ -76,7 +76,7 @@ describe('package distributions', () => {
     });
   });
 
-  describe('CommonJS)', () => {
+  describe('CommonJS', () => {
     describe('file `index.cjs`', () => {
       const filePath = Bun.resolveSync('../dist/index.cjs', import.meta.dir);
       const file = Bun.file(filePath);
