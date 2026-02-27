@@ -10,10 +10,10 @@ import {
 } from '../src/exceptions';
 import type { CnpjGeneratorOptionsInput, CnpjGeneratorOptionsType, CnpjType } from '../src/types';
 
-describe('CnpjGenerator', (): void => {
-  describe('constructor', (): void => {
-    describe('when called with no arguments', (): void => {
-      it('creates an instance with default options', (): void => {
+describe('CnpjGenerator', () => {
+  describe('constructor', () => {
+    describe('when called with no arguments', () => {
+      it('creates an instance with default options', () => {
         const defaultOptions = new CnpjGeneratorOptions();
 
         const generator = new CnpjGenerator();
@@ -22,8 +22,8 @@ describe('CnpjGenerator', (): void => {
       });
     });
 
-    describe('when called with an empty object', (): void => {
-      it('creates an instance with default options', (): void => {
+    describe('when called with an empty object', () => {
+      it('creates an instance with default options', () => {
         const defaultOptions = new CnpjGeneratorOptions();
 
         const generator = new CnpjGenerator({});
@@ -32,8 +32,8 @@ describe('CnpjGenerator', (): void => {
       });
     });
 
-    describe('when called with a CnpjGeneratorOptions instance', (): void => {
-      it('uses that instance directly without copying', (): void => {
+    describe('when called with a CnpjGeneratorOptions instance', () => {
+      it('uses that instance directly without copying', () => {
         const options = new CnpjGeneratorOptions({
           format: true,
           prefix: '12345678',
@@ -45,7 +45,7 @@ describe('CnpjGenerator', (): void => {
         expect(generator.options.all).toEqual(options.all);
       });
 
-      it('mutations to the instance affect future generate calls', (): void => {
+      it('mutations to the instance affect future generate calls', () => {
         const options = new CnpjGeneratorOptions({
           format: false,
           type: 'numeric',
@@ -60,8 +60,8 @@ describe('CnpjGenerator', (): void => {
       });
     });
 
-    describe('when called with a literal options object', (): void => {
-      it('creates a new CnpjGeneratorOptions instance from the provided values', (): void => {
+    describe('when called with a literal options object', () => {
+      it('creates a new CnpjGeneratorOptions instance from the provided values', () => {
         const input: CnpjGeneratorOptionsInput = {
           format: true,
           prefix: '12345678',
@@ -80,20 +80,20 @@ describe('CnpjGenerator', (): void => {
       });
     });
 
-    describe('when called with invalid options', (): void => {
-      it('throws CnpjGeneratorOptionPrefixInvalidException for invalid prefix', (): void => {
+    describe('when called with invalid options', () => {
+      it('throws CnpjGeneratorOptionPrefixInvalidException for invalid prefix', () => {
         expect(() => {
           new CnpjGenerator({ prefix: '00000000' });
         }).toThrow(CnpjGeneratorOptionPrefixInvalidException);
       });
 
-      it('throws CnpjGeneratorOptionTypeInvalidException for invalid type', (): void => {
+      it('throws CnpjGeneratorOptionTypeInvalidException for invalid type', () => {
         expect(() => {
           new CnpjGenerator({ type: 'invalid' as CnpjType });
         }).toThrow(CnpjGeneratorOptionTypeInvalidException);
       });
 
-      it('throws CnpjGeneratorOptionsTypeError for non-string prefix', (): void => {
+      it('throws CnpjGeneratorOptionsTypeError for non-string prefix', () => {
         expect(() => {
           new CnpjGenerator({ prefix: 123 as unknown as string });
         }).toThrow(CnpjGeneratorOptionsTypeError);
@@ -101,7 +101,7 @@ describe('CnpjGenerator', (): void => {
     });
   });
 
-  describe('`generate` method', (): void => {
+  describe('`generate` method', () => {
     type CnpjGeneratorFn = (options?: CnpjGeneratorOptionsInput) => string;
     type CnpjGeneratorFactory = (options: Partial<CnpjGeneratorOptionsType>) => CnpjGeneratorFn;
 
@@ -168,11 +168,11 @@ describe('CnpjGenerator', (): void => {
         'when options are passed to method as CnpjGeneratorOptions instance',
         createGeneratorWithCnpjGeneratorOptionsInstanceInMethod,
       ],
-    ])('%s', (_, createGenerator): void => {
-      describe('when no options are passed', (): void => {
+    ])('%s', (_, createGenerator) => {
+      describe('when no options are passed', () => {
         const generate = createGenerator({});
 
-        it('returns a 14-character string with only numbers and uppercase letters', (): void => {
+        it('returns a 14-character string with only numbers and uppercase letters', () => {
           for (let i = 0; i < 100; i++) {
             const result = generate();
 
@@ -183,7 +183,7 @@ describe('CnpjGenerator', (): void => {
           }
         });
 
-        it('contains 2 numeric check digits', (): void => {
+        it('contains 2 numeric check digits', () => {
           for (let i = 0; i < 100; i++) {
             const result = generate();
 
@@ -191,7 +191,7 @@ describe('CnpjGenerator', (): void => {
           }
         });
 
-        it('returns different values on successive calls', (): void => {
+        it('returns different values on successive calls', () => {
           // In 100 calls, 1 value can repeat at most.
           const EXPECTED_DIFFERENT_VALUES = 99;
           const results = new Set<string>();
@@ -206,10 +206,10 @@ describe('CnpjGenerator', (): void => {
         });
       });
 
-      describe('when `format` option is `true`', (): void => {
+      describe('when `format` option is `true`', () => {
         const generate = createGenerator({ format: true });
 
-        it('returns an 18-character string with numbers, uppercase letters and punctuation', (): void => {
+        it('returns an 18-character string with numbers, uppercase letters and punctuation', () => {
           for (let i = 0; i < 100; i++) {
             const result = generate();
 
@@ -220,7 +220,7 @@ describe('CnpjGenerator', (): void => {
           }
         });
 
-        it('contains 2 numeric check digits', (): void => {
+        it('contains 2 numeric check digits', () => {
           for (let i = 0; i < 100; i++) {
             const result = generate();
 
@@ -228,7 +228,7 @@ describe('CnpjGenerator', (): void => {
           }
         });
 
-        it('returns a string with standard CNPJ formatting', (): void => {
+        it('returns a string with standard CNPJ formatting', () => {
           for (let i = 0; i < 100; i++) {
             const result = generate();
 
@@ -238,7 +238,7 @@ describe('CnpjGenerator', (): void => {
           }
         });
 
-        it('returns different values on successive calls', (): void => {
+        it('returns different values on successive calls', () => {
           // In 100 calls, 1 value can repeat at most.
           const EXPECTED_DIFFERENT_VALUES = 99;
           const results = new Set<string>();
@@ -253,7 +253,7 @@ describe('CnpjGenerator', (): void => {
         });
       });
 
-      describe('when `prefix` option is passed', (): void => {
+      describe('when `prefix` option is passed', () => {
         it.each([
           ['1'],
           ['12'],
@@ -280,7 +280,7 @@ describe('CnpjGenerator', (): void => {
           ['ABCDEFGHIJK'],
           ['ABCDEFGHIJKL'],
           ['AB123CDE0001'],
-        ])('returns a 14-character string with with prefix "%s"', (prefix): void => {
+        ])('returns a 14-character string with with prefix "%s"', (prefix) => {
           const generate = createGenerator({ prefix });
 
           for (let i = 0; i < 100; i++) {
@@ -296,7 +296,7 @@ describe('CnpjGenerator', (): void => {
           ['numeric', '123456780009'],
           ['alphabetic', 'ABCDEFGHIJKL'],
           ['alphanumeric', 'AB123CDE0001'],
-        ])('ignores characters after the 12th position with %s prefix', (_, prefix): void => {
+        ])('ignores characters after the 12th position with %s prefix', (_, prefix) => {
           const generate = createGenerator({ prefix: `${prefix}XY` });
 
           const result = generate();
@@ -310,23 +310,20 @@ describe('CnpjGenerator', (): void => {
           ['numeric', '123456780009'],
           ['alphabetic', 'ABCDEFGHIJKL'],
           ['alphanumeric', 'AB123CDE0001'],
-        ])(
-          'always generates the same CNPJ with the same 12-character %s prefix',
-          (_, prefix): void => {
-            const generate = createGenerator({ prefix });
-            const results = new Set<string>();
+        ])('always generates the same CNPJ with the same 12-character %s prefix', (_, prefix) => {
+          const generate = createGenerator({ prefix });
+          const results = new Set<string>();
 
-            for (let i = 0; i < 100; i++) {
-              const result = generate({ prefix });
+          for (let i = 0; i < 100; i++) {
+            const result = generate({ prefix });
 
-              results.add(result);
-            }
+            results.add(result);
+          }
 
-            expect(results.size).toBe(1);
-          },
-        );
+          expect(results.size).toBe(1);
+        });
 
-        it('strips non-alphanumeric characters from prefix before generating', (): void => {
+        it('strips non-alphanumeric characters from prefix before generating', () => {
           const generate = createGenerator({ prefix: 'AB.12.CDE/0001', format: false });
 
           const result = generate();
@@ -339,10 +336,10 @@ describe('CnpjGenerator', (): void => {
         ['numeric', '\\d'],
         ['alphabetic', '[A-Z]'],
         ['alphanumeric', '[0-9A-Z]'],
-      ])('when `type` option is `"%s"`', (type, pattern): void => {
+      ])('when `type` option is `"%s"`', (type, pattern) => {
         const generate = createGenerator({ type: type as CnpjType });
 
-        it('returns a 14-character string', (): void => {
+        it('returns a 14-character string', () => {
           for (let i = 0; i < 100; i++) {
             const result = generate();
 
@@ -353,7 +350,7 @@ describe('CnpjGenerator', (): void => {
           }
         });
 
-        it('returns different values on successive calls', (): void => {
+        it('returns different values on successive calls', () => {
           // In 100 calls, 2 value can repeat at most.
           const EXPECTED_DIFFERENT_VALUES = 98;
           const results = new Set<string>();
@@ -368,11 +365,11 @@ describe('CnpjGenerator', (): void => {
         });
       });
 
-      describe('when different options are passed', (): void => {
-        describe('when `format = true` and `prefix = "AB123CDE000"`', (): void => {
+      describe('when different options are passed', () => {
+        describe('when `format = true` and `prefix = "AB123CDE000"`', () => {
           const generate = createGenerator({ format: true, prefix: 'AB123CDE000' });
 
-          it('returns an 18-character CNPJ', (): void => {
+          it('returns an 18-character CNPJ', () => {
             const result = generate();
 
             expect(result).toHaveLength(18);
@@ -385,10 +382,10 @@ describe('CnpjGenerator', (): void => {
           ['numeric', '\\d'],
           ['alphabetic', '[A-Z]'],
           ['alphanumeric', '[0-9A-Z]'],
-        ])('when `format = true` and `type = "%s"`', (type, pattern): void => {
+        ])('when `format = true` and `type = "%s"`', (type, pattern) => {
           const generate = createGenerator({ format: true, type: type as CnpjType });
 
-          it('returns an 18-character CNPJ', (): void => {
+          it('returns an 18-character CNPJ', () => {
             const result = generate();
 
             expect(result).toHaveLength(18);
@@ -403,10 +400,10 @@ describe('CnpjGenerator', (): void => {
           ['numeric', '\\d'],
           ['alphabetic', '[A-Z]'],
           ['alphanumeric', '[0-9A-Z]'],
-        ])('when `prefix = "AB123CDE"` and `type = "%s"`', (type, pattern): void => {
+        ])('when `prefix = "AB123CDE"` and `type = "%s"`', (type, pattern) => {
           const generate = createGenerator({ prefix: 'AB123CDE', type: type as CnpjType });
 
-          it('returns a 14-character CNPJ', (): void => {
+          it('returns a 14-character CNPJ', () => {
             const result = generate();
 
             expect(result).toHaveLength(14);
@@ -420,39 +417,36 @@ describe('CnpjGenerator', (): void => {
           ['numeric', '\\d'],
           ['alphabetic', '[A-Z]'],
           ['alphanumeric', '[0-9A-Z]'],
-        ])(
-          'when `format = true`, `prefix = "AB123CDE"` and `type = "%s"`',
-          (type, pattern): void => {
-            const generate = createGenerator({
-              format: true,
-              prefix: 'AB123CDE',
-              type: type as CnpjType,
-            });
+        ])('when `format = true`, `prefix = "AB123CDE"` and `type = "%s"`', (type, pattern) => {
+          const generate = createGenerator({
+            format: true,
+            prefix: 'AB123CDE',
+            type: type as CnpjType,
+          });
 
-            it('returns an 18-character CNPJ', (): void => {
-              const result = generate();
+          it('returns an 18-character CNPJ', () => {
+            const result = generate();
 
-              expect(result).toHaveLength(18);
-              expect(result).not.toMatch(/[a-z]/);
-              expect(result).toMatch(new RegExp(`^AB\\.123\\.CDE/${pattern}{4}-\\d{2}$`));
-            });
-          },
-        );
+            expect(result).toHaveLength(18);
+            expect(result).not.toMatch(/[a-z]/);
+            expect(result).toMatch(new RegExp(`^AB\\.123\\.CDE/${pattern}{4}-\\d{2}$`));
+          });
+        });
       });
     });
 
-    describe('when CnpjCheckDigits throws an exception', (): void => {
+    describe('when CnpjCheckDigits throws an exception', () => {
       let randomSequenceSpy: ReturnType<typeof spyOn>;
 
-      beforeEach((): void => {
+      beforeEach(() => {
         randomSequenceSpy = spyOn(lacusUtils, 'generateRandomSequence');
       });
 
-      afterEach((): void => {
+      afterEach(() => {
         randomSequenceSpy.mockRestore();
       });
 
-      it('retries generation and returns a valid CNPJ', (): void => {
+      it('retries generation and returns a valid CNPJ', () => {
         const invalidSequence = '111111111111';
         const validSequence = '123456780001';
 
@@ -467,7 +461,7 @@ describe('CnpjGenerator', (): void => {
         expect(randomSequenceSpy).toHaveBeenCalledTimes(2);
       });
 
-      it('uses the same options on retry', (): void => {
+      it('uses the same options on retry', () => {
         randomSequenceSpy.mockImplementationOnce(() => '0000').mockImplementationOnce(() => '0001');
 
         const result = new CnpjGenerator({ prefix: '12345678' }).generate();
