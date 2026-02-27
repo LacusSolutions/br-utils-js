@@ -1,0 +1,25 @@
+# Source & development (publish only dist/)
+demo/
+docs/
+src/
+tests/
+
+# Hidden / dotfiles
+**/.*
+
+# Logs & config
+**/*.log
+**/*.config.js
+
+# Lock files (monorepo root owns these)
+bun.lock
+bun.lockb
+yarn.lock
+pnpm-lock.yml
+pnpm-lock.yaml
+package-lock.json
+
+# Build / tooling config (not needed in published package)
+rollup.config.*
+tsconfig.json
+bunfig.toml
