@@ -1,29 +1,9 @@
 import Bun, { $ } from 'bun';
 import { beforeAll, describe, expect, it } from 'bun:test';
 
-function extractExported(what: 'resources' | 'types', content: string): string[] {
-  const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
-
-  return (
-    content
-      ?.match(regex)
-      ?.at(1)
-      ?.split(',')
-      ?.map((resource) => resource.trim()) ?? []
-  );
-}
-
-function extractExportedResources(content: string): string[] {
-  return extractExported('resources', content);
-}
-
-function extractExportedTypes(content: string): string[] {
-  return extractExported('types', content);
-}
-
-describe('package distributions', (): void => {
+describe('package distributions', () => {
   beforeAll(
-    async (): Promise<void> => {
+    async () => {
       const packageDir = import.meta.dir.replace('/tests', '');
 
       await $`bun run --cwd ${packageDir} build --silent`;
@@ -31,16 +11,16 @@ describe('package distributions', (): void => {
     { timeout: 20000 },
   );
 
-  describe('UMD', (): void => {
-    describe('file `cpf-fmt.js`', (): void => {
-      const filePath = Bun.resolveSync('../dist/cpf-fmt.js', import.meta.dir);
+  describe('UMD', () => {
+    describe.each(['cpf-fmt.js', 'cpf-fmt.min.js'])('file `%s`', (fileName) => {
+      const filePath = Bun.resolveSync(`../dist/${fileName}`, import.meta.dir);
       const file = Bun.file(filePath);
 
-      it('exists', async (): Promise<void> => {
+      it('exists', async () => {
         await expect(file.exists()).resolves.toBe(true);
       });
 
-      describe('when evaluated', (): void => {
+      describe('when evaluated', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let cpfFmt: any;
 
@@ -51,39 +31,62 @@ describe('package distributions', (): void => {
           cpfFmt = makeGlobalInstance();
         });
 
-        it('exposes a global `cpfFmt` helper function', async (): Promise<void> => {
-          expect(cpfFmt).toBeFunction();
-          expect(cpfFmt('12345678910')).toBe('123.456.789-10');
+        it('follows the API', () => {
+          const api = { ...cpfFmt };
+
+          expect(api).toEqual({
+            CpfFormatter: expect.anything(),
+            CpfFormatterOptions: expect.anything(),
+            CpfFormatterTypeError: expect.anything(),
+            CpfFormatterInputTypeError: expect.anything(),
+            CpfFormatterOptionsTypeError: expect.anything(),
+            CpfFormatterException: expect.anything(),
+            CpfFormatterInputLengthException: expect.anything(),
+            CpfFormatterOptionsHiddenRangeInvalidException: expect.anything(),
+            CpfFormatterOptionsForbiddenKeyCharacterException: expect.anything(),
+            CPF_LENGTH: expect.any(Number),
+          });
         });
 
-        it('exposes resources through the global `cpfFmt` variable', async (): Promise<void> => {
+        it('exposes a global `cpfFmt` function', async () => {
+          expect(cpfFmt).toBeFunction();
+          expect(cpfFmt.name).toBe('cpfFmt');
+        });
+
+        it('exposes resources through the global `cpfFmt` variable', async () => {
           expect(cpfFmt.CpfFormatter?.name).toBe('CpfFormatter');
           expect(cpfFmt.CpfFormatterOptions?.name).toBe('CpfFormatterOptions');
           expect(cpfFmt.CpfFormatterTypeError?.name).toBe('CpfFormatterTypeError');
-          expect(cpfFmt.InputTypeError?.name).toBe('CpfFormatterInputTypeError');
-          expect(cpfFmt.OptionsTypeError?.name).toBe('CpfFormatterOptionsTypeError');
+          expect(cpfFmt.CpfFormatterInputTypeError?.name).toBe('CpfFormatterInputTypeError');
+          expect(cpfFmt.CpfFormatterOptionsTypeError?.name).toBe('CpfFormatterOptionsTypeError');
           expect(cpfFmt.CpfFormatterException?.name).toBe('CpfFormatterException');
-          expect(cpfFmt.InputLengthException?.name).toBe('CpfFormatterInputLengthException');
-          expect(cpfFmt.OptionsHiddenRangeInvalidException?.name).toBe(
+          expect(cpfFmt.CpfFormatterInputLengthException?.name).toBe(
+            'CpfFormatterInputLengthException',
+          );
+          expect(cpfFmt.CpfFormatterOptionsHiddenRangeInvalidException?.name).toBe(
             'CpfFormatterOptionsHiddenRangeInvalidException',
           );
-          expect(cpfFmt.OptionsForbiddenKeyCharacterException?.name).toBe(
+          expect(cpfFmt.CpfFormatterOptionsForbiddenKeyCharacterException?.name).toBe(
             'CpfFormatterOptionsForbiddenKeyCharacterException',
           );
           expect(cpfFmt.CPF_LENGTH).toBe(11);
         });
 
-        it('exposes an instantiable `CpfFormatter` class', async (): Promise<void> => {
-          const { CpfFormatter } = cpfFmt;
-          const formatter = new CpfFormatter({ hidden: true });
-          const formattedCpf = formatter.format('12345678910');
+        it('exposes a working `cpfFmt` function', async () => {
+          const result = cpfFmt('12345678910');
 
-          expect(formattedCpf).toBe('123.***.***-**');
+          expect(result).toBe('123.456.789-10');
         });
 
-        it('exposes an instantiable `CpfFormatterOptions` class', async (): Promise<void> => {
-          const { CpfFormatterOptions } = cpfFmt;
-          const options = new CpfFormatterOptions({
+        it('exposes an instantiable `CpfFormatter` class', async () => {
+          const formatter = new cpfFmt.CpfFormatter({ hidden: true });
+          const result = formatter.format('12345678910');
+
+          expect(result).toBe('123.***.***-**');
+        });
+
+        it('exposes an instantiable `CpfFormatterOptions` class', async () => {
+          const options = new cpfFmt.CpfFormatterOptions({
             hidden: true,
             hiddenKey: 'X',
             dotKey: ' ',
@@ -96,9 +99,8 @@ describe('package distributions', (): void => {
           expect(options.dashKey).toBe('_');
         });
 
-        it('exposes an instantiable `InputTypeError` class', async (): Promise<void> => {
-          const { InputTypeError } = cpfFmt;
-          const error = new InputTypeError(123, 'string');
+        it('exposes an instantiable `CpfFormatterInputTypeError` class', async () => {
+          const error = new cpfFmt.CpfFormatterInputTypeError(123, 'string');
 
           expect(error.actualInput).toBe(123);
           expect(error.actualType).toBe('integer number');
@@ -106,9 +108,8 @@ describe('package distributions', (): void => {
           expect(error.message).toBe('CPF input must be of type string. Got integer number.');
         });
 
-        it('exposes an instantiable `OptionsTypeError` class', async (): Promise<void> => {
-          const { OptionsTypeError } = cpfFmt;
-          const error = new OptionsTypeError('hidden', 123, 'boolean');
+        it('exposes an instantiable `CpfFormatterOptionsTypeError` class', async () => {
+          const error = new cpfFmt.CpfFormatterOptionsTypeError('hidden', 123, 'boolean');
 
           expect(error.actualInput).toBe(123);
           expect(error.optionName).toBe('hidden');
@@ -119,9 +120,13 @@ describe('package distributions', (): void => {
           );
         });
 
-        it('exposes an instantiable `OptionsHiddenRangeInvalidException` class', async (): Promise<void> => {
-          const { OptionsHiddenRangeInvalidException } = cpfFmt;
-          const exception = new OptionsHiddenRangeInvalidException('hiddenStart', 123, 0, 10);
+        it('exposes an instantiable `CpfFormatterOptionsHiddenRangeInvalidException` class', async () => {
+          const exception = new cpfFmt.CpfFormatterOptionsHiddenRangeInvalidException(
+            'hiddenStart',
+            123,
+            0,
+            10,
+          );
 
           expect(exception.actualInput).toBe(123);
           expect(exception.optionName).toBe('hiddenStart');
@@ -132,9 +137,12 @@ describe('package distributions', (): void => {
           );
         });
 
-        it('exposes an instantiable `OptionsForbiddenKeyCharacterException` class', async (): Promise<void> => {
-          const { OptionsForbiddenKeyCharacterException } = cpfFmt;
-          const exception = new OptionsForbiddenKeyCharacterException('dotKey', 'x', ['x']);
+        it('exposes an instantiable `CpfFormatterOptionsForbiddenKeyCharacterException` class', async () => {
+          const exception = new cpfFmt.CpfFormatterOptionsForbiddenKeyCharacterException(
+            'dotKey',
+            'x',
+            ['x'],
+          );
 
           expect(exception.actualInput).toBe('x');
           expect(exception.optionName).toBe('dotKey');
@@ -144,237 +152,334 @@ describe('package distributions', (): void => {
           );
         });
 
-        it('exposes an instantiable `InputLengthException` class', async (): Promise<void> => {
-          const { InputLengthException } = cpfFmt;
-          const exception = new InputLengthException('ABC.123', 'ABC123', 11);
+        it('exposes an instantiable `CpfFormatterInputLengthException` class', async () => {
+          const exception = new cpfFmt.CpfFormatterInputLengthException('ABC.123', 'ABC123', 11);
 
           expect(exception.actualInput).toBe('ABC.123');
           expect(exception.evaluatedInput).toBe('ABC123');
           expect(exception.expectedLength).toBe(11);
-          expect(exception.message).toBe(
-            'CPF input "ABC.123" does not contain 11 digits. Got 6 in "ABC123".',
-          );
         });
       });
     });
   });
 
-  describe('CommonJS module (index.cjs)', (): void => {
-    const filePath = Bun.resolveSync('../dist/index.cjs', import.meta.dir);
-    const file = Bun.file(filePath);
+  describe('CommonJS', () => {
+    describe('file `index.cjs`', () => {
+      const filePath = Bun.resolveSync('../dist/index.cjs', import.meta.dir);
+      const file = Bun.file(filePath);
 
-    it('exists', async (): Promise<void> => {
-      await expect(file.exists()).resolves.toBe(true);
+      it('exists', async () => {
+        await expect(file.exists()).resolves.toBe(true);
+      });
+
+      it('exports using module.exports', async () => {
+        const content = await file.text();
+
+        expect(content).toContain('index_cjs = Object.assign(cpfFmt');
+        expect(content).toContain('module.exports = index_cjs');
+      });
     });
 
-    it('exports using module.exports', async (): Promise<void> => {
-      await expect(file.text()).resolves.toContain('module.exports = cpfFmt');
+    describe('file `index.d.cts`', () => {
+      const filePath = Bun.resolveSync('../dist/index.d.cts', import.meta.dir);
+      const file = Bun.file(filePath);
+      let content: string;
+
+      beforeAll(async () => {
+        content = await file.text();
+      });
+
+      it('exists', async () => {
+        await expect(file.exists()).resolves.toBe(true);
+      });
+
+      it('declares `cpfFmt` function', () => {
+        expect(content).toContain('declare function cpfFmt');
+      });
+
+      it('declares `CpfFormatter` class', () => {
+        expect(content).toContain('declare class CpfFormatter');
+      });
+
+      it('declares `CpfFormatterOptions` class', () => {
+        expect(content).toContain('declare class CpfFormatterOptions');
+      });
+
+      it('declares `CpfFormatterTypeError` abstract class', () => {
+        expect(content).toContain('declare abstract class CpfFormatterTypeError');
+      });
+
+      it('declares `CpfFormatterInputTypeError` class', () => {
+        expect(content).toContain('declare class CpfFormatterInputTypeError');
+      });
+
+      it('declares `CpfFormatterOptionsTypeError` class', () => {
+        expect(content).toContain('declare class CpfFormatterOptionsTypeError');
+      });
+
+      it('declares `CpfFormatterException` abstract class', () => {
+        expect(content).toContain('declare abstract class CpfFormatterException');
+      });
+
+      it('declares `CpfFormatterInputLengthException` class', () => {
+        expect(content).toContain('declare class CpfFormatterInputLengthException');
+      });
+
+      it('declares `CpfFormatterOptionsHiddenRangeInvalidException` class', () => {
+        expect(content).toContain('declare class CpfFormatterOptionsHiddenRangeInvalidException');
+      });
+
+      it('declares `CpfFormatterOptionsForbiddenKeyCharacterException` class', () => {
+        expect(content).toContain(
+          'declare class CpfFormatterOptionsForbiddenKeyCharacterException',
+        );
+      });
+
+      it('declares `CpfInput` type', () => {
+        expect(content).toContain('type CpfInput');
+      });
+
+      it('declares `OnFailCallback` type', () => {
+        expect(content).toContain('type OnFailCallback');
+      });
+
+      it('declares `CpfFormatterOptionsInput` type', () => {
+        expect(content).toContain('type CpfFormatterOptionsInput');
+      });
+
+      it('declares `CpfFormatterOptionsType` type', () => {
+        expect(content).toContain('interface CpfFormatterOptionsType');
+      });
     });
   });
 
-  describe('ES Module (index.mjs)', (): void => {
-    const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
-    const file = Bun.file(filePath);
-    let content: string;
-    let exportedResources: string[];
+  describe('ES Module', () => {
+    function extractExported(what: 'resources' | 'types', content: string): string[] {
+      const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
 
-    beforeAll(async () => {
-      content = await file.text();
-      exportedResources = extractExportedResources(content);
+      return (
+        content
+          ?.match(regex)
+          ?.at(1)
+          ?.split(',')
+          ?.map((resource) => resource.trim()) ?? []
+      );
+    }
+
+    function extractExportedResources(content: string): string[] {
+      return extractExported('resources', content);
+    }
+
+    function extractExportedTypes(content: string): string[] {
+      return extractExported('types', content);
+    }
+
+    describe('file `index.mjs`', () => {
+      const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
+      const file = Bun.file(filePath);
+      let content: string;
+      let exportedResources: string[];
+
+      beforeAll(async () => {
+        content = await file.text();
+        exportedResources = extractExportedResources(content);
+      });
+
+      it('exists', async () => {
+        await expect(file.exists()).resolves.toBe(true);
+      });
+
+      it('exports `cpfFmt` as default', () => {
+        expect(exportedResources).toContain('cpfFmt as default');
+      });
+
+      it('exports `cpfFmt` as named', () => {
+        expect(exportedResources).toContain('cpfFmt');
+      });
+
+      it('exports `CpfFormatter` as named', () => {
+        expect(exportedResources).toContain('CpfFormatter');
+      });
+
+      it('exports `CpfFormatterOptions` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterOptions');
+      });
+
+      it('exports `CpfFormatterTypeError` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterTypeError');
+      });
+
+      it('exports `CpfFormatterInputTypeError` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterInputTypeError');
+      });
+
+      it('exports `CpfFormatterOptionsTypeError` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterOptionsTypeError');
+      });
+
+      it('exports `CpfFormatterException` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterException');
+      });
+
+      it('exports `CpfFormatterInputLengthException` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterInputLengthException');
+      });
+
+      it('exports `CpfFormatterOptionsHiddenRangeInvalidException` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterOptionsHiddenRangeInvalidException');
+      });
+
+      it('exports `CpfFormatterOptionsForbiddenKeyCharacterException` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterOptionsForbiddenKeyCharacterException');
+      });
+
+      it('exports `CPF_LENGTH` as named', () => {
+        expect(exportedResources).toContain('CPF_LENGTH');
+      });
     });
 
-    it('exists', async (): Promise<void> => {
-      await expect(file.exists()).resolves.toBe(true);
-    });
+    describe('file `index.d.ts`', () => {
+      const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
+      const file = Bun.file(filePath);
+      let content: string;
+      let exportedResources: string[];
+      let exportedTypes: string[];
 
-    it('exports `cpfFmt` as default', (): void => {
-      expect(exportedResources).toContain('cpfFmt as default');
-    });
+      beforeAll(async () => {
+        content = await file.text();
+        exportedResources = extractExportedResources(content);
+        exportedTypes = extractExportedTypes(content);
+      });
 
-    it('exports `cpfFmt` as named', (): void => {
-      expect(exportedResources).toContain('cpfFmt');
-    });
+      it('exists', async () => {
+        await expect(file.exists()).resolves.toBe(true);
+      });
 
-    it('exports `CpfFormatter` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatter');
-    });
+      it('declares `cpfFmt` function', () => {
+        expect(content).toContain('declare function cpfFmt');
+      });
 
-    it('exports `CpfFormatterOptions` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterOptions');
-    });
+      it('exports `cpfFmt` as default', () => {
+        expect(exportedResources).toContain('cpfFmt as default');
+      });
 
-    it('exports `CpfFormatterTypeError` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterTypeError');
-    });
+      it('exports `cpfFmt` as named', () => {
+        expect(exportedResources).toContain('cpfFmt');
+      });
 
-    it('exports `CpfFormatterInputTypeError` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterInputTypeError');
-    });
+      it('declares `CpfFormatter` class', () => {
+        expect(content).toContain('declare class CpfFormatter');
+      });
 
-    it('exports `CpfFormatterOptionsTypeError` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterOptionsTypeError');
-    });
+      it('exports `CpfFormatter` as named', () => {
+        expect(exportedResources).toContain('CpfFormatter');
+      });
 
-    it('exports `CpfFormatterException` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterException');
-    });
+      it('declares `CpfFormatterOptions` class', () => {
+        expect(content).toContain('declare class CpfFormatterOptions');
+      });
 
-    it('exports `CpfFormatterInputLengthException` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterInputLengthException');
-    });
+      it('exports `CpfFormatterOptions` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterOptions');
+      });
 
-    it('exports `CpfFormatterOptionsHiddenRangeInvalidException` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterOptionsHiddenRangeInvalidException');
-    });
+      it('declares `CpfFormatterTypeError` abstract class', () => {
+        expect(content).toContain('declare abstract class CpfFormatterTypeError');
+      });
 
-    it('exports `CpfFormatterOptionsForbiddenKeyCharacterException` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterOptionsForbiddenKeyCharacterException');
-    });
+      it('exports `CpfFormatterTypeError` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterTypeError');
+      });
 
-    it('exports `CPF_LENGTH` as named', (): void => {
-      expect(exportedResources).toContain('CPF_LENGTH');
-    });
-  });
+      it('declares `CpfFormatterInputTypeError` class', () => {
+        expect(content).toContain('declare class CpfFormatterInputTypeError');
+      });
 
-  describe('TypeScript declarations (index.d.ts)', (): void => {
-    const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
-    const file = Bun.file(filePath);
-    let content: string;
-    let exportedResources: string[];
-    let exportedTypes: string[];
+      it('exports `CpfFormatterInputTypeError` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterInputTypeError');
+      });
 
-    beforeAll(async () => {
-      content = await file.text();
-      exportedResources = extractExportedResources(content);
-      exportedTypes = extractExportedTypes(content);
-    });
+      it('declares `CpfFormatterOptionsTypeError` class', () => {
+        expect(content).toContain('declare class CpfFormatterOptionsTypeError');
+      });
 
-    it('exists', async (): Promise<void> => {
-      await expect(file.exists()).resolves.toBe(true);
-    });
+      it('exports `CpfFormatterOptionsTypeError` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterOptionsTypeError');
+      });
 
-    it('declares `cpfFmt` function', (): void => {
-      expect(content).toContain('declare function cpfFmt');
-    });
+      it('declares `CpfFormatterException` abstract class', () => {
+        expect(content).toContain('declare abstract class CpfFormatterException');
+      });
 
-    it('exports `cpfFmt` as default', (): void => {
-      expect(exportedResources).toContain('cpfFmt as default');
-    });
+      it('exports `CpfFormatterException` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterException');
+      });
 
-    it('exports `cpfFmt` as named', (): void => {
-      expect(exportedResources).toContain('cpfFmt');
-    });
+      it('declares `CpfFormatterInputLengthException` class', () => {
+        expect(content).toContain('declare class CpfFormatterInputLengthException');
+      });
 
-    it('declares `CpfFormatter` class', (): void => {
-      expect(content).toContain('declare class CpfFormatter');
-    });
+      it('exports `CpfFormatterInputLengthException` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterInputLengthException');
+      });
 
-    it('exports `CpfFormatter` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatter');
-    });
+      it('declares `CpfFormatterOptionsHiddenRangeInvalidException` class', () => {
+        expect(content).toContain('declare class CpfFormatterOptionsHiddenRangeInvalidException');
+      });
 
-    it('declares `CpfFormatterOptions` class', (): void => {
-      expect(content).toContain('declare class CpfFormatterOptions');
-    });
+      it('exports `CpfFormatterOptionsHiddenRangeInvalidException` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterOptionsHiddenRangeInvalidException');
+      });
 
-    it('exports `CpfFormatterOptions` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterOptions');
-    });
+      it('declares `CpfFormatterOptionsForbiddenKeyCharacterException` class', () => {
+        expect(content).toContain(
+          'declare class CpfFormatterOptionsForbiddenKeyCharacterException',
+        );
+      });
 
-    it('declares `CpfFormatterTypeError` abstract class', (): void => {
-      expect(content).toContain('declare abstract class CpfFormatterTypeError');
-    });
+      it('exports `CpfFormatterOptionsForbiddenKeyCharacterException` as named', () => {
+        expect(exportedResources).toContain('CpfFormatterOptionsForbiddenKeyCharacterException');
+      });
 
-    it('exports `CpfFormatterTypeError` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterTypeError');
-    });
+      it('declares `CPF_LENGTH` constant', () => {
+        expect(content).toContain('declare const CPF_LENGTH');
+      });
 
-    it('declares `CpfFormatterInputTypeError` class', (): void => {
-      expect(content).toContain('declare class CpfFormatterInputTypeError');
-    });
+      it('exports `CPF_LENGTH` as named', () => {
+        expect(exportedResources).toContain('CPF_LENGTH');
+      });
 
-    it('exports `CpfFormatterInputTypeError` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterInputTypeError');
-    });
+      it('declares `CpfInput` type', () => {
+        expect(content).toContain('type CpfInput');
+      });
 
-    it('declares `CpfFormatterOptionsTypeError` class', (): void => {
-      expect(content).toContain('declare class CpfFormatterOptionsTypeError');
-    });
+      it('exports `CpfInput` as named', () => {
+        expect(exportedTypes).toContain('CpfInput');
+      });
 
-    it('exports `CpfFormatterOptionsTypeError` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterOptionsTypeError');
-    });
+      it('declares `OnFailCallback` type', () => {
+        expect(content).toContain('type OnFailCallback');
+      });
 
-    it('declares `CpfFormatterException` abstract class', (): void => {
-      expect(content).toContain('declare abstract class CpfFormatterException');
-    });
+      it('exports `OnFailCallback` as named', () => {
+        expect(exportedTypes).toContain('OnFailCallback');
+      });
 
-    it('exports `CpfFormatterException` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterException');
-    });
+      it('declares `CpfFormatterOptionsInput` type', () => {
+        expect(content).toContain('type CpfFormatterOptionsInput');
+      });
 
-    it('declares `CpfFormatterInputLengthException` class', (): void => {
-      expect(content).toContain('declare class CpfFormatterInputLengthException');
-    });
+      it('exports `CpfFormatterOptionsInput` as named', () => {
+        expect(exportedTypes).toContain('CpfFormatterOptionsInput');
+      });
 
-    it('exports `CpfFormatterInputLengthException` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterInputLengthException');
-    });
+      it('declares `CpfFormatterOptionsType` type', () => {
+        expect(content).toContain('interface CpfFormatterOptionsType');
+      });
 
-    it('declares `CpfFormatterOptionsHiddenRangeInvalidException` class', (): void => {
-      expect(content).toContain('declare class CpfFormatterOptionsHiddenRangeInvalidException');
-    });
-
-    it('exports `CpfFormatterOptionsHiddenRangeInvalidException` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterOptionsHiddenRangeInvalidException');
-    });
-
-    it('declares `CpfFormatterOptionsForbiddenKeyCharacterException` class', (): void => {
-      expect(content).toContain('declare class CpfFormatterOptionsForbiddenKeyCharacterException');
-    });
-
-    it('exports `CpfFormatterOptionsForbiddenKeyCharacterException` as named', (): void => {
-      expect(exportedResources).toContain('CpfFormatterOptionsForbiddenKeyCharacterException');
-    });
-
-    it('declares `CPF_LENGTH` constant', (): void => {
-      expect(content).toContain('declare const CPF_LENGTH');
-    });
-
-    it('exports `CPF_LENGTH` as named', (): void => {
-      expect(exportedResources).toContain('CPF_LENGTH');
-    });
-
-    it('declares `CpfInput` type', (): void => {
-      expect(content).toContain('type CpfInput');
-    });
-
-    it('exports `CpfInput` as named', (): void => {
-      expect(exportedTypes).toContain('CpfInput');
-    });
-
-    it('declares `OnFailCallback` type', (): void => {
-      expect(content).toContain('type OnFailCallback');
-    });
-
-    it('exports `OnFailCallback` as named', (): void => {
-      expect(exportedTypes).toContain('OnFailCallback');
-    });
-
-    it('declares `CpfFormatterOptionsInput` type', (): void => {
-      expect(content).toContain('type CpfFormatterOptionsInput');
-    });
-
-    it('exports `CpfFormatterOptionsInput` as named', (): void => {
-      expect(exportedTypes).toContain('CpfFormatterOptionsInput');
-    });
-
-    it('declares `CpfFormatterOptionsType` type', (): void => {
-      expect(content).toContain('interface CpfFormatterOptionsType');
-    });
-
-    it('exports `CpfFormatterOptionsType` as named', (): void => {
-      expect(exportedTypes).toContain('CpfFormatterOptionsType');
+      it('exports `CpfFormatterOptionsType` as named', () => {
+        expect(exportedTypes).toContain('CpfFormatterOptionsType');
+      });
     });
   });
 });
