@@ -1,9 +1,9 @@
 import Bun, { $ } from 'bun';
 import { beforeAll, describe, expect, it } from 'bun:test';
 
-describe('package distributions', (): void => {
+describe('package distributions', () => {
   beforeAll(
-    async (): Promise<void> => {
+    async () => {
       const packageDir = import.meta.dir.replace('/tests', '');
 
       await $`bun run --cwd ${packageDir} build --silent`;
@@ -11,16 +11,16 @@ describe('package distributions', (): void => {
     { timeout: 20000 },
   );
 
-  describe('UMD', (): void => {
-    describe.each(['cnpj-fmt.js', 'cnpj-fmt.min.js'])('file `%s`', (fileName): void => {
+  describe('UMD', () => {
+    describe.each(['cnpj-fmt.js', 'cnpj-fmt.min.js'])('file `%s`', (fileName) => {
       const filePath = Bun.resolveSync(`../dist/${fileName}`, import.meta.dir);
       const file = Bun.file(filePath);
 
-      it('exists', async (): Promise<void> => {
+      it('exists', async () => {
         await expect(file.exists()).resolves.toBe(true);
       });
 
-      describe('when evaluated', (): void => {
+      describe('when evaluated', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let cnpjFmt: any;
 
@@ -48,12 +48,12 @@ describe('package distributions', (): void => {
           });
         });
 
-        it('exposes a global `cnpjFmt` function', async (): Promise<void> => {
+        it('exposes a global `cnpjFmt` function', async () => {
           expect(cnpjFmt).toBeFunction();
           expect(cnpjFmt.name).toBe('cnpjFmt');
         });
 
-        it('exposes other resources through the global `cnpjFmt` variable', async (): Promise<void> => {
+        it('exposes other resources through the global `cnpjFmt` variable', async () => {
           expect(cnpjFmt.CnpjFormatter?.name).toBe('CnpjFormatter');
           expect(cnpjFmt.CnpjFormatterOptions?.name).toBe('CnpjFormatterOptions');
           expect(cnpjFmt.CnpjFormatterTypeError?.name).toBe('CnpjFormatterTypeError');
@@ -72,20 +72,20 @@ describe('package distributions', (): void => {
           expect(cnpjFmt.CNPJ_LENGTH).toBe(14);
         });
 
-        it('exposes a working `cnpjFmt` function', async (): Promise<void> => {
+        it('exposes a working `cnpjFmt` function', async () => {
           const result = cnpjFmt('01ABC234000X56', { slashKey: '|' });
 
           expect(result).toBe('01.ABC.234|000X-56');
         });
 
-        it('exposes an instantiable `CnpjFormatter` class', async (): Promise<void> => {
+        it('exposes an instantiable `CnpjFormatter` class', async () => {
           const formatter = new cnpjFmt.CnpjFormatter({ hidden: true });
           const result = formatter.format('AB123XYZ000123');
 
           expect(result).toBe('AB.123.***/****-**');
         });
 
-        it('exposes an instantiable `CnpjFormatterOptions` class', async (): Promise<void> => {
+        it('exposes an instantiable `CnpjFormatterOptions` class', async () => {
           const options = new cnpjFmt.CnpjFormatterOptions({
             hidden: true,
             hiddenKey: 'X',
@@ -101,7 +101,7 @@ describe('package distributions', (): void => {
           expect(options.dashKey).toBe('_');
         });
 
-        it('exposes an instantiable `CnpjFormatterInputTypeError` class', async (): Promise<void> => {
+        it('exposes an instantiable `CnpjFormatterInputTypeError` class', async () => {
           const error = new cnpjFmt.CnpjFormatterInputTypeError(123, 'string');
 
           expect(error.actualInput).toBe(123);
@@ -110,7 +110,7 @@ describe('package distributions', (): void => {
           expect(error.message).toBe('CNPJ input must be of type string. Got integer number.');
         });
 
-        it('exposes an instantiable `CnpjFormatterOptionsTypeError` class', async (): Promise<void> => {
+        it('exposes an instantiable `CnpjFormatterOptionsTypeError` class', async () => {
           const error = new cnpjFmt.CnpjFormatterOptionsTypeError('hidden', 123, 'boolean');
 
           expect(error.actualInput).toBe(123);
@@ -122,7 +122,7 @@ describe('package distributions', (): void => {
           );
         });
 
-        it('exposes an instantiable `CnpjFormatterOptionsHiddenRangeInvalidException` class', async (): Promise<void> => {
+        it('exposes an instantiable `CnpjFormatterOptionsHiddenRangeInvalidException` class', async () => {
           const exception = new cnpjFmt.CnpjFormatterOptionsHiddenRangeInvalidException(
             'hiddenStart',
             123,
@@ -139,7 +139,7 @@ describe('package distributions', (): void => {
           );
         });
 
-        it('exposes an instantiable `CnpjFormatterOptionsForbiddenKeyCharacterException` class', async (): Promise<void> => {
+        it('exposes an instantiable `CnpjFormatterOptionsForbiddenKeyCharacterException` class', async () => {
           const exception = new cnpjFmt.CnpjFormatterOptionsForbiddenKeyCharacterException(
             'dotKey',
             'x',
@@ -154,7 +154,7 @@ describe('package distributions', (): void => {
           );
         });
 
-        it('exposes an instantiable `CnpjFormatterInputLengthException` class', async (): Promise<void> => {
+        it('exposes an instantiable `CnpjFormatterInputLengthException` class', async () => {
           const exception = new cnpjFmt.CnpjFormatterInputLengthException('ABC.123', 'ABC123', 14);
 
           expect(exception.actualInput).toBe('ABC.123');
@@ -168,16 +168,16 @@ describe('package distributions', (): void => {
     });
   });
 
-  describe('CommonJS', (): void => {
-    describe('file `index.cjs`', (): void => {
+  describe('CommonJS', () => {
+    describe('file `index.cjs`', () => {
       const filePath = Bun.resolveSync('../dist/index.cjs', import.meta.dir);
       const file = Bun.file(filePath);
 
-      it('exists', async (): Promise<void> => {
+      it('exists', async () => {
         await expect(file.exists()).resolves.toBe(true);
       });
 
-      it('exports using module.exports', async (): Promise<void> => {
+      it('exports using module.exports', async () => {
         const content = await file.text();
 
         expect(content).toContain('index_cjs = Object.assign(cnpjFmt');
@@ -185,7 +185,7 @@ describe('package distributions', (): void => {
       });
     });
 
-    describe('file `index.d.cts`', (): void => {
+    describe('file `index.d.cts`', () => {
       const filePath = Bun.resolveSync('../dist/index.d.cts', import.meta.dir);
       const file = Bun.file(filePath);
       let content: string;
@@ -194,71 +194,71 @@ describe('package distributions', (): void => {
         content = await file.text();
       });
 
-      it('exists', async (): Promise<void> => {
+      it('exists', async () => {
         await expect(file.exists()).resolves.toBe(true);
       });
 
-      it('declares `cnpjFmt` function', (): void => {
+      it('declares `cnpjFmt` function', () => {
         expect(content).toContain('declare function cnpjFmt');
       });
 
-      it('declares `CnpjFormatter` class', (): void => {
+      it('declares `CnpjFormatter` class', () => {
         expect(content).toContain('declare class CnpjFormatter');
       });
 
-      it('declares `CnpjFormatterOptions` class', (): void => {
+      it('declares `CnpjFormatterOptions` class', () => {
         expect(content).toContain('declare class CnpjFormatterOptions');
       });
 
-      it('declares `CnpjFormatterTypeError` abstract class', (): void => {
+      it('declares `CnpjFormatterTypeError` abstract class', () => {
         expect(content).toContain('declare abstract class CnpjFormatterTypeError');
       });
 
-      it('declares `CnpjFormatterInputTypeError` class', (): void => {
+      it('declares `CnpjFormatterInputTypeError` class', () => {
         expect(content).toContain('declare class CnpjFormatterInputTypeError');
       });
 
-      it('declares `CnpjFormatterOptionsTypeError` class', (): void => {
+      it('declares `CnpjFormatterOptionsTypeError` class', () => {
         expect(content).toContain('declare class CnpjFormatterOptionsTypeError');
       });
 
-      it('declares `CnpjFormatterException` abstract class', (): void => {
+      it('declares `CnpjFormatterException` abstract class', () => {
         expect(content).toContain('declare abstract class CnpjFormatterException');
       });
 
-      it('declares `CnpjFormatterInputLengthException` class', (): void => {
+      it('declares `CnpjFormatterInputLengthException` class', () => {
         expect(content).toContain('declare class CnpjFormatterInputLengthException');
       });
 
-      it('declares `CnpjFormatterOptionsHiddenRangeInvalidException` class', (): void => {
+      it('declares `CnpjFormatterOptionsHiddenRangeInvalidException` class', () => {
         expect(content).toContain('declare class CnpjFormatterOptionsHiddenRangeInvalidException');
       });
 
-      it('declares `CnpjFormatterOptionsForbiddenKeyCharacterException` class', (): void => {
+      it('declares `CnpjFormatterOptionsForbiddenKeyCharacterException` class', () => {
         expect(content).toContain(
           'declare class CnpjFormatterOptionsForbiddenKeyCharacterException',
         );
       });
 
-      it('declares `CnpjFormatterOptionsInput` type', (): void => {
+      it('declares `CnpjFormatterOptionsInput` type', () => {
         expect(content).toContain('type CnpjFormatterOptionsInput');
       });
 
-      it('declares `CnpjFormatterOptionsType` type', (): void => {
+      it('declares `CnpjFormatterOptionsType` type', () => {
         expect(content).toContain('interface CnpjFormatterOptionsType');
       });
 
-      it('declares `CnpjInput` type', (): void => {
+      it('declares `CnpjInput` type', () => {
         expect(content).toContain('type CnpjInput');
       });
 
-      it('declares `OnFailCallback` type', (): void => {
+      it('declares `OnFailCallback` type', () => {
         expect(content).toContain('type OnFailCallback');
       });
     });
   });
 
-  describe('ES Module', (): void => {
+  describe('ES Module', () => {
     function extractExported(what: 'resources' | 'types', content: string): string[] {
       const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
 
@@ -279,7 +279,7 @@ describe('package distributions', (): void => {
       return extractExported('types', content);
     }
 
-    describe('file `index.mjs`', (): void => {
+    describe('file `index.mjs`', () => {
       const filePath = Bun.resolveSync('../dist/index.mjs', import.meta.dir);
       const file = Bun.file(filePath);
       let content: string;
@@ -290,60 +290,60 @@ describe('package distributions', (): void => {
         exportedResources = extractExportedResources(content);
       });
 
-      it('exists', async (): Promise<void> => {
+      it('exists', async () => {
         await expect(file.exists()).resolves.toBe(true);
       });
 
-      it('exports `cnpjFmt` as default', (): void => {
+      it('exports `cnpjFmt` as default', () => {
         expect(exportedResources).toContain('cnpjFmt as default');
       });
 
-      it('exports `cnpjFmt` as named', (): void => {
+      it('exports `cnpjFmt` as named', () => {
         expect(exportedResources).toContain('cnpjFmt');
       });
 
-      it('exports `CnpjFormatter` as named', (): void => {
+      it('exports `CnpjFormatter` as named', () => {
         expect(exportedResources).toContain('CnpjFormatter');
       });
 
-      it('exports `CnpjFormatterOptions` as named', (): void => {
+      it('exports `CnpjFormatterOptions` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterOptions');
       });
 
-      it('exports `CNPJ_LENGTH` as named', (): void => {
+      it('exports `CNPJ_LENGTH` as named', () => {
         expect(exportedResources).toContain('CNPJ_LENGTH');
       });
 
-      it('exports `CnpjFormatterTypeError` as named', (): void => {
+      it('exports `CnpjFormatterTypeError` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterTypeError');
       });
 
-      it('exports `CnpjFormatterInputTypeError` as named', (): void => {
+      it('exports `CnpjFormatterInputTypeError` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterInputTypeError');
       });
 
-      it('exports `CnpjFormatterOptionsTypeError` as named', (): void => {
+      it('exports `CnpjFormatterOptionsTypeError` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterOptionsTypeError');
       });
 
-      it('exports `CnpjFormatterException` as named', (): void => {
+      it('exports `CnpjFormatterException` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterException');
       });
 
-      it('exports `CnpjFormatterInputLengthException` as named', (): void => {
+      it('exports `CnpjFormatterInputLengthException` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterInputLengthException');
       });
 
-      it('exports `CnpjFormatterOptionsHiddenRangeInvalidException` as named', (): void => {
+      it('exports `CnpjFormatterOptionsHiddenRangeInvalidException` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterOptionsHiddenRangeInvalidException');
       });
 
-      it('exports `CnpjFormatterOptionsForbiddenKeyCharacterException` as named', (): void => {
+      it('exports `CnpjFormatterOptionsForbiddenKeyCharacterException` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterOptionsForbiddenKeyCharacterException');
       });
     });
 
-    describe('file `index.d.ts`', (): void => {
+    describe('file `index.d.ts`', () => {
       const filePath = Bun.resolveSync('../dist/index.d.ts', import.meta.dir);
       const file = Bun.file(filePath);
       let content: string;
@@ -356,133 +356,133 @@ describe('package distributions', (): void => {
         exportedTypes = extractExportedTypes(content);
       });
 
-      it('exists', async (): Promise<void> => {
+      it('exists', async () => {
         await expect(file.exists()).resolves.toBe(true);
       });
 
-      it('declares `cnpjFmt` function', (): void => {
+      it('declares `cnpjFmt` function', () => {
         expect(content).toContain('declare function cnpjFmt');
       });
 
-      it('exports `cnpjFmt` function as default', (): void => {
+      it('exports `cnpjFmt` function as default', () => {
         expect(exportedResources).toContain('cnpjFmt as default');
       });
 
-      it('exports `cnpjFmt` function as named', (): void => {
+      it('exports `cnpjFmt` function as named', () => {
         expect(exportedResources).toContain('cnpjFmt');
       });
 
-      it('declares `CnpjFormatter` class', (): void => {
+      it('declares `CnpjFormatter` class', () => {
         expect(content).toContain('declare class CnpjFormatter');
       });
 
-      it('exports `CnpjFormatter` as named', (): void => {
+      it('exports `CnpjFormatter` as named', () => {
         expect(exportedResources).toContain('CnpjFormatter');
       });
 
-      it('declares `CnpjFormatterOptions` class', (): void => {
+      it('declares `CnpjFormatterOptions` class', () => {
         expect(content).toContain('declare class CnpjFormatterOptions');
       });
 
-      it('exports `CnpjFormatterOptions` as named', (): void => {
+      it('exports `CnpjFormatterOptions` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterOptions');
       });
 
-      it('declares `CNPJ_LENGTH` constant', (): void => {
+      it('declares `CNPJ_LENGTH` constant', () => {
         expect(content).toContain('declare const CNPJ_LENGTH');
       });
 
-      it('exports `CNPJ_LENGTH` as named', (): void => {
+      it('exports `CNPJ_LENGTH` as named', () => {
         expect(exportedResources).toContain('CNPJ_LENGTH');
       });
 
-      it('declares `CnpjFormatterTypeError` abstract class', (): void => {
+      it('declares `CnpjFormatterTypeError` abstract class', () => {
         expect(content).toContain('declare abstract class CnpjFormatterTypeError');
       });
 
-      it('exports `CnpjFormatterTypeError` as named', (): void => {
+      it('exports `CnpjFormatterTypeError` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterTypeError');
       });
 
-      it('declares `CnpjFormatterInputTypeError` class', (): void => {
+      it('declares `CnpjFormatterInputTypeError` class', () => {
         expect(content).toContain('declare class CnpjFormatterInputTypeError');
       });
 
-      it('exports `CnpjFormatterInputTypeError` as named', (): void => {
+      it('exports `CnpjFormatterInputTypeError` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterInputTypeError');
       });
 
-      it('declares `CnpjFormatterOptionsTypeError` class', (): void => {
+      it('declares `CnpjFormatterOptionsTypeError` class', () => {
         expect(content).toContain('declare class CnpjFormatterOptionsTypeError');
       });
 
-      it('exports `CnpjFormatterOptionsTypeError` as named', (): void => {
+      it('exports `CnpjFormatterOptionsTypeError` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterOptionsTypeError');
       });
 
-      it('declares `CnpjFormatterException` abstract class', (): void => {
+      it('declares `CnpjFormatterException` abstract class', () => {
         expect(content).toContain('declare abstract class CnpjFormatterException');
       });
 
-      it('exports `CnpjFormatterException` as named', (): void => {
+      it('exports `CnpjFormatterException` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterException');
       });
 
-      it('declares `CnpjFormatterInputLengthException` class', (): void => {
+      it('declares `CnpjFormatterInputLengthException` class', () => {
         expect(content).toContain('declare class CnpjFormatterInputLengthException');
       });
 
-      it('exports `CnpjFormatterInputLengthException` as named', (): void => {
+      it('exports `CnpjFormatterInputLengthException` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterInputLengthException');
       });
 
-      it('declares `CnpjFormatterOptionsHiddenRangeInvalidException` class', (): void => {
+      it('declares `CnpjFormatterOptionsHiddenRangeInvalidException` class', () => {
         expect(content).toContain('declare class CnpjFormatterOptionsHiddenRangeInvalidException');
       });
 
-      it('exports `CnpjFormatterOptionsHiddenRangeInvalidException` as named', (): void => {
+      it('exports `CnpjFormatterOptionsHiddenRangeInvalidException` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterOptionsHiddenRangeInvalidException');
       });
 
-      it('declares `CnpjFormatterOptionsForbiddenKeyCharacterException` class', (): void => {
+      it('declares `CnpjFormatterOptionsForbiddenKeyCharacterException` class', () => {
         expect(content).toContain(
           'declare class CnpjFormatterOptionsForbiddenKeyCharacterException',
         );
       });
 
-      it('exports `CnpjFormatterOptionsForbiddenKeyCharacterException` as named', (): void => {
+      it('exports `CnpjFormatterOptionsForbiddenKeyCharacterException` as named', () => {
         expect(exportedResources).toContain('CnpjFormatterOptionsForbiddenKeyCharacterException');
       });
 
-      it('declares `CnpjFormatterOptionsInput` type', (): void => {
+      it('declares `CnpjFormatterOptionsInput` type', () => {
         expect(content).toContain('type CnpjFormatterOptionsInput');
       });
 
-      it('exports `CnpjFormatterOptionsInput` as named', (): void => {
+      it('exports `CnpjFormatterOptionsInput` as named', () => {
         expect(exportedTypes).toContain('CnpjFormatterOptionsInput');
       });
 
-      it('declares `CnpjFormatterOptionsType` type', (): void => {
+      it('declares `CnpjFormatterOptionsType` type', () => {
         expect(content).toContain('interface CnpjFormatterOptionsType');
       });
 
-      it('exports `CnpjFormatterOptionsType` as named', (): void => {
+      it('exports `CnpjFormatterOptionsType` as named', () => {
         expect(exportedTypes).toContain('CnpjFormatterOptionsType');
       });
 
-      it('declares `CnpjInput` type', (): void => {
+      it('declares `CnpjInput` type', () => {
         expect(content).toContain('type CnpjInput');
       });
 
-      it('exports `CnpjInput` as named', (): void => {
+      it('exports `CnpjInput` as named', () => {
         expect(exportedTypes).toContain('CnpjInput');
       });
 
-      it('declares `OnFailCallback` type', (): void => {
+      it('declares `OnFailCallback` type', () => {
         expect(content).toContain('type OnFailCallback');
       });
 
-      it('exports `OnFailCallback` as named', (): void => {
+      it('exports `OnFailCallback` as named', () => {
         expect(exportedTypes).toContain('OnFailCallback');
       });
     });
