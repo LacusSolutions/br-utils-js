@@ -48,7 +48,7 @@ describe('package distributions', () => {
           expect(cpfVal.name).toBe('cpfVal');
         });
 
-        it('exposes resources through the global `cpfVal` variable', async () => {
+        it('exposes other resources through the global `cpfVal` variable', async () => {
           expect(cpfVal.CpfValidator?.name).toBe('CpfValidator');
           expect(cpfVal.CpfValidatorTypeError?.name).toBe('CpfValidatorTypeError');
           expect(cpfVal.CpfValidatorInputTypeError?.name).toBe('CpfValidatorInputTypeError');
@@ -68,7 +68,7 @@ describe('package distributions', () => {
           expect(result).toBe(true);
         });
 
-        it('exposes an instantiable `InputTypeError` class', async () => {
+        it('exposes an instantiable `CpfValidatorInputTypeError` class', async () => {
           const error = new cpfVal.CpfValidatorInputTypeError(123, 'string');
 
           expect(error.actualInput).toBe(123);
