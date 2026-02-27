@@ -51,7 +51,7 @@ describe('package distributions', () => {
           expect(DefaultClass.name).toBe('CnpjCheckDigits');
         });
 
-        it('exposes other resources through the global variable', async (): Promise<void> => {
+        it('exposes other resources through the global variable', async () => {
           expect(DefaultClass.CnpjCheckDigits?.name).toBe('CnpjCheckDigits');
           expect(DefaultClass.CnpjCheckDigitsTypeError?.name).toBe('CnpjCheckDigitsTypeError');
           expect(DefaultClass.CnpjCheckDigitsInputTypeError?.name).toBe(
@@ -161,7 +161,7 @@ describe('package distributions', () => {
         expect(content).toContain('declare class CnpjCheckDigitsInputInvalidException');
       });
 
-      it('declares `CnpjInput` type', (): void => {
+      it('declares `CnpjInput` type', () => {
         expect(content).toContain('type CnpjInput');
       });
     });
@@ -313,11 +313,11 @@ describe('package distributions', () => {
         expect(exportedResources).toContain('CNPJ_MIN_LENGTH');
       });
 
-      it('declares `CnpjInput` type', (): void => {
+      it('declares `CnpjInput` type', () => {
         expect(content).toContain('type CnpjInput');
       });
 
-      it('exports `CnpjInput` as named', (): void => {
+      it('exports `CnpjInput` as named', () => {
         expect(exportedTypes).toContain('CnpjInput');
       });
     });
