@@ -50,7 +50,6 @@ export function makeRollupConfig({
 
   const externalDependencies = [
     ...Object.keys(packageMeta.dependencies || {}),
-    ...Object.keys(packageMeta.devDependencies || {}),
     ...Object.keys(packageMeta.peerDependencies || {}),
   ];
 
