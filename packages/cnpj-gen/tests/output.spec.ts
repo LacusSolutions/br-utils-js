@@ -93,7 +93,7 @@ describe('package distributions', () => {
           expect(options.format).toBe(true);
         });
 
-        it('exposes an instantiable `OptionsTypeError` class', async () => {
+        it('exposes an instantiable `CnpjGeneratorOptionsTypeError` class', async () => {
           const error = new cnpjGen.CnpjGeneratorOptionsTypeError('prefix', 123, 'string');
 
           expect(error.actualInput).toBe(123);
@@ -105,7 +105,7 @@ describe('package distributions', () => {
           );
         });
 
-        it('exposes an instantiable `OptionPrefixInvalidException` class', async () => {
+        it('exposes an instantiable `CnpjGeneratorOptionPrefixInvalidException` class', async () => {
           const exception = new cnpjGen.CnpjGeneratorOptionPrefixInvalidException(
             'AB123XYZ',
             'some reason',
@@ -118,7 +118,7 @@ describe('package distributions', () => {
           );
         });
 
-        it('exposes an instantiable `OptionTypeInvalidException` class', async () => {
+        it('exposes an instantiable `CnpjGeneratorOptionTypeInvalidException` class', async () => {
           const exception = new cnpjGen.CnpjGeneratorOptionTypeInvalidException('string', [
             'numeric',
           ]);
