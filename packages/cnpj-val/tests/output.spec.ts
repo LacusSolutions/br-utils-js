@@ -86,7 +86,7 @@ describe('package distributions', () => {
           expect(options.type).toBe('numeric');
         });
 
-        it('exposes an instantiable `InputTypeError` class', async () => {
+        it('exposes an instantiable `CnpjValidatorInputTypeError` class', async () => {
           const error = new cnpjVal.CnpjValidatorInputTypeError(123, 'string');
 
           expect(error.actualInput).toBe(123);
@@ -95,7 +95,7 @@ describe('package distributions', () => {
           expect(error.message).toBe('CNPJ input must be of type string. Got integer number.');
         });
 
-        it('exposes an instantiable `OptionsTypeError` class', async () => {
+        it('exposes an instantiable `CnpjValidatorOptionsTypeError` class', async () => {
           const error = new cnpjVal.CnpjValidatorOptionsTypeError('prefix', 123, 'string');
 
           expect(error.actualInput).toBe(123);
@@ -107,7 +107,7 @@ describe('package distributions', () => {
           );
         });
 
-        it('exposes an instantiable `OptionTypeInvalidException` class', async () => {
+        it('exposes an instantiable `CnpjValidatorOptionTypeInvalidException` class', async () => {
           const exception = new cnpjVal.CnpjValidatorOptionTypeInvalidException('string', [
             'numeric',
           ]);
