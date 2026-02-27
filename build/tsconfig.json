@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "esnext",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": ["**/src/**/*.ts", "**/tests/**/*.ts"],
+  "exclude": ["**/node_modules/**", "**/dist/**"]
+}

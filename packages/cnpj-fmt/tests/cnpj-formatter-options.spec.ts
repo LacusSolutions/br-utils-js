@@ -3,7 +3,7 @@ import { describe, expect, it } from 'bun:test';
 import { CnpjFormatterOptions } from '../src/cnpj-formatter-options';
 import type { CnpjFormatterOptionsType, OnFailCallback } from '../src/types';
 
-describe('CnpjFormatterOptions', (): void => {
+describe('CnpjFormatterOptions', () => {
   const DEFAULT_PARAMETERS: CnpjFormatterOptionsType = {
     hidden: CnpjFormatterOptions.DEFAULT_HIDDEN,
     hiddenKey: CnpjFormatterOptions.DEFAULT_HIDDEN_KEY,
@@ -17,17 +17,17 @@ describe('CnpjFormatterOptions', (): void => {
     onFail: CnpjFormatterOptions.DEFAULT_ON_FAIL,
   };
 
-  describe('constructor', (): void => {
-    describe('when called with no parameters', (): void => {
-      it('sets all options to default values', (): void => {
+  describe('constructor', () => {
+    describe('when called with no parameters', () => {
+      it('sets all options to default values', () => {
         const options = new CnpjFormatterOptions();
 
         expect(options.all).toEqual(DEFAULT_PARAMETERS);
       });
     });
 
-    describe('when called with all parameters with undefined values', (): void => {
-      it('sets all options to default values', (): void => {
+    describe('when called with all parameters with undefined values', () => {
+      it('sets all options to default values', () => {
         const options = new CnpjFormatterOptions({
           hidden: undefined,
           hiddenKey: undefined,
@@ -44,8 +44,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with all parameters with null values', (): void => {
-      it('sets all options to default values', (): void => {
+    describe('when called with all parameters with null values', () => {
+      it('sets all options to default values', () => {
         const options = new CnpjFormatterOptions({
           hidden: null as unknown as boolean,
           hiddenKey: null as unknown as string,
@@ -62,8 +62,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with all parameters', (): void => {
-      it('sets all options to the provided values', (): void => {
+    describe('when called with all parameters', () => {
+      it('sets all options to the provided values', () => {
         const parameters: CnpjFormatterOptionsType = {
           hidden: true,
           hiddenKey: '#',
@@ -83,8 +83,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with some parameters', (): void => {
-      it('sets only the provided non-nullish values', (): void => {
+    describe('when called with some parameters', () => {
+      it('sets only the provided non-nullish values', () => {
         const parameters: Partial<CnpjFormatterOptionsType> = {
           hidden: true,
           hiddenKey: '#',
@@ -107,8 +107,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with a CnpjFormatterOptions instance', (): void => {
-      it('sets a new instance with the same values', (): void => {
+    describe('when called with a CnpjFormatterOptions instance', () => {
+      it('sets a new instance with the same values', () => {
         const originalOptions = new CnpjFormatterOptions({
           hidden: true,
           hiddenStart: 1,
@@ -125,14 +125,14 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with overrides parameters', (): void => {
-      it('uses last param option with 2 params', (): void => {
+    describe('when called with overrides parameters', () => {
+      it('uses last param option with 2 params', () => {
         const options = new CnpjFormatterOptions({ hiddenKey: '#' }, { hiddenKey: 'X' });
 
         expect(options.hiddenKey).toBe('X');
       });
 
-      it('uses last param option with 5 params', (): void => {
+      it('uses last param option with 5 params', () => {
         const options = new CnpjFormatterOptions(
           { hiddenKey: '.' },
           { hiddenKey: '_' },
@@ -146,9 +146,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`hidden` property', (): void => {
-    describe('when setting to a boolean value', (): void => {
-      it('sets `hidden` to `true`', (): void => {
+  describe('`hidden` property', () => {
+    describe('when setting to a boolean value', () => {
+      it('sets `hidden` to `true`', () => {
         const options = new CnpjFormatterOptions({ hidden: false });
 
         options.hidden = true;
@@ -156,7 +156,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hidden).toBe(true);
       });
 
-      it('sets `hidden` to `false`', (): void => {
+      it('sets `hidden` to `false`', () => {
         const options = new CnpjFormatterOptions({ hidden: true });
 
         options.hidden = false;
@@ -165,8 +165,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjFormatterOptions({ hidden: !DEFAULT_PARAMETERS.hidden });
 
         options.hidden = undefined;
@@ -174,7 +174,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hidden).toBe(DEFAULT_PARAMETERS.hidden);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjFormatterOptions({ hidden: !DEFAULT_PARAMETERS.hidden });
 
         options.hidden = null as unknown as boolean;
@@ -183,8 +183,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-boolean value', (): void => {
-      it('coerces object value to `true`', (): void => {
+    describe('when setting to a non-boolean value', () => {
+      it('coerces object value to `true`', () => {
         const options = new CnpjFormatterOptions({ hidden: false });
 
         options.hidden = { not: 'a boolean' } as unknown as boolean;
@@ -192,7 +192,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hidden).toBe(true);
       });
 
-      it('coerces truthy string value to `true`', (): void => {
+      it('coerces truthy string value to `true`', () => {
         const options = new CnpjFormatterOptions({ hidden: false });
 
         options.hidden = 'not a boolean' as unknown as boolean;
@@ -200,7 +200,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hidden).toBe(true);
       });
 
-      it('coerces truthy number value to `true`', (): void => {
+      it('coerces truthy number value to `true`', () => {
         const options = new CnpjFormatterOptions({ hidden: false });
 
         options.hidden = 123 as unknown as boolean;
@@ -208,7 +208,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hidden).toBe(true);
       });
 
-      it('coerces empty string value to `false`', (): void => {
+      it('coerces empty string value to `false`', () => {
         const options = new CnpjFormatterOptions({ hidden: false });
 
         options.hidden = '' as unknown as boolean;
@@ -216,7 +216,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hidden).toBe(false);
       });
 
-      it('coerces zero number value to `false`', (): void => {
+      it('coerces zero number value to `false`', () => {
         const options = new CnpjFormatterOptions({ hidden: false });
 
         options.hidden = 0 as unknown as boolean;
@@ -226,9 +226,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`hiddenKey` property', (): void => {
-    describe('when setting to a string value', (): void => {
-      it('sets `hiddenKey` to the provided value', (): void => {
+  describe('`hiddenKey` property', () => {
+    describe('when setting to a string value', () => {
+      it('sets `hiddenKey` to the provided value', () => {
         const options = new CnpjFormatterOptions({ hiddenKey: '*' });
 
         options.hiddenKey = 'X';
@@ -237,8 +237,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjFormatterOptions({ hiddenKey: '#' });
 
         options.hiddenKey = undefined;
@@ -246,7 +246,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hiddenKey).toBe(DEFAULT_PARAMETERS.hiddenKey);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjFormatterOptions({ hiddenKey: '#' });
 
         options.hiddenKey = null as unknown as string;
@@ -255,8 +255,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CnpjFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CnpjFormatterOptionsTypeError with an object', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -264,7 +264,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "hiddenKey" must be of type string. Got object.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a number', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a number', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -274,7 +274,7 @@ describe('CnpjFormatterOptions', (): void => {
         );
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a boolean', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -283,10 +283,10 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a string containing a forbidden key character', (): void => {
+    describe('when setting to a string containing a forbidden key character', () => {
       it.each([...CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
         'throws CnpjFormatterOptionsForbiddenKeyCharacterException with %s',
-        (forbiddenChar): void => {
+        (forbiddenChar) => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -299,9 +299,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`hiddenStart` property', (): void => {
-    describe('when setting to a number value', (): void => {
-      it('sets `hiddenStart` to the provided value', (): void => {
+  describe('`hiddenStart` property', () => {
+    describe('when setting to a number value', () => {
+      it('sets `hiddenStart` to the provided value', () => {
         const options = new CnpjFormatterOptions({ hiddenStart: 0 });
 
         options.hiddenStart = 1;
@@ -310,8 +310,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to an invalid number value range', (): void => {
-      it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a negative number', (): void => {
+    describe('when setting to an invalid number value range', () => {
+      it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a negative number', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -321,7 +321,7 @@ describe('CnpjFormatterOptions', (): void => {
         );
       });
 
-      it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a number greater than 13', (): void => {
+      it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a number greater than 13', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -332,8 +332,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjFormatterOptions({ hiddenStart: 0 });
 
         options.hiddenStart = undefined;
@@ -341,7 +341,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hiddenStart).toBe(DEFAULT_PARAMETERS.hiddenStart);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjFormatterOptions({ hiddenStart: 0 });
 
         options.hiddenStart = null as unknown as number;
@@ -350,8 +350,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-integer value', (): void => {
-      it('throws CnpjFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-integer value', () => {
+      it('throws CnpjFormatterOptionsTypeError with an object', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -359,7 +359,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "hiddenStart" must be of type integer. Got object.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a string', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a string', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -367,7 +367,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "hiddenStart" must be of type integer. Got string.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a boolean', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -375,7 +375,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "hiddenStart" must be of type integer. Got boolean.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a float number', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a float number', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -387,9 +387,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`hiddenEnd` property', (): void => {
-    describe('when setting to a number value', (): void => {
-      it('sets `hiddenEnd` to the provided value', (): void => {
+  describe('`hiddenEnd` property', () => {
+    describe('when setting to a number value', () => {
+      it('sets `hiddenEnd` to the provided value', () => {
         const options = new CnpjFormatterOptions({ hiddenEnd: 13 });
 
         options.hiddenEnd = 12;
@@ -398,8 +398,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to an invalid number value range', (): void => {
-      it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a negative number', (): void => {
+    describe('when setting to an invalid number value range', () => {
+      it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a negative number', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -409,7 +409,7 @@ describe('CnpjFormatterOptions', (): void => {
         );
       });
 
-      it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a number greater than 13', (): void => {
+      it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a number greater than 13', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -420,8 +420,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjFormatterOptions({ hiddenEnd: 0 });
 
         options.hiddenEnd = undefined;
@@ -429,7 +429,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hiddenEnd).toBe(DEFAULT_PARAMETERS.hiddenEnd);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjFormatterOptions({ hiddenEnd: 0 });
 
         options.hiddenEnd = null as unknown as number;
@@ -438,8 +438,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-integer value', (): void => {
-      it('throws CnpjFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-integer value', () => {
+      it('throws CnpjFormatterOptionsTypeError with an object', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -447,7 +447,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "hiddenEnd" must be of type integer. Got object.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a string', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a string', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -455,7 +455,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "hiddenEnd" must be of type integer. Got string.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a boolean', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -463,7 +463,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "hiddenEnd" must be of type integer. Got boolean.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a float number', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a float number', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -473,9 +473,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`dotKey` property', (): void => {
-    describe('when setting to a string value', (): void => {
-      it('sets `dotKey` to the provided value', (): void => {
+  describe('`dotKey` property', () => {
+    describe('when setting to a string value', () => {
+      it('sets `dotKey` to the provided value', () => {
         const options = new CnpjFormatterOptions({ dotKey: '.' });
 
         options.dotKey = '_';
@@ -484,8 +484,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjFormatterOptions({ dotKey: '_' });
 
         options.dotKey = undefined;
@@ -493,7 +493,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.dotKey).toBe(DEFAULT_PARAMETERS.dotKey);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjFormatterOptions({ dotKey: '.' });
 
         options.dotKey = null as unknown as string;
@@ -502,8 +502,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CnpjFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CnpjFormatterOptionsTypeError with an object', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -511,7 +511,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "dotKey" must be of type string. Got object.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a number', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a number', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -519,7 +519,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "dotKey" must be of type string. Got integer number.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a boolean', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -528,10 +528,10 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a string containing a forbidden key character', (): void => {
+    describe('when setting to a string containing a forbidden key character', () => {
       it.each([...CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
         'throws CnpjFormatterOptionsForbiddenKeyCharacterException with %s',
-        (forbiddenChar): void => {
+        (forbiddenChar) => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -544,9 +544,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`slashKey` property', (): void => {
-    describe('when setting to a string value', (): void => {
-      it('sets `slashKey` to the provided value', (): void => {
+  describe('`slashKey` property', () => {
+    describe('when setting to a string value', () => {
+      it('sets `slashKey` to the provided value', () => {
         const options = new CnpjFormatterOptions({ slashKey: '.' });
 
         options.slashKey = '_';
@@ -555,8 +555,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjFormatterOptions({ slashKey: '_' });
 
         options.slashKey = undefined;
@@ -564,7 +564,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.slashKey).toBe(DEFAULT_PARAMETERS.slashKey);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjFormatterOptions({ slashKey: '.' });
 
         options.slashKey = null as unknown as string;
@@ -573,8 +573,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CnpjFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CnpjFormatterOptionsTypeError with an object', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -582,7 +582,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "slashKey" must be of type string. Got object.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a number', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a number', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -590,7 +590,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "slashKey" must be of type string. Got integer number.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a boolean', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -599,10 +599,10 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a string containing a forbidden key character', (): void => {
+    describe('when setting to a string containing a forbidden key character', () => {
       it.each([...CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
         'throws CnpjFormatterOptionsForbiddenKeyCharacterException with %s',
-        (forbiddenChar): void => {
+        (forbiddenChar) => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -615,9 +615,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`dashKey` property', (): void => {
-    describe('when setting to a string value', (): void => {
-      it('sets `dashKey` to the provided value', (): void => {
+  describe('`dashKey` property', () => {
+    describe('when setting to a string value', () => {
+      it('sets `dashKey` to the provided value', () => {
         const options = new CnpjFormatterOptions({ dashKey: '.' });
 
         options.dashKey = '_';
@@ -626,8 +626,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjFormatterOptions({ dashKey: '_' });
 
         options.dashKey = undefined;
@@ -635,7 +635,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.dashKey).toBe(DEFAULT_PARAMETERS.dashKey);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjFormatterOptions({ dashKey: '.' });
 
         options.dashKey = null as unknown as string;
@@ -644,8 +644,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CnpjFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CnpjFormatterOptionsTypeError with an object', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -653,7 +653,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "dashKey" must be of type string. Got object.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a number', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a number', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -661,7 +661,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "dashKey" must be of type string. Got integer number.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a boolean', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -670,10 +670,10 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a string containing a forbidden key character', (): void => {
+    describe('when setting to a string containing a forbidden key character', () => {
       it.each([...CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
         'throws CnpjFormatterOptionsForbiddenKeyCharacterException with %s',
-        (forbiddenChar): void => {
+        (forbiddenChar) => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -686,9 +686,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`escape` property', (): void => {
-    describe('when setting to a boolean value', (): void => {
-      it('sets `escape` to `true`', (): void => {
+  describe('`escape` property', () => {
+    describe('when setting to a boolean value', () => {
+      it('sets `escape` to `true`', () => {
         const options = new CnpjFormatterOptions({ escape: false });
 
         options.escape = true;
@@ -696,7 +696,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.escape).toBe(true);
       });
 
-      it('sets `escape` to `false`', (): void => {
+      it('sets `escape` to `false`', () => {
         const options = new CnpjFormatterOptions({ escape: true });
 
         options.escape = false;
@@ -705,8 +705,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjFormatterOptions({ escape: !DEFAULT_PARAMETERS.escape });
 
         options.escape = undefined;
@@ -714,7 +714,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.escape).toBe(DEFAULT_PARAMETERS.escape);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjFormatterOptions({ escape: !DEFAULT_PARAMETERS.escape });
 
         options.escape = null as unknown as boolean;
@@ -723,8 +723,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-boolean value', (): void => {
-      it('coerces object value to `true`', (): void => {
+    describe('when setting to a non-boolean value', () => {
+      it('coerces object value to `true`', () => {
         const options = new CnpjFormatterOptions({ escape: false });
 
         options.escape = { not: 'a boolean' } as unknown as boolean;
@@ -732,7 +732,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.escape).toBe(true);
       });
 
-      it('coerces truthy string value to `true`', (): void => {
+      it('coerces truthy string value to `true`', () => {
         const options = new CnpjFormatterOptions({ escape: false });
 
         options.escape = 'not a boolean' as unknown as boolean;
@@ -740,7 +740,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.escape).toBe(true);
       });
 
-      it('coerces truthy number value to `true`', (): void => {
+      it('coerces truthy number value to `true`', () => {
         const options = new CnpjFormatterOptions({ escape: false });
 
         options.escape = 123 as unknown as boolean;
@@ -748,7 +748,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.escape).toBe(true);
       });
 
-      it('coerces empty string value to `false`', (): void => {
+      it('coerces empty string value to `false`', () => {
         const options = new CnpjFormatterOptions({ escape: false });
 
         options.escape = '' as unknown as boolean;
@@ -756,7 +756,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.escape).toBe(false);
       });
 
-      it('coerces zero number value to `false`', (): void => {
+      it('coerces zero number value to `false`', () => {
         const options = new CnpjFormatterOptions({ escape: false });
 
         options.escape = 0 as unknown as boolean;
@@ -766,9 +766,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`encode` property', (): void => {
-    describe('when setting to a boolean value', (): void => {
-      it('sets `encode` to `true`', (): void => {
+  describe('`encode` property', () => {
+    describe('when setting to a boolean value', () => {
+      it('sets `encode` to `true`', () => {
         const options = new CnpjFormatterOptions({ encode: false });
 
         options.encode = true;
@@ -776,7 +776,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.encode).toBe(true);
       });
 
-      it('sets `encode` to `false`', (): void => {
+      it('sets `encode` to `false`', () => {
         const options = new CnpjFormatterOptions({ encode: true });
 
         options.encode = false;
@@ -785,8 +785,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjFormatterOptions({ encode: !DEFAULT_PARAMETERS.encode });
 
         options.encode = undefined;
@@ -794,7 +794,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.encode).toBe(DEFAULT_PARAMETERS.encode);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjFormatterOptions({ encode: !DEFAULT_PARAMETERS.encode });
 
         options.encode = null as unknown as boolean;
@@ -803,8 +803,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-boolean value', (): void => {
-      it('coerces object value to `true`', (): void => {
+    describe('when setting to a non-boolean value', () => {
+      it('coerces object value to `true`', () => {
         const options = new CnpjFormatterOptions({ encode: false });
 
         options.encode = { not: 'a boolean' } as unknown as boolean;
@@ -812,7 +812,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.encode).toBe(true);
       });
 
-      it('coerces truthy string value to `true`', (): void => {
+      it('coerces truthy string value to `true`', () => {
         const options = new CnpjFormatterOptions({ encode: false });
 
         options.encode = 'not a boolean' as unknown as boolean;
@@ -820,7 +820,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.encode).toBe(true);
       });
 
-      it('coerces truthy number value to `true`', (): void => {
+      it('coerces truthy number value to `true`', () => {
         const options = new CnpjFormatterOptions({ encode: false });
 
         options.encode = 123 as unknown as boolean;
@@ -828,7 +828,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.encode).toBe(true);
       });
 
-      it('coerces empty string value to `false`', (): void => {
+      it('coerces empty string value to `false`', () => {
         const options = new CnpjFormatterOptions({ encode: false });
 
         options.encode = '' as unknown as boolean;
@@ -836,7 +836,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.encode).toBe(false);
       });
 
-      it('coerces zero number value to `false`', (): void => {
+      it('coerces zero number value to `false`', () => {
         const options = new CnpjFormatterOptions({ encode: false });
 
         options.encode = 0 as unknown as boolean;
@@ -846,17 +846,17 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`onFail` property', (): void => {
-    describe('when using the default callback value', (): void => {
-      it('returns empty string', (): void => {
+  describe('`onFail` property', () => {
+    describe('when using the default callback value', () => {
+      it('returns empty string', () => {
         const result = CnpjFormatterOptions.DEFAULT_ON_FAIL('some value');
 
         expect(result).toBe('');
       });
     });
 
-    describe('when setting to a callable value', (): void => {
-      it('sets `onFail` to the provided callback', (): void => {
+    describe('when setting to a callable value', () => {
+      it('sets `onFail` to the provided callback', () => {
         const callback: OnFailCallback = (value) => `ERROR: ${value}`;
         const options = new CnpjFormatterOptions();
 
@@ -866,8 +866,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default callback for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default callback for `undefined`', () => {
         const callback: OnFailCallback = (value) => `ERROR: ${value}`;
         const options = new CnpjFormatterOptions({ onFail: callback });
 
@@ -877,7 +877,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.onFail.name).toBe('DEFAULT_ON_FAIL');
       });
 
-      it('sets default callback for `null`', (): void => {
+      it('sets default callback for `null`', () => {
         const callback: OnFailCallback = (value) => `ERROR: ${value}`;
         const options = new CnpjFormatterOptions({ onFail: callback });
 
@@ -888,8 +888,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-callable value', (): void => {
-      it('throws CnpjFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-callable value', () => {
+      it('throws CnpjFormatterOptionsTypeError with an object', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -897,7 +897,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "onFail" must be of type function. Got object.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a string', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a string', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -905,7 +905,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "onFail" must be of type function. Got string.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a number', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a number', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -913,7 +913,7 @@ describe('CnpjFormatterOptions', (): void => {
         }).toThrow('CNPJ formatting option "onFail" must be of type function. Got integer number.');
       });
 
-      it('throws CnpjFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjFormatterOptionsTypeError with a boolean', () => {
         const options = new CnpjFormatterOptions();
 
         expect(() => {
@@ -923,8 +923,8 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`all` getter', (): void => {
-    it('returns the all properties', (): void => {
+  describe('`all` getter', () => {
+    it('returns the all properties', () => {
       const options = new CnpjFormatterOptions();
 
       expect(options.all).toEqual({
@@ -942,9 +942,9 @@ describe('CnpjFormatterOptions', (): void => {
     });
   });
 
-  describe('`setHiddenRange` method', (): void => {
-    describe('when called with valid values', (): void => {
-      it('sets `hiddenStart` and `hiddenEnd` to the provided values', (): void => {
+  describe('`setHiddenRange` method', () => {
+    describe('when called with valid values', () => {
+      it('sets `hiddenStart` and `hiddenEnd` to the provided values', () => {
         const options = new CnpjFormatterOptions();
 
         options.setHiddenRange(0, 10);
@@ -953,8 +953,8 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hiddenEnd).toBe(10);
       });
 
-      describe('and `hiddenStart` is equal to `hiddenEnd`', (): void => {
-        it('sets `hiddenStart` and `hiddenEnd` with 0 accordingly', (): void => {
+      describe('and `hiddenStart` is equal to `hiddenEnd`', () => {
+        it('sets `hiddenStart` and `hiddenEnd` with 0 accordingly', () => {
           const options = new CnpjFormatterOptions();
 
           options.setHiddenRange(0, 0);
@@ -963,7 +963,7 @@ describe('CnpjFormatterOptions', (): void => {
           expect(options.hiddenEnd).toBe(0);
         });
 
-        it('sets `hiddenStart` and `hiddenEnd` with 13 accordingly', (): void => {
+        it('sets `hiddenStart` and `hiddenEnd` with 13 accordingly', () => {
           const options = new CnpjFormatterOptions();
 
           options.setHiddenRange(13, 13);
@@ -973,8 +973,8 @@ describe('CnpjFormatterOptions', (): void => {
         });
       });
 
-      describe('and `hiddenStart` is greater than `hiddenEnd`', (): void => {
-        it('automatically swaps start and end values', (): void => {
+      describe('and `hiddenStart` is greater than `hiddenEnd`', () => {
+        it('automatically swaps start and end values', () => {
           const options = new CnpjFormatterOptions();
 
           options.setHiddenRange(8, 2);
@@ -985,8 +985,8 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with nullish values', (): void => {
-      it('sets default values for `undefined` in both fields', (): void => {
+    describe('when called with nullish values', () => {
+      it('sets default values for `undefined` in both fields', () => {
         const options = new CnpjFormatterOptions();
 
         options.setHiddenRange(undefined, undefined);
@@ -995,7 +995,7 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hiddenEnd).toBe(DEFAULT_PARAMETERS.hiddenEnd);
       });
 
-      it('sets default values for `null` in both fields', (): void => {
+      it('sets default values for `null` in both fields', () => {
         const options = new CnpjFormatterOptions();
 
         options.setHiddenRange(null as unknown as number, null as unknown as number);
@@ -1004,8 +1004,8 @@ describe('CnpjFormatterOptions', (): void => {
         expect(options.hiddenEnd).toBe(DEFAULT_PARAMETERS.hiddenEnd);
       });
 
-      describe('when setting `hiddenStart` to a nullish value', (): void => {
-        it('sets default value for `undefined`', (): void => {
+      describe('when setting `hiddenStart` to a nullish value', () => {
+        it('sets default value for `undefined`', () => {
           const options = new CnpjFormatterOptions({ hiddenStart: 0 });
 
           options.setHiddenRange(undefined, 13);
@@ -1014,7 +1014,7 @@ describe('CnpjFormatterOptions', (): void => {
           expect(options.hiddenEnd).toBe(13);
         });
 
-        it('sets default value for `null`', (): void => {
+        it('sets default value for `null`', () => {
           const options = new CnpjFormatterOptions({ hiddenStart: 0 });
 
           options.setHiddenRange(null as unknown as number, 13);
@@ -1024,8 +1024,8 @@ describe('CnpjFormatterOptions', (): void => {
         });
       });
 
-      describe('when setting `hiddenEnd` to a nullish value', (): void => {
-        it('sets default value for `undefined`', (): void => {
+      describe('when setting `hiddenEnd` to a nullish value', () => {
+        it('sets default value for `undefined`', () => {
           const options = new CnpjFormatterOptions({ hiddenEnd: 13 });
 
           options.setHiddenRange(0, undefined);
@@ -1034,7 +1034,7 @@ describe('CnpjFormatterOptions', (): void => {
           expect(options.hiddenEnd).toBe(DEFAULT_PARAMETERS.hiddenEnd);
         });
 
-        it('sets default value for `null`', (): void => {
+        it('sets default value for `null`', () => {
           const options = new CnpjFormatterOptions({ hiddenEnd: 13 });
 
           options.setHiddenRange(0, null as unknown as number);
@@ -1045,9 +1045,9 @@ describe('CnpjFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with invalid values', (): void => {
-      describe('when setting `hiddenStart` to an invalid number value range', (): void => {
-        it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a negative number', (): void => {
+    describe('when called with invalid values', () => {
+      describe('when setting `hiddenStart` to an invalid number value range', () => {
+        it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a negative number', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1057,7 +1057,7 @@ describe('CnpjFormatterOptions', (): void => {
           );
         });
 
-        it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a number greater than 13', (): void => {
+        it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a number greater than 13', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1068,8 +1068,8 @@ describe('CnpjFormatterOptions', (): void => {
         });
       });
 
-      describe('when setting `hiddenEnd` to an invalid number value range', (): void => {
-        it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a negative number', (): void => {
+      describe('when setting `hiddenEnd` to an invalid number value range', () => {
+        it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a negative number', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1079,7 +1079,7 @@ describe('CnpjFormatterOptions', (): void => {
           );
         });
 
-        it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a number greater than 13', (): void => {
+        it('throws CnpjFormatterOptionsHiddenRangeInvalidException with a number greater than 13', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1090,8 +1090,8 @@ describe('CnpjFormatterOptions', (): void => {
         });
       });
 
-      describe('when setting `hiddenStart` to a non-integer value', (): void => {
-        it('throws CnpjFormatterOptionsTypeError with an object', (): void => {
+      describe('when setting `hiddenStart` to a non-integer value', () => {
+        it('throws CnpjFormatterOptionsTypeError with an object', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1099,7 +1099,7 @@ describe('CnpjFormatterOptions', (): void => {
           }).toThrow('CNPJ formatting option "hiddenStart" must be of type integer. Got object.');
         });
 
-        it('throws CnpjFormatterOptionsTypeError with a string', (): void => {
+        it('throws CnpjFormatterOptionsTypeError with a string', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1107,7 +1107,7 @@ describe('CnpjFormatterOptions', (): void => {
           }).toThrow('CNPJ formatting option "hiddenStart" must be of type integer. Got string.');
         });
 
-        it('throws CnpjFormatterOptionsTypeError with a boolean', (): void => {
+        it('throws CnpjFormatterOptionsTypeError with a boolean', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1115,7 +1115,7 @@ describe('CnpjFormatterOptions', (): void => {
           }).toThrow('CNPJ formatting option "hiddenStart" must be of type integer. Got boolean.');
         });
 
-        it('throws CnpjFormatterOptionsTypeError with a float number', (): void => {
+        it('throws CnpjFormatterOptionsTypeError with a float number', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1126,8 +1126,8 @@ describe('CnpjFormatterOptions', (): void => {
         });
       });
 
-      describe('when setting `hiddenEnd` to a non-integer value', (): void => {
-        it('throws CnpjFormatterOptionsTypeError with an object', (): void => {
+      describe('when setting `hiddenEnd` to a non-integer value', () => {
+        it('throws CnpjFormatterOptionsTypeError with an object', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1135,7 +1135,7 @@ describe('CnpjFormatterOptions', (): void => {
           }).toThrow('CNPJ formatting option "hiddenEnd" must be of type integer. Got object.');
         });
 
-        it('throws CnpjFormatterOptionsTypeError with a string', (): void => {
+        it('throws CnpjFormatterOptionsTypeError with a string', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1143,7 +1143,7 @@ describe('CnpjFormatterOptions', (): void => {
           }).toThrow('CNPJ formatting option "hiddenEnd" must be of type integer. Got string.');
         });
 
-        it('throws CnpjFormatterOptionsTypeError with a boolean', (): void => {
+        it('throws CnpjFormatterOptionsTypeError with a boolean', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {
@@ -1151,7 +1151,7 @@ describe('CnpjFormatterOptions', (): void => {
           }).toThrow('CNPJ formatting option "hiddenEnd" must be of type integer. Got boolean.');
         });
 
-        it('throws CnpjFormatterOptionsTypeError with a float number', (): void => {
+        it('throws CnpjFormatterOptionsTypeError with a float number', () => {
           const options = new CnpjFormatterOptions();
 
           expect(() => {

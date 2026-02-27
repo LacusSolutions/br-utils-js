@@ -7,7 +7,7 @@ import CpfCheckDigits, {
   type CpfInput,
 } from '../src/index.esm';
 
-describe('CpfCheckDigits', (): void => {
+describe('CpfCheckDigits', () => {
   const testCases: Record<string, string> = {
     '054496519': '05449651910',
     '965376562': '96537656206',
@@ -61,40 +61,40 @@ describe('CpfCheckDigits', (): void => {
     '994799423': '99479942364',
   };
 
-  describe('constructor', (): void => {
-    describe('when given invalid input type', (): void => {
-      it('throws CpfCheckDigitsInputTypeError for number input', (): void => {
+  describe('constructor', () => {
+    describe('when given invalid input type', () => {
+      it('throws CpfCheckDigitsInputTypeError for number input', () => {
         const sut = (): unknown => new CpfCheckDigits(12345678901 as unknown as string);
 
         expect(sut).toThrow(CpfCheckDigitsInputTypeError);
       });
 
-      it('throws CpfCheckDigitsInputTypeError for null input', (): void => {
+      it('throws CpfCheckDigitsInputTypeError for null input', () => {
         const sut = (): unknown => new CpfCheckDigits(null as unknown as string);
 
         expect(sut).toThrow(CpfCheckDigitsInputTypeError);
       });
 
-      it('throws CpfCheckDigitsInputTypeError for undefined input', (): void => {
+      it('throws CpfCheckDigitsInputTypeError for undefined input', () => {
         const sut = (): unknown => new CpfCheckDigits(undefined as unknown as string);
 
         expect(sut).toThrow(CpfCheckDigitsInputTypeError);
       });
 
-      it('throws CpfCheckDigitsInputTypeError for object input', (): void => {
+      it('throws CpfCheckDigitsInputTypeError for object input', () => {
         const sut = (): unknown => new CpfCheckDigits({ cpf: '12345678901' } as unknown as string);
 
         expect(sut).toThrow(CpfCheckDigitsInputTypeError);
       });
 
-      it('throws CpfCheckDigitsInputTypeError for array of numbers', (): void => {
+      it('throws CpfCheckDigitsInputTypeError for array of numbers', () => {
         const sut = (): unknown =>
           new CpfCheckDigits([1, 2, 3, 4, 5, 6, 7, 8, 9] as unknown as string[]);
 
         expect(sut).toThrow(CpfCheckDigitsInputTypeError);
       });
 
-      it('throws CpfCheckDigitsInputTypeError for mixed array types', (): void => {
+      it('throws CpfCheckDigitsInputTypeError for mixed array types', () => {
         const sut = (): unknown => new CpfCheckDigits([1, '2', 3, '4', 5] as unknown as string[]);
 
         expect(sut).toThrow(CpfCheckDigitsInputTypeError);
@@ -102,43 +102,43 @@ describe('CpfCheckDigits', (): void => {
     });
 
     describe('when given invalid input length', () => {
-      it('throws CpfCheckDigitsInputLengthException for empty string', (): void => {
+      it('throws CpfCheckDigitsInputLengthException for empty string', () => {
         const sut = (): unknown => new CpfCheckDigits('');
 
         expect(sut).toThrow(CpfCheckDigitsInputLengthException);
       });
 
-      it('throws CpfCheckDigitsInputLengthException for empty array', (): void => {
+      it('throws CpfCheckDigitsInputLengthException for empty array', () => {
         const sut = (): unknown => new CpfCheckDigits([]);
 
         expect(sut).toThrow(CpfCheckDigitsInputLengthException);
       });
 
-      it('throws CpfCheckDigitsInputLengthException for non-numeric string', (): void => {
+      it('throws CpfCheckDigitsInputLengthException for non-numeric string', () => {
         const sut = (): unknown => new CpfCheckDigits('abcdefghij');
 
         expect(sut).toThrow(CpfCheckDigitsInputLengthException);
       });
 
-      it('throws CpfCheckDigitsInputLengthException for string with 8 digits', (): void => {
+      it('throws CpfCheckDigitsInputLengthException for string with 8 digits', () => {
         const sut = (): unknown => new CpfCheckDigits('12345678');
 
         expect(sut).toThrow(CpfCheckDigitsInputLengthException);
       });
 
-      it('throws CpfCheckDigitsInputLengthException for string with 12 digits', (): void => {
+      it('throws CpfCheckDigitsInputLengthException for string with 12 digits', () => {
         const sut = (): unknown => new CpfCheckDigits('123456789100');
 
         expect(sut).toThrow(CpfCheckDigitsInputLengthException);
       });
 
-      it('throws CpfCheckDigitsInputLengthException for string array with 8 digits', (): void => {
+      it('throws CpfCheckDigitsInputLengthException for string array with 8 digits', () => {
         const sut = (): unknown => new CpfCheckDigits(['1', '2', '3', '4', '5', '6', '7', '8']);
 
         expect(sut).toThrow(CpfCheckDigitsInputLengthException);
       });
 
-      it('throws CpfCheckDigitsInputLengthException for string array with 12 digits', (): void => {
+      it('throws CpfCheckDigitsInputLengthException for string array with 12 digits', () => {
         const sut = (): unknown =>
           new CpfCheckDigits(['0', '5', '4', '4', '9', '6', '5', '1', '9', '1', '0', '0']);
 
@@ -146,7 +146,7 @@ describe('CpfCheckDigits', (): void => {
       });
     });
 
-    describe('when given repeated digits', (): void => {
+    describe('when given repeated digits', () => {
       const repeatedDigitInputs: CpfInput[] = [
         '111111111',
         '222222222',
@@ -182,7 +182,7 @@ describe('CpfCheckDigits', (): void => {
 
       it.each(repeatedDigitInputs.map((input) => [input]))(
         'throws CpfCheckDigitsInputInvalidException for input `%s`',
-        (input): void => {
+        (input) => {
           const sut = (): unknown => new CpfCheckDigits(input);
 
           expect(sut).toThrow(CpfCheckDigitsInputInvalidException);
@@ -191,13 +191,13 @@ describe('CpfCheckDigits', (): void => {
     });
   });
 
-  describe('first digit', (): void => {
+  describe('first digit', () => {
     const firstDigitTestCases = Object.entries(testCases).map(([input, expected]) => ({
       input,
       expected: expected.slice(-2, -1),
     }));
 
-    describe('when input is a string', (): void => {
+    describe('when input is a string', () => {
       it.each(firstDigitTestCases)(
         'returns `$expected` as first digit for `$input`',
         ({ input, expected }) => {
@@ -208,7 +208,7 @@ describe('CpfCheckDigits', (): void => {
       );
     });
 
-    describe('when input is an array of strings', (): void => {
+    describe('when input is an array of strings', () => {
       it.each(firstDigitTestCases)(
         'returns `$expected` as first digit for `$input`',
         ({ input, expected }) => {
@@ -219,7 +219,7 @@ describe('CpfCheckDigits', (): void => {
       );
     });
 
-    describe('when accessing digits multiple times', (): void => {
+    describe('when accessing digits multiple times', () => {
       let calculateSpy: Mock<never>;
 
       beforeEach(() => {
@@ -230,7 +230,7 @@ describe('CpfCheckDigits', (): void => {
         calculateSpy.mockRestore();
       });
 
-      it('returns cached values on subsequent calls', (): void => {
+      it('returns cached values on subsequent calls', () => {
         const cpfCheckDigits = new CpfCheckDigits('123456789');
 
         cpfCheckDigits.first; // eslint-disable-line @typescript-eslint/no-unused-expressions
@@ -242,13 +242,13 @@ describe('CpfCheckDigits', (): void => {
     });
   });
 
-  describe('second digit', (): void => {
+  describe('second digit', () => {
     const secondDigitTestCases = Object.entries(testCases).map(([input, expected]) => ({
       input,
       expected: expected.slice(-1),
     }));
 
-    describe('when input is a string', (): void => {
+    describe('when input is a string', () => {
       it.each(secondDigitTestCases)(
         'returns `$expected` as second digit for `$input`',
         ({ input, expected }) => {
@@ -259,7 +259,7 @@ describe('CpfCheckDigits', (): void => {
       );
     });
 
-    describe('when input is an array of strings', (): void => {
+    describe('when input is an array of strings', () => {
       it.each(secondDigitTestCases)(
         'returns `$expected` as second digit for `$input`',
         ({ input, expected }) => {
@@ -270,7 +270,7 @@ describe('CpfCheckDigits', (): void => {
       );
     });
 
-    describe('when accessing digits multiple times', (): void => {
+    describe('when accessing digits multiple times', () => {
       let calculateSpy: Mock<never>;
 
       beforeEach(() => {
@@ -281,7 +281,7 @@ describe('CpfCheckDigits', (): void => {
         calculateSpy.mockRestore();
       });
 
-      it('returns cached values on subsequent calls', (): void => {
+      it('returns cached values on subsequent calls', () => {
         const cpfCheckDigits = new CpfCheckDigits('123456789');
 
         cpfCheckDigits.second; // eslint-disable-line @typescript-eslint/no-unused-expressions
@@ -293,13 +293,13 @@ describe('CpfCheckDigits', (): void => {
     });
   });
 
-  describe('both digits', (): void => {
+  describe('both digits', () => {
     const bothDigitsTestCases = Object.entries(testCases).map(([input, expected]) => ({
       input,
       expected: expected.slice(-2),
     }));
 
-    describe('when input is a string', (): void => {
+    describe('when input is a string', () => {
       it.each(bothDigitsTestCases)(
         'returns `$expected` as check digits for `$input`',
         ({ input, expected }) => {
@@ -310,7 +310,7 @@ describe('CpfCheckDigits', (): void => {
       );
     });
 
-    describe('when input is an array of strings', (): void => {
+    describe('when input is an array of strings', () => {
       it.each(bothDigitsTestCases)(
         'returns `$expected` as check digits for `$input`',
         ({ input, expected }) => {
@@ -322,32 +322,32 @@ describe('CpfCheckDigits', (): void => {
     });
   });
 
-  describe('actual CPF string', (): void => {
-    describe('when input is a string', (): void => {
-      it('returns the respective 11-character string for CPF', (): void => {
+  describe('actual CPF string', () => {
+    describe('when input is a string', () => {
+      it('returns the respective 11-character string for CPF', () => {
         const cpfCheckDigits = new CpfCheckDigits('123456789');
 
         expect(cpfCheckDigits.cpf).toBe('12345678909');
       });
     });
 
-    describe('when input is an array of grouped digits string', (): void => {
-      it('returns the respective 11-character string for CPF', (): void => {
+    describe('when input is an array of grouped digits string', () => {
+      it('returns the respective 11-character string for CPF', () => {
         const cpfCheckDigits = new CpfCheckDigits(['123', '456', '789']);
 
         expect(cpfCheckDigits.cpf).toBe('12345678909');
       });
     });
 
-    describe('when input is an array of individual digits string', (): void => {
-      it('returns the respective 11-character string for CPF', (): void => {
+    describe('when input is an array of individual digits string', () => {
+      it('returns the respective 11-character string for CPF', () => {
         const cpfCheckDigits = new CpfCheckDigits(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
 
         expect(cpfCheckDigits.cpf).toBe('12345678909');
       });
     });
 
-    describe('when validating all test cases', (): void => {
+    describe('when validating all test cases', () => {
       const testCasesArray = Object.entries(testCases).map(([input, expected]) => ({
         input,
         expected,
@@ -361,17 +361,17 @@ describe('CpfCheckDigits', (): void => {
     });
   });
 
-  describe('edge cases', (): void => {
-    describe('when input is a formatted CPF string', (): void => {
-      it('correctly parses and calculates check digits', (): void => {
+  describe('edge cases', () => {
+    describe('when input is a formatted CPF string', () => {
+      it('correctly parses and calculates check digits', () => {
         const cpfCheckDigits = new CpfCheckDigits('123.456.789');
 
         expect(cpfCheckDigits.cpf).toBe('12345678909');
       });
     });
 
-    describe('when input already contains check digits', (): void => {
-      it('ignores provided check digits and calculates ones correctly', (): void => {
+    describe('when input already contains check digits', () => {
+      it('ignores provided check digits and calculates ones correctly', () => {
         const cpfCheckDigits = new CpfCheckDigits('12345678910');
 
         expect(cpfCheckDigits.first).toBe('0');

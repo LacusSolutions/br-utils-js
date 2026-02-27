@@ -1,8 +1,9 @@
 .DS_Store
 .vscode/
-build/
-dist/
 node_modules/
 
 **/.lcov.info.*
 **/*.log
+
+packages/**/build/
+packages/**/dist/

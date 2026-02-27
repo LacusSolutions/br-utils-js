@@ -3,23 +3,23 @@ import { describe, expect, it } from 'bun:test';
 import { CnpjValidatorOptions } from '../src/cnpj-validator-options';
 import type { CnpjType, CnpjValidatorOptionsType } from '../src/types';
 
-describe('CnpjValidatorOptions', (): void => {
+describe('CnpjValidatorOptions', () => {
   const DEFAULT_PARAMETERS: CnpjValidatorOptionsType = {
     caseSensitive: CnpjValidatorOptions.DEFAULT_CASE_SENSITIVE,
     type: CnpjValidatorOptions.DEFAULT_TYPE,
   };
 
-  describe('constructor', (): void => {
-    describe('when called with no parameters', (): void => {
-      it('sets all options to default values', (): void => {
+  describe('constructor', () => {
+    describe('when called with no parameters', () => {
+      it('sets all options to default values', () => {
         const options = new CnpjValidatorOptions();
 
         expect(options.all).toEqual(DEFAULT_PARAMETERS);
       });
     });
 
-    describe('when called with all parameters with undefined values', (): void => {
-      it('sets all options to default values', (): void => {
+    describe('when called with all parameters with undefined values', () => {
+      it('sets all options to default values', () => {
         const options = new CnpjValidatorOptions({
           caseSensitive: undefined,
           type: undefined,
@@ -29,8 +29,8 @@ describe('CnpjValidatorOptions', (): void => {
       });
     });
 
-    describe('when called with all parameters with null values', (): void => {
-      it('sets all options to default values', (): void => {
+    describe('when called with all parameters with null values', () => {
+      it('sets all options to default values', () => {
         const options = new CnpjValidatorOptions({
           caseSensitive: null as unknown as boolean,
           type: null as unknown as CnpjType,
@@ -40,8 +40,8 @@ describe('CnpjValidatorOptions', (): void => {
       });
     });
 
-    describe('when called with all parameters', (): void => {
-      it('sets all options to the provided values', (): void => {
+    describe('when called with all parameters', () => {
+      it('sets all options to the provided values', () => {
         const parameters: CnpjValidatorOptionsType = {
           caseSensitive: true,
           type: 'numeric',
@@ -53,8 +53,8 @@ describe('CnpjValidatorOptions', (): void => {
       });
     });
 
-    describe('when called with a CnpjValidatorOptions instance', (): void => {
-      it('sets a new instance with the same values', (): void => {
+    describe('when called with a CnpjValidatorOptions instance', () => {
+      it('sets a new instance with the same values', () => {
         const originalOptions = new CnpjValidatorOptions({
           caseSensitive: true,
           type: 'numeric',
@@ -67,14 +67,14 @@ describe('CnpjValidatorOptions', (): void => {
       });
     });
 
-    describe('when called with overrides parameters', (): void => {
-      it('uses last param option with 2 params', (): void => {
+    describe('when called with overrides parameters', () => {
+      it('uses last param option with 2 params', () => {
         const options = new CnpjValidatorOptions({ type: 'numeric' }, { type: 'alphanumeric' });
 
         expect(options.type).toBe('alphanumeric');
       });
 
-      it('uses last param option with 5 params', (): void => {
+      it('uses last param option with 5 params', () => {
         const options = new CnpjValidatorOptions(
           { type: 'numeric' },
           { type: 'alphanumeric' },
@@ -88,9 +88,9 @@ describe('CnpjValidatorOptions', (): void => {
     });
   });
 
-  describe('`caseSensitive` property', (): void => {
-    describe('when setting to a boolean value', (): void => {
-      it('sets `caseSensitive` to `true`', (): void => {
+  describe('`caseSensitive` property', () => {
+    describe('when setting to a boolean value', () => {
+      it('sets `caseSensitive` to `true`', () => {
         const options = new CnpjValidatorOptions({ caseSensitive: false });
 
         options.caseSensitive = true;
@@ -98,7 +98,7 @@ describe('CnpjValidatorOptions', (): void => {
         expect(options.caseSensitive).toBe(true);
       });
 
-      it('sets `caseSensitive` to `false`', (): void => {
+      it('sets `caseSensitive` to `false`', () => {
         const options = new CnpjValidatorOptions({ caseSensitive: true });
 
         options.caseSensitive = false;
@@ -107,8 +107,8 @@ describe('CnpjValidatorOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjValidatorOptions({
           caseSensitive: !DEFAULT_PARAMETERS.caseSensitive,
         });
@@ -118,7 +118,7 @@ describe('CnpjValidatorOptions', (): void => {
         expect(options.caseSensitive).toBe(DEFAULT_PARAMETERS.caseSensitive);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjValidatorOptions({
           caseSensitive: !DEFAULT_PARAMETERS.caseSensitive,
         });
@@ -129,8 +129,8 @@ describe('CnpjValidatorOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-boolean value', (): void => {
-      it('coerces object value to `true`', (): void => {
+    describe('when setting to a non-boolean value', () => {
+      it('coerces object value to `true`', () => {
         const options = new CnpjValidatorOptions({ caseSensitive: false });
 
         options.caseSensitive = { not: 'a boolean' } as unknown as boolean;
@@ -138,7 +138,7 @@ describe('CnpjValidatorOptions', (): void => {
         expect(options.caseSensitive).toBe(true);
       });
 
-      it('coerces truthy string value to `true`', (): void => {
+      it('coerces truthy string value to `true`', () => {
         const options = new CnpjValidatorOptions({ caseSensitive: false });
 
         options.caseSensitive = 'not a boolean' as unknown as boolean;
@@ -146,7 +146,7 @@ describe('CnpjValidatorOptions', (): void => {
         expect(options.caseSensitive).toBe(true);
       });
 
-      it('coerces truthy number value to `true`', (): void => {
+      it('coerces truthy number value to `true`', () => {
         const options = new CnpjValidatorOptions({ caseSensitive: false });
 
         options.caseSensitive = 123 as unknown as boolean;
@@ -154,7 +154,7 @@ describe('CnpjValidatorOptions', (): void => {
         expect(options.caseSensitive).toBe(true);
       });
 
-      it('coerces empty string value to `false`', (): void => {
+      it('coerces empty string value to `false`', () => {
         const options = new CnpjValidatorOptions({ caseSensitive: false });
 
         options.caseSensitive = '' as unknown as boolean;
@@ -162,7 +162,7 @@ describe('CnpjValidatorOptions', (): void => {
         expect(options.caseSensitive).toBe(false);
       });
 
-      it('coerces zero number value to `false`', (): void => {
+      it('coerces zero number value to `false`', () => {
         const options = new CnpjValidatorOptions({ caseSensitive: false });
 
         options.caseSensitive = 0 as unknown as boolean;
@@ -172,9 +172,9 @@ describe('CnpjValidatorOptions', (): void => {
     });
   });
 
-  describe('`type` property', (): void => {
-    describe('when setting to a valid option value', (): void => {
-      it.each(['alphanumeric', 'numeric'])('sets `type` to the value "%s"', (type): void => {
+  describe('`type` property', () => {
+    describe('when setting to a valid option value', () => {
+      it.each(['alphanumeric', 'numeric'])('sets `type` to the value "%s"', (type) => {
         const options = new CnpjValidatorOptions({ type });
 
         options.type = type;
@@ -183,8 +183,8 @@ describe('CnpjValidatorOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjValidatorOptions({ type: 'numeric' });
 
         options.type = undefined;
@@ -192,7 +192,7 @@ describe('CnpjValidatorOptions', (): void => {
         expect(options.type).toBe(DEFAULT_PARAMETERS.type);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjValidatorOptions({ type: 'numeric' });
 
         options.type = null as unknown as CnpjType;
@@ -201,8 +201,8 @@ describe('CnpjValidatorOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CnpjValidatorOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CnpjValidatorOptionsTypeError with an object', () => {
         const options = new CnpjValidatorOptions();
 
         expect(() => {
@@ -210,7 +210,7 @@ describe('CnpjValidatorOptions', (): void => {
         }).toThrow('CNPJ validator option "type" must be of type string. Got object.');
       });
 
-      it('throws CnpjValidatorOptionsTypeError with a number', (): void => {
+      it('throws CnpjValidatorOptionsTypeError with a number', () => {
         const options = new CnpjValidatorOptions();
 
         expect(() => {
@@ -218,7 +218,7 @@ describe('CnpjValidatorOptions', (): void => {
         }).toThrow('CNPJ validator option "type" must be of type string. Got integer number.');
       });
 
-      it('throws CnpjValidatorOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjValidatorOptionsTypeError with a boolean', () => {
         const options = new CnpjValidatorOptions();
 
         expect(() => {
@@ -227,8 +227,8 @@ describe('CnpjValidatorOptions', (): void => {
       });
     });
 
-    describe('when setting to an invalid option', (): void => {
-      it('throws CnpjValidatorOptionTypeInvalidException with unexpected value', (): void => {
+    describe('when setting to an invalid option', () => {
+      it('throws CnpjValidatorOptionTypeInvalidException with unexpected value', () => {
         const options = new CnpjValidatorOptions();
 
         expect(() => {
@@ -240,8 +240,8 @@ describe('CnpjValidatorOptions', (): void => {
     });
   });
 
-  describe('`all` getter', (): void => {
-    it('returns the all properties', (): void => {
+  describe('`all` getter', () => {
+    it('returns the all properties', () => {
       const options = new CnpjValidatorOptions();
 
       expect(options.all).toEqual({

@@ -10,46 +10,46 @@ import {
   CnpjFormatterTypeError,
 } from '../src/exceptions';
 
-describe('CnpjFormatterTypeError', (): void => {
-  describe('when instantiated through a subclass', (): void => {
+describe('CnpjFormatterTypeError', () => {
+  describe('when instantiated through a subclass', () => {
     class TestClass extends CnpjFormatterTypeError {}
 
-    it('is an instance of TypeError', (): void => {
+    it('is an instance of TypeError', () => {
       const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error).toBeInstanceOf(TypeError);
     });
 
-    it('is an instance of CnpjFormatterTypeError', (): void => {
+    it('is an instance of CnpjFormatterTypeError', () => {
       const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error).toBeInstanceOf(CnpjFormatterTypeError);
     });
 
-    it('has the correct name', (): void => {
+    it('has the correct name', () => {
       const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error.name).toBe('TestClass');
     });
 
-    it('sets the `actualInput` property', (): void => {
+    it('sets the `actualInput` property', () => {
       const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error.actualInput).toBe(123);
     });
 
-    it('sets the `actualType` property', (): void => {
+    it('sets the `actualType` property', () => {
       const error = new TestClass(123, 'number', 'string', 'some error');
       expect(error.actualType).toBe('number');
     });
 
-    it('sets the `expectedType` property', (): void => {
+    it('sets the `expectedType` property', () => {
       const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error.expectedType).toBe('string');
     });
 
-    it('has a `message` property', (): void => {
+    it('has a `message` property', () => {
       const error = new TestClass(123, 'number', 'string', 'some error');
 
       expect(error.message).toBe('some error');
@@ -57,46 +57,46 @@ describe('CnpjFormatterTypeError', (): void => {
   });
 });
 
-describe('CnpjFormatterInputTypeError', (): void => {
-  describe('when instantiated', (): void => {
-    it('is an instance of TypeError', (): void => {
+describe('CnpjFormatterInputTypeError', () => {
+  describe('when instantiated', () => {
+    it('is an instance of TypeError', () => {
       const error = new CnpjFormatterInputTypeError(123, 'string');
 
       expect(error).toBeInstanceOf(TypeError);
     });
 
-    it('is an instance of CnpjFormatterTypeError', (): void => {
+    it('is an instance of CnpjFormatterTypeError', () => {
       const error = new CnpjFormatterInputTypeError(123, 'string');
 
       expect(error).toBeInstanceOf(CnpjFormatterTypeError);
     });
 
-    it('has the correct name', (): void => {
+    it('has the correct name', () => {
       const error = new CnpjFormatterInputTypeError(123, 'string');
 
       expect(error.name).toBe('CnpjFormatterInputTypeError');
     });
 
-    it('sets the `actualInput` property', (): void => {
+    it('sets the `actualInput` property', () => {
       const input = 123;
       const error = new CnpjFormatterInputTypeError(input, 'string');
 
       expect(error.actualInput).toBe(input);
     });
 
-    it('sets the `actualType` property', (): void => {
+    it('sets the `actualType` property', () => {
       const error = new CnpjFormatterInputTypeError(123, 'string');
 
       expect(error.actualType).toBe('integer number');
     });
 
-    it('sets the `expectedType` property', (): void => {
+    it('sets the `expectedType` property', () => {
       const error = new CnpjFormatterInputTypeError(123, 'string or string[]');
 
       expect(error.expectedType).toBe('string or string[]');
     });
 
-    it('generates a message describing the error', (): void => {
+    it('generates a message describing the error', () => {
       const actualInput = 123;
       const actualType = 'integer number';
       const expectedType = 'string[]';
@@ -109,51 +109,51 @@ describe('CnpjFormatterInputTypeError', (): void => {
   });
 });
 
-describe('CnpjFormatterOptionsTypeError', (): void => {
-  describe('when instantiated', (): void => {
-    it('is an instance of TypeError', (): void => {
+describe('CnpjFormatterOptionsTypeError', () => {
+  describe('when instantiated', () => {
+    it('is an instance of TypeError', () => {
       const error = new CnpjFormatterOptionsTypeError('hidden', 123, 'boolean');
 
       expect(error).toBeInstanceOf(TypeError);
     });
 
-    it('is an instance of CnpjFormatterTypeError', (): void => {
+    it('is an instance of CnpjFormatterTypeError', () => {
       const error = new CnpjFormatterOptionsTypeError('hidden', 123, 'boolean');
 
       expect(error).toBeInstanceOf(CnpjFormatterTypeError);
     });
 
-    it('has the correct name', (): void => {
+    it('has the correct name', () => {
       const error = new CnpjFormatterOptionsTypeError('hidden', 123, 'boolean');
 
       expect(error.name).toBe('CnpjFormatterOptionsTypeError');
     });
 
-    it('sets the `optionName` property', (): void => {
+    it('sets the `optionName` property', () => {
       const error = new CnpjFormatterOptionsTypeError('hiddenKey', 123, 'string');
 
       expect(error.optionName).toBe('hiddenKey');
     });
 
-    it('sets the `actualInput` property', (): void => {
+    it('sets the `actualInput` property', () => {
       const error = new CnpjFormatterOptionsTypeError('hiddenKey', 123, 'string');
 
       expect(error.actualInput).toBe(123);
     });
 
-    it('sets the `actualType` property', (): void => {
+    it('sets the `actualType` property', () => {
       const error = new CnpjFormatterOptionsTypeError('hiddenKey', 123, 'string');
 
       expect(error.actualType).toBe('integer number');
     });
 
-    it('sets the `expectedType` property', (): void => {
+    it('sets the `expectedType` property', () => {
       const error = new CnpjFormatterOptionsTypeError('hiddenKey', 123, 'string');
 
       expect(error.expectedType).toBe('string');
     });
 
-    it('generates a message describing the error', (): void => {
+    it('generates a message describing the error', () => {
       const optionName = 'hiddenKey';
       const actualInput = 123;
       const actualInputType = 'integer number';
@@ -166,29 +166,29 @@ describe('CnpjFormatterOptionsTypeError', (): void => {
   });
 });
 
-describe('CnpjFormatterException', (): void => {
-  describe('when instantiated through a subclass', (): void => {
+describe('CnpjFormatterException', () => {
+  describe('when instantiated through a subclass', () => {
     class TestClass extends CnpjFormatterException {}
 
-    it('is an instance of Error', (): void => {
+    it('is an instance of Error', () => {
       const exception = new TestClass('some error');
 
       expect(exception).toBeInstanceOf(Error);
     });
 
-    it('is an instance of CnpjFormatterException', (): void => {
+    it('is an instance of CnpjFormatterException', () => {
       const exception = new TestClass('some error');
 
       expect(exception).toBeInstanceOf(CnpjFormatterException);
     });
 
-    it('has the correct name', (): void => {
+    it('has the correct name', () => {
       const exception = new TestClass('some error');
 
       expect(exception.name).toBe('TestClass');
     });
 
-    it('has a `message` property', (): void => {
+    it('has a `message` property', () => {
       const exception = new TestClass('some error');
 
       expect(exception.message).toBe('some error');
@@ -196,45 +196,45 @@ describe('CnpjFormatterException', (): void => {
   });
 });
 
-describe('CnpjFormatterInputLengthException', (): void => {
-  describe('when instantiated', (): void => {
-    it('is an instance of Error', (): void => {
+describe('CnpjFormatterInputLengthException', () => {
+  describe('when instantiated', () => {
+    it('is an instance of Error', () => {
       const exception = new CnpjFormatterInputLengthException('1.2.3.4.5', '12345', 14);
 
       expect(exception).toBeInstanceOf(Error);
     });
 
-    it('is an instance of CnpjFormatterException', (): void => {
+    it('is an instance of CnpjFormatterException', () => {
       const exception = new CnpjFormatterInputLengthException('1.2.3.4.5', '12345', 14);
 
       expect(exception).toBeInstanceOf(CnpjFormatterException);
     });
 
-    it('has the correct name', (): void => {
+    it('has the correct name', () => {
       const exception = new CnpjFormatterInputLengthException('1.2.3.4.5', '12345', 14);
 
       expect(exception.name).toBe('CnpjFormatterInputLengthException');
     });
 
-    it('sets the `actualInput` property', (): void => {
+    it('sets the `actualInput` property', () => {
       const exception = new CnpjFormatterInputLengthException('1.2.3.4.5', '12345', 14);
 
       expect(exception.actualInput).toBe('1.2.3.4.5');
     });
 
-    it('sets the `evaluatedInput` property', (): void => {
+    it('sets the `evaluatedInput` property', () => {
       const exception = new CnpjFormatterInputLengthException('1.2.3.4.5', '12345', 14);
 
       expect(exception.evaluatedInput).toBe('12345');
     });
 
-    it('sets the `expectedLength` property', (): void => {
+    it('sets the `expectedLength` property', () => {
       const exception = new CnpjFormatterInputLengthException('1.2.3.4.5', '12345', 14);
 
       expect(exception.expectedLength).toBe(14);
     });
 
-    it('generates a message describing the exception', (): void => {
+    it('generates a message describing the exception', () => {
       const actualInput = '1.2.3.4.5';
       const evaluatedInput = '12345';
       const expectedLength = 14;
@@ -251,9 +251,9 @@ describe('CnpjFormatterInputLengthException', (): void => {
   });
 });
 
-describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
-  describe('when instantiated', (): void => {
-    it('is an instance of Error', (): void => {
+describe('CnpjFormatterOptionsHiddenRangeInvalidException', () => {
+  describe('when instantiated', () => {
+    it('is an instance of Error', () => {
       const exception = new CnpjFormatterOptionsHiddenRangeInvalidException(
         'hiddenStart',
         20,
@@ -264,7 +264,7 @@ describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
       expect(exception).toBeInstanceOf(Error);
     });
 
-    it('is an instance of CnpjFormatterException', (): void => {
+    it('is an instance of CnpjFormatterException', () => {
       const exception = new CnpjFormatterOptionsHiddenRangeInvalidException(
         'hiddenStart',
         20,
@@ -275,7 +275,7 @@ describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
       expect(exception).toBeInstanceOf(CnpjFormatterException);
     });
 
-    it('has the correct name', (): void => {
+    it('has the correct name', () => {
       const exception = new CnpjFormatterOptionsHiddenRangeInvalidException(
         'hiddenStart',
         20,
@@ -286,7 +286,7 @@ describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
       expect(exception.name).toBe('CnpjFormatterOptionsHiddenRangeInvalidException');
     });
 
-    it('sets the `optionName` property', (): void => {
+    it('sets the `optionName` property', () => {
       const exception = new CnpjFormatterOptionsHiddenRangeInvalidException(
         'hiddenStart',
         20,
@@ -297,7 +297,7 @@ describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
       expect(exception.optionName).toBe('hiddenStart');
     });
 
-    it('sets the `actualInput` property', (): void => {
+    it('sets the `actualInput` property', () => {
       const exception = new CnpjFormatterOptionsHiddenRangeInvalidException(
         'hiddenStart',
         20,
@@ -308,7 +308,7 @@ describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
       expect(exception.actualInput).toBe(20);
     });
 
-    it('sets the `minExpectedValue` property', (): void => {
+    it('sets the `minExpectedValue` property', () => {
       const exception = new CnpjFormatterOptionsHiddenRangeInvalidException(
         'hiddenStart',
         20,
@@ -319,7 +319,7 @@ describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
       expect(exception.minExpectedValue).toBe(5);
     });
 
-    it('sets the maxExpectedValue property', (): void => {
+    it('sets the maxExpectedValue property', () => {
       const exception = new CnpjFormatterOptionsHiddenRangeInvalidException(
         'hiddenStart',
         20,
@@ -330,7 +330,7 @@ describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
       expect(exception.maxExpectedValue).toBe(13);
     });
 
-    it('generates a message describing the exception', (): void => {
+    it('generates a message describing the exception', () => {
       const optionName = 'hiddenStart';
       const actualInput = 20;
       const minExpectedValue = 5;
@@ -349,9 +349,9 @@ describe('CnpjFormatterOptionsHiddenRangeInvalidException', (): void => {
   });
 });
 
-describe('CnpjFormatterOptionsForbiddenKeyCharacterException', (): void => {
-  describe('when instantiated', (): void => {
-    it('is an instance of Error', (): void => {
+describe('CnpjFormatterOptionsForbiddenKeyCharacterException', () => {
+  describe('when instantiated', () => {
+    it('is an instance of Error', () => {
       const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('dotKey', 'å', [
         'å',
         'ë',
@@ -362,7 +362,7 @@ describe('CnpjFormatterOptionsForbiddenKeyCharacterException', (): void => {
       expect(exception).toBeInstanceOf(Error);
     });
 
-    it('is an instance of CnpjFormatterException', (): void => {
+    it('is an instance of CnpjFormatterException', () => {
       const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('dotKey', 'å', [
         'å',
         'ë',
@@ -373,7 +373,7 @@ describe('CnpjFormatterOptionsForbiddenKeyCharacterException', (): void => {
       expect(exception).toBeInstanceOf(CnpjFormatterException);
     });
 
-    it('has the correct name', (): void => {
+    it('has the correct name', () => {
       const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('dotKey', 'å', [
         'å',
         'ë',
@@ -384,7 +384,7 @@ describe('CnpjFormatterOptionsForbiddenKeyCharacterException', (): void => {
       expect(exception.name).toBe('CnpjFormatterOptionsForbiddenKeyCharacterException');
     });
 
-    it('sets the `optionName` property', (): void => {
+    it('sets the `optionName` property', () => {
       const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('hiddenKey', 'x', [
         'x',
       ]);
@@ -392,7 +392,7 @@ describe('CnpjFormatterOptionsForbiddenKeyCharacterException', (): void => {
       expect(exception.optionName).toBe('hiddenKey');
     });
 
-    it('sets the `actualInput` property', (): void => {
+    it('sets the `actualInput` property', () => {
       const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('slashKey', '/', [
         '/',
       ]);
@@ -400,7 +400,7 @@ describe('CnpjFormatterOptionsForbiddenKeyCharacterException', (): void => {
       expect(exception.actualInput).toBe('/');
     });
 
-    it('sets the `forbiddenCharacters` property', (): void => {
+    it('sets the `forbiddenCharacters` property', () => {
       const exception = new CnpjFormatterOptionsForbiddenKeyCharacterException('dashKey', 'å', [
         'å',
         'ë',
@@ -411,7 +411,7 @@ describe('CnpjFormatterOptionsForbiddenKeyCharacterException', (): void => {
       expect(exception.forbiddenCharacters).toEqual(['å', 'ë', 'ï', 'ð']);
     });
 
-    it('generates a message describing the exception', (): void => {
+    it('generates a message describing the exception', () => {
       const optionName = 'dotKey';
       const actualInput = 'å';
       const forbiddenCharacters = ['å', 'ë', 'ï', 'ð'];

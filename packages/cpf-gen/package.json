@@ -43,14 +43,19 @@
   "main": "./dist/index.cjs",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "scripts": {
     "build": "rollup --config",
-    "type-check": "tsc --noEmit",
+    "type-check": "tsc",
     "lint": "bun run lint:ci --fix",
     "lint:ci": "eslint src/ tests/ rollup.config.mjs",
     "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",

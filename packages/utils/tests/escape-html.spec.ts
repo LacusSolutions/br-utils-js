@@ -2,41 +2,41 @@ import { describe, expect, it } from 'bun:test';
 
 import { escapeHTML } from '../src/escape-html';
 
-describe('escapeHTML', (): void => {
-  describe('when given a "&" character', (): void => {
-    it('returns "&amp;"', (): void => {
+describe('escapeHTML', () => {
+  describe('when given a "&" character', () => {
+    it('returns "&amp;"', () => {
       const result = escapeHTML('&');
 
       expect(result).toBe('&amp;');
     });
   });
 
-  describe('when given a "<" character', (): void => {
-    it('returns "&lt;"', (): void => {
+  describe('when given a "<" character', () => {
+    it('returns "&lt;"', () => {
       const result = escapeHTML('<');
 
       expect(result).toBe('&lt;');
     });
   });
 
-  describe('when given a ">" character', (): void => {
-    it('returns "&gt;"', (): void => {
+  describe('when given a ">" character', () => {
+    it('returns "&gt;"', () => {
       const result = escapeHTML('>');
 
       expect(result).toBe('&gt;');
     });
   });
 
-  describe("when given a '\"' character", (): void => {
-    it('returns "&quot;"', (): void => {
+  describe("when given a '\"' character", () => {
+    it('returns "&quot;"', () => {
       const result = escapeHTML('"');
 
       expect(result).toBe('&quot;');
     });
   });
 
-  describe('when given a "\'" character', (): void => {
-    it('returns "&#039;"', (): void => {
+  describe('when given a "\'" character', () => {
+    it('returns "&#039;"', () => {
       const result = escapeHTML("'");
 
       expect(result).toBe('&#039;');

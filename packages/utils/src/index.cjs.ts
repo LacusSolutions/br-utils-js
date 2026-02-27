@@ -1,11 +1,5 @@
-import { describeType as baseDescribeType } from './describe-type';
-import { escapeHTML as baseEscapeHTML } from './escape-html';
-import { generateRandomSequence as baseGenerateRandomSequence } from './generate-random-sequence';
+import * as all from './index.esm';
 
-const lacusUtils = Object.freeze({
-  describeType: baseDescribeType,
-  escapeHTML: baseEscapeHTML,
-  generateRandomSequence: baseGenerateRandomSequence,
-});
+const lacusUtils = Object.freeze({ ...all });
 
 export default lacusUtils;

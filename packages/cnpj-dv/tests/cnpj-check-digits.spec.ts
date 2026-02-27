@@ -7,7 +7,7 @@ import CnpjCheckDigits, {
   type CnpjInput,
 } from '../src/index.esm';
 
-describe('CnpjCheckDigits', (): void => {
+describe('CnpjCheckDigits', () => {
   const testCases: Record<string, string> = {
     '313124260006': '31312426000619',
     MGKGMJ9X0001: 'MGKGMJ9X000168',
@@ -131,41 +131,41 @@ describe('CnpjCheckDigits', (): void => {
     W95P9DKV0001: 'W95P9DKV000194',
   };
 
-  describe('constructor', (): void => {
-    describe('when given invalid input type', (): void => {
-      it('throws CnpjCheckDigitsInputTypeError for number input', (): void => {
+  describe('constructor', () => {
+    describe('when given invalid input type', () => {
+      it('throws CnpjCheckDigitsInputTypeError for number input', () => {
         const sut = (): unknown => new CnpjCheckDigits(12345678901 as unknown as string);
 
         expect(sut).toThrow(CnpjCheckDigitsInputTypeError);
       });
 
-      it('throws CnpjCheckDigitsInputTypeError for null input', (): void => {
+      it('throws CnpjCheckDigitsInputTypeError for null input', () => {
         const sut = (): unknown => new CnpjCheckDigits(null as unknown as string);
 
         expect(sut).toThrow(CnpjCheckDigitsInputTypeError);
       });
 
-      it('throws CnpjCheckDigitsInputTypeError for undefined input', (): void => {
+      it('throws CnpjCheckDigitsInputTypeError for undefined input', () => {
         const sut = (): unknown => new CnpjCheckDigits(undefined as unknown as string);
 
         expect(sut).toThrow(CnpjCheckDigitsInputTypeError);
       });
 
-      it('throws CnpjCheckDigitsInputTypeError for object input', (): void => {
+      it('throws CnpjCheckDigitsInputTypeError for object input', () => {
         const sut = (): unknown =>
           new CnpjCheckDigits({ cnpj: '12345678901' } as unknown as string);
 
         expect(sut).toThrow(CnpjCheckDigitsInputTypeError);
       });
 
-      it('throws CnpjCheckDigitsInputTypeError for array of numbers', (): void => {
+      it('throws CnpjCheckDigitsInputTypeError for array of numbers', () => {
         const sut = (): unknown =>
           new CnpjCheckDigits([1, 2, 3, 4, 5, 6, 7, 8, 9] as unknown as string[]);
 
         expect(sut).toThrow(CnpjCheckDigitsInputTypeError);
       });
 
-      it('throws CnpjCheckDigitsInputTypeError for mixed array types', (): void => {
+      it('throws CnpjCheckDigitsInputTypeError for mixed array types', () => {
         const sut = (): unknown => new CnpjCheckDigits([1, '2', 3, '4', 5] as unknown as string[]);
 
         expect(sut).toThrow(CnpjCheckDigitsInputTypeError);
@@ -173,38 +173,38 @@ describe('CnpjCheckDigits', (): void => {
     });
 
     describe('when given invalid input length', () => {
-      it('throws CnpjCheckDigitsInputLengthException for empty string', (): void => {
+      it('throws CnpjCheckDigitsInputLengthException for empty string', () => {
         const sut = (): unknown => new CnpjCheckDigits('');
 
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
 
-      it('throws CnpjCheckDigitsInputLengthException for empty array', (): void => {
+      it('throws CnpjCheckDigitsInputLengthException for empty array', () => {
         const sut = (): unknown => new CnpjCheckDigits([]);
 
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
 
-      it('throws CnpjCheckDigitsInputLengthException for string with 11 digits', (): void => {
+      it('throws CnpjCheckDigitsInputLengthException for string with 11 digits', () => {
         const sut = (): unknown => new CnpjCheckDigits('12345678910');
 
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
 
-      it('throws CnpjCheckDigitsInputLengthException for string with 15 digits', (): void => {
+      it('throws CnpjCheckDigitsInputLengthException for string with 15 digits', () => {
         const sut = (): unknown => new CnpjCheckDigits('123456789101112');
 
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
 
-      it('throws CnpjCheckDigitsInputLengthException for string array with 11 digits', (): void => {
+      it('throws CnpjCheckDigitsInputLengthException for string array with 11 digits', () => {
         const sut = (): unknown =>
           new CnpjCheckDigits(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']);
 
         expect(sut).toThrow(CnpjCheckDigitsInputLengthException);
       });
 
-      it('throws CnpjCheckDigitsInputLengthException for string array with 15 digits', (): void => {
+      it('throws CnpjCheckDigitsInputLengthException for string array with 15 digits', () => {
         const sut = (): unknown =>
           new CnpjCheckDigits([
             '0',
@@ -228,7 +228,7 @@ describe('CnpjCheckDigits', (): void => {
       });
     });
 
-    describe('when given invalid CNPJ base ID', (): void => {
+    describe('when given invalid CNPJ base ID', () => {
       const invalidBaseIdInputs: CnpjInput[] = [
         '00000000',
         ['00000000'],
@@ -238,7 +238,7 @@ describe('CnpjCheckDigits', (): void => {
 
       it.each(invalidBaseIdInputs.map((input) => [input]))(
         'throws CnpjCheckDigitsInputInvalidException for base ID `%s`',
-        (input): void => {
+        (input) => {
           const sut = (): unknown => new CnpjCheckDigits(`${input}/0001`);
 
           expect(sut).toThrow(CnpjCheckDigitsInputInvalidException);
@@ -247,12 +247,12 @@ describe('CnpjCheckDigits', (): void => {
       );
     });
 
-    describe('when given invalid CNPJ branch ID', (): void => {
+    describe('when given invalid CNPJ branch ID', () => {
       const invalidBranchIdInputs: CnpjInput[] = ['0000', ['0000'], ['0', '0', '0', '0']];
 
       it.each(invalidBranchIdInputs.map((input) => [input]))(
         'throws CnpjCheckDigitsInputInvalidException for branch ID `%s`',
-        (input): void => {
+        (input) => {
           const sut = (): unknown => new CnpjCheckDigits(`12345678/${input}`);
 
           expect(sut).toThrow(CnpjCheckDigitsInputInvalidException);
@@ -261,7 +261,7 @@ describe('CnpjCheckDigits', (): void => {
       );
     });
 
-    describe('when given repeated numeric characters', (): void => {
+    describe('when given repeated numeric characters', () => {
       const repeatedDigitInputs: CnpjInput[] = [
         '111111111111',
         '222222222222',
@@ -303,7 +303,7 @@ describe('CnpjCheckDigits', (): void => {
 
       it.each(repeatedDigitInputs.map((input) => [input]))(
         'throws CnpjCheckDigitsInputInvalidException for input `%s`',
-        (input): void => {
+        (input) => {
           const sut = (): unknown => new CnpjCheckDigits(input);
 
           expect(sut).toThrow(CnpjCheckDigitsInputInvalidException);
@@ -312,7 +312,7 @@ describe('CnpjCheckDigits', (): void => {
       );
     });
 
-    describe('when given repeated non-numeric characters', (): void => {
+    describe('when given repeated non-numeric characters', () => {
       const repeatedLetterInputs: CnpjInput[] = [
         'AAAAAAAAAAAA',
         'BBBBBBBBBBBB',
@@ -345,7 +345,7 @@ describe('CnpjCheckDigits', (): void => {
 
       it.each(repeatedLetterInputs.map((input) => [input]))(
         'does not throw error for input `%s`',
-        (input): void => {
+        (input) => {
           const cnpjCheckDigits = new CnpjCheckDigits(input);
           const stringifiedInput = Array.isArray(input) ? input.join('') : input;
 
@@ -357,13 +357,13 @@ describe('CnpjCheckDigits', (): void => {
     });
   });
 
-  describe('first digit', (): void => {
+  describe('first digit', () => {
     const firstDigitTestCases = Object.entries(testCases).map(([input, expected]) => ({
       input,
       expected: expected.slice(-2, -1),
     }));
 
-    describe('when input is a string', (): void => {
+    describe('when input is a string', () => {
       it.each(firstDigitTestCases)(
         'returns `$expected` as first digit for `$input`',
         ({ input, expected }) => {
@@ -374,7 +374,7 @@ describe('CnpjCheckDigits', (): void => {
       );
     });
 
-    describe('when input is an array of strings', (): void => {
+    describe('when input is an array of strings', () => {
       it.each(firstDigitTestCases)(
         'returns `$expected` as first digit for `$input`',
         ({ input, expected }) => {
@@ -385,7 +385,7 @@ describe('CnpjCheckDigits', (): void => {
       );
     });
 
-    describe('when accessing digits multiple times', (): void => {
+    describe('when accessing digits multiple times', () => {
       let calculateSpy: Mock<never>;
 
       beforeEach(() => {
@@ -396,7 +396,7 @@ describe('CnpjCheckDigits', (): void => {
         calculateSpy.mockRestore();
       });
 
-      it('returns cached values on subsequent calls', (): void => {
+      it('returns cached values on subsequent calls', () => {
         const cnpjCheckDigits = new CnpjCheckDigits('914157320007');
 
         cnpjCheckDigits.first; // eslint-disable-line @typescript-eslint/no-unused-expressions
@@ -408,13 +408,13 @@ describe('CnpjCheckDigits', (): void => {
     });
   });
 
-  describe('second digit', (): void => {
+  describe('second digit', () => {
     const secondDigitTestCases = Object.entries(testCases).map(([input, expected]) => ({
       input,
       expected: expected.slice(-1),
     }));
 
-    describe('when input is a string', (): void => {
+    describe('when input is a string', () => {
       it.each(secondDigitTestCases)(
         'returns `$expected` as second digit for `$input`',
         ({ input, expected }) => {
@@ -425,7 +425,7 @@ describe('CnpjCheckDigits', (): void => {
       );
     });
 
-    describe('when input is an array of strings', (): void => {
+    describe('when input is an array of strings', () => {
       it.each(secondDigitTestCases)(
         'returns `$expected` as second digit for `$input`',
         ({ input, expected }) => {
@@ -436,7 +436,7 @@ describe('CnpjCheckDigits', (): void => {
       );
     });
 
-    describe('when accessing digits multiple times', (): void => {
+    describe('when accessing digits multiple times', () => {
       let calculateSpy: Mock<never>;
 
       beforeEach(() => {
@@ -447,7 +447,7 @@ describe('CnpjCheckDigits', (): void => {
         calculateSpy.mockRestore();
       });
 
-      it('returns cached values on subsequent calls', (): void => {
+      it('returns cached values on subsequent calls', () => {
         const cnpjCheckDigits = new CnpjCheckDigits('914157320007');
 
         cnpjCheckDigits.second; // eslint-disable-line @typescript-eslint/no-unused-expressions
@@ -459,13 +459,13 @@ describe('CnpjCheckDigits', (): void => {
     });
   });
 
-  describe('both digits', (): void => {
+  describe('both digits', () => {
     const bothDigitsTestCases = Object.entries(testCases).map(([input, expected]) => ({
       input,
       expected: expected.slice(-2),
     }));
 
-    describe('when input is a string', (): void => {
+    describe('when input is a string', () => {
       it.each(bothDigitsTestCases)(
         'returns `$expected` as check digits for `$input`',
         ({ input, expected }) => {
@@ -476,7 +476,7 @@ describe('CnpjCheckDigits', (): void => {
       );
     });
 
-    describe('when input is an array of strings', (): void => {
+    describe('when input is an array of strings', () => {
       it.each(bothDigitsTestCases)(
         'returns `$expected` as check digits for `$input`',
         ({ input, expected }) => {
@@ -488,25 +488,25 @@ describe('CnpjCheckDigits', (): void => {
     });
   });
 
-  describe('actual CNPJ string', (): void => {
-    describe('when input is a string', (): void => {
-      it('returns the respective 14-character string for CNPJ', (): void => {
+  describe('actual CNPJ string', () => {
+    describe('when input is a string', () => {
+      it('returns the respective 14-character string for CNPJ', () => {
         const cnpjCheckDigits = new CnpjCheckDigits('914157320007');
 
         expect(cnpjCheckDigits.cnpj).toBe('91415732000793');
       });
     });
 
-    describe('when input is an array of grouped digits string', (): void => {
-      it('returns the respective 14-character string for CNPJ', (): void => {
+    describe('when input is an array of grouped digits string', () => {
+      it('returns the respective 14-character string for CNPJ', () => {
         const cnpjCheckDigits = new CnpjCheckDigits(['9141', '5732', '0007']);
 
         expect(cnpjCheckDigits.cnpj).toBe('91415732000793');
       });
     });
 
-    describe('when input is an array of individual digits string', (): void => {
-      it('returns the respective 14-character string for CNPJ', (): void => {
+    describe('when input is an array of individual digits string', () => {
+      it('returns the respective 14-character string for CNPJ', () => {
         const cnpjCheckDigits = new CnpjCheckDigits([
           '9',
           '1',
@@ -526,7 +526,7 @@ describe('CnpjCheckDigits', (): void => {
       });
     });
 
-    describe('when validating all test cases', (): void => {
+    describe('when validating all test cases', () => {
       const testCasesArray = Object.entries(testCases).map(([input, expected]) => ({
         input,
         expected,
@@ -540,17 +540,17 @@ describe('CnpjCheckDigits', (): void => {
     });
   });
 
-  describe('edge cases', (): void => {
-    describe('when input is a formatted CNPJ string', (): void => {
-      it('correctly parses and calculates check digits', (): void => {
+  describe('edge cases', () => {
+    describe('when input is a formatted CNPJ string', () => {
+      it('correctly parses and calculates check digits', () => {
         const cnpjCheckDigits = new CnpjCheckDigits('91.415.732/0007');
 
         expect(cnpjCheckDigits.cnpj).toBe('91415732000793');
       });
     });
 
-    describe('when input already contains check digits', (): void => {
-      it('ignores provided check digits and calculates ones correctly', (): void => {
+    describe('when input already contains check digits', () => {
+      it('ignores provided check digits and calculates ones correctly', () => {
         const cnpjCheckDigits = new CnpjCheckDigits('91415732000700');
 
         expect(cnpjCheckDigits.first).toBe('9');

@@ -4,10 +4,10 @@ import { CpfValidator } from '../src/cpf-validator';
 import { CpfValidatorInputTypeError } from '../src/exceptions';
 import type { CpfInput } from '../src/types';
 
-describe('CpfValidator', (): void => {
-  describe('constructor', (): void => {
-    describe('when called', (): void => {
-      it('creates an instance of `CpfValidator`', (): void => {
+describe('CpfValidator', () => {
+  describe('constructor', () => {
+    describe('when called', () => {
+      it('creates an instance of `CpfValidator`', () => {
         const validator = new CpfValidator();
 
         expect(validator).toBeInstanceOf(CpfValidator);
@@ -15,7 +15,7 @@ describe('CpfValidator', (): void => {
     });
   });
 
-  describe('`isValid` method', (): void => {
+  describe('`isValid` method', () => {
     let validator: CpfValidator;
 
     interface InputType {
@@ -43,7 +43,7 @@ describe('CpfValidator', (): void => {
       validator = new CpfValidator();
     });
 
-    it.each(createInputsSet('82911017366'))('returns `true` for a valid CPF', ({ input }): void => {
+    it.each(createInputsSet('82911017366'))('returns `true` for a valid CPF', ({ input }) => {
       const result = validator.isValid(input);
 
       expect(result).toBe(true);
@@ -51,7 +51,7 @@ describe('CpfValidator', (): void => {
 
     it.each(createInputsSet('8291101736'))(
       'returns `false` for a CPF $type with less than 11 digits',
-      ({ input }): void => {
+      ({ input }) => {
         const result = validator.isValid(input);
 
         expect(result).toBe(false);
@@ -60,7 +60,7 @@ describe('CpfValidator', (): void => {
 
     it.each(createInputsSet('829110173666'))(
       'returns `false` for a CPF $type with more than 11 digits',
-      ({ input }): void => {
+      ({ input }) => {
         const result = validator.isValid(input);
 
         expect(result).toBe(false);
@@ -78,7 +78,7 @@ describe('CpfValidator', (): void => {
       '777777777',
       '888888888',
       '999999999',
-    ])('returns `false` for a CPF with all digits the same', (prefix): void => {
+    ])('returns `false` for a CPF with all digits the same', (prefix) => {
       for (let i = 0; i < 100; i++) {
         const input = `${prefix}${i.toString().padStart(2, '0')}`;
 
@@ -88,56 +88,56 @@ describe('CpfValidator', (): void => {
       }
     });
 
-    describe('when called with invalid arguments', (): void => {
-      it('does not throw with string input', (): void => {
+    describe('when called with invalid arguments', () => {
+      it('does not throw with string input', () => {
         expect(() => {
           validator.isValid('12345678901');
         }).not.toThrow();
       });
 
-      it('does not throw with array of strings input', (): void => {
+      it('does not throw with array of strings input', () => {
         expect(() => {
           validator.isValid(['12345678901']);
         }).not.toThrow();
       });
 
-      it('throws a `CpfValidatorInputTypeError` with `undefined`', (): void => {
+      it('throws a `CpfValidatorInputTypeError` with `undefined`', () => {
         expect(() => {
           validator.isValid(undefined as unknown as CpfInput);
         }).toThrow(CpfValidatorInputTypeError);
       });
 
-      it('throws a `CpfValidatorInputTypeError` with `null`', (): void => {
+      it('throws a `CpfValidatorInputTypeError` with `null`', () => {
         expect(() => {
           validator.isValid(null as unknown as CpfInput);
         }).toThrow(CpfValidatorInputTypeError);
       });
 
-      it('throws a `CpfValidatorInputTypeError` with integer number', (): void => {
+      it('throws a `CpfValidatorInputTypeError` with integer number', () => {
         expect(() => {
           validator.isValid(42 as unknown as CpfInput);
         }).toThrow(CpfValidatorInputTypeError);
       });
 
-      it('throws a `CpfValidatorInputTypeError` with float number', (): void => {
+      it('throws a `CpfValidatorInputTypeError` with float number', () => {
         expect(() => {
           validator.isValid(3.14 as unknown as CpfInput);
         }).toThrow(CpfValidatorInputTypeError);
       });
 
-      it('throws a `CpfValidatorInputTypeError` with boolean', (): void => {
+      it('throws a `CpfValidatorInputTypeError` with boolean', () => {
         expect(() => {
           validator.isValid(true as unknown as CpfInput);
         }).toThrow(CpfValidatorInputTypeError);
       });
 
-      it('throws a `CpfValidatorInputTypeError` with object', (): void => {
+      it('throws a `CpfValidatorInputTypeError` with object', () => {
         expect(() => {
           validator.isValid({ not: 'a string' } as unknown as CpfInput);
         }).toThrow(CpfValidatorInputTypeError);
       });
 
-      it('throws a `CpfValidatorInputTypeError` with array of numbers', (): void => {
+      it('throws a `CpfValidatorInputTypeError` with array of numbers', () => {
         expect(() => {
           validator.isValid([1, 2, 3] as unknown as CpfInput);
         }).toThrow(CpfValidatorInputTypeError);

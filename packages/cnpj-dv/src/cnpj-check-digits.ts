@@ -191,7 +191,7 @@ export class CnpjCheckDigits {
     const eligibleCnpjIntArray = cnpjIntArray.slice(0, CNPJ_MIN_LENGTH);
     const uniqueCharacters = new Set(eligibleCnpjIntArray);
 
-    if (uniqueCharacters.size === 1 && /^\d$/.test(eligibleCnpjIntArray[0])) {
+    if (uniqueCharacters.size === 1 && /^\d$/.test(eligibleCnpjIntArray[0] ?? '')) {
       throw new CnpjCheckDigitsInputInvalidException(
         originalInput,
         'Repeated digits are not considered valid.',
@@ -207,7 +207,7 @@ export class CnpjCheckDigits {
     let sumResult = 0;
 
     for (let i = cnpjSequence.length - 1; i >= 0; i--) {
-      const charCode = cnpjSequence[i].charCodeAt(0);
+      const charCode = cnpjSequence[i]!.charCodeAt(0);
       const charValue = charCode - DELTA_FACTOR;
 
       sumResult += charValue * factor;
@@ -220,4 +220,4 @@ export class CnpjCheckDigits {
   }
 }
 
-export default CnpjCheckDigits;
+Object.freeze(CnpjCheckDigits);

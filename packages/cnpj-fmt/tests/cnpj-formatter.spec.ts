@@ -5,10 +5,10 @@ import { CnpjFormatterOptions } from '../src/cnpj-formatter-options';
 import { CnpjFormatterInputLengthException, CnpjFormatterInputTypeError } from '../src/exceptions';
 import type { CnpjFormatterOptionsInput } from '../src/types';
 
-describe('CnpjFormatter', (): void => {
-  describe('constructor', (): void => {
-    describe('when called with no arguments', (): void => {
-      it('creates an instance with default options', (): void => {
+describe('CnpjFormatter', () => {
+  describe('constructor', () => {
+    describe('when called with no arguments', () => {
+      it('creates an instance with default options', () => {
         const defaultOptions = new CnpjFormatterOptions();
 
         const formatter = new CnpjFormatter();
@@ -17,8 +17,8 @@ describe('CnpjFormatter', (): void => {
       });
     });
 
-    describe('when called with arguments', (): void => {
-      it('sets to default options with empty object', (): void => {
+    describe('when called with arguments', () => {
+      it('sets to default options with empty object', () => {
         const defaultOptions = new CnpjFormatterOptions();
 
         const formatter = new CnpjFormatter({});
@@ -26,7 +26,7 @@ describe('CnpjFormatter', (): void => {
         expect(formatter.options.all).toEqual(defaultOptions.all);
       });
 
-      it('uses the provided options instance', (): void => {
+      it('uses the provided options instance', () => {
         const options = new CnpjFormatterOptions();
 
         const formatter = new CnpjFormatter(options);
@@ -34,7 +34,7 @@ describe('CnpjFormatter', (): void => {
         expect(formatter.options).toBe(options);
       });
 
-      it('overrides the default options with the provided ones (literal object)', (): void => {
+      it('overrides the default options with the provided ones (literal object)', () => {
         const options: CnpjFormatterOptionsInput = {
           hidden: true,
           slashKey: '|',
@@ -47,7 +47,7 @@ describe('CnpjFormatter', (): void => {
         expect(formatter.options.all).toEqual(expect.objectContaining(options));
       });
 
-      it('overrides the default options with the provided ones (CnpjFormatterOptions instance)', (): void => {
+      it('overrides the default options with the provided ones (CnpjFormatterOptions instance)', () => {
         const options = new CnpjFormatterOptions({
           hidden: true,
           slashKey: '|',
@@ -62,7 +62,7 @@ describe('CnpjFormatter', (): void => {
     });
   });
 
-  describe('`format` method', (): void => {
+  describe('`format` method', () => {
     let format: InstanceType<typeof CnpjFormatter>['format'];
 
     beforeEach(() => {
@@ -71,80 +71,80 @@ describe('CnpjFormatter', (): void => {
       format = formatter.format.bind(formatter);
     });
 
-    describe('when input is a string with only digits', (): void => {
-      it('handles the input with no formatting', (): void => {
+    describe('when input is a string with only digits', () => {
+      it('handles the input with no formatting', () => {
         const result = format('12345678000910');
 
         expect(result).toBe('12.345.678/0009-10');
       });
 
-      it('handles the input with standard formatting', (): void => {
+      it('handles the input with standard formatting', () => {
         const result = format('12.345.678/0009-10');
 
         expect(result).toBe('12.345.678/0009-10');
       });
 
-      it('handles the input with custom formatting', (): void => {
+      it('handles the input with custom formatting', () => {
         const result = format('12 345 678 | 0009 _ 10');
 
         expect(result).toBe('12.345.678/0009-10');
       });
     });
 
-    describe('when input is a string with only letters', (): void => {
-      it('handles the input with no formatting', (): void => {
+    describe('when input is a string with only letters', () => {
+      it('handles the input with no formatting', () => {
         const result = format('ABCDEFGHIJKLMN');
 
         expect(result).toBe('AB.CDE.FGH/IJKL-MN');
       });
 
-      it('handles the input with standard formatting', (): void => {
+      it('handles the input with standard formatting', () => {
         const result = format('AB.CDE.FGH/IJKL-MN');
 
         expect(result).toBe('AB.CDE.FGH/IJKL-MN');
       });
 
-      it('handles the input with custom formatting', (): void => {
+      it('handles the input with custom formatting', () => {
         const result = format('AB CDE FGH | IJKL _ MN');
 
         expect(result).toBe('AB.CDE.FGH/IJKL-MN');
       });
 
-      it('converts lowercase letters to uppercase', (): void => {
+      it('converts lowercase letters to uppercase', () => {
         const result = format('AbCdEfGhIjKlMn');
 
         expect(result).toBe('AB.CDE.FGH/IJKL-MN');
       });
     });
 
-    describe('when input is a string with mixed digits and letters characters', (): void => {
-      it('handles the input with no formatting', (): void => {
+    describe('when input is a string with mixed digits and letters characters', () => {
+      it('handles the input with no formatting', () => {
         const result = format('12ABC34500DE00');
 
         expect(result).toBe('12.ABC.345/00DE-00');
       });
 
-      it('handles the input with standard formatting', (): void => {
+      it('handles the input with standard formatting', () => {
         const result = format('12.ABC.345/00DE-00');
 
         expect(result).toBe('12.ABC.345/00DE-00');
       });
 
-      it('handles the input with custom formatting', (): void => {
+      it('handles the input with custom formatting', () => {
         const result = format('12 ABC 345 | 00DE _ 00');
 
         expect(result).toBe('12.ABC.345/00DE-00');
       });
 
-      it('converts lowercase letters to uppercase', (): void => {
+      it('converts lowercase letters to uppercase', () => {
         const result = format('12abcDEF00eF00');
 
         expect(result).toBe('12.ABC.DEF/00EF-00');
       });
     });
 
-    describe('when input is an array', (): void => {
-      it('handles array of only digits', (): void => {
+    describe('when input is an array', () => {
+      it('handles array of only digits', () => {
         const result = format([
           '1',
           '2',
@@ -165,25 +165,25 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12.345.678/0009-10');
       });
 
-      it('handles array of single item with only digits', (): void => {
+      it('handles array of single item with only digits', () => {
         const result = format(['12345678000910']);
 
         expect(result).toBe('12.345.678/0009-10');
       });
 
-      it('handles array of grouped digits', (): void => {
+      it('handles array of grouped digits', () => {
         const result = format(['12', '345', '678', '0009', '10']);
 
         expect(result).toBe('12.345.678/0009-10');
       });
 
-      it('handles array of grouped digits and punctuation', (): void => {
+      it('handles array of grouped digits and punctuation', () => {
         const result = format(['12', '.', '345', '.', '678', '/', '0009', '-', '10']);
 
         expect(result).toBe('12.345.678/0009-10');
       });
 
-      it('handles array of only letters', (): void => {
+      it('handles array of only letters', () => {
         const result = format([
           'A',
           'B',
@@ -204,31 +204,31 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('AB.CDE.FGH/IJKL-MN');
       });
 
-      it('handles array of single item with only letters', (): void => {
+      it('handles array of single item with only letters', () => {
         const result = format(['ABCDEFGHIJKLMN']);
 
         expect(result).toBe('AB.CDE.FGH/IJKL-MN');
       });
 
-      it('handles array of lowercase letters', (): void => {
+      it('handles array of lowercase letters', () => {
         const result = format(['abcdefghijklmn']);
 
         expect(result).toBe('AB.CDE.FGH/IJKL-MN');
       });
 
-      it('handles array of grouped letters', (): void => {
+      it('handles array of grouped letters', () => {
         const result = format(['AB', 'CDE', 'FGH', 'IJKL', 'MN']);
 
         expect(result).toBe('AB.CDE.FGH/IJKL-MN');
       });
 
-      it('handles array of grouped letters and punctuation', (): void => {
+      it('handles array of grouped letters and punctuation', () => {
         const result = format(['AB', '.', 'CDE', '.', 'FGH', '/', 'IJKL', '-', 'MN']);
 
         expect(result).toBe('AB.CDE.FGH/IJKL-MN');
       });
 
-      it('handles array of mixed digits and letters', (): void => {
+      it('handles array of mixed digits and letters', () => {
         const result = format([
           '1',
           '2',
@@ -249,26 +249,26 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12.ABC.DEF/00GH-34');
       });
 
-      it('handles array of single item with mixed digits and letters', (): void => {
+      it('handles array of single item with mixed digits and letters', () => {
         const result = format(['12abcDEF00gH34']);
 
         expect(result).toBe('12.ABC.DEF/00GH-34');
       });
 
-      it('handles array of grouped digits and letters', (): void => {
+      it('handles array of grouped digits and letters', () => {
         const result = format(['12', 'abc', 'DEF', '00gH', '34']);
 
         expect(result).toBe('12.ABC.DEF/00GH-34');
       });
 
-      it('handles array of grouped digits, letters and punctuation', (): void => {
+      it('handles array of grouped digits, letters and punctuation', () => {
         const result = format(['12', '.', 'abc', '.', 'DEF', '/', '00gH', '-', '34']);
 
         expect(result).toBe('12.ABC.DEF/00GH-34');
       });
     });
 
-    describe('when input is not string or array of strings', (): void => {
+    describe('when input is not string or array of strings', () => {
       it.each([
         { input: null, type: 'null' },
         { input: undefined, type: 'undefined' },
@@ -277,26 +277,23 @@ describe('CnpjFormatter', (): void => {
         { input: false, type: 'boolean' },
         { input: true, type: 'boolean' },
         { input: {}, type: 'object' },
-      ])(
-        'throws CnpjFormatterInputTypeError on input of $input ($type)',
-        ({ input, type }): void => {
-          try {
-            format(input as unknown as string);
+      ])('throws CnpjFormatterInputTypeError on input of $input ($type)', ({ input, type }) => {
+        try {
+          format(input as unknown as string);
 
-            expect.unreachable();
-          } catch (error: unknown) {
-            const inputTypeError = error as CnpjFormatterInputTypeError;
+          expect.unreachable();
+        } catch (error: unknown) {
+          const inputTypeError = error as CnpjFormatterInputTypeError;
 
-            expect(error).toBeInstanceOf(CnpjFormatterInputTypeError);
-            expect(inputTypeError.expectedType).toBe('string or string[]');
-            expect(inputTypeError.actualInput).toBe(input);
-            expect(inputTypeError.actualType).toBe(type);
-          }
-        },
-      );
+          expect(error).toBeInstanceOf(CnpjFormatterInputTypeError);
+          expect(inputTypeError.expectedType).toBe('string or string[]');
+          expect(inputTypeError.actualInput).toBe(input);
+          expect(inputTypeError.actualType).toBe(type);
+        }
+      });
     });
 
-    describe('when sanitized input length is not 14', (): void => {
+    describe('when sanitized input length is not 14', () => {
       const makeErrorHandlingSpy = (evaluatedLength: number) => {
         return (value: unknown, error?: Error): string => {
           const inputLengthException = error as CnpjFormatterInputLengthException;
@@ -326,7 +323,7 @@ describe('CnpjFormatter', (): void => {
         { input: '12.ABC.345/00DE-678', length: 15 },
       ])(
         'fails with CnpjFormatterInputLengthException on input of $input ($length)',
-        ({ input, length }): void => {
+        ({ input, length }) => {
           format(input as unknown as string, {
             onFail: makeErrorHandlingSpy(length),
           });
@@ -334,12 +331,12 @@ describe('CnpjFormatter', (): void => {
       );
     });
 
-    describe('when using `hidden` option', (): void => {
+    describe('when using `hidden` option', () => {
       const { DEFAULT_HIDDEN_END, DEFAULT_HIDDEN_START } = CnpjFormatterOptions;
       const DEFAULT_HIDDEN_LENGTH = DEFAULT_HIDDEN_END - DEFAULT_HIDDEN_START + 1;
       const STANDARD_CNPJ_FORMAT_LENGTH = '00.000.000/0000-00'.length;
 
-      it('replaces some characters with "*" when simply `true`', (): void => {
+      it('replaces some characters with "*" when simply `true`', () => {
         const result = format('12ABC34500DE99', { hidden: true });
         const hiddenChars = Array.from(result).filter((char) => char === '*');
 
@@ -347,7 +344,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toHaveLength(STANDARD_CNPJ_FORMAT_LENGTH);
       });
 
-      it('replaces characters with "*" in a given range', (): void => {
+      it('replaces characters with "*" in a given range', () => {
         const result = format('12ABC34500DE99', {
           hidden: true,
           hiddenStart: 8,
@@ -358,7 +355,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toHaveLength(STANDARD_CNPJ_FORMAT_LENGTH);
       });
 
-      it('replaces characters with a custom key', (): void => {
+      it('replaces characters with a custom key', () => {
         const result = format('12ABC34500DE99', {
           hidden: true,
           hiddenKey: '#',
@@ -370,7 +367,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toHaveLength(STANDARD_CNPJ_FORMAT_LENGTH);
       });
 
-      it('replaces characters with a custom zero-width key', (): void => {
+      it('replaces characters with a custom zero-width key', () => {
         const result = format('12ABC34500DE99', {
           hidden: true,
           hiddenKey: '',
@@ -380,7 +377,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toHaveLength(STANDARD_CNPJ_FORMAT_LENGTH - DEFAULT_HIDDEN_LENGTH);
       });
 
-      it('replaces characters with a custom multi-character key', (): void => {
+      it('replaces characters with a custom multi-character key', () => {
         const result = format('12ABC34500DE99', {
           hidden: true,
           hiddenKey: '[]',
@@ -395,8 +392,8 @@ describe('CnpjFormatter', (): void => {
       });
     });
 
-    describe('when customizing punctuation', (): void => {
-      it('replaces dots with a custom key', (): void => {
+    describe('when customizing punctuation', () => {
+      it('replaces dots with a custom key', () => {
         const result = format('12ABC34500DE99', {
           dotKey: ' ',
         });
@@ -404,7 +401,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12 ABC 345/00DE-99');
       });
 
-      it('replaces dots with a custom zero-width key', (): void => {
+      it('replaces dots with a custom zero-width key', () => {
         const result = format('12ABC34500DE99', {
           dotKey: '',
         });
@@ -412,7 +409,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12ABC345/00DE-99');
       });
 
-      it('replaces dots with a custom multi-character key', (): void => {
+      it('replaces dots with a custom multi-character key', () => {
         const result = format('12ABC34500DE99', {
           dotKey: '[]',
         });
@@ -420,7 +417,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12[]ABC[]345/00DE-99');
       });
 
-      it('replaces slash with a custom key', (): void => {
+      it('replaces slash with a custom key', () => {
         const result = format('12ABC34500DE99', {
           slashKey: '|',
         });
@@ -428,7 +425,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12.ABC.345|00DE-99');
       });
 
-      it('replaces slash with a custom zero-width key', (): void => {
+      it('replaces slash with a custom zero-width key', () => {
         const result = format('12ABC34500DE99', {
           slashKey: '',
         });
@@ -436,7 +433,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12.ABC.34500DE-99');
       });
 
-      it('replaces slash with a custom multi-character key', (): void => {
+      it('replaces slash with a custom multi-character key', () => {
         const result = format('12ABC34500DE99', {
           slashKey: '[]',
         });
@@ -444,7 +441,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12.ABC.345[]00DE-99');
       });
 
-      it('replaces dash with a custom key', (): void => {
+      it('replaces dash with a custom key', () => {
         const result = format('12ABC34500DE99', {
           dashKey: '_',
         });
@@ -452,7 +449,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12.ABC.345/00DE_99');
       });
 
-      it('replaces dash with a custom zero-width key', (): void => {
+      it('replaces dash with a custom zero-width key', () => {
         const result = format('12ABC34500DE99', {
           dashKey: '',
         });
@@ -460,7 +457,7 @@ describe('CnpjFormatter', (): void => {
         expect(result).toBe('12.ABC.345/00DE99');
       });
 
-      it('replaces dash with a custom multi-character key', (): void => {
+      it('replaces dash with a custom multi-character key', () => {
         const result = format('12ABC34500DE99', {
           dashKey: '[]',
         });
@@ -469,8 +466,8 @@ describe('CnpjFormatter', (): void => {
       });
     });
 
-    describe('when using `escape` option ', (): void => {
-      it('escapes HTML special characters', (): void => {
+    describe('when using `escape` option ', () => {
+      it('escapes HTML special characters', () => {
         const result = format('12ABC34500DE99', {
           dotKey: '&',
           slashKey: '"',
@@ -482,8 +479,8 @@ describe('CnpjFormatter', (): void => {
       });
     });
 
-    describe('when using `encode` option ', (): void => {
-      it('URL-encodes the result', (): void => {
+    describe('when using `encode` option ', () => {
+      it('URL-encodes the result', () => {
         const result = format('12ABC34500DE99', {
           encode: true,
         });
@@ -492,8 +489,8 @@ describe('CnpjFormatter', (): void => {
       });
     });
 
-    describe('edge cases', (): void => {
-      it('replaces `hiddenKey`, `dotKey`, `slashKey` and `dashKey` use multi-characters value', (): void => {
+    describe('edge cases', () => {
+      it('replaces `hiddenKey`, `dotKey`, `slashKey` and `dashKey` use multi-characters value', () => {
         const result = format('12ABC34500DE99', {
           hidden: true,
           hiddenStart: 5,

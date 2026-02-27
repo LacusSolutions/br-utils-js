@@ -5,10 +5,10 @@ import { CpfFormatterOptions } from '../src/cpf-formatter-options';
 import { CpfFormatterInputLengthException, CpfFormatterInputTypeError } from '../src/exceptions';
 import type { CpfFormatterOptionsInput } from '../src/types';
 
-describe('CpfFormatter', (): void => {
-  describe('constructor', (): void => {
-    describe('when called with no arguments', (): void => {
-      it('creates an instance with default options', (): void => {
+describe('CpfFormatter', () => {
+  describe('constructor', () => {
+    describe('when called with no arguments', () => {
+      it('creates an instance with default options', () => {
         const defaultOptions = new CpfFormatterOptions();
 
         const formatter = new CpfFormatter();
@@ -17,8 +17,8 @@ describe('CpfFormatter', (): void => {
       });
     });
 
-    describe('when called with arguments', (): void => {
-      it('sets to default options with empty object', (): void => {
+    describe('when called with arguments', () => {
+      it('sets to default options with empty object', () => {
         const defaultOptions = new CpfFormatterOptions();
 
         const formatter = new CpfFormatter({});
@@ -26,7 +26,7 @@ describe('CpfFormatter', (): void => {
         expect(formatter.options.all).toEqual(defaultOptions.all);
       });
 
-      it('uses the provided options instance', (): void => {
+      it('uses the provided options instance', () => {
         const options = new CpfFormatterOptions();
 
         const formatter = new CpfFormatter(options);
@@ -34,7 +34,7 @@ describe('CpfFormatter', (): void => {
         expect(formatter.options).toBe(options);
       });
 
-      it('overrides the default options with the provided ones (literal object)', (): void => {
+      it('overrides the default options with the provided ones (literal object)', () => {
         const options: CpfFormatterOptionsInput = {
           hidden: true,
           dotKey: '_',
@@ -46,7 +46,7 @@ describe('CpfFormatter', (): void => {
         expect(formatter.options.all).toEqual(expect.objectContaining(options));
       });
 
-      it('overrides the default options with the provided ones (CpfFormatterOptions instance)', (): void => {
+      it('overrides the default options with the provided ones (CpfFormatterOptions instance)', () => {
         const options = new CpfFormatterOptions({
           hidden: true,
           dotKey: '_',
@@ -60,7 +60,7 @@ describe('CpfFormatter', (): void => {
     });
   });
 
-  describe('`format` method', (): void => {
+  describe('`format` method', () => {
     let format: InstanceType<typeof CpfFormatter>['format'];
 
     beforeEach(() => {
@@ -69,53 +69,53 @@ describe('CpfFormatter', (): void => {
       format = formatter.format.bind(formatter);
     });
 
-    describe('when input is a string', (): void => {
-      it('handles the input with no formatting', (): void => {
+    describe('when input is a string', () => {
+      it('handles the input with no formatting', () => {
         const result = format('12345678910');
 
         expect(result).toBe('123.456.789-10');
       });
 
-      it('handles the input with standard formatting', (): void => {
+      it('handles the input with standard formatting', () => {
         const result = format('123.456.789-10');
 
         expect(result).toBe('123.456.789-10');
       });
 
-      it('handles the input with custom formatting', (): void => {
+      it('handles the input with custom formatting', () => {
         const result = format('123 456 789 _ 10');
 
         expect(result).toBe('123.456.789-10');
       });
     });
 
-    describe('when input is an array', (): void => {
-      it('handles array of only digits', (): void => {
+    describe('when input is an array', () => {
+      it('handles array of only digits', () => {
         const result = format(['1', '2', '3', '4', '5', '6', '7', '8', '9', '1', '0']);
 
         expect(result).toBe('123.456.789-10');
       });
 
-      it('handles array of single item', (): void => {
+      it('handles array of single item', () => {
         const result = format(['12345678910']);
 
         expect(result).toBe('123.456.789-10');
       });
 
-      it('handles array of grouped digits', (): void => {
+      it('handles array of grouped digits', () => {
         const result = format(['123', '456', '789', '10']);
 
         expect(result).toBe('123.456.789-10');
       });
 
-      it('handles array of grouped digits and punctuation', (): void => {
+      it('handles array of grouped digits and punctuation', () => {
         const result = format(['123', '.', '456', '.', '789', '-', '10']);
 
         expect(result).toBe('123.456.789-10');
       });
     });
 
-    describe('when input is not string or array of strings', (): void => {
+    describe('when input is not string or array of strings', () => {
       it.each([
         { input: null, type: 'null' },
         { input: undefined, type: 'undefined' },
@@ -124,26 +124,23 @@ describe('CpfFormatter', (): void => {
         { input: false, type: 'boolean' },
         { input: true, type: 'boolean' },
         { input: {}, type: 'object' },
-      ])(
-        'throws CpfFormatterInputTypeError on input of $input ($type)',
-        ({ input, type }): void => {
-          try {
-            format(input as unknown as string);
+      ])('throws CpfFormatterInputTypeError on input of $input ($type)', ({ input, type }) => {
+        try {
+          format(input as unknown as string);
 
-            expect.unreachable();
-          } catch (error) {
-            const inputTypeError = error as CpfFormatterInputTypeError;
+          expect.unreachable();
+        } catch (error) {
+          const inputTypeError = error as CpfFormatterInputTypeError;
 
-            expect(error).toBeInstanceOf(CpfFormatterInputTypeError);
-            expect(inputTypeError.expectedType).toBe('string or string[]');
-            expect(inputTypeError.actualInput).toBe(input);
-            expect(inputTypeError.actualType).toBe(type);
-          }
-        },
-      );
+          expect(error).toBeInstanceOf(CpfFormatterInputTypeError);
+          expect(inputTypeError.expectedType).toBe('string or string[]');
+          expect(inputTypeError.actualInput).toBe(input);
+          expect(inputTypeError.actualType).toBe(type);
+        }
+      });
     });
 
-    describe('when sanitized input length is not 11', (): void => {
+    describe('when sanitized input length is not 11', () => {
       const makeErrorHandlingSpy = (evaluatedLength: number) => {
         return (value: unknown, error?: Error): string => {
           const inputLengthException = error as CpfFormatterInputLengthException;
@@ -171,7 +168,7 @@ describe('CpfFormatter', (): void => {
         { input: '1234567890123', length: 13 },
       ])(
         'fails with CpfFormatterInputLengthException on input of $input ($length)',
-        ({ input, length }): void => {
+        ({ input, length }) => {
           format(input as unknown as string, {
             onFail: makeErrorHandlingSpy(length),
           });
@@ -179,12 +176,12 @@ describe('CpfFormatter', (): void => {
       );
     });
 
-    describe('when using `hidden` option', (): void => {
+    describe('when using `hidden` option', () => {
       const { DEFAULT_HIDDEN_END, DEFAULT_HIDDEN_START } = CpfFormatterOptions;
       const DEFAULT_HIDDEN_LENGTH = DEFAULT_HIDDEN_END - DEFAULT_HIDDEN_START + 1;
       const STANDARD_CPF_FORMAT_LENGTH = '000.000.000-00'.length;
 
-      it('replaces some digits with "*" when simply `true`', (): void => {
+      it('replaces some digits with "*" when simply `true`', () => {
         const result = format('12345678910', { hidden: true });
         const hiddenChars = Array.from(result).filter((char) => char === '*');
 
@@ -192,7 +189,7 @@ describe('CpfFormatter', (): void => {
         expect(result).toHaveLength(STANDARD_CPF_FORMAT_LENGTH);
       });
 
-      it('replaces digits with "*" in a given range', (): void => {
+      it('replaces digits with "*" in a given range', () => {
         const result = format('12345678910', {
           hidden: true,
           hiddenStart: 3,
@@ -203,7 +200,7 @@ describe('CpfFormatter', (): void => {
         expect(result).toHaveLength(STANDARD_CPF_FORMAT_LENGTH);
       });
 
-      it('replaces digits with a custom key', (): void => {
+      it('replaces digits with a custom key', () => {
         const result = format('12345678910', {
           hidden: true,
           hiddenKey: '#',
@@ -215,7 +212,7 @@ describe('CpfFormatter', (): void => {
         expect(result).toHaveLength(STANDARD_CPF_FORMAT_LENGTH);
       });
 
-      it('replaces digits with a custom zero-width key', (): void => {
+      it('replaces digits with a custom zero-width key', () => {
         const result = format('12345678910', {
           hidden: true,
           hiddenKey: '',
@@ -225,7 +222,7 @@ describe('CpfFormatter', (): void => {
         expect(result).toHaveLength(STANDARD_CPF_FORMAT_LENGTH - DEFAULT_HIDDEN_LENGTH);
       });
 
-      it('replaces digits with a custom multi-character key', (): void => {
+      it('replaces digits with a custom multi-character key', () => {
         const result = format('12345678910', {
           hidden: true,
           hiddenKey: '[]',
@@ -240,8 +237,8 @@ describe('CpfFormatter', (): void => {
       });
     });
 
-    describe('when customizing punctuation', (): void => {
-      it('replaces dots with a custom key', (): void => {
+    describe('when customizing punctuation', () => {
+      it('replaces dots with a custom key', () => {
         const result = format('12345678910', {
           dotKey: ' ',
         });
@@ -249,7 +246,7 @@ describe('CpfFormatter', (): void => {
         expect(result).toBe('123 456 789-10');
       });
 
-      it('replaces dots with a custom zero-width key', (): void => {
+      it('replaces dots with a custom zero-width key', () => {
         const result = format('12345678910', {
           dotKey: '',
         });
@@ -257,7 +254,7 @@ describe('CpfFormatter', (): void => {
         expect(result).toBe('123456789-10');
       });
 
-      it('replaces dots with a custom multi-character key', (): void => {
+      it('replaces dots with a custom multi-character key', () => {
         const result = format('12345678910', {
           dotKey: '[]',
         });
@@ -265,7 +262,7 @@ describe('CpfFormatter', (): void => {
         expect(result).toBe('123[]456[]789-10');
       });
 
-      it('replaces dash with a custom key', (): void => {
+      it('replaces dash with a custom key', () => {
         const result = format('12345678910', {
           dashKey: '_',
         });
@@ -273,7 +270,7 @@ describe('CpfFormatter', (): void => {
         expect(result).toBe('123.456.789_10');
       });
 
-      it('replaces dash with a custom zero-width key', (): void => {
+      it('replaces dash with a custom zero-width key', () => {
         const result = format('12345678910', {
           dashKey: '',
         });
@@ -281,7 +278,7 @@ describe('CpfFormatter', (): void => {
         expect(result).toBe('123.456.78910');
       });
 
-      it('replaces dash with a custom multi-character key', (): void => {
+      it('replaces dash with a custom multi-character key', () => {
         const result = format('12345678910', {
           dashKey: ' dv ',
         });
@@ -290,8 +287,8 @@ describe('CpfFormatter', (): void => {
       });
     });
 
-    describe('when using `escape` option ', (): void => {
-      it('escapes HTML special characters', (): void => {
+    describe('when using `escape` option ', () => {
+      it('escapes HTML special characters', () => {
         const result = format('12345678910', {
           dotKey: '&',
           dashKey: '<>',
@@ -302,8 +299,8 @@ describe('CpfFormatter', (): void => {
       });
     });
 
-    describe('when using `encode` option ', (): void => {
-      it('URL-encodes the result', (): void => {
+    describe('when using `encode` option ', () => {
+      it('URL-encodes the result', () => {
         const result = format('12345678910', {
           dashKey: '/',
           encode: true,
@@ -313,8 +310,8 @@ describe('CpfFormatter', (): void => {
       });
     });
 
-    describe('edge cases', (): void => {
-      it('replaces `hiddenKey`, `dotKey` and `dashKey` use multi-characters value', (): void => {
+    describe('edge cases', () => {
+      it('replaces `hiddenKey`, `dotKey` and `dashKey` use multi-characters value', () => {
         const result = format('12345678910', {
           hidden: true,
           hiddenStart: 3,

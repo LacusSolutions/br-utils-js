@@ -3,24 +3,24 @@ import { describe, expect, it } from 'bun:test';
 import { CnpjGeneratorOptions } from '../src/cnpj-generator-options';
 import type { CnpjGeneratorOptionsType, CnpjType } from '../src/types';
 
-describe('CnpjGeneratorOptions', (): void => {
+describe('CnpjGeneratorOptions', () => {
   const DEFAULT_PARAMETERS: CnpjGeneratorOptionsType = {
     format: CnpjGeneratorOptions.DEFAULT_FORMAT,
     prefix: CnpjGeneratorOptions.DEFAULT_PREFIX,
     type: CnpjGeneratorOptions.DEFAULT_TYPE,
   };
 
-  describe('constructor', (): void => {
-    describe('when called with no parameters', (): void => {
-      it('sets all options to default values', (): void => {
+  describe('constructor', () => {
+    describe('when called with no parameters', () => {
+      it('sets all options to default values', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(options.all).toEqual(DEFAULT_PARAMETERS);
       });
     });
 
-    describe('when called with all parameters with undefined values', (): void => {
-      it('sets all options to default values', (): void => {
+    describe('when called with all parameters with undefined values', () => {
+      it('sets all options to default values', () => {
         const options = new CnpjGeneratorOptions({
           format: undefined,
           prefix: undefined,
@@ -31,8 +31,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when called with all parameters with null values', (): void => {
-      it('sets all options to default values', (): void => {
+    describe('when called with all parameters with null values', () => {
+      it('sets all options to default values', () => {
         const options = new CnpjGeneratorOptions({
           format: null as unknown as boolean,
           prefix: null as unknown as string,
@@ -43,8 +43,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when called with all parameters', (): void => {
-      it('sets all options to the provided values', (): void => {
+    describe('when called with all parameters', () => {
+      it('sets all options to the provided values', () => {
         const parameters: CnpjGeneratorOptionsType = {
           format: true,
           prefix: '12345',
@@ -57,8 +57,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when called with some parameters', (): void => {
-      it('sets only the provided non-nullish values', (): void => {
+    describe('when called with some parameters', () => {
+      it('sets only the provided non-nullish values', () => {
         const parameters: Partial<CnpjGeneratorOptionsType> = {
           prefix: undefined,
           type: 'numeric',
@@ -73,8 +73,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when called with a CnpjGeneratorOptions instance', (): void => {
-      it('sets a new instance with the same values', (): void => {
+    describe('when called with a CnpjGeneratorOptions instance', () => {
+      it('sets a new instance with the same values', () => {
         const originalOptions = new CnpjGeneratorOptions({
           format: true,
           prefix: '12345',
@@ -88,14 +88,14 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when called with overrides parameters', (): void => {
-      it('uses last param option with 2 params', (): void => {
+    describe('when called with overrides parameters', () => {
+      it('uses last param option with 2 params', () => {
         const options = new CnpjGeneratorOptions({ prefix: '12345' }, { prefix: '11222333' });
 
         expect(options.prefix).toBe('11222333');
       });
 
-      it('uses last param option with 5 params', (): void => {
+      it('uses last param option with 5 params', () => {
         const options = new CnpjGeneratorOptions(
           { prefix: '123456780009' },
           { prefix: '11' },
@@ -109,9 +109,9 @@ describe('CnpjGeneratorOptions', (): void => {
     });
   });
 
-  describe('`format` property', (): void => {
-    describe('when setting to a boolean value', (): void => {
-      it('sets `format` to `true`', (): void => {
+  describe('`format` property', () => {
+    describe('when setting to a boolean value', () => {
+      it('sets `format` to `true`', () => {
         const options = new CnpjGeneratorOptions({ format: false });
 
         options.format = true;
@@ -119,7 +119,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.format).toBe(true);
       });
 
-      it('sets `format` to `false`', (): void => {
+      it('sets `format` to `false`', () => {
         const options = new CnpjGeneratorOptions({ format: true });
 
         options.format = false;
@@ -128,8 +128,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjGeneratorOptions({ format: !DEFAULT_PARAMETERS.format });
 
         options.format = undefined;
@@ -137,7 +137,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.format).toBe(DEFAULT_PARAMETERS.format);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjGeneratorOptions({ format: !DEFAULT_PARAMETERS.format });
 
         options.format = null as unknown as boolean;
@@ -146,8 +146,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-boolean value', (): void => {
-      it('coerces object value to `true`', (): void => {
+    describe('when setting to a non-boolean value', () => {
+      it('coerces object value to `true`', () => {
         const options = new CnpjGeneratorOptions({ format: false });
 
         options.format = { not: 'a boolean' } as unknown as boolean;
@@ -155,7 +155,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.format).toBe(true);
       });
 
-      it('coerces truthy string value to `true`', (): void => {
+      it('coerces truthy string value to `true`', () => {
         const options = new CnpjGeneratorOptions({ format: false });
 
         options.format = 'not a boolean' as unknown as boolean;
@@ -163,7 +163,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.format).toBe(true);
       });
 
-      it('coerces truthy number value to `true`', (): void => {
+      it('coerces truthy number value to `true`', () => {
         const options = new CnpjGeneratorOptions({ format: false });
 
         options.format = 123 as unknown as boolean;
@@ -171,7 +171,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.format).toBe(true);
       });
 
-      it('coerces empty string value to `false`', (): void => {
+      it('coerces empty string value to `false`', () => {
         const options = new CnpjGeneratorOptions({ format: false });
 
         options.format = '' as unknown as boolean;
@@ -179,7 +179,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.format).toBe(false);
       });
 
-      it('coerces zero number value to `false`', (): void => {
+      it('coerces zero number value to `false`', () => {
         const options = new CnpjGeneratorOptions({ format: false });
 
         options.format = 0 as unknown as boolean;
@@ -189,9 +189,9 @@ describe('CnpjGeneratorOptions', (): void => {
     });
   });
 
-  describe('`prefix` property', (): void => {
-    describe('when setting to a valid string value', (): void => {
-      it('sets `prefix` to the provided value', (): void => {
+  describe('`prefix` property', () => {
+    describe('when setting to a valid string value', () => {
+      it('sets `prefix` to the provided value', () => {
         const options = new CnpjGeneratorOptions({ prefix: '12345' });
 
         options.prefix = '11222333';
@@ -199,7 +199,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.prefix).toBe('11222333');
       });
 
-      it('strips non-alphanumeric characters from the provided value', (): void => {
+      it('strips non-alphanumeric characters from the provided value', () => {
         const options = new CnpjGeneratorOptions();
 
         options.prefix = '12.ABC.def/0001';
@@ -207,7 +207,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.prefix).toBe('12ABCDEF0001');
       });
 
-      it('ignores extra characters from the provided value', (): void => {
+      it('ignores extra characters from the provided value', () => {
         const options = new CnpjGeneratorOptions();
 
         options.prefix = '12ABC345678910';
@@ -216,8 +216,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjGeneratorOptions({ prefix: '12345' });
 
         options.prefix = undefined;
@@ -225,7 +225,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.prefix).toBe(DEFAULT_PARAMETERS.prefix);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjGeneratorOptions({ prefix: '12345' });
 
         options.prefix = null as unknown as string;
@@ -234,8 +234,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CnpjGeneratorOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CnpjGeneratorOptionsTypeError with an object', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -243,7 +243,7 @@ describe('CnpjGeneratorOptions', (): void => {
         }).toThrow('CNPJ generator option "prefix" must be of type string. Got object.');
       });
 
-      it('throws CnpjGeneratorOptionsTypeError with a number', (): void => {
+      it('throws CnpjGeneratorOptionsTypeError with a number', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -251,7 +251,7 @@ describe('CnpjGeneratorOptions', (): void => {
         }).toThrow('CNPJ generator option "prefix" must be of type string. Got integer number.');
       });
 
-      it('throws CnpjGeneratorOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjGeneratorOptionsTypeError with a boolean', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -260,8 +260,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when setting to an invalid string', (): void => {
-      it('throws CnpjGeneratorOptionPrefixInvalidException with base ID all zeros', (): void => {
+    describe('when setting to an invalid string', () => {
+      it('throws CnpjGeneratorOptionPrefixInvalidException with base ID all zeros', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -271,7 +271,7 @@ describe('CnpjGeneratorOptions', (): void => {
         );
       });
 
-      it('throws CnpjGeneratorOptionPrefixInvalidException with branch ID all zeros', (): void => {
+      it('throws CnpjGeneratorOptionPrefixInvalidException with branch ID all zeros', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -291,7 +291,7 @@ describe('CnpjGeneratorOptions', (): void => {
         '777777777777',
         '888888888888',
         '999999999999',
-      ])('throws CnpjGeneratorOptionPrefixInvalidException with "%s"', (prefix): void => {
+      ])('throws CnpjGeneratorOptionPrefixInvalidException with "%s"', (prefix) => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -328,7 +328,7 @@ describe('CnpjGeneratorOptions', (): void => {
         'XXXXXXXXXXXX',
         'YYYYYYYYYYYY',
         'ZZZZZZZZZZZZ',
-      ])('does not throw exception with "%s"', (prefix): void => {
+      ])('does not throw exception with "%s"', (prefix) => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -339,11 +339,11 @@ describe('CnpjGeneratorOptions', (): void => {
     });
   });
 
-  describe('`type` property', (): void => {
-    describe('when setting to a valid option value', (): void => {
+  describe('`type` property', () => {
+    describe('when setting to a valid option value', () => {
       it.each(['alphabetic', 'alphanumeric', 'numeric'])(
         'sets `type` to the value "%s"',
-        (type): void => {
+        (type) => {
           const options = new CnpjGeneratorOptions({ type });
 
           options.type = type;
@@ -353,8 +353,8 @@ describe('CnpjGeneratorOptions', (): void => {
       );
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CnpjGeneratorOptions({ type: 'numeric' });
 
         options.type = undefined;
@@ -362,7 +362,7 @@ describe('CnpjGeneratorOptions', (): void => {
         expect(options.type).toBe(DEFAULT_PARAMETERS.type);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CnpjGeneratorOptions({ type: 'numeric' });
 
         options.type = null as unknown as CnpjType;
@@ -371,8 +371,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CnpjGeneratorOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CnpjGeneratorOptionsTypeError with an object', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -380,7 +380,7 @@ describe('CnpjGeneratorOptions', (): void => {
         }).toThrow('CNPJ generator option "type" must be of type string. Got object.');
       });
 
-      it('throws CnpjGeneratorOptionsTypeError with a number', (): void => {
+      it('throws CnpjGeneratorOptionsTypeError with a number', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -388,7 +388,7 @@ describe('CnpjGeneratorOptions', (): void => {
         }).toThrow('CNPJ generator option "type" must be of type string. Got integer number.');
       });
 
-      it('throws CnpjGeneratorOptionsTypeError with a boolean', (): void => {
+      it('throws CnpjGeneratorOptionsTypeError with a boolean', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -397,8 +397,8 @@ describe('CnpjGeneratorOptions', (): void => {
       });
     });
 
-    describe('when setting to an invalid option', (): void => {
-      it('throws CnpjGeneratorOptionTypeInvalidException with unexpected value', (): void => {
+    describe('when setting to an invalid option', () => {
+      it('throws CnpjGeneratorOptionTypeInvalidException with unexpected value', () => {
         const options = new CnpjGeneratorOptions();
 
         expect(() => {
@@ -410,8 +410,8 @@ describe('CnpjGeneratorOptions', (): void => {
     });
   });
 
-  describe('`all` getter', (): void => {
-    it('returns the all properties', (): void => {
+  describe('`all` getter', () => {
+    it('returns the all properties', () => {
       const options = new CnpjGeneratorOptions();
 
       expect(options.all).toEqual({

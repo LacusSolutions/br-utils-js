@@ -56,8 +56,8 @@
     "test:ci": "bun test"
   },
   "dependencies": {
-    "@lacussoft/cnpj-fmt": "workspace:^2.0.2",
-    "@lacussoft/cnpj-gen": "workspace:^2.0.2",
-    "@lacussoft/cnpj-val": "workspace:^2.0.2"
+    "@lacussoft/cnpj-fmt": "^2.0.2",
+    "@lacussoft/cnpj-gen": "^2.0.2",
+    "@lacussoft/cnpj-val": "^2.0.2"
   }
 }

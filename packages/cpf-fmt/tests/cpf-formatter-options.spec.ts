@@ -3,7 +3,7 @@ import { describe, expect, it } from 'bun:test';
 import { CpfFormatterOptions } from '../src/cpf-formatter-options';
 import type { CpfFormatterOptionsType, OnFailCallback } from '../src/types';
 
-describe('CpfFormatterOptions', (): void => {
+describe('CpfFormatterOptions', () => {
   const DEFAULT_PARAMETERS: CpfFormatterOptionsType = {
     hidden: CpfFormatterOptions.DEFAULT_HIDDEN,
     hiddenKey: CpfFormatterOptions.DEFAULT_HIDDEN_KEY,
@@ -16,17 +16,17 @@ describe('CpfFormatterOptions', (): void => {
     onFail: CpfFormatterOptions.DEFAULT_ON_FAIL,
   };
 
-  describe('constructor', (): void => {
-    describe('when called with no parameters', (): void => {
-      it('sets all options to default values', (): void => {
+  describe('constructor', () => {
+    describe('when called with no parameters', () => {
+      it('sets all options to default values', () => {
         const options = new CpfFormatterOptions();
 
         expect(options.all).toEqual(DEFAULT_PARAMETERS);
       });
     });
 
-    describe('when called with all parameters with undefined values', (): void => {
-      it('sets all options to default values', (): void => {
+    describe('when called with all parameters with undefined values', () => {
+      it('sets all options to default values', () => {
         const options = new CpfFormatterOptions({
           hidden: undefined,
           hiddenKey: undefined,
@@ -42,8 +42,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with all parameters with null values', (): void => {
-      it('sets all options to default values', (): void => {
+    describe('when called with all parameters with null values', () => {
+      it('sets all options to default values', () => {
         const options = new CpfFormatterOptions({
           hidden: null as unknown as boolean,
           hiddenKey: null as unknown as string,
@@ -59,8 +59,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with all parameters', (): void => {
-      it('sets all options to the provided values', (): void => {
+    describe('when called with all parameters', () => {
+      it('sets all options to the provided values', () => {
         const parameters: CpfFormatterOptionsType = {
           hidden: true,
           hiddenKey: '#',
@@ -79,8 +79,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with some parameters', (): void => {
-      it('sets only the provided non-nullish values', (): void => {
+    describe('when called with some parameters', () => {
+      it('sets only the provided non-nullish values', () => {
         const parameters: Partial<CpfFormatterOptionsType> = {
           hidden: true,
           hiddenKey: '#',
@@ -103,8 +103,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with a CpfFormatterOptions instance', (): void => {
-      it('sets a new instance with the same values', (): void => {
+    describe('when called with a CpfFormatterOptions instance', () => {
+      it('sets a new instance with the same values', () => {
         const originalOptions = new CpfFormatterOptions({
           hidden: true,
           hiddenStart: 1,
@@ -120,14 +120,14 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with overrides parameters', (): void => {
-      it('uses last param option with 2 params', (): void => {
+    describe('when called with overrides parameters', () => {
+      it('uses last param option with 2 params', () => {
         const options = new CpfFormatterOptions({ hiddenKey: '#' }, { hiddenKey: 'X' });
 
         expect(options.hiddenKey).toBe('X');
       });
 
-      it('uses last param option with 5 params', (): void => {
+      it('uses last param option with 5 params', () => {
         const options = new CpfFormatterOptions(
           { hiddenKey: '.' },
           { hiddenKey: '_' },
@@ -141,9 +141,9 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`hidden` property', (): void => {
-    describe('when setting to a boolean value', (): void => {
-      it('sets `hidden` to `true`', (): void => {
+  describe('`hidden` property', () => {
+    describe('when setting to a boolean value', () => {
+      it('sets `hidden` to `true`', () => {
         const options = new CpfFormatterOptions({ hidden: false });
 
         options.hidden = true;
@@ -151,7 +151,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hidden).toBe(true);
       });
 
-      it('sets `hidden` to `false`', (): void => {
+      it('sets `hidden` to `false`', () => {
         const options = new CpfFormatterOptions({ hidden: true });
 
         options.hidden = false;
@@ -160,8 +160,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CpfFormatterOptions({ hidden: !DEFAULT_PARAMETERS.hidden });
 
         options.hidden = undefined;
@@ -169,7 +169,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hidden).toBe(DEFAULT_PARAMETERS.hidden);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CpfFormatterOptions({ hidden: !DEFAULT_PARAMETERS.hidden });
 
         options.hidden = null as unknown as boolean;
@@ -178,8 +178,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-boolean value', (): void => {
-      it('coerces object value to `true`', (): void => {
+    describe('when setting to a non-boolean value', () => {
+      it('coerces object value to `true`', () => {
         const options = new CpfFormatterOptions({ hidden: false });
 
         options.hidden = { not: 'a boolean' } as unknown as boolean;
@@ -187,7 +187,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hidden).toBe(true);
       });
 
-      it('coerces truthy string value to `true`', (): void => {
+      it('coerces truthy string value to `true`', () => {
         const options = new CpfFormatterOptions({ hidden: false });
 
         options.hidden = 'not a boolean' as unknown as boolean;
@@ -195,7 +195,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hidden).toBe(true);
       });
 
-      it('coerces truthy number value to `true`', (): void => {
+      it('coerces truthy number value to `true`', () => {
         const options = new CpfFormatterOptions({ hidden: false });
 
         options.hidden = 123 as unknown as boolean;
@@ -203,7 +203,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hidden).toBe(true);
       });
 
-      it('coerces empty string value to `false`', (): void => {
+      it('coerces empty string value to `false`', () => {
         const options = new CpfFormatterOptions({ hidden: false });
 
         options.hidden = '' as unknown as boolean;
@@ -211,7 +211,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hidden).toBe(false);
       });
 
-      it('coerces zero number value to `false`', (): void => {
+      it('coerces zero number value to `false`', () => {
         const options = new CpfFormatterOptions({ hidden: false });
 
         options.hidden = 0 as unknown as boolean;
@@ -221,9 +221,9 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`hiddenKey` property', (): void => {
-    describe('when setting to a string value', (): void => {
-      it('sets `hiddenKey` to the provided value', (): void => {
+  describe('`hiddenKey` property', () => {
+    describe('when setting to a string value', () => {
+      it('sets `hiddenKey` to the provided value', () => {
         const options = new CpfFormatterOptions({ hiddenKey: '*' });
 
         options.hiddenKey = 'X';
@@ -232,8 +232,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CpfFormatterOptions({ hiddenKey: '#' });
 
         options.hiddenKey = undefined;
@@ -241,7 +241,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hiddenKey).toBe(DEFAULT_PARAMETERS.hiddenKey);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CpfFormatterOptions({ hiddenKey: '#' });
 
         options.hiddenKey = null as unknown as string;
@@ -250,8 +250,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CpfFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CpfFormatterOptionsTypeError with an object', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -259,7 +259,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "hiddenKey" must be of type string. Got object.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a number', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a number', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -267,7 +267,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "hiddenKey" must be of type string. Got integer number.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a boolean', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -276,10 +276,10 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a string containing a forbidden key character', (): void => {
+    describe('when setting to a string containing a forbidden key character', () => {
       it.each([...CpfFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
         'throws CpfFormatterOptionsForbiddenKeyCharacterException with %s',
-        (forbiddenChar): void => {
+        (forbiddenChar) => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -292,9 +292,9 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`hiddenStart` property', (): void => {
-    describe('when setting to a number value', (): void => {
-      it('sets `hiddenStart` to the provided value', (): void => {
+  describe('`hiddenStart` property', () => {
+    describe('when setting to a number value', () => {
+      it('sets `hiddenStart` to the provided value', () => {
         const options = new CpfFormatterOptions({ hiddenStart: 0 });
 
         options.hiddenStart = 1;
@@ -303,8 +303,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to an invalid number value range', (): void => {
-      it('throws CpfFormatterOptionsHiddenRangeInvalidException with a negative number', (): void => {
+    describe('when setting to an invalid number value range', () => {
+      it('throws CpfFormatterOptionsHiddenRangeInvalidException with a negative number', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -314,7 +314,7 @@ describe('CpfFormatterOptions', (): void => {
         );
       });
 
-      it('throws CpfFormatterOptionsHiddenRangeInvalidException with a number greater than 10', (): void => {
+      it('throws CpfFormatterOptionsHiddenRangeInvalidException with a number greater than 10', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -325,8 +325,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CpfFormatterOptions({ hiddenStart: 0 });
 
         options.hiddenStart = undefined;
@@ -334,7 +334,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hiddenStart).toBe(DEFAULT_PARAMETERS.hiddenStart);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CpfFormatterOptions({ hiddenStart: 0 });
 
         options.hiddenStart = null as unknown as number;
@@ -343,8 +343,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-integer value', (): void => {
-      it('throws CpfFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-integer value', () => {
+      it('throws CpfFormatterOptionsTypeError with an object', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -352,7 +352,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "hiddenStart" must be of type integer. Got object.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a string', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a string', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -360,7 +360,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "hiddenStart" must be of type integer. Got string.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a boolean', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -368,7 +368,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "hiddenStart" must be of type integer. Got boolean.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a float number', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a float number', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -380,9 +380,9 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`hiddenEnd` property', (): void => {
-    describe('when setting to a number value', (): void => {
-      it('sets `hiddenEnd` to the provided value', (): void => {
+  describe('`hiddenEnd` property', () => {
+    describe('when setting to a number value', () => {
+      it('sets `hiddenEnd` to the provided value', () => {
         const options = new CpfFormatterOptions({ hiddenEnd: 10 });
 
         options.hiddenEnd = 9;
@@ -391,8 +391,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to an invalid number value range', (): void => {
-      it('throws CpfFormatterOptionsHiddenRangeInvalidException with a negative number', (): void => {
+    describe('when setting to an invalid number value range', () => {
+      it('throws CpfFormatterOptionsHiddenRangeInvalidException with a negative number', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -402,7 +402,7 @@ describe('CpfFormatterOptions', (): void => {
         );
       });
 
-      it('throws CpfFormatterOptionsHiddenRangeInvalidException with a number greater than 10', (): void => {
+      it('throws CpfFormatterOptionsHiddenRangeInvalidException with a number greater than 10', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -413,8 +413,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CpfFormatterOptions({ hiddenEnd: 0 });
 
         options.hiddenEnd = undefined;
@@ -422,7 +422,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hiddenEnd).toBe(DEFAULT_PARAMETERS.hiddenEnd);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CpfFormatterOptions({ hiddenEnd: 0 });
 
         options.hiddenEnd = null as unknown as number;
@@ -431,8 +431,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-integer value', (): void => {
-      it('throws CpfFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-integer value', () => {
+      it('throws CpfFormatterOptionsTypeError with an object', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -440,7 +440,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "hiddenEnd" must be of type integer. Got object.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a string', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a string', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -448,7 +448,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "hiddenEnd" must be of type integer. Got string.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a boolean', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -456,7 +456,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "hiddenEnd" must be of type integer. Got boolean.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a float number', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a float number', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -466,9 +466,9 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`dotKey` property', (): void => {
-    describe('when setting to a string value', (): void => {
-      it('sets `dotKey` to the provided value', (): void => {
+  describe('`dotKey` property', () => {
+    describe('when setting to a string value', () => {
+      it('sets `dotKey` to the provided value', () => {
         const options = new CpfFormatterOptions({ dotKey: '.' });
 
         options.dotKey = '_';
@@ -477,8 +477,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CpfFormatterOptions({ dotKey: '_' });
 
         options.dotKey = undefined;
@@ -486,7 +486,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.dotKey).toBe(DEFAULT_PARAMETERS.dotKey);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CpfFormatterOptions({ dotKey: '.' });
 
         options.dotKey = null as unknown as string;
@@ -495,8 +495,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CpfFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CpfFormatterOptionsTypeError with an object', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -504,7 +504,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "dotKey" must be of type string. Got object.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a number', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a number', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -512,7 +512,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "dotKey" must be of type string. Got integer number.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a boolean', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -521,10 +521,10 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a string containing a forbidden key character', (): void => {
+    describe('when setting to a string containing a forbidden key character', () => {
       it.each([...CpfFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
         'throws CpfFormatterOptionsForbiddenKeyCharacterException with %s',
-        (forbiddenChar): void => {
+        (forbiddenChar) => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -537,9 +537,9 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`dashKey` property', (): void => {
-    describe('when setting to a string value', (): void => {
-      it('sets `dashKey` to the provided value', (): void => {
+  describe('`dashKey` property', () => {
+    describe('when setting to a string value', () => {
+      it('sets `dashKey` to the provided value', () => {
         const options = new CpfFormatterOptions({ dashKey: '.' });
 
         options.dashKey = '_';
@@ -548,8 +548,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CpfFormatterOptions({ dashKey: '_' });
 
         options.dashKey = undefined;
@@ -557,7 +557,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.dashKey).toBe(DEFAULT_PARAMETERS.dashKey);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CpfFormatterOptions({ dashKey: '.' });
 
         options.dashKey = null as unknown as string;
@@ -566,8 +566,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-string value', (): void => {
-      it('throws CpfFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-string value', () => {
+      it('throws CpfFormatterOptionsTypeError with an object', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -575,7 +575,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "dashKey" must be of type string. Got object.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a number', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a number', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -583,7 +583,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "dashKey" must be of type string. Got integer number.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a boolean', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -592,10 +592,10 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a string containing a forbidden key character', (): void => {
+    describe('when setting to a string containing a forbidden key character', () => {
       it.each([...CpfFormatterOptions.DISALLOWED_KEY_CHARACTERS])(
         'throws CpfFormatterOptionsForbiddenKeyCharacterException with %s',
-        (forbiddenChar): void => {
+        (forbiddenChar) => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -608,9 +608,9 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`escape` property', (): void => {
-    describe('when setting to a boolean value', (): void => {
-      it('sets `escape` to `true`', (): void => {
+  describe('`escape` property', () => {
+    describe('when setting to a boolean value', () => {
+      it('sets `escape` to `true`', () => {
         const options = new CpfFormatterOptions({ escape: false });
 
         options.escape = true;
@@ -618,7 +618,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.escape).toBe(true);
       });
 
-      it('sets `escape` to `false`', (): void => {
+      it('sets `escape` to `false`', () => {
         const options = new CpfFormatterOptions({ escape: true });
 
         options.escape = false;
@@ -627,8 +627,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CpfFormatterOptions({ escape: !DEFAULT_PARAMETERS.escape });
 
         options.escape = undefined;
@@ -636,7 +636,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.escape).toBe(DEFAULT_PARAMETERS.escape);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CpfFormatterOptions({ escape: !DEFAULT_PARAMETERS.escape });
 
         options.escape = null as unknown as boolean;
@@ -645,8 +645,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-boolean value', (): void => {
-      it('coerces object value to `true`', (): void => {
+    describe('when setting to a non-boolean value', () => {
+      it('coerces object value to `true`', () => {
         const options = new CpfFormatterOptions({ escape: false });
 
         options.escape = { not: 'a boolean' } as unknown as boolean;
@@ -654,7 +654,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.escape).toBe(true);
       });
 
-      it('coerces truthy string value to `true`', (): void => {
+      it('coerces truthy string value to `true`', () => {
         const options = new CpfFormatterOptions({ escape: false });
 
         options.escape = 'not a boolean' as unknown as boolean;
@@ -662,7 +662,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.escape).toBe(true);
       });
 
-      it('coerces truthy number value to `true`', (): void => {
+      it('coerces truthy number value to `true`', () => {
         const options = new CpfFormatterOptions({ escape: false });
 
         options.escape = 123 as unknown as boolean;
@@ -670,7 +670,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.escape).toBe(true);
       });
 
-      it('coerces empty string value to `false`', (): void => {
+      it('coerces empty string value to `false`', () => {
         const options = new CpfFormatterOptions({ escape: false });
 
         options.escape = '' as unknown as boolean;
@@ -678,7 +678,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.escape).toBe(false);
       });
 
-      it('coerces zero number value to `false`', (): void => {
+      it('coerces zero number value to `false`', () => {
         const options = new CpfFormatterOptions({ escape: false });
 
         options.escape = 0 as unknown as boolean;
@@ -688,9 +688,9 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`encode` property', (): void => {
-    describe('when setting to a boolean value', (): void => {
-      it('sets `encode` to `true`', (): void => {
+  describe('`encode` property', () => {
+    describe('when setting to a boolean value', () => {
+      it('sets `encode` to `true`', () => {
         const options = new CpfFormatterOptions({ encode: false });
 
         options.encode = true;
@@ -698,7 +698,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.encode).toBe(true);
       });
 
-      it('sets `encode` to `false`', (): void => {
+      it('sets `encode` to `false`', () => {
         const options = new CpfFormatterOptions({ encode: true });
 
         options.encode = false;
@@ -707,8 +707,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default value for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default value for `undefined`', () => {
         const options = new CpfFormatterOptions({ encode: !DEFAULT_PARAMETERS.encode });
 
         options.encode = undefined;
@@ -716,7 +716,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.encode).toBe(DEFAULT_PARAMETERS.encode);
       });
 
-      it('sets default value for `null`', (): void => {
+      it('sets default value for `null`', () => {
         const options = new CpfFormatterOptions({ encode: !DEFAULT_PARAMETERS.encode });
 
         options.encode = null as unknown as boolean;
@@ -725,8 +725,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-boolean value', (): void => {
-      it('coerces object value to `true`', (): void => {
+    describe('when setting to a non-boolean value', () => {
+      it('coerces object value to `true`', () => {
         const options = new CpfFormatterOptions({ encode: false });
 
         options.encode = { not: 'a boolean' } as unknown as boolean;
@@ -734,7 +734,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.encode).toBe(true);
       });
 
-      it('coerces truthy string value to `true`', (): void => {
+      it('coerces truthy string value to `true`', () => {
         const options = new CpfFormatterOptions({ encode: false });
 
         options.encode = 'not a boolean' as unknown as boolean;
@@ -742,7 +742,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.encode).toBe(true);
       });
 
-      it('coerces truthy number value to `true`', (): void => {
+      it('coerces truthy number value to `true`', () => {
         const options = new CpfFormatterOptions({ encode: false });
 
         options.encode = 123 as unknown as boolean;
@@ -750,7 +750,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.encode).toBe(true);
       });
 
-      it('coerces empty string value to `false`', (): void => {
+      it('coerces empty string value to `false`', () => {
         const options = new CpfFormatterOptions({ encode: false });
 
         options.encode = '' as unknown as boolean;
@@ -758,7 +758,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.encode).toBe(false);
       });
 
-      it('coerces zero number value to `false`', (): void => {
+      it('coerces zero number value to `false`', () => {
         const options = new CpfFormatterOptions({ encode: false });
 
         options.encode = 0 as unknown as boolean;
@@ -768,17 +768,17 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`onFail` property', (): void => {
-    describe('when using the default callback value', (): void => {
-      it('returns empty string', (): void => {
+  describe('`onFail` property', () => {
+    describe('when using the default callback value', () => {
+      it('returns empty string', () => {
         const result = CpfFormatterOptions.DEFAULT_ON_FAIL('some value');
 
         expect(result).toBe('');
       });
     });
 
-    describe('when setting to a callable value', (): void => {
-      it('sets `onFail` to the provided callback', (): void => {
+    describe('when setting to a callable value', () => {
+      it('sets `onFail` to the provided callback', () => {
         const callback: OnFailCallback = (value) => `ERROR: ${value}`;
         const options = new CpfFormatterOptions();
 
@@ -788,8 +788,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a nullish value', (): void => {
-      it('sets default callback for `undefined`', (): void => {
+    describe('when setting to a nullish value', () => {
+      it('sets default callback for `undefined`', () => {
         const callback: OnFailCallback = (value) => `ERROR: ${value}`;
         const options = new CpfFormatterOptions({ onFail: callback });
 
@@ -799,7 +799,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.onFail.name).toBe('DEFAULT_ON_FAIL');
       });
 
-      it('sets default callback for `null`', (): void => {
+      it('sets default callback for `null`', () => {
         const callback: OnFailCallback = (value) => `ERROR: ${value}`;
         const options = new CpfFormatterOptions({ onFail: callback });
 
@@ -810,8 +810,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when setting to a non-callable value', (): void => {
-      it('throws CpfFormatterOptionsTypeError with an object', (): void => {
+    describe('when setting to a non-callable value', () => {
+      it('throws CpfFormatterOptionsTypeError with an object', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -819,7 +819,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "onFail" must be of type function. Got object.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a string', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a string', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -827,7 +827,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "onFail" must be of type function. Got string.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a number', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a number', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -835,7 +835,7 @@ describe('CpfFormatterOptions', (): void => {
         }).toThrow('CPF formatting option "onFail" must be of type function. Got integer number.');
       });
 
-      it('throws CpfFormatterOptionsTypeError with a boolean', (): void => {
+      it('throws CpfFormatterOptionsTypeError with a boolean', () => {
         const options = new CpfFormatterOptions();
 
         expect(() => {
@@ -845,8 +845,8 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`all` getter', (): void => {
-    it('returns the all properties', (): void => {
+  describe('`all` getter', () => {
+    it('returns the all properties', () => {
       const options = new CpfFormatterOptions();
 
       expect(options.all).toEqual({
@@ -863,9 +863,9 @@ describe('CpfFormatterOptions', (): void => {
     });
   });
 
-  describe('`setHiddenRange` method', (): void => {
-    describe('when called with valid values', (): void => {
-      it('sets `hiddenStart` and `hiddenEnd` to the provided values', (): void => {
+  describe('`setHiddenRange` method', () => {
+    describe('when called with valid values', () => {
+      it('sets `hiddenStart` and `hiddenEnd` to the provided values', () => {
         const options = new CpfFormatterOptions();
 
         options.setHiddenRange(0, 10);
@@ -874,8 +874,8 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hiddenEnd).toBe(10);
       });
 
-      describe('and `hiddenStart` is equal to `hiddenEnd`', (): void => {
-        it('sets `hiddenStart` and `hiddenEnd` with 0 accordingly', (): void => {
+      describe('and `hiddenStart` is equal to `hiddenEnd`', () => {
+        it('sets `hiddenStart` and `hiddenEnd` with 0 accordingly', () => {
           const options = new CpfFormatterOptions();
 
           options.setHiddenRange(0, 0);
@@ -884,7 +884,7 @@ describe('CpfFormatterOptions', (): void => {
           expect(options.hiddenEnd).toBe(0);
         });
 
-        it('sets `hiddenStart` and `hiddenEnd` with 10 accordingly', (): void => {
+        it('sets `hiddenStart` and `hiddenEnd` with 10 accordingly', () => {
           const options = new CpfFormatterOptions();
 
           options.setHiddenRange(10, 10);
@@ -894,8 +894,8 @@ describe('CpfFormatterOptions', (): void => {
         });
       });
 
-      describe('and `hiddenStart` is greater than `hiddenEnd`', (): void => {
-        it('automatically swaps start and end values', (): void => {
+      describe('and `hiddenStart` is greater than `hiddenEnd`', () => {
+        it('automatically swaps start and end values', () => {
           const options = new CpfFormatterOptions();
 
           options.setHiddenRange(8, 2);
@@ -906,8 +906,8 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with nullish values', (): void => {
-      it('sets default values for `undefined` in both fields', (): void => {
+    describe('when called with nullish values', () => {
+      it('sets default values for `undefined` in both fields', () => {
         const options = new CpfFormatterOptions();
 
         options.setHiddenRange(undefined, undefined);
@@ -916,7 +916,7 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hiddenEnd).toBe(DEFAULT_PARAMETERS.hiddenEnd);
       });
 
-      it('sets default values for `null` in both fields', (): void => {
+      it('sets default values for `null` in both fields', () => {
         const options = new CpfFormatterOptions();
 
         options.setHiddenRange(null as unknown as number, null as unknown as number);
@@ -925,8 +925,8 @@ describe('CpfFormatterOptions', (): void => {
         expect(options.hiddenEnd).toBe(DEFAULT_PARAMETERS.hiddenEnd);
       });
 
-      describe('when setting `hiddenStart` to a nullish value', (): void => {
-        it('sets default value for `undefined`', (): void => {
+      describe('when setting `hiddenStart` to a nullish value', () => {
+        it('sets default value for `undefined`', () => {
           const options = new CpfFormatterOptions({ hiddenStart: 0 });
 
           options.setHiddenRange(undefined, 10);
@@ -935,7 +935,7 @@ describe('CpfFormatterOptions', (): void => {
           expect(options.hiddenEnd).toBe(10);
         });
 
-        it('sets default value for `null`', (): void => {
+        it('sets default value for `null`', () => {
           const options = new CpfFormatterOptions({ hiddenStart: 0 });
 
           options.setHiddenRange(null as unknown as number, 10);
@@ -945,8 +945,8 @@ describe('CpfFormatterOptions', (): void => {
         });
       });
 
-      describe('when setting `hiddenEnd` to a nullish value', (): void => {
-        it('sets default value for `undefined`', (): void => {
+      describe('when setting `hiddenEnd` to a nullish value', () => {
+        it('sets default value for `undefined`', () => {
           const options = new CpfFormatterOptions({ hiddenEnd: 10 });
 
           options.setHiddenRange(0, undefined);
@@ -955,7 +955,7 @@ describe('CpfFormatterOptions', (): void => {
           expect(options.hiddenEnd).toBe(DEFAULT_PARAMETERS.hiddenEnd);
         });
 
-        it('sets default value for `null`', (): void => {
+        it('sets default value for `null`', () => {
           const options = new CpfFormatterOptions({ hiddenEnd: 10 });
 
           options.setHiddenRange(0, null as unknown as number);
@@ -966,9 +966,9 @@ describe('CpfFormatterOptions', (): void => {
       });
     });
 
-    describe('when called with invalid values', (): void => {
-      describe('when setting `hiddenStart` to an invalid number value range', (): void => {
-        it('throws CpfFormatterOptionsHiddenRangeInvalidException with a negative number', (): void => {
+    describe('when called with invalid values', () => {
+      describe('when setting `hiddenStart` to an invalid number value range', () => {
+        it('throws CpfFormatterOptionsHiddenRangeInvalidException with a negative number', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -978,7 +978,7 @@ describe('CpfFormatterOptions', (): void => {
           );
         });
 
-        it('throws CpfFormatterOptionsHiddenRangeInvalidException with a number greater than 10', (): void => {
+        it('throws CpfFormatterOptionsHiddenRangeInvalidException with a number greater than 10', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -989,8 +989,8 @@ describe('CpfFormatterOptions', (): void => {
         });
       });
 
-      describe('when setting `hiddenEnd` to an invalid number value range', (): void => {
-        it('throws CpfFormatterOptionsHiddenRangeInvalidException with a negative number', (): void => {
+      describe('when setting `hiddenEnd` to an invalid number value range', () => {
+        it('throws CpfFormatterOptionsHiddenRangeInvalidException with a negative number', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -1000,7 +1000,7 @@ describe('CpfFormatterOptions', (): void => {
           );
         });
 
-        it('throws CpfFormatterOptionsHiddenRangeInvalidException with a number greater than 10', (): void => {
+        it('throws CpfFormatterOptionsHiddenRangeInvalidException with a number greater than 10', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -1011,8 +1011,8 @@ describe('CpfFormatterOptions', (): void => {
         });
       });
 
-      describe('when setting `hiddenStart` to a non-integer value', (): void => {
-        it('throws CpfFormatterOptionsTypeError with an object', (): void => {
+      describe('when setting `hiddenStart` to a non-integer value', () => {
+        it('throws CpfFormatterOptionsTypeError with an object', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -1020,7 +1020,7 @@ describe('CpfFormatterOptions', (): void => {
           }).toThrow('CPF formatting option "hiddenStart" must be of type integer. Got object.');
         });
 
-        it('throws CpfFormatterOptionsTypeError with a string', (): void => {
+        it('throws CpfFormatterOptionsTypeError with a string', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -1028,7 +1028,7 @@ describe('CpfFormatterOptions', (): void => {
           }).toThrow('CPF formatting option "hiddenStart" must be of type integer. Got string.');
         });
 
-        it('throws CpfFormatterOptionsTypeError with a boolean', (): void => {
+        it('throws CpfFormatterOptionsTypeError with a boolean', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -1036,7 +1036,7 @@ describe('CpfFormatterOptions', (): void => {
           }).toThrow('CPF formatting option "hiddenStart" must be of type integer. Got boolean.');
         });
 
-        it('throws CpfFormatterOptionsTypeError with a float number', (): void => {
+        it('throws CpfFormatterOptionsTypeError with a float number', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -1047,8 +1047,8 @@ describe('CpfFormatterOptions', (): void => {
         });
       });
 
-      describe('when setting `hiddenEnd` to a non-integer value', (): void => {
-        it('throws CpfFormatterOptionsTypeError with an object', (): void => {
+      describe('when setting `hiddenEnd` to a non-integer value', () => {
+        it('throws CpfFormatterOptionsTypeError with an object', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -1056,7 +1056,7 @@ describe('CpfFormatterOptions', (): void => {
           }).toThrow('CPF formatting option "hiddenEnd" must be of type integer. Got object.');
         });
 
-        it('throws CpfFormatterOptionsTypeError with a string', (): void => {
+        it('throws CpfFormatterOptionsTypeError with a string', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -1064,7 +1064,7 @@ describe('CpfFormatterOptions', (): void => {
           }).toThrow('CPF formatting option "hiddenEnd" must be of type integer. Got string.');
         });
 
-        it('throws CpfFormatterOptionsTypeError with a boolean', (): void => {
+        it('throws CpfFormatterOptionsTypeError with a boolean', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {
@@ -1072,7 +1072,7 @@ describe('CpfFormatterOptions', (): void => {
           }).toThrow('CPF formatting option "hiddenEnd" must be of type integer. Got boolean.');
         });
 
-        it('throws CpfFormatterOptionsTypeError with a float number', (): void => {
+        it('throws CpfFormatterOptionsTypeError with a float number', () => {
           const options = new CpfFormatterOptions();
 
           expect(() => {

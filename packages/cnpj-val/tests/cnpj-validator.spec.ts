@@ -14,10 +14,10 @@ import type {
   CnpjValidatorOptionsType,
 } from '../src/types';
 
-describe('CnpjValidator', (): void => {
-  describe('constructor', (): void => {
-    describe('when called with no arguments', (): void => {
-      it('creates an instance with default options', (): void => {
+describe('CnpjValidator', () => {
+  describe('constructor', () => {
+    describe('when called with no arguments', () => {
+      it('creates an instance with default options', () => {
         const defaultOptions = new CnpjValidatorOptions();
 
         const validator = new CnpjValidator();
@@ -26,8 +26,8 @@ describe('CnpjValidator', (): void => {
       });
     });
 
-    describe('when called with an empty object', (): void => {
-      it('creates an instance with default options', (): void => {
+    describe('when called with an empty object', () => {
+      it('creates an instance with default options', () => {
         const defaultOptions = new CnpjValidatorOptions();
 
         const validator = new CnpjValidator({});
@@ -36,8 +36,8 @@ describe('CnpjValidator', (): void => {
       });
     });
 
-    describe('when called with a CnpjValidatorOptions instance', (): void => {
-      it('uses that instance directly without copying', (): void => {
+    describe('when called with a CnpjValidatorOptions instance', () => {
+      it('uses that instance directly without copying', () => {
         const options = new CnpjValidatorOptions({
           caseSensitive: false,
           type: 'numeric',
@@ -48,7 +48,7 @@ describe('CnpjValidator', (): void => {
         expect(validator.options.all).toEqual(options.all);
       });
 
-      it('mutations to the instance affect future isValid calls', (): void => {
+      it('mutations to the instance affect future isValid calls', () => {
         const options = new CnpjValidatorOptions({
           caseSensitive: false,
           type: 'numeric',
@@ -63,8 +63,8 @@ describe('CnpjValidator', (): void => {
       });
     });
 
-    describe('when called with a literal options object', (): void => {
-      it('creates a new CnpjValidatorOptions instance from the provided values', (): void => {
+    describe('when called with a literal options object', () => {
+      it('creates a new CnpjValidatorOptions instance from the provided values', () => {
         const input: CnpjValidatorOptionsInput = {
           caseSensitive: false,
           type: 'numeric',
@@ -81,14 +81,14 @@ describe('CnpjValidator', (): void => {
       });
     });
 
-    describe('when called with invalid options', (): void => {
-      it('throws CnpjValidatorOptionTypeInvalidException for invalid type', (): void => {
+    describe('when called with invalid options', () => {
+      it('throws CnpjValidatorOptionTypeInvalidException for invalid type', () => {
         expect(() => {
           new CnpjValidator({ type: 'invalid' as CnpjType });
         }).toThrow(CnpjValidatorOptionTypeInvalidException);
       });
 
-      it('throws CnpjValidatorOptionsTypeError for non-string type', (): void => {
+      it('throws CnpjValidatorOptionsTypeError for non-string type', () => {
         expect(() => {
           new CnpjValidator({ type: 123 as unknown as CnpjType });
         }).toThrow(CnpjValidatorOptionsTypeError);
@@ -96,7 +96,7 @@ describe('CnpjValidator', (): void => {
     });
   });
 
-  describe('`isValid` method', (): void => {
+  describe('`isValid` method', () => {
     type CnpjValidatorFn = (cnpjInput: CnpjInput, options?: CnpjValidatorOptionsInput) => boolean;
     type CnpjValidatorFactory = (options: Partial<CnpjValidatorOptionsType>) => CnpjValidatorFn;
 
@@ -187,13 +187,13 @@ describe('CnpjValidator', (): void => {
         'when options are passed to method as CnpjValidatorOptions instance',
         createValidatorWithCnpjValidatorOptionsInstanceInMethod,
       ],
-    ])('%s', (_, createValidator): void => {
-      describe('when no options are passed', (): void => {
+    ])('%s', (_, createValidator) => {
+      describe('when no options are passed', () => {
         const isValid = createValidator({});
 
         it.each(createInputsSet('1QB5UKALPYFP59'))(
           'returns `true` for a valid CNPJ $type with numbers and uppercase letters',
-          ({ input }): void => {
+          ({ input }) => {
             const result = isValid(input);
 
             expect(result).toBe(true);
@@ -202,7 +202,7 @@ describe('CnpjValidator', (): void => {
 
         it.each(createInputsSet('96206256120884'))(
           'returns `true` for a valid CNPJ $type with only numbers',
-          ({ input }): void => {
+          ({ input }) => {
             const result = isValid(input);
             expect(result).toBe(true);
           },
@@ -210,7 +210,7 @@ describe('CnpjValidator', (): void => {
 
         it.each(createInputsSet('1QB5UKALpyfp59'))(
           'returns `false` for a valid CNPJ $type with numbers and lowercase letters',
-          ({ input }): void => {
+          ({ input }) => {
             const result = isValid(input);
 
             expect(result).toBe(false);
@@ -219,7 +219,7 @@ describe('CnpjValidator', (): void => {
 
         it.each(createInputsSet('AB123CDE00015'))(
           'returns `false` for a CNPJ $type with less than 14 digits',
-          ({ input }): void => {
+          ({ input }) => {
             const result = isValid(input);
 
             expect(result).toBe(false);
@@ -228,7 +228,7 @@ describe('CnpjValidator', (): void => {
 
         it.each(createInputsSet('AB123CDE0001555'))(
           'returns `false` for a CNPJ $type with more than 14 digits',
-          ({ input }): void => {
+          ({ input }) => {
             const result = isValid(input);
 
             expect(result).toBe(false);
@@ -240,7 +240,7 @@ describe('CnpjValidator', (): void => {
           { baseId: '00000000', branchId: 'A001' },
         ])(
           'returns `false` for a CNPJ with base ID "$baseId" and branch ID "$branchId"',
-          ({ baseId, branchId }): void => {
+          ({ baseId, branchId }) => {
             for (let i = 0; i < 100; i++) {
               const input = `${baseId}${branchId}${i.toString().padStart(2, '0')}`;
 
@@ -261,7 +261,7 @@ describe('CnpjValidator', (): void => {
           '777777777777',
           '888888888888',
           '999999999999',
-        ])('returns `false` for a CNPJ with all digits the same', (prefix): void => {
+        ])('returns `false` for a CNPJ with all digits the same', (prefix) => {
           for (let i = 0; i < 100; i++) {
             const input = `${prefix}${i.toString().padStart(2, '0')}`;
 
@@ -272,12 +272,12 @@ describe('CnpjValidator', (): void => {
         });
       });
 
-      describe('when `caseSensitive` option is `false`', (): void => {
+      describe('when `caseSensitive` option is `false`', () => {
         const isValid = createValidator({ caseSensitive: false });
 
         it.each(createInputsSet('1QB5UKALpyfp59'))(
           'returns `true` for a valid CNPJ $type with numbers and lowercase letters',
-          ({ input }): void => {
+          ({ input }) => {
             const result = isValid(input);
 
             expect(result).toBe(true);
@@ -285,12 +285,12 @@ describe('CnpjValidator', (): void => {
         );
       });
 
-      describe('when `type` option is `"numeric"`', (): void => {
+      describe('when `type` option is `"numeric"`', () => {
         const isValid = createValidator({ type: 'numeric' });
 
         it.each(createInputsSet('96206256120884'))(
           'returns `true` for a valid CNPJ $type with only numbers',
-          ({ input }): void => {
+          ({ input }) => {
             const result = isValid(input);
             expect(result).toBe(true);
           },
@@ -298,7 +298,7 @@ describe('CnpjValidator', (): void => {
 
         it.each(createInputsSet('1QB5UKALPYFP59'))(
           'returns `false` for a valid CNPJ $type with numbers and uppercase letters',
-          ({ input }): void => {
+          ({ input }) => {
             const result = isValid(input);
 
             expect(result).toBe(false);
@@ -307,50 +307,50 @@ describe('CnpjValidator', (): void => {
       });
     });
 
-    describe('when called with invalid arguments', (): void => {
+    describe('when called with invalid arguments', () => {
       let validator: CnpjValidator;
 
       beforeEach(() => {
         validator = new CnpjValidator();
       });
 
-      it('throws a `CnpjValidatorInputTypeError` with `undefined`', (): void => {
+      it('throws a `CnpjValidatorInputTypeError` with `undefined`', () => {
         expect(() => {
           validator.isValid(undefined as unknown as CnpjInput);
         }).toThrow(CnpjValidatorInputTypeError);
       });
 
-      it('throws a `CnpjValidatorInputTypeError` with `null`', (): void => {
+      it('throws a `CnpjValidatorInputTypeError` with `null`', () => {
         expect(() => {
           validator.isValid(null as unknown as CnpjInput);
         }).toThrow(CnpjValidatorInputTypeError);
       });
 
-      it('throws a `CnpjValidatorInputTypeError` with integer number', (): void => {
+      it('throws a `CnpjValidatorInputTypeError` with integer number', () => {
         expect(() => {
           validator.isValid(42 as unknown as CnpjInput);
         }).toThrow(CnpjValidatorInputTypeError);
       });
 
-      it('throws a `CnpjValidatorInputTypeError` with float number', (): void => {
+      it('throws a `CnpjValidatorInputTypeError` with float number', () => {
         expect(() => {
           validator.isValid(3.14 as unknown as CnpjInput);
         }).toThrow(CnpjValidatorInputTypeError);
       });
 
-      it('throws a `CnpjValidatorInputTypeError` with boolean', (): void => {
+      it('throws a `CnpjValidatorInputTypeError` with boolean', () => {
         expect(() => {
           validator.isValid(true as unknown as CnpjInput);
         }).toThrow(CnpjValidatorInputTypeError);
       });
 
-      it('throws a `CnpjValidatorInputTypeError` with object', (): void => {
+      it('throws a `CnpjValidatorInputTypeError` with object', () => {
         expect(() => {
           validator.isValid({ not: 'a string' } as unknown as CnpjInput);
         }).toThrow(CnpjValidatorInputTypeError);
       });
 
-      it('throws a `CnpjValidatorInputTypeError` with array of numbers', (): void => {
+      it('throws a `CnpjValidatorInputTypeError` with array of numbers', () => {
         expect(() => {
           validator.isValid([1, 2, 3] as unknown as CnpjInput);
         }).toThrow(CnpjValidatorInputTypeError);

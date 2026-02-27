@@ -15,7 +15,7 @@ import type { CnpjFormatterOptionsInput, CnpjInput } from './types';
  * A rarely-used 1-length character that is replaced with `hiddenKey` when
  * `hidden` is `true`.
  */
-const HIDDEN_KEY_PLACEHOLDER = CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS[0];
+const HIDDEN_KEY_PLACEHOLDER = CnpjFormatterOptions.DISALLOWED_KEY_CHARACTERS[0]!;
 
 /**
  * Formatter for CNPJ (Cadastro Nacional da Pessoa Jurídica) identifiers. It

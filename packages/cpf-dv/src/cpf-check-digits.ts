@@ -170,4 +170,4 @@ export class CpfCheckDigits {
   }
 }
 
-export default CpfCheckDigits;
+Object.freeze(CpfCheckDigits);

@@ -3,19 +3,19 @@ import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
 import { cnpjGen } from '../src/cnpj-gen';
 import { CnpjGenerator } from '../src/cnpj-generator';
 
-describe('cnpjGen', (): void => {
+describe('cnpjGen', () => {
   let generateSpy: ReturnType<typeof spyOn>;
 
-  beforeEach((): void => {
+  beforeEach(() => {
     generateSpy = spyOn(CnpjGenerator.prototype, 'generate').mockImplementation((): string => '');
   });
 
-  afterEach((): void => {
+  afterEach(() => {
     generateSpy.mockRestore();
   });
 
-  describe('when called', (): void => {
-    it('calls the `generate` method on the `CnpjGenerator` instance', (): void => {
+  describe('when called', () => {
+    it('calls the `generate` method on the `CnpjGenerator` instance', () => {
       cnpjGen();
 
       expect(generateSpy).toHaveBeenCalled();

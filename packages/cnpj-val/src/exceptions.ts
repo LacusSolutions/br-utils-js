@@ -10,7 +10,8 @@ import type { CnpjValidatorOptionsType } from './types';
  * chain setup and automatically sets the error name from the constructor.
  */
 export abstract class CnpjValidatorTypeError extends TypeError {
-  public readonly name: string;
+  public override readonly name: string;
+
   public readonly actualInput: unknown;
   public readonly actualType: string;
   public readonly expectedType: string;
@@ -84,7 +85,7 @@ export class CnpjValidatorOptionsTypeError extends CnpjValidatorTypeError {
  * chain setup and automatically sets the error name from the constructor.
  */
 export abstract class CnpjValidatorException extends Error {
-  public readonly name: string;
+  public override readonly name: string;
 
   public constructor(message: string) {
     super(message);
