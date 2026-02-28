@@ -7,13 +7,26 @@
 [![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js)
 [![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE)
 
-Toolkit to deal with CNPJ data (Brazilian employer ID): validation, formatting and generation of valid IDs.
+> 🚀 **Full support to the new alphanumeric CNPJ format.**
 
-## Browser Support
+> 🌎 [Acessar documentação em português](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-utils/README.pt.md)
 
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) |
-|--- | --- | --- | --- | --- | --- |
-| Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
+A JavaScript/TypeScript toolkit to format, generate, and validate CNPJ (Brazilian Business Tax ID). It wraps [`cnpj-fmt`](https://www.npmjs.com/package/@lacussoft/cnpj-fmt), [`cnpj-gen`](https://www.npmjs.com/package/@lacussoft/cnpj-gen), and [`cnpj-val`](https://www.npmjs.com/package/@lacussoft/cnpj-val) in a single API.
+
+## Platform Support
+
+| ![Node.js](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg) | ![Bun](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bun/bun-original.svg) | ![Deno](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/denojs/denojs-original.svg) | ![Chrome](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Firefox](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firefox/firefox-original.svg) | ![Safari](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/safari/safari-original.svg) | ![Opera](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opera/opera-original.svg) | ![IE](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ie10/ie10-original.svg) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| v16+ ✔ | v1.0+ ✔ | ⚠️ untested | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
+
+## Features
+
+- ✅ **Unified API**: One default instance with `format`, `generate`, and `isValid`; or use the underlying `cnpjFmt`, `cnpjGen`, and `cnpjVal` helpers
+- ✅ **Alphanumeric CNPJ**: Format, generate, and validate 14-character numeric or alphanumeric CNPJ
+- ✅ **Reusable instance**: `CnpjUtils` class with optional default settings (formatter, generator, validator options or instances)
+- ✅ **Full re-exports**: All formatter, generator, and validator classes, options, errors, and types from the three packages
+- ✅ **TypeScript support**: Full type definitions and strict-mode compatible
+- ✅ **Error handling**: Same type errors and exceptions as the underlying packages
 
 ## Installation
 
@@ -25,129 +38,171 @@ $ npm install --save cnpj-utils
 $ bun add cnpj-utils
 ```
 
-## Import
+## Quick Start
 
-```js
-// Common JS syntax:
-const cnpjUtils = require('cnpj-utils')
-
-// ES Module syntax:
+```ts
+// ES Modules — default instance
 import cnpjUtils from 'cnpj-utils'
-// or get the specific function with ES tree-shaking:
-import { isValid, generate, format } from 'cnpj-utils'
+
+// Or named exports (tree-shaking)
+import { CnpjUtils, cnpjFmt, cnpjGen, cnpjVal } from 'cnpj-utils'
+
+// Common JS
+const cnpjUtils = require('cnpj-utils')
 ```
 
-or import it through your HTML file, using CDN:
+Basic usage:
+
+```ts
+const cnpj = '03603568000195'
+
+cnpjUtils.format(cnpj)     // '03.603.568/0001-95'
+
+cnpjUtils.format(cnpj, {   // '03.603.***/****-**'
+  hidden: true
+})
+
+cnpjUtils.format(cnpj, {   // '03603568|0001_95'
+  dotKey: '',
+  slashKey: '|',
+  dashKey: '_'
+})
+
+cnpjUtils.generate()                         // e.g. 'AB123CDE000155' (14-char alphanumeric)
+cnpjUtils.generate({ format: true })         // e.g. 'AB.123.CDE/0001-55'
+cnpjUtils.generate({ prefix: '45623767' })   // e.g. '45623767000296'
+cnpjUtils.generate({ type: 'numeric' })      // e.g. '65453043000178' (digits only)
+
+cnpjUtils.isValid('98765432000198')       // true
+cnpjUtils.isValid('98.765.432/0001-98')   // true
+cnpjUtils.isValid('1QB5UKALPYFP59')       // true (alphanumeric)
+cnpjUtils.isValid('98765432000199')       // false
+```
+
+For legacy frontends, include the UMD build (e.g. minified) in a `<script>` tag; `cnpjUtils` is exposed globally:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/cnpj-utils@latest/dist/cnpj-utils.min.js"></script>
 ```
 
+## Usage
+
+### Formatter options
+
+When calling `format(cnpjInput, options?)`, all options are optional:
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `hidden` | boolean | `false` | When `true`, mask characters in `hiddenStart`–`hiddenEnd` with `hiddenKey` |
+| `hiddenKey` | string | `'*'` | Character(s) used to replace masked digits |
+| `hiddenStart` | number | `5` | Start index (0–13, inclusive) of the range to hide |
+| `hiddenEnd` | number | `13` | End index (0–13, inclusive) of the range to hide |
+| `dotKey` | string | `'.'` | Dot delimiter (e.g. in `12.345.678`) |
+| `slashKey` | string | `'/'` | Slash delimiter (e.g. before branch `…/0001-90`) |
+| `dashKey` | string | `'-'` | Dash delimiter (e.g. before check digits `…-90`) |
+| `escape` | boolean | `false` | When `true`, escape HTML special characters in the result |
+| `encode` | boolean | `false` | When `true`, URL-encode the result (e.g. for query params) |
+| `onFail` | (value, exception) => string | `() => ''` | Callback when sanitized input length ≠ 14; return value is used as result |
+
+### Generator options
+
+When calling `generate(options?)`, all options are optional:
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `format` | boolean | `false` | When `true`, return the generated CNPJ in standard format (`00.000.000/0000-00`) |
+| `prefix` | string | `''` | Partial start string (1–12 alphanumeric chars). Missing characters are generated and check digits computed. |
+| `type` | `'numeric'` \| `'alphabetic'` \| `'alphanumeric'` | `'alphanumeric'` | Character set for the randomly generated part. **Check digits are always numeric.** |
+
+### Validator options
+
+When calling `isValid(cnpjInput, options?)`, all options are optional:
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `caseSensitive` | boolean | `true` | When `false`, lowercase letters are accepted for alphanumeric CNPJ (input is uppercased before validation). |
+| `type` | `'numeric'` \| `'alphanumeric'` | `'alphanumeric'` | `'numeric'`: only digits (0–9); `'alphanumeric'`: digits and letters (0–9, A–Z). |
+
+### `cnpjUtils` (default instance)
+
+The default export is a pre-built `CnpjUtils` instance. Use it for quick one-off calls:
+
+- **`format(cnpjInput, options?)`**: Formats a CNPJ string or array of strings. Delegates to the internal formatter. Input must be 14 alphanumeric characters (after sanitization); otherwise `onFail` is used.
+- **`generate(options?)`**: Generates a valid CNPJ. Delegates to the internal generator.
+- **`isValid(cnpjInput, options?)`**: Returns `true` if the CNPJ is valid. Delegates to the internal validator.
+
+### `CnpjUtils` (class)
+
+For custom default formatter, generator, or validator, create your own instance:
+
+```ts
+import { CnpjUtils } from 'cnpj-utils'
+
+// Default settings (all optional)
+const utils = new CnpjUtils({
+  formatter: { hidden: true, hiddenKey: '#' },
+  generator: { type: 'numeric', format: true },
+  validator: { type: 'numeric', caseSensitive: false },
+})
+
+utils.format('RK0CMT3W000100')        // 'RK.0CM.###/####-##'
+utils.generate()                      // e.g. '73.008.535/0005-06'
+utils.isValid('98.765.432/0001-98')   // true
+
+// Access or replace internal instances
+utils.formatter  // CnpjFormatter
+utils.generator  // CnpjGenerator
+utils.validator  // CnpjValidator
+```
+
+- **`constructor(defaultSettings?)`**: Optional `CnpjUtilsSettingsInput` — `formatter`, `generator`, and `validator` can each be an options object or an instance of `CnpjFormatter` / `CnpjGenerator` / `CnpjValidator`. Omitted keys use default instances.
+- **`format(cnpjInput, options?)`**: Same as the default instance; per-call options override the formatter’s defaults for that call.
+- **`generate(options?)`**: Same as the default instance; per-call options override the generator’s defaults.
+- **`isValid(cnpjInput, options?)`**: Same as the default instance; per-call options override the validator’s defaults.
+- **`formatter`**, **`generator`**, **`validator`**: Getters (and setters) for the internal formatter, generator, and validator.
+
+### Using the underlying helpers and classes
+
+You can use the re-exported formatter, generator, and validator directly:
+
+```ts
+import {
+  cnpjFmt,
+  CnpjFormatter,
+  cnpjGen,
+  CnpjGenerator,
+  cnpjVal,
+  CnpjValidator,
+} from 'cnpj-utils'
+
+cnpjFmt('01ABC234000X56', { slashKey: '|' })   // '01.ABC.234|000X-56'
+cnpjGen({ type: 'numeric' })                    // e.g. '65453043000178'
+cnpjVal('9JN7MGLJZXIO50')                       // true
+
+const formatter = new CnpjFormatter({ hidden: true })
+formatter.format('AB123XYZ000123')               // 'AB.123.***/****-**'
+```
+
+See [@lacussoft/cnpj-fmt](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-fmt/README.md), [@lacussoft/cnpj-gen](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-gen/README.md), and [@lacussoft/cnpj-val](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-val/README.md) for full option and error details.
+
 ## API
 
-`cnpj-utils` is only a wrapper to the libraries maintained by **LacusSoft**, [`cnpj-fmt`](https://www.npmjs.com/package/@lacussoft/cnpj-fmt), [`cnpj-gen`](https://www.npmjs.com/package/@lacussoft/cnpj-gen) and [`cnpj-val`](https://www.npmjs.com/package/@lacussoft/cnpj-val), so you can refer directly to their specific documentation. Anyway, the API is detailed hereby with examples.
+### Exports
 
-### `cnpjUtils.format(string[, options])`
+- **`cnpjUtils`** (default): Pre-built `CnpjUtils` instance with `format`, `generate`, `isValid`, and re-exports from the three packages attached.
+- **`CnpjUtils`**: Class to create a utils instance with optional default formatter, generator, and validator settings.
+- **`CnpjUtilsSettingsInput`**, **`CnpjUtilsSettingsType`**: Types for the constructor settings.
+- **Formatter**: `cnpjFmt`, `CnpjFormatter`, `CnpjFormatterOptions`, `CNPJ_LENGTH`, and formatter types/errors (see cnpj-fmt).
+- **Generator**: `cnpjGen`, `CnpjGenerator`, `CnpjGeneratorOptions`, `CNPJ_LENGTH`, `CNPJ_PREFIX_MAX_LENGTH`, and generator types/errors (see cnpj-gen).
+- **Validator**: `cnpjVal`, `CnpjValidator`, `CnpjValidatorOptions`, and validator types/errors (see cnpj-val).
 
-**returns** `string`
+### Errors & Exceptions
 
-The `format` method expects a string as its first parameter.
-
-If the input does not contain 14 digits (it does not need to be a valid CNPJ, but it MUST be 14-digits long) an `onFail` callback is invoked. By default, a copy of the input is returned as a fallback, but this callback and other customizations may be defined in the second parameter.
-
-```js
-const cnpj = '03603568000195'
-
-cnpjUtils.format(cnpj)     // returns '03.603.568/0001-95'
-
-cnpjUtils.format(cnpj, {   // returns '03.603.***/****-**'
-  hidden: true
-})
-
-cnpjUtils.format(cnpj, {   // returns '03603568|0001_95'
-  delimiters: {
-    dot: '',
-    slash: '|',
-    dash: '_'
-  }
-})
-```
-
-Here are the available default configurations that can be overwritten by the `options` parameter:
-
-```js
-cnpjUtils.format(cnpj, {
-  delimiters: {
-    dot: '.',       // string to replace the dot characters
-    slash: '/',     // string to replace the slash character
-    dash: '-'       // string to replace the dash character
-  },
-  escape: false,    // boolean to define if the result should be HTML escaped
-  hidden: false,    // boolean to define if digits should be hidden
-  hiddenKey: '*',   // string to replace hidden digits
-  hiddenRange: {
-    start: 5,       // starting index of the numeric sequence to be hidden (min 0)
-    end: 13         // ending index of the numeric sequence to be hidden (max 13)
-  },
-  onFail(value) {   // fallback function to be invoked in case a non-14-digits is passed
-    return value
-  }
-})
-```
-
-### `cnpjUtils.generate([options])`
-
-**returns** `string`
-
-If you need to generate valid CNPJs, the `generate` method makes this task easy and safe. Invoke it without parameters to obtain a 14‑digit string. You can also provide an `options` object to configure its output, like flagging it to format or to complete a digits string with a valid CNPJ sequence:
-
-```js
-let cnpj = cnpjUtils.generate()   // returns '65453043000178'
-
-cnpj = cnpjUtils.generate({       // returns '73.008.535/0005-06'
-  format: true
-})
-
-cnpj = cnpjUtils.generate({       // returns '45623767000296'
-  prefix: '45623767'
-})
-
-cnpj = cnpjUtils.generate({       // returns '45.623.767/0002-96'
-  prefix: '456237670002',
-  format: true
-})
-```
-
-The default configurations are:
-
-```js
-cnpjUtils.generate({
-  format: false,    // indicates if output should be formatted
-  prefix: ''        // if you have a CNPJ initials and want to complete it with valid
-})                  //   digits. The string provided must contain between 1 and 12 digits!
-```
-
-Keep in mind that, for the `prefix` option, it must be a **string** containing up to 12 digits.
-
-### `cnpjUtils.isValid(string)`
-
-**returns** `boolean`
-
-The `isValid` method receives a string as its single parameter, evaluates it and returns `true` or `false` as output. This parameter may contain any character like letters, symbols, punctuation or white spaces, but it will immediately return `false` in case the expected 14 digits are not found to be deeply evaluated.
-
-
-```js
-cnpjUtils.isValid('98765432000198')      // returns 'true'
-
-cnpjUtils.isValid('98.765.432/0001-98')  // returns 'true'
-
-cnpjUtils.isValid('98765432000199')      // returns 'false'
-                                ^^
-```
+Errors and exceptions are the same as in the underlying packages. Format calls can throw formatter type/length/options errors; generate can throw generator options/prefix/type exceptions; isValid can throw validator input/options type errors and option type invalid exception. See each package’s README for the full list.
 
 ## Contribution & Support
 
-We welcome contributions! Please see our [Contributing Guidelines](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) for details. But if you find this project helpful, please consider:
+We welcome contributions! Please see our [Contributing Guidelines](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) for details. If you find this project helpful, please consider:
 
 - ⭐ Starring the repository
 - 🤝 Contributing to the codebase
