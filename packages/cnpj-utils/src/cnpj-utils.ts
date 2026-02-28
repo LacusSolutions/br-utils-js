@@ -14,7 +14,10 @@ import {
 import { type CnpjUtilsSettingsInput } from './types';
 
 /**
- * TODO: describe.
+ * Unified API for CNPJ (Cadastro Nacional da Pessoa Jurídica) formatting,
+ * generation, and validation. Wraps a configurable formatter, generator, and
+ * validator so you can format, generate, and validate CNPJ values from a single
+ * instance.
  */
 export class CnpjUtils {
   private _formatter: CnpjFormatter;
@@ -22,11 +25,24 @@ export class CnpjUtils {
   private _validator: CnpjValidator;
 
   /**
-   * Creates a new `CnpjUtils` with customized options.
+   * Creates a new `CnpjUtils` with customized options. Each of formatter,
+   * generator, and validator can be omitted (defaults are used), or provided as
+   * an instance or as an options object.
    *
-   * TODO: describe further.
-   *
-   * @throws TODO: add list of exceptions and errors.
+   * @throws {CnpjFormatterOptionsTypeError} If formatter options have an
+   *   invalid type.
+   * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If formatter
+   *   `hiddenStart` or `hiddenEnd` are out of valid range.
+   * @throws {CnpjGeneratorOptionsTypeError} If generator options have an
+   *   invalid type.
+   * @throws {CnpjGeneratorOptionPrefixInvalidException} If generator `prefix`
+   *   is invalid.
+   * @throws {CnpjGeneratorOptionTypeInvalidException} If generator `type` is
+   *   not allowed.
+   * @throws {CnpjValidatorOptionsTypeError} If validator options have an
+   *   invalid type.
+   * @throws {CnpjValidatorOptionTypeInvalidException} If validator `type` is
+   *   not allowed.
    */
   public constructor(defaultSettings?: CnpjUtilsSettingsInput) {
     this._formatter =
@@ -66,7 +82,9 @@ export class CnpjUtils {
    * of the existing instance, access it directly and use the formatter's
    * setters and methods (e.g. `utils.formatter.hidden = true`).
    *
-   * @throws TODO: add list of exceptions and errors.
+   * @throws {CnpjFormatterOptionsTypeError} If options have an invalid type.
+   * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
+   *   or `hiddenEnd` are out of valid range.
    */
   public set formatter(value: Nullable<CnpjUtilsSettingsInput['formatter']>) {
     this._formatter =
@@ -96,7 +114,9 @@ export class CnpjUtils {
    * of the existing instance, access it directly and use the generator's
    * setters and methods (e.g. `utils.generator.type = 'numeric'`).
    *
-   * @throws TODO: add list of exceptions and errors.
+   * @throws {CnpjGeneratorOptionsTypeError} If options have an invalid type.
+   * @throws {CnpjGeneratorOptionPrefixInvalidException} If `prefix` is invalid.
+   * @throws {CnpjGeneratorOptionTypeInvalidException} If `type` is not allowed.
    */
   public set generator(value: Nullable<CnpjUtilsSettingsInput['generator']>) {
     this._generator =
@@ -126,7 +146,8 @@ export class CnpjUtils {
    * of the existing instance, access it directly and use the validator's
    * setters and methods (e.g. `utils.validator.type = 'numeric'`).
    *
-   * @throws TODO: add list of exceptions and errors.
+   * @throws {CnpjValidatorOptionsTypeError} If options have an invalid type.
+   * @throws {CnpjValidatorOptionTypeInvalidException} If `type` is not allowed.
    */
   public set validator(value: Nullable<CnpjUtilsSettingsInput['validator']>) {
     this._validator =
@@ -134,27 +155,43 @@ export class CnpjUtils {
   }
 
   /**
-   * TODO: describe.
+   * Formats a CNPJ value: normalizes and optionally masks, escapes, or
+   * URL-encodes it. Delegates to the instance formatter; per-call options
+   * override the formatter's defaults for this call only.
    *
-   * @throws TODO: add list of exceptions and errors.
+   * @throws {CnpjFormatterInputTypeError} If the input is not a string or array
+   *   of strings.
+   * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type.
+   * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart`
+   *   or `hiddenEnd` are out of valid range.
    */
   public format(cnpjInput: CnpjFormatterInput, options?: CnpjFormatterOptionsInput): string {
     return this.formatter.format(cnpjInput, options);
   }
 
   /**
-   * TODO: describe.
+   * Generates a valid 14-character CNPJ, optionally with a prefix and
+   * formatting. Delegates to the instance generator; per-call options override
+   * the generator's defaults for this call only.
    *
-   * @throws TODO: add list of exceptions and errors.
+   * @throws {CnpjGeneratorOptionsTypeError} If any option has an invalid type.
+   * @throws {CnpjGeneratorOptionPrefixInvalidException} If `prefix` is invalid.
+   * @throws {CnpjGeneratorOptionTypeInvalidException} If `type` is not allowed.
    */
   public generate(options?: CnpjGeneratorOptionsInput): string {
     return this.generator.generate(options);
   }
 
   /**
-   * TODO: describe.
+   * Returns whether the given value is a valid CNPJ. Delegates to the instance
+   * validator; per-call options override the validator's defaults for this call
+   * only.
    *
-   * @throws TODO: add list of exceptions and errors.
+   * @throws {CnpjValidatorInputTypeError} If the input is not a string or array
+   *   of strings.
+   * @throws {CnpjValidatorOptionsTypeError} If any option has an invalid type.
+   * @throws {CnpjValidatorOptionTypeInvalidException} If the `type` option is
+   *   not allowed.
    */
   public isValid(cnpjInput: CnpjValidatorInput, options?: CnpjValidatorOptionsInput): boolean {
     return this.validator.isValid(cnpjInput, options);

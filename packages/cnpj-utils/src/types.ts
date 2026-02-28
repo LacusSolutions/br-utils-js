@@ -3,7 +3,9 @@ import type { CnpjGenerator, CnpjGeneratorOptionsInput } from './cnpj-generator'
 import type { CnpjValidator, CnpjValidatorOptionsInput } from './cnpj-validator';
 
 /**
- * TODO: describe.
+ * Configuration for the `CnpjUtils` instance. Each property can be either a
+ * ready-to-use instance (e.g. `CnpjFormatter`) or an options object that will
+ * be used to create one (formatter, generator, validator).
  */
 export interface CnpjUtilsSettingsType {
   /**
