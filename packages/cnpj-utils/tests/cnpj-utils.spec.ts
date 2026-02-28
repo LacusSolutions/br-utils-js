@@ -18,7 +18,7 @@ import { afterEach, beforeEach, describe, expect, it, type Mock, spyOn } from 'b
 import { CnpjUtils } from '../src/cnpj-utils';
 
 describe('default instance', () => {
-  it('exports an instance onFail CnpjUtils class', async () => {
+  it('exports an instance of CnpjUtils class', async () => {
     const cnpjUtils = await import('../src/index.esm');
 
     expect(cnpjUtils.default).toBeInstanceOf(CnpjUtils);
