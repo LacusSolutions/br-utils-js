@@ -224,7 +224,7 @@ describe('CnpjUtils', () => {
       });
     });
 
-    describe('when called with a instance of `CnpjFormatterOptions`', () => {
+    describe('when called with an instance of `CnpjFormatterOptions`', () => {
       it('sets the formatter instance', () => {
         const utils = new CnpjUtils();
         const formatterOptions = new CnpjFormatterOptions();
@@ -278,7 +278,7 @@ describe('CnpjUtils', () => {
       });
     });
 
-    describe('when called with a instance of `CnpjGeneratorOptions`', () => {
+    describe('when called with an instance of `CnpjGeneratorOptions`', () => {
       it('sets the generator instance', () => {
         const utils = new CnpjUtils();
         const generatorOptions = new CnpjGeneratorOptions();
@@ -328,7 +328,7 @@ describe('CnpjUtils', () => {
       });
     });
 
-    describe('when called with a instance of `CnpjValidatorOptions`', () => {
+    describe('when called with an instance of `CnpjValidatorOptions`', () => {
       it('sets the validator instance', () => {
         const utils = new CnpjUtils();
         const validatorOptions = new CnpjValidatorOptions();

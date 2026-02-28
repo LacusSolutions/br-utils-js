@@ -190,7 +190,7 @@ See [@lacussoft/cnpj-fmt](https://github.com/LacusSolutions/br-utils-js/blob/mai
 ### Exports
 
 - **`cnpjUtils`** (default): Pre-built `CnpjUtils` instance with `format`, `generate`, `isValid` and, for CommonJS and UMD formats, also re-exports from the three wrapped packages.
-- **`CnpjUtils`**: Class to create a utils instance with optional default formatter, generator, and validator settings.
+- **`CnpjUtils`**: Class to create an utils instance with optional default formatter, generator, and validator settings.
 - **`CnpjUtilsSettingsInput`**, **`CnpjUtilsSettingsType`**: Types for the constructor settings.
 - **Formatter**: `cnpjFmt`, `CnpjFormatter`, `CnpjFormatterOptions`, `CNPJ_LENGTH`, and formatter types/errors (see cnpj-fmt).
 - **Generator**: `cnpjGen`, `CnpjGenerator`, `CnpjGeneratorOptions`, `CNPJ_LENGTH`, `CNPJ_PREFIX_MAX_LENGTH`, and generator types/errors (see cnpj-gen).

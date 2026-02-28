@@ -178,7 +178,7 @@ See [@lacussoft/cpf-fmt](https://github.com/LacusSolutions/br-utils-js/blob/main
 ### Exports
 
 - **`cpfUtils`** (default): Pre-built `CpfUtils` instance with `format`, `generate`, `isValid` and, for CommonJS and UMD formats, also re-exports from the three wrapped packages.
-- **`CpfUtils`**: Class to create a utils instance with optional default formatter, generator, and validator settings.
+- **`CpfUtils`**: Class to create an utils instance with optional default formatter, generator, and validator settings.
 - **`CpfUtilsSettingsInput`**, **`CpfUtilsSettingsType`**: Types for the constructor settings.
 - **Formatter**: `cpfFmt`, `CpfFormatter`, `CpfFormatterOptions`, `CPF_LENGTH`, and formatter types/errors (see cpf-fmt).
 - **Generator**: `cpfGen`, `CpfGenerator`, `CpfGeneratorOptions`, `CPF_LENGTH`, `CPF_PREFIX_MAX_LENGTH`, and generator types/errors (see cpf-gen).
