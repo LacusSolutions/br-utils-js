@@ -1,8 +1,8 @@
 import { defineConfig } from 'rollup';
 
-import { makeCommonJSRollupConfig } from './build-cjs.js';
-import { makeESModuleRollupConfig } from './build-esm.js';
-import { makeUMDRollupConfig } from './build-umd.js';
+import { makeCommonJSRollupConfig } from './build-cjs.mjs';
+import { makeESModuleRollupConfig } from './build-esm.mjs';
+import { makeUMDRollupConfig } from './build-umd.mjs';
 
 /**
  * @param {Object} buildParams
