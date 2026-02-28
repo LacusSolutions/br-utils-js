@@ -431,7 +431,7 @@ describe('CnpjUtils', () => {
       expect(result).toBe('generated-cnpj');
     });
 
-    it('throws any error the formatter throws', (): void => {
+    it('throws any error the generator throws', (): void => {
       generateSpy.mockImplementation(() => {
         throw new Error('test error');
       });
