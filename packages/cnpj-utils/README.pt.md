@@ -176,7 +176,7 @@ Consulte [@lacussoft/cnpj-fmt](https://github.com/LacusSolutions/br-utils-js/blo
 
 ### Exportações
 
-- **`cnpjUtils`** (padrão): Instância pré-construída de `CnpjUtils` com `format`, `generate`, `isValid` e, nos formatos CommonJS e UMD, também a reexportações dos demias recursos dos três pacotes embarcados.
+- **`cnpjUtils`** (padrão): Instância pré-construída de `CnpjUtils` com `format`, `generate`, `isValid` e, nos formatos CommonJS e UMD, também as reexportações dos demais recursos dos três pacotes embarcados
 - **`CnpjUtils`**: Classe para criar uma instância com configurações opcionais de formatador, gerador e validador.
 - **`CnpjUtilsSettingsInput`**, **`CnpjUtilsSettingsType`**: Tipos das configurações do construtor.
 - **Formatador**: `cnpjFmt`, `CnpjFormatter`, `CnpjFormatterOptions`, `CNPJ_LENGTH` e tipos/erros do formatador (ver cnpj-fmt).
