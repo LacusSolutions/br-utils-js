@@ -67,7 +67,7 @@ describe('package distributions', (): void => {
           });
         });
 
-        it('exposes a global `cnpjUtils` function', async () => {
+        it('exposes a global `cnpjUtils` object', async () => {
           expect(cnpjUtils).toBeDefined();
           expect(cnpjUtils).toBeObject();
           expect(cnpjUtils.constructor?.name).toBe('CnpjUtils');
