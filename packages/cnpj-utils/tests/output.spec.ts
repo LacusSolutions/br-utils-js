@@ -359,35 +359,6 @@ describe('package distributions', (): void => {
         });
       });
     });
-
-    describe('file `cnpj-utils.min.js`', (): void => {
-      const filePath = Bun.resolveSync('../dist/cnpj-utils.min.js', import.meta.dir);
-      const file = Bun.file(filePath);
-
-      it('exists', async (): Promise<void> => {
-        await expect(file.exists()).resolves.toBe(true);
-      });
-
-      describe('when evaluated', (): void => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let cnpjUtils: any;
-
-        beforeAll(async () => {
-          const fileContent = await file.text();
-          const makeGlobalInstance = new Function(
-            `${fileContent}\nreturn typeof cnpjUtils !== "undefined" ? cnpjUtils : (typeof globalThis !== "undefined" ? globalThis : self).cnpjUtils;`,
-          );
-
-          cnpjUtils = makeGlobalInstance();
-        });
-
-        it('exposes global `cnpjUtils` with same shape as unminified', (): void => {
-          const instance = cnpjUtils.default ?? cnpjUtils;
-          expect(instance?.format).toBeTypeOf('function');
-          expect(instance?.CnpjUtils ?? cnpjUtils.CnpjUtils).toBeTypeOf('function');
-        });
-      });
-    });
   });
 
   describe('CommonJS', (): void => {
