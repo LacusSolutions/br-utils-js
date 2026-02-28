@@ -77,7 +77,7 @@ describe('package distributions', (): void => {
           expect(cnpjUtils.isValid).toBeFunction();
         });
 
-        it('exposes other resources through the global `cpfFmt` variable', async () => {
+        it('exposes other resources through the global `cnpjUtils` variable', async () => {
           expect(cnpjUtils.cnpjFmt?.name).toBe('cnpjFmt');
           expect(cnpjUtils.CnpjFormatter?.name).toBe('CnpjFormatter');
           expect(cnpjUtils.CnpjFormatterOptions?.name).toBe('CnpjFormatterOptions');
