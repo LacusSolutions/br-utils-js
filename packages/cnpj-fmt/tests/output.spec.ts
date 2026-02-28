@@ -259,24 +259,23 @@ describe('package distributions', () => {
   });
 
   describe('ES Module', () => {
-    function extractExported(what: 'resources' | 'types', content: string): string[] {
-      const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
-
-      return (
-        content
-          ?.match(regex)
-          ?.at(1)
-          ?.split(',')
-          ?.map((resource) => resource.trim()) ?? []
-      );
-    }
-
     function extractExportedResources(content: string): string[] {
-      return extractExported('resources', content);
-    }
+      const regex = /export\s+(?:type\s+)?\{([^}]+)\}/g;
+      const exported: string[] = [];
+      let match: null | RegExpExecArray;
 
-    function extractExportedTypes(content: string): string[] {
-      return extractExported('types', content);
+      while ((match = regex.exec(content)) !== null) {
+        const parts =
+          match
+            .at(1)
+            ?.split(',')
+            ?.map((part) => part.trim())
+            ?.filter(Boolean) ?? [];
+
+        exported.push(...parts);
+      }
+
+      return exported;
     }
 
     describe('file `index.mjs`', () => {
@@ -348,12 +347,10 @@ describe('package distributions', () => {
       const file = Bun.file(filePath);
       let content: string;
       let exportedResources: string[];
-      let exportedTypes: string[];
 
       beforeAll(async () => {
         content = await file.text();
         exportedResources = extractExportedResources(content);
-        exportedTypes = extractExportedTypes(content);
       });
 
       it('exists', async () => {
@@ -459,7 +456,7 @@ describe('package distributions', () => {
       });
 
       it('exports `CnpjFormatterOptionsInput` as named', () => {
-        expect(exportedTypes).toContain('CnpjFormatterOptionsInput');
+        expect(exportedResources).toContain('CnpjFormatterOptionsInput');
       });
 
       it('declares `CnpjFormatterOptionsType` type', () => {
@@ -467,7 +464,7 @@ describe('package distributions', () => {
       });
 
       it('exports `CnpjFormatterOptionsType` as named', () => {
-        expect(exportedTypes).toContain('CnpjFormatterOptionsType');
+        expect(exportedResources).toContain('CnpjFormatterOptionsType');
       });
 
       it('declares `CnpjInput` type', () => {
@@ -475,7 +472,7 @@ describe('package distributions', () => {
       });
 
       it('exports `CnpjInput` as named', () => {
-        expect(exportedTypes).toContain('CnpjInput');
+        expect(exportedResources).toContain('CnpjInput');
       });
 
       it('declares `OnFailCallback` type', () => {
@@ -483,7 +480,7 @@ describe('package distributions', () => {
       });
 
       it('exports `OnFailCallback` as named', () => {
-        expect(exportedTypes).toContain('OnFailCallback');
+        expect(exportedResources).toContain('OnFailCallback');
       });
     });
   });

@@ -45,7 +45,7 @@ describe('package distributions', () => {
           expect(lacusUtils).toBeTypeOf('object');
         });
 
-        it('exposes resources through the global `lacusUtils` variable', async () => {
+        it('exposes other resources through the global `lacusUtils` variable', async () => {
           expect(lacusUtils.describeType?.name).toBe('describeType');
           expect(lacusUtils.escapeHTML?.name).toBe('escapeHTML');
           expect(lacusUtils.generateRandomSequence?.name).toBe('generateRandomSequence');
@@ -119,24 +119,23 @@ describe('package distributions', () => {
   });
 
   describe('ES Module', () => {
-    function extractExported(what: 'resources' | 'types', content: string): string[] {
-      const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
-
-      return (
-        content
-          ?.match(regex)
-          ?.at(1)
-          ?.split(',')
-          ?.map((resource) => resource.trim()) ?? []
-      );
-    }
-
     function extractExportedResources(content: string): string[] {
-      return extractExported('resources', content);
-    }
+      const regex = /export\s+(?:type\s+)?\{([^}]+)\}/g;
+      const exported: string[] = [];
+      let match: null | RegExpExecArray;
 
-    function extractExportedTypes(content: string): string[] {
-      return extractExported('types', content);
+      while ((match = regex.exec(content)) !== null) {
+        const parts =
+          match
+            .at(1)
+            ?.split(',')
+            ?.map((part) => part.trim())
+            ?.filter(Boolean) ?? [];
+
+        exported.push(...parts);
+      }
+
+      return exported;
     }
 
     describe('file `index.mjs`', () => {
@@ -172,12 +171,10 @@ describe('package distributions', () => {
       const file = Bun.file(filePath);
       let content: string;
       let exportedResources: string[];
-      let exportedTypes: string[];
 
       beforeAll(async () => {
         content = await file.text();
         exportedResources = extractExportedResources(content);
-        exportedTypes = extractExportedTypes(content);
       });
 
       it('exists', async () => {
@@ -213,7 +210,7 @@ describe('package distributions', () => {
       });
 
       it('exports `SequenceType` type as named', () => {
-        expect(exportedTypes).toContain('SequenceType');
+        expect(exportedResources).toContain('SequenceType');
       });
 
       it('declares `Nullable` type', () => {
@@ -221,7 +218,7 @@ describe('package distributions', () => {
       });
 
       it('exports `Nullable` type as named', () => {
-        expect(exportedTypes).toContain('Nullable');
+        expect(exportedResources).toContain('Nullable');
       });
     });
   });

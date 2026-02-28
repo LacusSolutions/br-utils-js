@@ -179,24 +179,23 @@ describe('package distributions', () => {
   });
 
   describe('ES Module', () => {
-    function extractExported(what: 'resources' | 'types', content: string): string[] {
-      const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
-
-      return (
-        content
-          ?.match(regex)
-          ?.at(1)
-          ?.split(',')
-          ?.map((resource) => resource.trim()) ?? []
-      );
-    }
-
     function extractExportedResources(content: string): string[] {
-      return extractExported('resources', content);
-    }
+      const regex = /export\s+(?:type\s+)?\{([^}]+)\}/g;
+      const exported: string[] = [];
+      let match: null | RegExpExecArray;
 
-    function extractExportedTypes(content: string): string[] {
-      return extractExported('types', content);
+      while ((match = regex.exec(content)) !== null) {
+        const parts =
+          match
+            .at(1)
+            ?.split(',')
+            ?.map((part) => part.trim())
+            ?.filter(Boolean) ?? [];
+
+        exported.push(...parts);
+      }
+
+      return exported;
     }
 
     describe('file `index.mjs`', () => {
@@ -260,12 +259,10 @@ describe('package distributions', () => {
       const file = Bun.file(filePath);
       let content: string;
       let exportedResources: string[];
-      let exportedTypes: string[];
 
       beforeAll(async () => {
         content = await file.text();
         exportedResources = extractExportedResources(content);
-        exportedTypes = extractExportedTypes(content);
       });
 
       it('exists', async () => {
@@ -353,7 +350,7 @@ describe('package distributions', () => {
       });
 
       it('exports `CpfGeneratorOptionsInput` as named', () => {
-        expect(exportedTypes).toContain('CpfGeneratorOptionsInput');
+        expect(exportedResources).toContain('CpfGeneratorOptionsInput');
       });
 
       it('declares `CpfGeneratorOptionsType` type', () => {
@@ -361,7 +358,7 @@ describe('package distributions', () => {
       });
 
       it('exports `CpfGeneratorOptionsType` as named', () => {
-        expect(exportedTypes).toContain('CpfGeneratorOptionsType');
+        expect(exportedResources).toContain('CpfGeneratorOptionsType');
       });
     });
   });

@@ -208,24 +208,23 @@ describe('package distributions', () => {
   });
 
   describe('ES Module', () => {
-    function extractExported(what: 'resources' | 'types', content: string): string[] {
-      const regex = what === 'resources' ? /export \{([^}]+)\}/ : /export type \{([^}]+)\}/;
-
-      return (
-        content
-          ?.match(regex)
-          ?.at(1)
-          ?.split(',')
-          ?.map((resource) => resource.trim()) ?? []
-      );
-    }
-
     function extractExportedResources(content: string): string[] {
-      return extractExported('resources', content);
-    }
+      const regex = /export\s+(?:type\s+)?\{([^}]+)\}/g;
+      const exported: string[] = [];
+      let match: null | RegExpExecArray;
 
-    function extractExportedTypes(content: string): string[] {
-      return extractExported('types', content);
+      while ((match = regex.exec(content)) !== null) {
+        const parts =
+          match
+            .at(1)
+            ?.split(',')
+            ?.map((part) => part.trim())
+            ?.filter(Boolean) ?? [];
+
+        exported.push(...parts);
+      }
+
+      return exported;
     }
 
     describe('file `index.mjs`', () => {
@@ -293,12 +292,10 @@ describe('package distributions', () => {
       const file = Bun.file(filePath);
       let content: string;
       let exportedResources: string[];
-      let exportedTypes: string[];
 
       beforeAll(async () => {
         content = await file.text();
         exportedResources = extractExportedResources(content);
-        exportedTypes = extractExportedTypes(content);
       });
 
       it('exists', async () => {
@@ -394,7 +391,7 @@ describe('package distributions', () => {
       });
 
       it('exports `CnpjType` as named', () => {
-        expect(exportedTypes).toContain('CnpjType');
+        expect(exportedResources).toContain('CnpjType');
       });
 
       it('declares `CnpjGeneratorOptionsInput` type', () => {
@@ -402,7 +399,7 @@ describe('package distributions', () => {
       });
 
       it('exports `CnpjGeneratorOptionsInput` as named', () => {
-        expect(exportedTypes).toContain('CnpjGeneratorOptionsInput');
+        expect(exportedResources).toContain('CnpjGeneratorOptionsInput');
       });
 
       it('declares `CnpjGeneratorOptionsType` type', () => {
@@ -410,7 +407,7 @@ describe('package distributions', () => {
       });
 
       it('exports `CnpjGeneratorOptionsType` as named', () => {
-        expect(exportedTypes).toContain('CnpjGeneratorOptionsType');
+        expect(exportedResources).toContain('CnpjGeneratorOptionsType');
       });
     });
   });
