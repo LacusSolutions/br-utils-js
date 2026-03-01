@@ -1,15 +1,11 @@
 {
   "name": "br-utils",
   "version": "2.0.5",
-  "description": "Utility resources to deal with Brazilian-related data.",
+  "description": "Utilities to deal with Brazilian-related data",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
     "url": "https://github.com/juliolmuller"
-  },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
   },
   "keywords": [
     "cpf",
@@ -31,6 +27,7 @@
     "pt-br",
     "br"
   ],
+  "homepage": "https://br-utils.vercel.app/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LacusSolutions/br-utils-js.git"
@@ -38,30 +35,43 @@
   "bugs": {
     "url": "https://github.com/LacusSolutions/br-utils-js/issues"
   },
-  "homepage": "https://github.com/LacusSolutions/br-utils-js#readme",
-  "main": "./dist/index.cjs",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "README.pt.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": {
-        "default": "./dist/index.cjs"
-      },
       "import": {
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     }
-  },
-  "dependencies": {
-    "cnpj-utils": "workspace:^2.0.2",
-    "cpf-utils": "workspace:^2.0.2"
   },
   "scripts": {
     "build": "rollup --config",
     "type-check": "tsc",
-    "lint": "eslint --fix src/ tests/ rollup.config.mjs",
-    "pretest": "bun run build --silent",
+    "lint": "bun run lint:ci --fix",
+    "lint:ci": "eslint src/ tests/ rollup.config.mjs",
     "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
-    "test:ci": "bun test"
+    "test:ci": "bun test --only-failures"
+  },
+  "dependencies": {
+    "@lacussoft/utils": "workspace:*",
+    "cnpj-utils": "workspace:*",
+    "cpf-utils": "workspace:*"
   }
 }

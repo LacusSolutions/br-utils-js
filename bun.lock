@@ -37,8 +37,9 @@
       "name": "br-utils",
       "version": "2.0.5",
       "dependencies": {
-        "cnpj-utils": "workspace:^2.0.2",
-        "cpf-utils": "workspace:^2.0.2",
+        "@lacussoft/utils": "workspace:*",
+        "cnpj-utils": "workspace:*",
+        "cpf-utils": "workspace:*",
       },
     },
     "packages/cnpj-dv": {
