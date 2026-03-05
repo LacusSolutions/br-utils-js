@@ -30,6 +30,6 @@
 
 ### Improvements
 
-- **New PT-BR documentation**: New [README in Brazilian Portuguese](./README.pt.md) for the `cpf-utils` package.
+- **New PT-BR documentation**: New [README in Brazilian Portuguese](./README.pt.md).
 - **Documentation**: README updated to match current API (flat options, CpfUtils class, re-exports, default instance) and aligned structure with `cnpj-utils`, `cpf-fmt`, `cpf-gen`, and `cpf-val`.
 - **Wrapper consistency**: `cpf-utils` behavior and options now fully reflect the v3 APIs of `@lacussoft/cpf-fmt`, `@lacussoft/cpf-gen`, and `@lacussoft/cpf-val`.

@@ -33,6 +33,6 @@
 
 ### Improvements
 
-- **New PT-BR documentation**: New [README in Brazilian Portuguese](./README.pt.md) for the `cnpj-utils` package.
+- **New PT-BR documentation**: New [README in Brazilian Portuguese](./README.pt.md).
 - **Documentation**: README updated to match current API (flat options, CnpjUtils class, re-exports, generator/validator options) and aligned structure with `cnpj-fmt`, `cnpj-gen`, and `cnpj-val`.
 - **Wrapper consistency**: `cnpj-utils` behavior and options now fully reflect the v3 APIs of `@lacussoft/cnpj-fmt`, `@lacussoft/cnpj-gen`, and `@lacussoft/cnpj-val`.
