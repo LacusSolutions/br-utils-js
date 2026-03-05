@@ -11,7 +11,7 @@
 ### BREAKING CHANGES
 
 - **Named exports `cpf` and `cnpj` removed**: The package no longer exports standalone `cpf` and `cnpj` names. Use the default instance (`brUtils.cpf`, `brUtils.cnpj`) or import the re-exported instances `cpfUtils` and `cnpjUtils`. Code that did `import { cpf as cpfUtils, cnpj as cnpjUtils } from 'br-utils'` must switch to `import brUtils from 'br-utils'` and use `brUtils.cpf` / `brUtils.cnpj`, or use `import { cpfUtils, cnpjUtils } from 'br-utils'`.
-- **Default export is a `BrUtils` instance**: The default export is now an instance of the `BrUtils` class (frozen), not a plain object. It still exposes `cpf` and `cnpj` for the same usage pattern (`brUtils.cpf.format()`, etc.), but code that relied on the default being a plain object (e.g. spreading, or checking for specific own properties) may need updates.
+- **Default export is a `BrUtils` instance**: The default export is now an instance of the `BrUtils` class, not a plain object. It still exposes `cpf` and `cnpj` for the same usage pattern (`brUtils.cpf.format()`, etc.), but code that relied on the default being a plain object (e.g. spreading, or checking for specific own properties) may need updates.
 - **CommonJS/UMD default carries re-exports**: In CommonJS and UMD, the default export object also includes all re-exported names from `cpf-utils` and `cnpj-utils` (e.g. `BrUtils`, `cpfUtils`, `cnpjUtils`, `cpfFmt`, `cnpjFmt`, classes, errors). Code that assumed the default had only `cpf` and `cnpj` or a minimal surface may need updates.
 
 ### New features
