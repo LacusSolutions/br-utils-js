@@ -228,7 +228,7 @@ describe('BrUtils', () => {
     });
 
     describe('when called with literal object parameters', () => {
-      it('sets the `CnpjUtils` instance with options', () => {
+      it('sets the `CpfUtils` instance with options', () => {
         const utils = new BrUtils();
         const cpfUtilsOptions: CpfUtilsSettingsInput = {
           formatter: {
