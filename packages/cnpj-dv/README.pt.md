@@ -1,6 +1,6 @@
 ![cnpj-dv para JavaScript](https://br-utils.vercel.app/img/cover_cnpj-dv.jpg)
 
-> 🚀 **Suporte completo ao [novo formato alfanumérico de CNPJ](https://github.com/user-attachments/files/23937961/calculodvcnpjalfanaumerico.pdf).**
+> 🚀 **Suporte total ao [novo formato alfanumérico de CNPJ](https://github.com/user-attachments/files/23937961/calculodvcnpjalfanaumerico.pdf).**
 
 > 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cnpj-dv/README.md)
 
