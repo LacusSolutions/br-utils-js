@@ -99,7 +99,7 @@ bun run release     # Publish packages to npm
 
 ## Project Structure
 
-```
+```text
 br-utils-js/
 ├── packages/                    # Monorepo packages (npm workspaces)
 │   ├── utils/                  # @lacussoft/utils — shared helpers
