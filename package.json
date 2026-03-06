@@ -90,6 +90,10 @@
     "test:cpf-utils": "bun run --filter './**/cpf-utils' test",
     "test:br-utils": "bun run --filter './**/br-utils' test"
   },
+  "engines": {
+    "node": ">=20.17.0",
+    "bun": ">=1.0.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
