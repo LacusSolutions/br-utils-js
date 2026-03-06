@@ -74,6 +74,7 @@ describe('package distributions', (): void => {
         });
 
         it('exposes other resources through the global `cpfUtils` variable', async () => {
+          expect(cpfUtils.CpfUtils?.name).toBe('CpfUtils');
           expect(cpfUtils.cpfFmt?.name).toBe('cpfFmt');
           expect(cpfUtils.CpfFormatter?.name).toBe('CpfFormatter');
           expect(cpfUtils.CpfFormatterOptions?.name).toBe('CpfFormatterOptions');
