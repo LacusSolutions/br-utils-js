@@ -14,6 +14,34 @@ import {
 import { type CnpjUtilsSettingsInput } from './types';
 
 /**
+ * @typedef {import('./cnpj-formatter').CnpjFormatterInputTypeError} CnpjFormatterInputTypeError
+ *
+ *
+ * @typedef {import('./cnpj-formatter').CnpjFormatterOptionsTypeError} CnpjFormatterOptionsTypeError
+ *
+ *
+ * @typedef {import('./cnpj-formatter').CnpjFormatterOptionsHiddenRangeInvalidException} CnpjFormatterOptionsHiddenRangeInvalidException
+ *
+ *
+ * @typedef {import('./cnpj-generator').CnpjGeneratorOptionsTypeError} CnpjGeneratorOptionsTypeError
+ *
+ *
+ * @typedef {import('./cnpj-generator').CnpjGeneratorOptionPrefixInvalidException} CnpjGeneratorOptionPrefixInvalidException
+ *
+ *
+ * @typedef {import('./cnpj-generator').CnpjGeneratorOptionTypeInvalidException} CnpjGeneratorOptionTypeInvalidException
+ *
+ *
+ * @typedef {import('./cnpj-validator').CnpjValidatorInputTypeError} CnpjValidatorInputTypeError
+ *
+ *
+ * @typedef {import('./cnpj-validator').CnpjValidatorOptionsTypeError} CnpjValidatorOptionsTypeError
+ *
+ *
+ * @typedef {import('./cnpj-validator').CnpjValidatorOptionTypeInvalidException} CnpjValidatorOptionTypeInvalidException
+ */
+
+/**
  * Unified API for CNPJ (Cadastro Nacional da Pessoa Jurídica) formatting,
  * generation, and validation. Wraps a configurable formatter, generator, and
  * validator so you can format, generate, and validate CNPJ values from a single
