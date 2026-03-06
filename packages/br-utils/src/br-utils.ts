@@ -5,6 +5,40 @@ import { CpfUtils } from './cpf-utils';
 import { type BrUtilsSettingsInput } from './types';
 
 /**
+ * @typedef {import('./cnpj-utils').CnpjFormatterOptionsTypeError} CnpjFormatterOptionsTypeError
+ *
+ *
+ * @typedef {import('./cnpj-utils').CnpjFormatterOptionsHiddenRangeInvalidException} CnpjFormatterOptionsHiddenRangeInvalidException
+ *
+ *
+ * @typedef {import('./cnpj-utils').CnpjGeneratorOptionsTypeError} CnpjGeneratorOptionsTypeError
+ *
+ *
+ * @typedef {import('./cnpj-utils').CnpjGeneratorOptionPrefixInvalidException} CnpjGeneratorOptionPrefixInvalidException
+ *
+ *
+ * @typedef {import('./cnpj-utils').CnpjGeneratorOptionTypeInvalidException} CnpjGeneratorOptionTypeInvalidException
+ *
+ *
+ * @typedef {import('./cnpj-utils').CnpjValidatorOptionsTypeError} CnpjValidatorOptionsTypeError
+ *
+ *
+ * @typedef {import('./cnpj-utils').CnpjValidatorOptionTypeInvalidException} CnpjValidatorOptionTypeInvalidException
+ *
+ *
+ * @typedef {import('./cpf-utils').CpfFormatterOptionsTypeError} CpfFormatterOptionsTypeError
+ *
+ *
+ * @typedef {import('./cpf-utils').CpfFormatterOptionsHiddenRangeInvalidException} CpfFormatterOptionsHiddenRangeInvalidException
+ *
+ *
+ * @typedef {import('./cpf-utils').CpfGeneratorOptionsTypeError} CpfGeneratorOptionsTypeError
+ *
+ *
+ * @typedef {import('./cpf-utils').CpfGeneratorOptionPrefixInvalidException} CpfGeneratorOptionPrefixInvalidException
+ */
+
+/**
  * Unified API for Brazilian-related data, like CPF (Cadastro de Pessoa Física)
  * and CNPJ (Cadastro Nacional da Pessoa Jurídica).
  */
@@ -38,12 +72,6 @@ export class BrUtils {
    *   invalid type.
    * @throws {CpfGeneratorOptionPrefixInvalidException} If CPF generator
    *   `prefix` is invalid.
-   * @throws {CpfGeneratorOptionTypeInvalidException} If CPF generator `type` is
-   *   not allowed.
-   * @throws {CpfValidatorOptionsTypeError} If CPF validator options have an
-   *   invalid type.
-   * @throws {CpfValidatorOptionTypeInvalidException} If CPF validator `type` is
-   *   not allowed.
    */
   public constructor(defaultSettings?: BrUtilsSettingsInput) {
     this._cnpjUtils =
@@ -129,12 +157,6 @@ export class BrUtils {
    *   type.
    * @throws {CpfGeneratorOptionPrefixInvalidException} If generator `prefix` is
    *   invalid.
-   * @throws {CpfGeneratorOptionTypeInvalidException} If generator `type` is not
-   *   allowed.
-   * @throws {CpfValidatorOptionsTypeError} If validator options have an invalid
-   *   type.
-   * @throws {CpfValidatorOptionTypeInvalidException} If validator `type` is not
-   *   allowed.
    */
   public set cpf(value: Nullable<BrUtilsSettingsInput['cpf']>) {
     this._cpfUtils = value instanceof CpfUtils ? value : new CpfUtils(value ?? undefined);
