@@ -104,7 +104,7 @@ describe('package distributions', (): void => {
           expect(brUtils.cpf).toBeObject();
         });
 
-        it('exposes other resources through the global `cnpjUtils` variable', async () => {
+        it('exposes other resources through the global `brUtils` variable', async () => {
           expect(brUtils.cnpjUtils?.constructor?.name).toBe('CnpjUtils');
           expect(brUtils.CnpjUtils?.name).toBe('CnpjUtils');
           expect(brUtils.cnpjFmt?.name).toBe('cnpjFmt');
