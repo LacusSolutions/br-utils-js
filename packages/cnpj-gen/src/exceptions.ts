@@ -23,12 +23,13 @@ export abstract class CnpjGeneratorTypeError extends TypeError {
     message: string,
   ) {
     super(message);
+
+    Object.setPrototypeOf(this, new.target.prototype);
+
     this.name = this.constructor.name;
     this.actualInput = actualInput;
     this.actualType = actualType;
     this.expectedType = expectedType;
-
-    Object.setPrototypeOf(this, new.target.prototype);
   }
 }
 
@@ -71,9 +72,10 @@ export abstract class CnpjGeneratorException extends Error {
 
   public constructor(message: string) {
     super(message);
-    this.name = this.constructor.name;
 
     Object.setPrototypeOf(this, new.target.prototype);
+
+    this.name = this.constructor.name;
   }
 }
 
