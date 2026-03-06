@@ -36,7 +36,7 @@ Before contributing, please:
 
 ### Prerequisites
 
-- **Node.js** (v18 or higher)
+- **Node.js** (v20.17 or higher)
 - **Bun** (v1.0 or higher) - for testing, building, and package management
 - **Git** - for version control
 
@@ -60,82 +60,92 @@ bun run type-check
 
 ```bash
 # Development
-bun run build          # Build all packages
-bun run type-check     # Run TypeScript type checking for all packages
-bun run lint           # Run ESLint with auto-fix for all packages
-bun run test           # Run all tests
-bun run test:ci        # Run tests in CI mode
+bun run build        # Build all packages
+bun run type-check   # Run TypeScript type checking for all packages
+bun run lint         # Run ESLint with auto-fix for all packages
+bun run test         # Run all tests
+bun run test:ci      # Run tests in CI mode
 
 # Package-specific commands
-bun run build:cnpj     # Build all CNPJ packages
-bun run build:cpf      # Build all CPF packages
-bun run build:br       # Build BR utilities package
-bun run test:cnpj      # Test all CNPJ packages
-bun run test:cpf       # Test all CPF packages
-bun run test:br        # Test BR utilities package
+bun run build:cnpj       # Build all CNPJ packages
+bun run build:cpf        # Build all CPF packages
+bun run build:br-utils   # Build br-utils package
+bun run build:utils      # Build @lacussoft/utils
+bun run test:cnpj        # Test all CNPJ packages
+bun run test:cpf         # Test all CPF packages
+bun run test:br-utils    # Test br-utils package
+bun run test:utils       # Test @lacussoft/utils
 
 # Type checking by category
-bun run type-check:fmt # Type check formatter packages
-bun run type-check:gen # Type check generator packages
-bun run type-check:val # Type check validator packages
-bun run type-check:utils # Type check utility packages
+bun run type-check:fmt     # Type check formatter packages
+bun run type-check:gen     # Type check generator packages
+bun run type-check:val     # Type check validator packages
+bun run type-check:utils   # Type check utility packages
 
 # Linting by category
-bun run lint:fmt       # Lint formatter packages
-bun run lint:gen       # Lint generator packages
-bun run lint:val       # Lint validator packages
-bun run lint:utils     # Lint utility packages
+bun run lint:fmt     # Lint formatter packages
+bun run lint:gen     # Lint generator packages
+bun run lint:val     # Lint validator packages
+bun run lint:utils   # Lint utility packages
 
-# Release management
-bun run changelog      # Generate changelog
-bun run version        # Version packages
-bun run release        # Publish packages
+# Release management (Changesets)
+bun run commit      # Interactive commit with scope prompts
+bun run changelog   # Create a changeset (describe release)
+bun run version     # Bump versions from changesets
+bun run release     # Publish packages to npm
 ```
+
+**Note:** `bun run type-check` runs a full build first, then type-checks all packages (same as CI).
 
 ## Project Structure
 
-```
+```text
 br-utils-js/
-├── packages/                    # Monorepo packages
-│   ├── br-utils/               # Core BR utilities
-│   │   ├── src/               # Source code
-│   │   ├── test/              # Test files
-│   │   ├── build/             # Built files (generated)
-│   │   ├── dist/              # Distribution files (generated)
-│   │   ├── package.json       # Package configuration
-│   │   ├── rollup.config.mjs  # Rollup configuration
-│   │   └── tsconfig.json      # TypeScript configuration
-│   ├── cnpj-fmt/              # CNPJ formatter package
-│   │   ├── src/               # Source code
-│   │   ├── test/              # Test files
-│   │   ├── build/             # Built files (generated)
-│   │   ├── dist/              # Distribution files (generated)
-│   │   ├── package.json       # Package configuration
-│   │   ├── rollup.config.mjs  # Rollup configuration
-│   │   └── tsconfig.json      # TypeScript configuration
-│   ├── cnpj-gen/              # CNPJ generator package
-│   │   └── ...                # Similar structure
-│   ├── cnpj-utils/            # CNPJ utilities package
-│   │   └── ...                # Similar structure
-│   ├── cnpj-val/              # CNPJ validator package
-│   │   └── ...                # Similar structure
-│   ├── cpf-fmt/               # CPF formatter package
-│   │   └── ...                # Similar structure
-│   ├── cpf-gen/               # CPF generator package
-│   │   └── ...                # Similar structure
-│   ├── cpf-utils/             # CPF utilities package
-│   │   └── ...                # Similar structure
-│   └── cpf-val/               # CPF validator package
-│       └── ...                # Similar structure
-├── node_modules/              # Dependencies (generated)
-├── bun.lock                   # Bun lock file
-├── bunfig.toml               # Bun configuration
-├── eslint.config.mjs         # ESLint configuration
-├── rollup.config.mjs         # Root rollup configuration
-├── tsconfig.json             # Root TypeScript configuration
-├── package.json              # Root package configuration
-└── README.md                 # Project documentation
+├── packages/                    # Monorepo packages (npm workspaces)
+│   ├── utils/                  # @lacussoft/utils — shared helpers
+│   │   ├── src/
+│   │   ├── tests/              # Test files (.spec.ts)
+│   │   ├── dist/               # Built output (generated)
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   └── tsconfig.json
+│   ├── br-utils/               # br-utils — unified CPF + CNPJ API
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── dist/
+│   │   ├── demo/               # Optional demo (e.g. br-utils has UMD)
+│   │   ├── package.json
+│   │   ├── rollup.config.mjs
+│   │   └── tsconfig.json
+│   ├── cnpj-dv/                # @lacussoft/cnpj-dv
+│   ├── cnpj-fmt/               # @lacussoft/cnpj-fmt
+│   ├── cnpj-gen/               # @lacussoft/cnpj-gen
+│   ├── cnpj-val/               # @lacussoft/cnpj-val
+│   ├── cnpj-utils/             # cnpj-utils (unscoped)
+│   ├── cpf-dv/                 # @lacussoft/cpf-dv
+│   ├── cpf-fmt/                # @lacussoft/cpf-fmt
+│   ├── cpf-gen/                # @lacussoft/cpf-gen
+│   ├── cpf-val/                # @lacussoft/cpf-val
+│   └── cpf-utils/              # cpf-utils (unscoped)
+├── build/                      # Shared build tooling (e.g. rollup helpers)
+├── .github/workflows/          # CI (type-check, lint, test, publish-mock)
+├── node_modules/
+├── bun.lock
+├── bunfig.toml
+├── commitlint.config.mjs       # Commit scopes from workspace package names
+├── eslint.config.mjs
+├── package.json                # Root scripts and devDependencies
+└── README.md
 ```
+
+Each package has its own `rollup.config.mjs`; there is no root Rollup config. Tests live in `tests/` and use the `.spec.ts` extension.
+
+### Package API overview
+
+- **`@lacussoft/utils`**: Shared helpers (e.g. type guards, string utilities). Used by other packages.
+- **`@lacussoft/*-dv`**, **`@lacussoft/*-fmt`**, **`@lacussoft/*-gen`**, **`@lacussoft/*-val`**: Single-responsibility packages (digit calculation, format, generate, validate). Each exposes a class and usually a helper (e.g. `cpfFmt`, `CpfFormatter`).
+- **`cpf-utils`** / **`cnpj-utils`**: Wrap the four CPF/CNPJ packages; expose `CpfUtils`/`CnpjUtils` with `format`, `generate`, `isValid` and re-export all underlying exports.
+- **`br-utils`**: Single entry point; exposes `BrUtils` with `cpf` and `cnpj` sub-modules (each a `CpfUtils`/`CnpjUtils`-like API) and re-exports from both stacks.
 
 ## Contributing Guidelines
 
@@ -143,12 +153,12 @@ br-utils-js/
 
 We welcome contributions in the following areas:
 
-- **🐛 Bug Fixes**: Fix issues and improve stability
-- **✨ New Features**: Add new field types, processors, or functionality
-- **📚 Documentation**: Improve docs, examples, and guides
-- **🧪 Tests**: Add test coverage for new or existing features
-- **⚡ Performance**: Optimize validation performance
-- **🔧 Tooling**: Improve build, linting, or development tools
+- **🐛 Bug Fixes**: Fix issues in formatting, validation, generation, or digit calculation
+- **✨ New Features**: New options or behavior aligned with CPF/CNPJ rules (e.g. formatting, validation)
+- **📚 Documentation**: Improve READMEs, JSDoc, and examples (including demo pages)
+- **🧪 Tests**: Add or extend tests for the public API and edge cases
+- **⚡ Performance**: Optimize hot paths in formatters or validators
+- **🔧 Tooling**: Improve build, lint, or CI (Rollup, ESLint, Changesets)
 
 ### What We're NOT Looking For
 
@@ -193,20 +203,27 @@ bun run lint
 bun run build
 
 # Test specific package categories
-bun run test:cnpj      # Test CNPJ packages
-bun run test:cpf       # Test CPF packages
-bun run test:br        # Test BR utilities
+bun run test:cnpj       # Test CNPJ packages
+bun run test:cpf        # Test CPF packages
+bun run test:br-utils   # Test br-utils
+bun run test:utils      # Test @lacussoft/utils
 ```
 
 ### 4. Commit Your Changes
 
-Use conventional commit messages:
+Use conventional commits. Scopes are derived from workspace package names (e.g. `cpf-fmt`, `br-utils`). Prefer the interactive commit helper:
 
 ```bash
-git commit -m "feat: add string field processor"
-git commit -m "fix: resolve validation error in int processor"
-git commit -m "docs: update README with new examples"
-git commit -m "test: add tests for bail option"
+bun run commit
+```
+
+Or commit manually with type and optional scope:
+
+```bash
+git commit -m "feat(cpf-fmt): add dashKey option"
+git commit -m "fix(cpf-val): resolve input type edge case"
+git commit -m "docs(br-utils): update README examples"
+git commit -m "test(cpf-gen): add tests for prefix option"
 ```
 
 ### 5. Push and Create PR
@@ -221,34 +238,30 @@ Then create a pull request on GitHub.
 
 ### Test Structure
 
-- Tests are located in the `test/` directory within each package
-- Test files use the `.test.ts` extension
-- Tests mirror the `src/` directory structure
-- Use Bun's built-in test runner with TypeScript support
+- Tests are located in the `tests/` directory within each package
+- Test files use the `.spec.ts` extension (e.g. `cpf-fmt.spec.ts`, `exceptions.spec.ts`)
+- Tests mirror the `src/` structure where appropriate
+- Use Bun's built-in test runner (`bun test`) with TypeScript support
 
 ### Writing Tests
 
 ```typescript
-import { describe, expect, it, beforeEach } from 'bun:test';
-import { cnpjFormat } from '../src/index.js';
+import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test';
+import { cpfFmt } from '../src/cpf-fmt';
+import { CpfFormatter } from '../src/cpf-formatter';
 
-describe('CNPJ Formatter', () => {
-  let input: string;
-
-  beforeEach(() => {
-    input = '12345678000195';
+describe('cpfFmt', () => {
+  it('formats CPF with default mask', () => {
+    expect(cpfFmt('12345678910')).toBe('123.456.789-10');
   });
 
-  it('should format CNPJ with mask', () => {
-    const result = cnpjFormat(input);
-    expect(result).toBe('12.345.678/0001-95');
-  });
-
-  it('should handle invalid input', () => {
-    expect(() => cnpjFormat('invalid')).toThrow();
+  it('throws on invalid input when configured', () => {
+    expect(() => cpfFmt('invalid')).toThrow();
   });
 });
 ```
+
+Packages expose a **class-based API** (e.g. `CpfFormatter`, `CpfValidator`) and optional **helper functions** (e.g. `cpfFmt`, `cpfVal`). The unified packages `cpf-utils` and `cnpj-utils` expose `CpfUtils` / `CnpjUtils` with `format`, `generate`, and `isValid`; `br-utils` exposes `BrUtils` with `cpf` and `cnpj` sub-modules. Prefer testing the public API (helpers and class methods) used by consumers.
 
 ### Test Requirements
 
@@ -280,44 +293,42 @@ describe('CNPJ Formatter', () => {
 
 ### Naming Conventions
 
-- **Classes**: PascalCase (`CnpjFormatter`)
-- **Functions**: camelCase (`formatCnpj`)
-- **Variables**: camelCase (`fieldName`)
-- **Constants**: UPPER_SNAKE_CASE (`MAX_RETRIES`)
-- **Files**: kebab-case for utilities (`cnpj-formatter.ts`)
-- **Types/Interfaces**: PascalCase (`FormatOptions`)
+- **Classes**: PascalCase (`CpfFormatter`, `CpfUtils`)
+- **Functions**: camelCase; helpers often end with Fmt/Gen/Val/Dv (`cpfFmt`, `cpfVal`)
+- **Variables**: camelCase (`input`, `options`)
+- **Constants**: UPPER_SNAKE_CASE when applicable
+- **Files**: kebab-case (`cpf-formatter.ts`, `cpf-fmt.ts`)
+- **Types/Interfaces**: PascalCase (`CpfFormatterOptionsInput`, `CpfInput`)
 
 ### Package Naming
 
-- Package names use `@lacussoft/` scope
-- Format: `@lacussoft/{package-name}`
-- Examples: `@lacussoft/cnpj-fmt`, `@lacussoft/cpf-val`
+- **Scoped** (single-purpose): `@lacussoft/utils`, `@lacussoft/cpf-fmt`, `@lacussoft/cpf-dv`, `@lacussoft/cpf-gen`, `@lacussoft/cpf-val`, and the same for `cnpj-*`.
+- **Unscoped** (unified APIs): `cpf-utils`, `cnpj-utils`, `br-utils`.
+- Commit/PR scopes use the package directory name (e.g. `cpf-fmt`, `br-utils`).
 
 ### Example Code Style
 
 ```typescript
-import type { FormatOptions } from './types.js';
+import type { CpfFormatterOptionsInput, CpfInput } from './types';
 
-export interface CnpjFormatterOptions extends FormatOptions {
-  readonly mask?: boolean;
+export class CpfFormatter {
+  private readonly _options: CpfFormatterOptionsInput;
+
+  public constructor(options: CpfFormatterOptionsInput = {}) {
+    this._options = { ...options };
+  }
+
+  public format(cpfInput: CpfInput): string {
+    return this._applyMask(String(cpfInput));
+  }
+
+  private _applyMask(digits: string): string {
+    return digits.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+  }
 }
 
-export class CnpjFormatter {
-  private readonly _options: CnpjFormatterOptions;
-
-  public constructor(options: CnpjFormatterOptions = {}) {
-    this._options = { mask: true, ...options };
-  }
-
-  public format(cnpj: string): string {
-    // Implementation
-    return this._applyMask(cnpj);
-  }
-
-  private _applyMask(cnpj: string): string {
-    // Private implementation
-    return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
-  }
+export function cpfFmt(cpfInput: CpfInput, options?: CpfFormatterOptionsInput): string {
+  return new CpfFormatter(options).format(cpfInput);
 }
 ```
 
@@ -332,7 +343,7 @@ export class CnpjFormatter {
 - [ ] Build succeeds (`bun run build`)
 - [ ] Documentation is updated
 - [ ] Commit messages follow conventional format
-- [ ] Package version is updated if needed
+- [ ] Changeset added for user-facing changes (`bun run changelog`)
 
 ### PR Description Template
 
@@ -386,26 +397,25 @@ A clear description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
-1. Create schema with...
-2. Call validate with...
-3. See error
+1. Install the package and call the API with...
+2. See error
 
 **Expected behavior**
 What you expected to happen.
 
 **Environment:**
-- Node.js version: [e.g. 18.17.0]
-- Bun version: [e.g. 1.0.0]
+- Node.js version: [e.g. 20.x]
+- Bun version: [e.g. 1.0.x]
 - OS: [e.g. macOS 13.0]
-- Package version: [e.g. @lacussoft/cnpj-fmt@2.0.1]
+- Package version: [e.g. @lacussoft/cpf-fmt@2.0.2 or cpf-utils@2.0.2]
 
 **Code example**
 ```typescript
-import { cnpjFormat } from '@lacussoft/cnpj-fmt';
+import { cpfFmt } from '@lacussoft/cpf-fmt';
 
-// Minimal code that reproduces the issue
-const result = cnpjFormat('12345678000195');
-console.log(result);
+const result = cpfFmt('12345678910');
+
+console.log(result); // expected vs actual
 ```
 
 **Additional context**

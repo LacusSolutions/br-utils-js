@@ -1,39 +1,18 @@
-import cpfFmt from '@lacussoft/cpf-fmt';
-import numOnly from 'num-only';
-
-import mergeOptions from './merge-options';
-import type { CpfGeneratorOptions } from './merge-options';
-import numberGenerator from './number-generator';
+import { CpfGenerator } from './cpf-generator';
+import type { CpfGeneratorOptionsInput } from './types';
 
 /**
- * Generate a valid CPF (Brazilian ID document) numeric sequence.
+ * Helper function to simplify the usage of the {@link CpfGenerator} class.
+ *
+ * If no options are provided, it generates an 11-digit unformatted numeric CPF
+ * (e.g., `12345678901`) using default settings. If options are provided, they
+ * control prefix and whether the result is formatted.
+ *
+ * @throws {CpfGeneratorOptionsTypeError} If any option has an invalid type.
+ * @throws {CpfGeneratorOptionPrefixInvalidException} If the `prefix` option
+ *   contains an invalid combination of digits.
+ * @see CpfGenerator for detailed option descriptions.
  */
-function cpfGen(options?: CpfGeneratorOptions): string {
-  const userOptions = mergeOptions(options);
-  const baseSequence = numOnly(userOptions.prefix);
-  const prefixLength = baseSequence.length;
-
-  if (prefixLength < 0 || prefixLength > 9) {
-    throw new Error('Option "prefix" must be a string containing between 1 and 9 digits.');
-  }
-
-  const cpfSequence = baseSequence
-    .split('')
-    .map(Number)
-    .concat(numberGenerator(9 - prefixLength));
-  [9, 10].forEach((nextNumIndex) => {
-    let factor = nextNumIndex + 1;
-    let sum = 0;
-
-    for (let n = 0; n < nextNumIndex; n++, factor--) {
-      sum += cpfSequence[n] * factor;
-    }
-
-    const remainder = 11 - (sum % 11);
-    cpfSequence.push(remainder > 9 ? 0 : remainder);
-  });
-
-  return userOptions.format ? cpfFmt(cpfSequence.join('')) : cpfSequence.join('');
+export function cpfGen(options?: CpfGeneratorOptionsInput): string {
+  return new CpfGenerator(options).generate();
 }
-
-export default cpfGen;

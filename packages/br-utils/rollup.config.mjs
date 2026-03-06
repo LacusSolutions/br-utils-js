@@ -1,13 +1,10 @@
-import { makeRollupConfig } from '../../rollup.config.mjs';
+import { makeRollupConfig } from '../../build/rollup/config.mjs';
 import packageMeta from './package.json' with { type: 'json' };
 
 export default makeRollupConfig({
+  bannerTitle: 'Lacus Solutions :: br-utils',
   creationYear: 2025,
-  umdEntryPoint: 'src/dist.ts',
-  modulesEntryPoint: 'src/module.ts',
-  bannerTitle: 'br-utils',
-  distFileName: 'br-utils',
-  globalName: 'brUtils',
-  cjsExports: 'named',
+  umdGlobalName: 'brUtils',
+  umdDistFileName: 'br-utils',
   packageMeta,
 });

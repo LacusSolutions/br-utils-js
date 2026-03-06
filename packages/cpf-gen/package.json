@@ -1,15 +1,11 @@
 {
   "name": "@lacussoft/cpf-gen",
   "version": "2.0.2",
-  "description": "Utility function to generate valid CPF (Brazilian personal ID)",
+  "description": "Utility to generate CPF (Brazilian Individual's Taxpayer ID)",
   "license": "MIT",
   "author": {
     "name": "Julio L. Muller",
     "url": "https://github.com/juliolmuller"
-  },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
   },
   "keywords": [
     "cpf",
@@ -22,6 +18,7 @@
     "pt-br",
     "br"
   ],
+  "homepage": "https://cpf-utils.vercel.app/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LacusSolutions/br-utils-js.git"
@@ -29,47 +26,43 @@
   "bugs": {
     "url": "https://github.com/LacusSolutions/br-utils-js/issues"
   },
-  "homepage": "https://cpf-utils.vercel.app/",
-  "main": "build/index.cjs",
-  "types": "build/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "README.pt.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "exports": {
     ".": {
-      "types": "./build/index.d.ts",
-      "require": {
-        "default": "./build/index.cjs"
-      },
       "import": {
-        "default": "./build/index.mjs"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     }
   },
   "scripts": {
     "build": "rollup --config",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint --fix src/ tests/ rollup.config.mjs",
-    "pretest": "bun run build --silent",
-    "test": "bun test --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
-    "test:ci": "bun test"
+    "type-check": "tsc",
+    "lint": "bun run lint:ci --fix",
+    "lint:ci": "eslint src/ tests/ rollup.config.mjs",
+    "test": "bun run test:ci --coverage --coverage-reporter=lcov --coverage-dir=tests/__coverage__",
+    "test:ci": "bun test --only-failures"
   },
   "dependencies": {
-    "@lacussoft/cpf-fmt": "^2.0.2",
-    "deepmerge": "^4.3.1",
-    "num-only": "^1.2.8"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.28.5",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "~0.4.4",
-    "@rollup/plugin-typescript": "^12.3.0",
-    "@types/deepmerge": "^2.2.3",
-    "@types/node": "^22.19.1",
-    "cpf-check": "^3.0.0",
-    "rollup": "^4.53.3",
-    "rollup-plugin-delete": "^3.0.1",
-    "rollup-plugin-dts": "^6.3.0",
-    "rollup-plugin-esbuild": "^6.2.1",
-    "typescript": "^5.9.3"
+    "@lacussoft/cpf-dv": "workspace:*",
+    "@lacussoft/utils": "workspace:*"
   }
 }

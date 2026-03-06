@@ -1,3 +1,6 @@
+bun run test:cnpj-dv
+bun run type-check:cnpj-dv
+
 bun run test:cnpj-fmt
 bun run type-check:cnpj-fmt
 
@@ -9,6 +12,9 @@ bun run type-check:cnpj-val
 
 bun run test:cnpj-utils
 bun run type-check:cnpj-utils
+
+bun run test:cpf-dv
+bun run type-check:cpf-dv
 
 bun run test:cpf-fmt
 bun run type-check:cpf-fmt

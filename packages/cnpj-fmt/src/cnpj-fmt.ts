@@ -1,43 +1,19 @@
-import { escape as escapeHTML } from 'html-escaper';
-import numOnly from 'num-only';
-
-import mergeOptions from './merge-options';
-import type { CnpjFormattingOptions } from './merge-options';
+import { CnpjFormatter } from './cnpj-formatter';
+import type { CnpjFormatterOptionsInput, CnpjInput } from './types';
 
 /**
- * Format a given CNPJ char sequence.
+ * Helper function to simplify the usage of the {@link CnpjFormatter} class.
+ *
+ * Formats a CNPJ string according to the given options. With no options,
+ * returns the traditional CNPJ format (e.g. `12.345.678/0009-10`). Invalid
+ * input or length is handled by the configured `onFail` callback instead of
+ * throwing.
+ *
+ * @throws {CnpjFormatterOptionsTypeError} If any option has an invalid type.
+ * @throws {CnpjFormatterOptionsHiddenRangeInvalidException} If `hiddenStart` or
+ *   `hiddenEnd` are out of valid range.
+ * @see CnpjFormatter for detailed option descriptions.
  */
-function cnpjFmt<OnErrFallback = string>(
-  cnpjString: string,
-  options?: CnpjFormattingOptions<OnErrFallback>,
-): string {
-  const CNPJ_LENGTH = 14;
-  const cnpjArray = numOnly(cnpjString).split('');
-  const customOptions = mergeOptions(options);
-
-  if (cnpjArray.length !== CNPJ_LENGTH) {
-    const error = new Error(`Parameter "${cnpjString}" does not contain ${CNPJ_LENGTH} digits.`);
-
-    return customOptions.onFail(cnpjString, error) as string;
-  }
-
-  if (customOptions.hidden) {
-    for (let i = customOptions.hiddenRange.start; i <= customOptions.hiddenRange.end; i++) {
-      cnpjArray[i] = customOptions.hiddenKey;
-    }
-  }
-
-  cnpjArray.splice(12, 0, customOptions.delimiters.dash);
-  cnpjArray.splice(8, 0, customOptions.delimiters.slash);
-  cnpjArray.splice(5, 0, customOptions.delimiters.dot);
-  cnpjArray.splice(2, 0, customOptions.delimiters.dot);
-  const cnpjPretty = cnpjArray.join('');
-
-  if (customOptions.escape) {
-    return escapeHTML(cnpjPretty);
-  }
-
-  return cnpjPretty;
+export function cnpjFmt(cnpjInput: CnpjInput, options?: CnpjFormatterOptionsInput): string {
+  return new CnpjFormatter(options).format(cnpjInput);
 }
-
-export default cnpjFmt;

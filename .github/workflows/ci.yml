@@ -10,6 +10,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 env:
   HUSKY: 0
   NODE_VERSION: 20
@@ -61,10 +64,13 @@ jobs:
       fail-fast: false
       matrix:
         pkg:
+          - 'utils'
+          - 'cnpj-dv'
           - 'cnpj-fmt'
           - 'cnpj-gen'
           - 'cnpj-val'
           - 'cnpj-utils'
+          - 'cpf-dv'
           - 'cpf-fmt'
           - 'cpf-gen'
           - 'cpf-val'
