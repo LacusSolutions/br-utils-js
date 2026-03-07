@@ -28,11 +28,12 @@
         "rollup-plugin-dts": "^6.3.0",
         "tslib": "^2.8.1",
         "typescript": "^5.9.3",
+        "workspace-version-resolver": "^0.1.0",
       },
     },
     "packages/br-utils": {
       "name": "br-utils",
-      "version": "3.0.0",
+      "version": "2.0.5",
       "dependencies": {
         "@lacussoft/utils": "workspace:*",
         "cnpj-utils": "workspace:*",
@@ -41,21 +42,21 @@
     },
     "packages/cnpj-dv": {
       "name": "@lacussoft/cnpj-dv",
-      "version": "1.0.0",
+      "version": "0.0.0",
       "dependencies": {
         "@lacussoft/utils": "workspace:*",
       },
     },
     "packages/cnpj-fmt": {
       "name": "@lacussoft/cnpj-fmt",
-      "version": "3.0.0",
+      "version": "2.0.2",
       "dependencies": {
         "@lacussoft/utils": "workspace:*",
       },
     },
     "packages/cnpj-gen": {
       "name": "@lacussoft/cnpj-gen",
-      "version": "3.0.0",
+      "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cnpj-dv": "workspace:*",
         "@lacussoft/utils": "workspace:*",
@@ -63,7 +64,7 @@
     },
     "packages/cnpj-utils": {
       "name": "cnpj-utils",
-      "version": "3.0.0",
+      "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cnpj-fmt": "workspace:*",
         "@lacussoft/cnpj-gen": "workspace:*",
@@ -73,7 +74,7 @@
     },
     "packages/cnpj-val": {
       "name": "@lacussoft/cnpj-val",
-      "version": "3.0.0",
+      "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cnpj-dv": "workspace:*",
         "@lacussoft/utils": "workspace:*",
@@ -81,21 +82,21 @@
     },
     "packages/cpf-dv": {
       "name": "@lacussoft/cpf-dv",
-      "version": "1.0.0",
+      "version": "0.0.0",
       "dependencies": {
         "@lacussoft/utils": "workspace:*",
       },
     },
     "packages/cpf-fmt": {
       "name": "@lacussoft/cpf-fmt",
-      "version": "3.0.0",
+      "version": "2.0.2",
       "dependencies": {
         "@lacussoft/utils": "workspace:*",
       },
     },
     "packages/cpf-gen": {
       "name": "@lacussoft/cpf-gen",
-      "version": "3.0.0",
+      "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cpf-dv": "workspace:*",
         "@lacussoft/utils": "workspace:*",
@@ -103,7 +104,7 @@
     },
     "packages/cpf-utils": {
       "name": "cpf-utils",
-      "version": "3.0.0",
+      "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cpf-fmt": "workspace:*",
         "@lacussoft/cpf-gen": "workspace:*",
@@ -113,7 +114,7 @@
     },
     "packages/cpf-val": {
       "name": "@lacussoft/cpf-val",
-      "version": "3.0.0",
+      "version": "2.0.2",
       "dependencies": {
         "@lacussoft/cpf-dv": "workspace:*",
         "@lacussoft/utils": "workspace:*",
@@ -121,7 +122,7 @@
     },
     "packages/utils": {
       "name": "@lacussoft/utils",
-      "version": "1.0.0",
+      "version": "0.0.0",
     },
   },
   "packages": {
@@ -1533,6 +1534,8 @@
 
     "word-wrap": ["word-wrap@1.2.5", "", {}, "sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA=="],
 
+    "workspace-version-resolver": ["workspace-version-resolver@0.1.0", "", { "dependencies": { "fast-glob": "^3.3.3", "yargs": "^18.0.0" }, "bin": { "workspace-version-resolver": "bin/workspace-version-resolver.js", "wvr": "bin/workspace-version-resolver.js" } }, "sha512-AVwhoJwrkvd6d8l7oto006vT7Z1GhOZPYBmQCzf/9q4hqlMg64MANpfJl0dJi9HbxXpY+14Pjdydq9ZRL9zqYw=="],
+
     "wrap-ansi": ["wrap-ansi@6.2.0", "", { "dependencies": { "ansi-styles": "^4.0.0", "string-width": "^4.1.0", "strip-ansi": "^6.0.0" } }, "sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA=="],
 
     "xml-name-validator": ["xml-name-validator@4.0.0", "", {}, "sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw=="],
@@ -1675,6 +1678,8 @@
 
     "vue-eslint-parser/semver": ["semver@7.7.4", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA=="],
 
+    "workspace-version-resolver/yargs": ["yargs@18.0.0", "", { "dependencies": { "cliui": "^9.0.1", "escalade": "^3.1.1", "get-caller-file": "^2.0.5", "string-width": "^7.2.0", "y18n": "^5.0.5", "yargs-parser": "^22.0.0" } }, "sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg=="],
+
     "@commitlint/config-validator/ajv/json-schema-traverse": ["json-schema-traverse@1.0.0", "", {}, "sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug=="],
 
     "@manypkg/find-root/find-up/locate-path": ["locate-path@5.0.0", "", { "dependencies": { "p-locate": "^4.1.0" } }, "sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g=="],
@@ -1701,6 +1706,12 @@
 
     "read-yaml-file/js-yaml/argparse": ["argparse@1.0.10", "", { "dependencies": { "sprintf-js": "~1.0.2" } }, "sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg=="],
 
+    "workspace-version-resolver/yargs/cliui": ["cliui@9.0.1", "", { "dependencies": { "string-width": "^7.2.0", "strip-ansi": "^7.1.0", "wrap-ansi": "^9.0.0" } }, "sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w=="],
+
+    "workspace-version-resolver/yargs/string-width": ["string-width@7.2.0", "", { "dependencies": { "emoji-regex": "^10.3.0", "get-east-asian-width": "^1.0.0", "strip-ansi": "^7.1.0" } }, "sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ=="],
+
+    "workspace-version-resolver/yargs/yargs-parser": ["yargs-parser@22.0.0", "", {}, "sha512-rwu/ClNdSMpkSrUb+d6BRsSkLUq1fmfsY6TOpYzTwvwkg1/NRG85KBy3kq++A8LKQwX6lsu+aWad+2khvuXrqw=="],
+
     "@manypkg/find-root/find-up/locate-path/p-locate": ["p-locate@4.1.0", "", { "dependencies": { "p-limit": "^2.2.0" } }, "sha512-R79ZZ/0wAxKGu3oYMlz8jy/kbhsNrS7SKZ7PxEHBgJ5+F2mtFW2fK2cOtBh1cHYkQsbzFV7I+EoRKe6Yt0oK7A=="],
 
     "@typescript-eslint/typescript-estree/minimatch/brace-expansion/balanced-match": ["balanced-match@4.0.4", "", {}, "sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA=="],
@@ -1715,6 +1726,20 @@
 
     "log-update/wrap-ansi/string-width/emoji-regex": ["emoji-regex@10.6.0", "", {}, "sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A=="],
 
+    "workspace-version-resolver/yargs/cliui/strip-ansi": ["strip-ansi@7.1.2", "", { "dependencies": { "ansi-regex": "^6.0.1" } }, "sha512-gmBGslpoQJtgnMAvOVqGZpEz9dyoKTCzy2nfz/n8aIFhN/jCE/rCmcxabB6jOOHV+0WNnylOxaxBQPSvcWklhA=="],
+
+    "workspace-version-resolver/yargs/cliui/wrap-ansi": ["wrap-ansi@9.0.2", "", { "dependencies": { "ansi-styles": "^6.2.1", "string-width": "^7.0.0", "strip-ansi": "^7.1.0" } }, "sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww=="],
+
+    "workspace-version-resolver/yargs/string-width/emoji-regex": ["emoji-regex@10.6.0", "", {}, "sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A=="],
+
+    "workspace-version-resolver/yargs/string-width/strip-ansi": ["strip-ansi@7.1.2", "", { "dependencies": { "ansi-regex": "^6.0.1" } }, "sha512-gmBGslpoQJtgnMAvOVqGZpEz9dyoKTCzy2nfz/n8aIFhN/jCE/rCmcxabB6jOOHV+0WNnylOxaxBQPSvcWklhA=="],
+
     "@manypkg/find-root/find-up/locate-path/p-locate/p-limit": ["p-limit@2.3.0", "", { "dependencies": { "p-try": "^2.0.0" } }, "sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w=="],
+
+    "workspace-version-resolver/yargs/cliui/strip-ansi/ansi-regex": ["ansi-regex@6.2.2", "", {}, "sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg=="],
+
+    "workspace-version-resolver/yargs/cliui/wrap-ansi/ansi-styles": ["ansi-styles@6.2.3", "", {}, "sha512-4Dj6M28JB+oAH8kFkTLUo+a2jwOFkuqb3yucU0CANcRRUbxS0cP0nZYCGjcc3BNXwRIsUVmDGgzawme7zvJHvg=="],
+
+    "workspace-version-resolver/yargs/string-width/strip-ansi/ansi-regex": ["ansi-regex@6.2.2", "", {}, "sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg=="],
   }
 }

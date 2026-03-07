@@ -9,7 +9,7 @@
     "commit": "commit",
     "changelog": "changeset",
     "version": "changeset version",
-    "release": "changeset publish",
+    "release": "workspace-version-resolver && changeset publish",
     "type-check": "bun run build && bun run type-check:ci",
     "type-check:ci": "bun run --filter '*' type-check",
     "type-check:dv": "bun run --filter './***/*-dv' type-check",
@@ -118,6 +118,7 @@
     "rollup-plugin-delete": "^3.0.2",
     "rollup-plugin-dts": "^6.3.0",
     "tslib": "^2.8.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "workspace-version-resolver": "^0.1.0"
   }
 }
