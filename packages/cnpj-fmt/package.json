@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cnpj-fmt",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Utility to format CNPJ (Brazilian Business Tax ID)",
   "license": "MIT",
   "author": {

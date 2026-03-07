@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cnpj-val",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Utility to validate CNPJ (Brazilian Business Tax ID)",
   "license": "MIT",
   "author": {

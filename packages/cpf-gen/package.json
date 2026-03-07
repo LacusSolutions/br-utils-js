@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cpf-gen",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Utility to generate CPF (Brazilian Individual's Taxpayer ID)",
   "license": "MIT",
   "author": {

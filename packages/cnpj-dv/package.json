@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cnpj-dv",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Utility to calculate check digits on CNPJ (Brazilian Business Tax ID)",
   "license": "MIT",
   "author": {
