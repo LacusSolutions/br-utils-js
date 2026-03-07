@@ -31,6 +31,7 @@
     "type-check:cpf-utils": "bun run --filter './**/cpf-utils' type-check",
     "type-check:br-utils": "bun run --filter './**/br-utils' type-check",
     "lint": "bun run lint:root && bun run --filter '*' lint",
+    "lint:ci": "bun run --filter '*' lint:ci",
     "lint:root": "eslint --fix build/ commitlint.config.mjs eslint.config.mjs",
     "lint:dv": "bun run --filter './***/*-dv' lint",
     "lint:fmt": "bun run --filter './***/*-fmt' lint",
