@@ -1,6 +1,6 @@
 {
   "name": "@lacussoft/cpf-dv",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Utility to calculate check digits on CPF (Brazilian Individual's Taxpayer ID)",
   "license": "MIT",
   "author": {

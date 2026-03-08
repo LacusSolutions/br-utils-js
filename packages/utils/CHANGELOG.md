@@ -1,6 +1,6 @@
----
-"@lacussoft/utils": major
----
+# @lacussoft/utils
+
+## 1.0.0
 
 Reusable JavaScript/TypeScript utilities for LacusSolutions' packages. This major release establishes the public API:
 
