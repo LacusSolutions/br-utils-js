@@ -2,21 +2,14 @@
 
 ## 1.0.0
 
-### Major Changes
+### 🚀 Stable Version Released!
 
-- f795b64: ### 🚀 Stable Version Released!
+Utility class to calculate check digits on CNPJ (Brazilian legal entity ID). Main features:
 
-  Utility class to calculate check digits on CNPJ (Brazilian legal entity ID). Main features:
+- **Support to different input formats**: accepts CNPJ as string or lists of strings
+- **Only alphanumeric digits matter**: automatically strips non-alphanumeric characters from input
+- **Lazy evaluation & Caching**: check digits are calculated only when accessed for the first time
+- **Minimal dependencies**: No external dependencies, only on internal package `@lacussoft/utils`
+- **Comprehensive error handling**: specific exceptions for different error scenarios
 
-  - **Support to different input formats**: accepts CNPJ as string or lists of strings
-  - **Only alphanumeric digits matter**: automatically strips non-alphanumeric characters from input
-  - **Lazy evaluation & Caching**: check digits are calculated only when accessed for the first time
-  - **Minimal dependencies**: No external dependencies, only on internal package `@lacussoft/utils`
-  - **Comprehensive error handling**: specific exceptions for different error scenarios
-
-  For detailed usage and API reference, see the [README](./README.md).
-
-### Patch Changes
-
-- Updated dependencies [a152328]
-  - @lacussoft/utils@1.0.0
+For detailed usage and API reference, see the [README](./README.md).
