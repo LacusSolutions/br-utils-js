@@ -56,7 +56,7 @@ Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cnpj-gen@latest/dist/cnpj-gen.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
 ### Opções do gerador
 
@@ -122,7 +122,7 @@ options.all      // cópia superficial congelada das opções atuais
 
 ### Exportações
 
-- **`cnpjGen`** (default): `(options?: CnpjGeneratorOptionsInput) => string`
+- **`cnpjGen`** (padrão): `(options?: CnpjGeneratorOptionsInput) => string`
 - **`CnpjGenerator`**: Classe para gerar CNPJ com opções padrão opcionais e sobrescritas por chamada.
 - **`CnpjGeneratorOptions`**: Classe que armazena as opções (`format`, `prefix`, `type`) com validação e merge.
 - **`CNPJ_LENGTH`**: `14` (constante).

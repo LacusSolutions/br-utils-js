@@ -72,7 +72,7 @@ Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script
 <script src="https://cdn.jsdelivr.net/npm/cnpj-utils@latest/dist/cnpj-utils.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
 ### Opções do formatador
 

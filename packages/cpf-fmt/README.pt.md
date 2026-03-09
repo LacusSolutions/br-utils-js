@@ -2,24 +2,24 @@
 
 > 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-fmt/README.md)
 
-Utilitário em JavaScript/TypeScript para formatação de CPF (Cadastro de Pessoas Físicas).
+Utilitário em JavaScript/TypeScript para formatação de CPF (Cadastro de Pessoa Física).
 
 ## Recursos
 
 - ✅ **Entrada flexível**: aceita string ou array de strings
 - ✅ **Agnóstico ao formato**: remove caracteres não numéricos antes de formatar
 - ✅ **Personalizável**: delimitadores (ponto, hífen), mascaramento (intervalo + substituição), escape HTML, codificação de URL
-- ✅ **Suporte a TypeScript**: definições de tipo completas e compatível com modo estrito
-- ✅ **Dependências mínimas**: Sem dependências externas, apenas pacotes internos como `@lacussoft/utils`
+- ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
+- ✅ **Dependências mínimas**: Sem dependências externas, apenas o pacote interno `@lacussoft/utils`
 - ✅ **Tratamento de erros**: callback `onFail` configurável; uso opcional de classes de exceção específicas
 
 ## Instalação
 
 ```bash
-# com NPM
+# usando NPM
 $ npm install --save @lacussoft/cpf-fmt
 
-# com Bun
+# usando Bun
 $ bun add @lacussoft/cpf-fmt
 ```
 
@@ -50,13 +50,13 @@ cpfFmt(cpf, {     // '036035681 dv 95'
 })
 ```
 
-Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script>`; `cpfFmt` fica exposto globalmente:
+Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script>`; `cpfFmt` fica disponível globalmente:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cpf-fmt@latest/dist/cpf-fmt.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
 ### Opções de formatação
 
@@ -140,10 +140,10 @@ Ao usar `CpfFormatter`, tipo de entrada inválido (não string, não array de st
 
 ## Contribuição e suporte
 
-Contribuições são bem-vindas! Consulte nossas [Diretrizes de contribuição](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md) para detalhes. Se o projeto for útil para você, considere:
+Contribuições são bem-vindas! Consulte as [Diretrizes de contribuição](https://github.com/LacusSolutions/br-utils-js/blob/main/CONTRIBUTING.md). Se o projeto for útil para você, considere:
 
 - ⭐ Dar uma estrela no repositório
-- 🤝 Contribuir com o código
+- 🤝 Contribuir com código
 - 💡 [Sugerir novas funcionalidades](https://github.com/LacusSolutions/br-utils-js/issues)
 - 🐛 [Reportar bugs](https://github.com/LacusSolutions/br-utils-js/issues)
 
@@ -153,7 +153,7 @@ Este projeto está sob a licença MIT — veja o arquivo [LICENSE](https://githu
 
 ## Changelog
 
-Veja o [CHANGELOG](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-fmt/CHANGELOG.md) para a lista de alterações e histórico de versões.
+Veja o [CHANGELOG](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-fmt/CHANGELOG.md) para alterações e histórico de versões.
 
 ---
 

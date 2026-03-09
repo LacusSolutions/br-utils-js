@@ -19,7 +19,7 @@ A JavaScript/TypeScript utility to format CPF (Brazilian Individual's Taxpayer I
 
 ## Features
 
-- ✅ **Flexible input**: accepts strings or array of strings
+- ✅ **Flexible input**: Accepts strings or array of strings
 - ✅ **Format agnostic**: Strips non-numeric characters before formatting
 - ✅ **Customizable**: Delimiters (dot, dash), masking (range + replacement), HTML escape, URL encode
 - ✅ **TypeScript support**: Full type definitions and strict-mode compatible

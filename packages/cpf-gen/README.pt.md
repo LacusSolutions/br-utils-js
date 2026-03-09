@@ -2,7 +2,7 @@
 
 > 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-gen/README.md)
 
-Utilitário em JavaScript/TypeScript para gerar CPFs válidos (Cadastro de Pessoas Físicas).
+Utilitário em JavaScript/TypeScript para gerar CPFs válidos (Cadastro de Pessoa Física).
 
 ## Recursos
 
@@ -16,10 +16,10 @@ Utilitário em JavaScript/TypeScript para gerar CPFs válidos (Cadastro de Pesso
 ## Instalação
 
 ```bash
-# com NPM
+# usando NPM
 $ npm install --save @lacussoft/cpf-gen
 
-# com Bun
+# usando Bun
 $ bun add @lacussoft/cpf-gen
 ```
 
@@ -50,7 +50,7 @@ Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cpf-gen@latest/dist/cpf-gen.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
 ### Opções do gerador
 

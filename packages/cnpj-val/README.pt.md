@@ -58,7 +58,7 @@ Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cnpj-val@latest/dist/cnpj-val.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
 ### Opções do validador
 
@@ -125,7 +125,7 @@ options.all            // cópia superficial congelada das opções atuais
 
 ### Exportações
 
-- **`cnpjVal`** (default): `(cnpjInput: CnpjInput, options?: CnpjValidatorOptionsInput) => boolean`
+- **`cnpjVal`** (padrão): `(cnpjInput: CnpjInput, options?: CnpjValidatorOptionsInput) => boolean`
 - **`CnpjValidator`**: Classe para validar CNPJ com opções padrão opcionais e sobrescritas por chamada.
 - **`CnpjValidatorOptions`**: Classe que armazena as opções (`caseSensitive`, `type`) com validação e merge.
 - **`CNPJ_LENGTH`**: `14` (constante).

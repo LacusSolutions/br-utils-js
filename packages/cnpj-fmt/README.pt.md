@@ -9,20 +9,20 @@ Utilitário em JavaScript/TypeScript para formatar CNPJ (Cadastro Nacional da Pe
 ## Recursos
 
 - ✅ **CNPJ alfanumérico**: Suporte a CNPJ de 14 caracteres alfanuméricos (dígitos e letras, ex.: `RK0CMT3W000100`)
-- ✅ **Entrada flexível**: aceita string ou array de strings
+- ✅ **Entrada flexível**: Aceita string ou array de strings
 - ✅ **Agnóstico ao formato**: Remove caracteres não alfanuméricos e converte para maiúsculas antes de formatar
 - ✅ **Customizável**: Delimitadores (ponto, barra, hífen), mascaramento (intervalo + caractere de substituição), escape HTML e codificação para URL
 - ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
-- ✅ **Dependências mínimas**: Sem dependências externas, apenas pacotes internos como `@lacussoft/utils`
+- ✅ **Dependências mínimas**: Sem dependências externas, apenas o pacote interno `@lacussoft/utils`
 - ✅ **Tratamento de erros**: Callback `onFail` configurável; uso opcional de classes de exceção específicas
 
 ## Instalação
 
 ```bash
-# com NPM
+# usando NPM
 $ npm install --save @lacussoft/cnpj-fmt
 
-# com Bun
+# usando Bun
 $ bun add @lacussoft/cnpj-fmt
 ```
 
@@ -60,7 +60,7 @@ Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cnpj-fmt@latest/dist/cnpj-fmt.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
 ### Opções de formatação
 
@@ -127,7 +127,7 @@ formatter.format('RK0CMT3W000100', { hidden: false })   // sobrescreve nesta cha
 
 ### Exportações
 
-- **`cnpjFmt`** (default): `(cnpjInput: string | string[], options?: CnpjFormatterOptionsInput) => string`
+- **`cnpjFmt`** (padrão): `(cnpjInput: string | string[], options?: CnpjFormatterOptionsInput) => string`
 - **`CnpjFormatter`**: Classe para formatar CNPJ com opções padrão ou customizadas; aceita `string | string[]` em `format()`.
 - **`CnpjFormatterOptions`**: Classe que armazena as opções (dotKey, slashKey, dashKey, hidden, hiddenKey, hiddenStart, hiddenEnd, escape, encode, onFail). Suporta merge via construtor ou `set()`.
 - **`CNPJ_LENGTH`**: `14` (constante).

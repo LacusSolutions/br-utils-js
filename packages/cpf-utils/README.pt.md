@@ -2,7 +2,7 @@
 
 > 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-utils/README.md)
 
-Kit em JavaScript/TypeScript para formatar, gerar e validar CPF (Cadastro de Pessoas Físicas). Unifica em uma única API os pacotes [`@lacussoft/cpf-fmt`](https://www.npmjs.com/package/@lacussoft/cpf-fmt), [`@lacussoft/cpf-gen`](https://www.npmjs.com/package/@lacussoft/cpf-gen) e [`@lacussoft/cpf-val`](https://www.npmjs.com/package/@lacussoft/cpf-val).
+Kit em JavaScript/TypeScript para formatar, gerar e validar CPF (Cadastro de Pessoa Física). Unifica em uma única API os pacotes [`@lacussoft/cpf-fmt`](https://www.npmjs.com/package/@lacussoft/cpf-fmt), [`@lacussoft/cpf-gen`](https://www.npmjs.com/package/@lacussoft/cpf-gen) e [`@lacussoft/cpf-val`](https://www.npmjs.com/package/@lacussoft/cpf-val).
 
 ## Recursos
 
@@ -67,7 +67,7 @@ Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script
 <script src="https://cdn.jsdelivr.net/npm/cpf-utils@latest/dist/cpf-utils.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
 ### Opções do formatador
 

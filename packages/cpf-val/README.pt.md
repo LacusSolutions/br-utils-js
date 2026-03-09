@@ -2,7 +2,7 @@
 
 > 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/cpf-val/README.md)
 
-Utilitário em JavaScript/TypeScript para validar CPFs (Cadastro de Pessoas Físicas).
+Utilitário em JavaScript/TypeScript para validar CPFs (Cadastro de Pessoa Física).
 
 ## Recursos
 
@@ -15,10 +15,10 @@ Utilitário em JavaScript/TypeScript para validar CPFs (Cadastro de Pessoas Fís
 ## Instalação
 
 ```bash
-# com NPM
+# usando NPM
 $ npm install --save @lacussoft/cpf-val
 
-# com Bun
+# usando Bun
 $ bun add @lacussoft/cpf-val
 ```
 
@@ -39,7 +39,8 @@ cpfVal('12345678909')      // true
 cpfVal('123.456.789-09')   // true
 cpfVal('12345678910')      // false (dígitos verificadores inválidos)
 
-cpfVal(['123', '456', '789', '09'])  // true (array de strings)
+cpfVal(['123', '456', '789', '09'])        // true (array de strings)
+cpfVal(['1', '2', '3', '...', '0', '9'])   // true (array de strings)
 ```
 
 Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script>`; `cpfVal` fica disponível globalmente:
@@ -48,7 +49,7 @@ Para frontends legados, inclua o build UMD (ex.: minificado) em uma tag `<script
 <script src="https://cdn.jsdelivr.net/npm/@lacussoft/cpf-val@latest/dist/cpf-val.min.js"></script>
 ```
 
-## Uso
+## Utilização
 
 ### `cpfVal` (função auxiliar)
 

@@ -12,7 +12,7 @@ Utilitário em JavaScript/TypeScript para calcular os dígitos verificadores de 
 - ✅ **Avaliação lazy**: Dígitos verificadores são calculados apenas quando acessados (via propriedades)
 - ✅ **Cache**: Valores calculados são armazenados em cache para acessos subsequentes
 - ✅ **TypeScript**: Definições de tipo completas e compatível com strict mode
-- ✅ **Dependências mínimas**: Sem dependências externas, apenas pacotes internos como `@lacussoft/utils`
+- ✅ **Dependências mínimas**: Sem dependências externas, apenas o pacote interno `@lacussoft/utils`
 - ✅ **Tratamento de erros**: Exceções específicas para tipo, tamanho e CPF inválido
 
 ## Instalação

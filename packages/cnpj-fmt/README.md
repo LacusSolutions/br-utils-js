@@ -22,7 +22,7 @@ A JavaScript/TypeScript utility to format CNPJ (Brazilian Business Tax ID).
 ## Features
 
 - ✅ **Alphanumeric CNPJ**: Supports 14-character alphanumeric CNPJ (digits and letters, e.g. `RK0CMT3W000100`)
-- ✅ **Flexible input**: accepts strings or array of strings
+- ✅ **Flexible input**: Accepts strings or array of strings
 - ✅ **Format agnostic**: Strips non-alphanumeric characters and uppercases before formatting
 - ✅ **Customizable**: Delimiters (dot, slash, dash), masking (range + replacement), HTML escape, URL encode
 - ✅ **TypeScript support**: Full type definitions and strict-mode compatible
