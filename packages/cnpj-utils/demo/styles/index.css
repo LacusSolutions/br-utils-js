@@ -89,6 +89,14 @@ button:disabled {
   color: #0d47a1;
 }
 
+.input-field:has(.select-wrapper) {
+  margin-top: 32px;
+}
+
+.input-field .select-wrapper {
+  flex: 1;
+}
+
 .input-field input[type=text]:focus {
   box-shadow: 0 1px 0 0 currentColor !important;
   border-bottom: 1px solid currentColor;

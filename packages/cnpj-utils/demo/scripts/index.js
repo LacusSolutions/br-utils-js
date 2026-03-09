@@ -8,10 +8,18 @@ setupValFeatures();
 setupFmtFeatures();
 setupHotkeys();
 
+if (typeof M !== 'undefined' && M.FormSelect) {
+  const selects = document.querySelectorAll('select');
+
+  if (selects.length) {
+    M.FormSelect.init(selects);
+  }
+}
+
 function setupSkipLinks() {
   const skipLinks = document.querySelectorAll('.skip-link');
 
-  skipLinks.forEach(link => {
+  skipLinks.forEach((link) => {
     link.addEventListener('click', function (event) {
       event.preventDefault();
 
@@ -69,13 +77,14 @@ function setupInstallationCopyButton() {
 function setupGenFeatures() {
   const outputFieldEl = document.getElementById('gen-output-field');
   const formatFieldEl = document.getElementById('gen-format-field');
+  const typeFieldEl = document.getElementById('gen-type-field');
   const genBtnEl = document.getElementById('gen-btn');
   const copyBtnEl = document.querySelector('#gen-output button');
   const checkIconEl = copyBtnEl.nextElementSibling;
 
   formatFieldEl.addEventListener('change', (event) => {
     const isChecked = event.target.checked;
-    const outputValue = outputFieldEl.value
+    const outputValue = outputFieldEl.value;
 
     if (!outputValue) {
       return;
@@ -84,13 +93,14 @@ function setupGenFeatures() {
     if (isChecked) {
       setOutputValue(cnpjUtils.format(outputValue));
     } else {
-      setOutputValue(outputValue.replace(/\D/g, ''));
+      setOutputValue(normalizeCnpjInput(outputValue));
     }
   });
 
   genBtnEl.addEventListener('click', () => {
     const cnpj = cnpjUtils.generate({
       format: formatFieldEl.checked,
+      type: typeFieldEl.value,
     });
 
     setOutputValue(cnpj);
@@ -118,26 +128,25 @@ function setupGenFeatures() {
 function setupValFeatures() {
   const inputFieldEl = document.getElementById('val-input-field');
   const pasteBtnEl = document.querySelector('#val-input button');
+  const typeFieldEl = document.getElementById('val-type-field');
+  const caseSensitiveEl = document.getElementById('val-case-sensitive');
   const alertEl = document.getElementById('val-input');
 
   pasteBtnEl.addEventListener('click', async () => {
     const value = await navigator.clipboard.readText();
-    const numericValue = value.replace(/\D/g, '');
-
-    setInputValue(numericValue);
+    setInputValue(normalizeCnpjInput(value));
     inputFieldEl.focus();
   });
 
   inputFieldEl.addEventListener('input', () => {
     const value = inputFieldEl.value;
-    const numericValue = value.replace(/\D/g, '');
 
-    if (!numericValue) {
+    if (!value) {
       clearValidation();
       return;
     }
 
-    setInputValue(numericValue);
+    setInputValue(normalizeCnpjInput(value));
   });
 
   inputFieldEl.addEventListener('keyup', (event) => {
@@ -146,9 +155,28 @@ function setupValFeatures() {
     }
   });
 
+  if (typeFieldEl) {
+    typeFieldEl.addEventListener('change', () => {
+      if (inputFieldEl.value) {
+        validateCnpj();
+      }
+    });
+  }
+
+  if (caseSensitiveEl) {
+    caseSensitiveEl.addEventListener('change', () => {
+      if (inputFieldEl.value) {
+        validateCnpj();
+      }
+    });
+  }
+
   function validateCnpj() {
     const value = inputFieldEl.value;
-    const isValid = cnpjUtils.isValid(value);
+    const isValid = cnpjUtils.isValid(value, {
+      type: typeFieldEl?.value ?? 'alphanumeric',
+      caseSensitive: caseSensitiveEl?.checked ?? true,
+    });
 
     if (isValid) {
       alertEl.classList.remove('invalid');
@@ -181,6 +209,7 @@ function setupFmtFeatures() {
   const copyBtnEl = document.querySelector('#fmt-output button');
   const checkIconEl = copyBtnEl.nextElementSibling;
   const delimiterDotEl = document.getElementById('fmt-delimiter-dot');
+  const delimiterSlashEl = document.getElementById('fmt-delimiter-slash');
   const delimiterDashEl = document.getElementById('fmt-delimiter-dash');
   const isHiddenEl = document.getElementById('fmt-is-hidden');
   const hiddenKeyEl = document.getElementById('fmt-hidden-key');
@@ -195,7 +224,7 @@ function setupFmtFeatures() {
   setupFmtHiddenRange();
 
   function setInputValue(value) {
-    inputFieldEl.value = value.replace(/\D/g, '');
+    inputFieldEl.value = value;
     formatBtnEl.disabled = !value;
     M.updateTextFields();
   }
@@ -208,16 +237,13 @@ function setupFmtFeatures() {
 
   function formatCnpj() {
     const formattedValue = cnpjUtils.format(inputFieldEl.value, {
-      delimiters: {
-        dot: delimiterDotEl.value,
-        dash: delimiterDashEl.value,
-      },
       hidden: isHiddenEl.checked,
       hiddenKey: hiddenKeyEl.value,
-      hiddenRange: {
-        start: parseInt(hiddenStartEl.textContent) - 1,
-        end: parseInt(hiddenEndEl.textContent) - 1,
-      },
+      hiddenStart: parseInt(hiddenStartEl.textContent, 10) - 1,
+      hiddenEnd: parseInt(hiddenEndEl.textContent, 10) - 1,
+      dotKey: delimiterDotEl.value,
+      slashKey: delimiterSlashEl.value,
+      dashKey: delimiterDashEl.value,
       onFail: () => '',
     });
 
@@ -249,23 +275,21 @@ function setupFmtFeatures() {
 
     inputFieldEl.addEventListener('input', () => {
       const value = inputFieldEl.value;
-      const numericValue = value.replace(/\D/g, '');
 
-      if (!numericValue) {
-        clearValidation();
+      if (!value) {
+        setInputValue('');
+        setOutputValue('');
         return;
       }
 
-      setInputValue(numericValue);
+      setInputValue(normalizeCnpjInput(value));
     });
   }
 
   function setupFmtPasteButton() {
     pasteBtnEl.addEventListener('click', async () => {
       const value = await navigator.clipboard.readText();
-      const numericValue = value.replace(/\D/g, '');
-
-      setInputValue(numericValue);
+      setInputValue(normalizeCnpjInput(value));
       inputFieldEl.focus();
     });
   }
@@ -277,7 +301,7 @@ function setupFmtFeatures() {
       checkIconEl.style.display = 'block';
 
       setTimeout(() => {
-      checkIconEl.style.display = 'none';
+        checkIconEl.style.display = 'none';
         copyBtnEl.style.display = 'block';
       }, 2000);
     });
@@ -285,6 +309,7 @@ function setupFmtFeatures() {
 
   function setupFmtOptionsControls() {
     delimiterDotEl.addEventListener('input', formatCnpj);
+    delimiterSlashEl.addEventListener('input', formatCnpj);
     delimiterDashEl.addEventListener('input', formatCnpj);
     isHiddenEl.addEventListener('change', formatCnpj);
     hiddenKeyEl.addEventListener('input', formatCnpj);
@@ -296,10 +321,7 @@ function setupFmtFeatures() {
     noUiSlider.create(sliderEl, {
       orientation: 'horizontal',
       connect: true,
-      start: [
-        parseInt(hiddenStartEl.textContent),
-        parseInt(hiddenEndEl.textContent),
-      ],
+      start: [parseInt(hiddenStartEl.textContent), parseInt(hiddenEndEl.textContent)],
       step: 1,
       range: {
         min: 1,
@@ -345,4 +367,11 @@ function setupHotkeys() {
       document.querySelector('#fmt-input button').click();
     }
   });
+}
+
+function normalizeCnpjInput(value) {
+  return value
+    .replace(/[^0-9A-Z]/gi, '')
+    .toUpperCase()
+    .slice(0, 14);
 }

@@ -257,6 +257,15 @@
                   <span>Formatar valor gerado</span>
                 </label>
               </div>
+
+              <div class="input-field" id="gen-type">
+                <select id="gen-type-field" aria-label="Tipo de caractere do CNPJ gerado">
+                  <option value="numeric">Numérico (0-9)</option>
+                  <option value="alphanumeric" selected>Alfanumérico (0-9, A-Z)</option>
+                  <option value="alphabetic">Alfabético (A-Z)</option>
+                </select>
+                <label for="gen-type-field">Tipo de caractere</label>
+              </div>
             </details>
           </section>
 
@@ -303,6 +312,25 @@
               <i class="material-symbols-outlined" aria-hidden="true">close</i>
               CNPJ inválido
             </div>
+
+            <details id="val-options">
+              <summary>Opções de validação</summary>
+
+              <hr />
+
+              <div class="input-field" id="val-type">
+                <select id="val-type-field" aria-label="Tipo de CNPJ a validar">
+                  <option value="numeric">Numérico (apenas dígitos)</option>
+                  <option value="alphanumeric" selected>Alfanumérico (dígitos e letras)</option>
+                </select>
+                <label for="val-type-field">Tipo de CNPJ</label>
+              </div>
+
+              <label for="val-case-sensitive">
+                <input class="filled-in" id="val-case-sensitive" type="checkbox" checked />
+                <span>Diferenciar maiúsculas e minúsculas</span>
+              </label>
+            </details>
           </section>
 
           <section class="feature-block" aria-labelledby="fmt-title">
@@ -391,18 +419,27 @@
                     id="fmt-delimiter-dot"
                     type="text"
                     value="."
-                    aria-label="Delimitador de ponto"
+                    aria-label="Delimitador de ponto (dotKey)"
                   />
-                  <label for="fmt-delimiter-dot">Delimitador de ponto</label>
+                  <label for="fmt-delimiter-dot">Ponto (dotKey)</label>
+                </div>
+                <div class="input-field">
+                  <input
+                    id="fmt-delimiter-slash"
+                    type="text"
+                    value="/"
+                    aria-label="Delimitador de barra (slashKey)"
+                  />
+                  <label for="fmt-delimiter-slash">Barra (slashKey)</label>
                 </div>
                 <div class="input-field">
                   <input
                     id="fmt-delimiter-dash"
                     type="text"
                     value="-"
-                    aria-label="Delimitador de hífen"
+                    aria-label="Delimitador de hífen (dashKey)"
                   />
-                  <label for="fmt-delimiter-dash">Delimitador de hífen</label>
+                  <label for="fmt-delimiter-dash">Hífen (dashKey)</label>
                 </div>
               </fieldset>
 
@@ -454,7 +491,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" integrity="sha512-NiWqa2rceHnN3Z5j6mSAvbwwg3tiwVNxiAQaaSMSXnRRDh5C2mk/+sKQRw8qjV1vN4nf8iK2a0b048PnHbyx+Q==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/cnpj-utils@2.0.2/dist/cnpj-utils.min.js" integrity="sha384-bTvlaK4+orYt6vX7xyaYbFVy1eL3iuuCom2l5T0nXi+vbNSOtqqlpaUZtebib17O" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cnpj-utils@3/dist/cnpj-utils.min.js" crossorigin="anonymous"></script>
     <script src="./scripts/nouislider.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
