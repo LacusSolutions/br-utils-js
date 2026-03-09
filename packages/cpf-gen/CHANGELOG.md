@@ -79,7 +79,6 @@
 
 ### Patch Changes
 
-- 7e21d87: Updated overall development dependencies
 - Updated dependencies [7e21d87]
   - @lacussoft/cpf-fmt@1.4.2
 

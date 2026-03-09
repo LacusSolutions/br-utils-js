@@ -98,7 +98,6 @@
 
 ### Patch Changes
 
-- 7e21d87: Updated overall development dependencies
 - Updated dependencies [7e21d87]
   - @lacussoft/cnpj-fmt@1.3.1
   - @lacussoft/cnpj-gen@1.3.1

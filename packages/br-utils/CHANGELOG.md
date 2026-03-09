@@ -72,7 +72,7 @@
 
 ## 2.0.0
 
-### Release
+### Major Changes
 
 - Utility function to deal with CNPJ:
   - Function to format CNPJ;

@@ -70,7 +70,7 @@
 
 ### Patch Changes
 
-- 7e21d87: Updated overall development dependencies
+- 7e21d87: Update overall development dependencies.
 
 ## 1.3.0
 

@@ -67,7 +67,7 @@
 
 ### Patch Changes
 
-- 7e21d87: Updated overall development dependencies
+- 7e21d87: Update overall development dependencies.
 
 ## 1.4.1
 
@@ -102,7 +102,7 @@
 - bf00d1a0858ede64449f8d7202f9ef2969bb690e: Configured [Changesets](https://github.com/changesets/changesets) in the project.
 - 8c763276b616df00a6732adc896d5497b52cef15: Set `"publishConfig"` in `package.json` for all packages.
 - 583327c71f84bdd8d496bfb1f287fbf7802d729b..84cec9dee81d0af2f52b3153fa410306e2fd13c6: Created GitHub Actions workflow to create changelogs, increase versions and publish to NPM registry.
-- 7ba1718: Created file to set codebase owner.
+- 7ba1718: Create file to set codebase owner.
 - Updated dependencies:
   - eslint@9.24.0
   - eslint-config-any@1.0.6
