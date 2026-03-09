@@ -11,7 +11,7 @@ setupHotkeys();
 function setupSkipLinks() {
   const skipLinks = document.querySelectorAll('.skip-link');
 
-  skipLinks.forEach(link => {
+  skipLinks.forEach((link) => {
     link.addEventListener('click', function (event) {
       event.preventDefault();
 
@@ -75,7 +75,7 @@ function setupGenFeatures() {
 
   formatFieldEl.addEventListener('change', (event) => {
     const isChecked = event.target.checked;
-    const outputValue = outputFieldEl.value
+    const outputValue = outputFieldEl.value;
 
     if (!outputValue) {
       return;
@@ -208,16 +208,12 @@ function setupFmtFeatures() {
 
   function formatCpf() {
     const formattedValue = cpfUtils.format(inputFieldEl.value, {
-      delimiters: {
-        dot: delimiterDotEl.value,
-        dash: delimiterDashEl.value,
-      },
       hidden: isHiddenEl.checked,
       hiddenKey: hiddenKeyEl.value,
-      hiddenRange: {
-        start: parseInt(hiddenStartEl.textContent) - 1,
-        end: parseInt(hiddenEndEl.textContent) - 1,
-      },
+      hiddenStart: parseInt(hiddenStartEl.textContent, 10) - 1,
+      hiddenEnd: parseInt(hiddenEndEl.textContent, 10) - 1,
+      dotKey: delimiterDotEl.value,
+      dashKey: delimiterDashEl.value,
       onFail: () => '',
     });
 
@@ -277,7 +273,7 @@ function setupFmtFeatures() {
       checkIconEl.style.display = 'block';
 
       setTimeout(() => {
-      checkIconEl.style.display = 'none';
+        checkIconEl.style.display = 'none';
         copyBtnEl.style.display = 'block';
       }, 2000);
     });
@@ -296,10 +292,7 @@ function setupFmtFeatures() {
     noUiSlider.create(sliderEl, {
       orientation: 'horizontal',
       connect: true,
-      start: [
-        parseInt(hiddenStartEl.textContent),
-        parseInt(hiddenEndEl.textContent),
-      ],
+      start: [parseInt(hiddenStartEl.textContent), parseInt(hiddenEndEl.textContent)],
       step: 1,
       range: {
         min: 1,
