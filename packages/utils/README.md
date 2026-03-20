@@ -7,7 +7,6 @@
 [![Last Update Date](https://img.shields.io/github/last-commit/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js)
 [![Project License](https://img.shields.io/github/license/LacusSolutions/br-utils-js)](https://github.com/LacusSolutions/br-utils-js/blob/main/LICENSE)
 
-
 A JavaScript/TypeScript reusable utilities library for Lacus Solutions' packages.
 
 ## Platform Support
