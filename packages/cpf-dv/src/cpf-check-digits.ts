@@ -93,7 +93,10 @@ export class CpfCheckDigits {
   }
 
   /**
-   * Parses a string into an array of numbers.
+   * Parses input (string or array of strings) into an array of integers.
+   *
+   * @throws {CpfCheckDigitsInputTypeError} When input is not a string or
+   *   string[].
    */
   private _handleStringInput(cpfString: string): number[] {
     const stringDigitsOnly = cpfString.replace(/\D/g, '');
@@ -104,7 +107,10 @@ export class CpfCheckDigits {
   }
 
   /**
-   * Normalizes array input to a string array and delegates to number parsing.
+   * Parses an array into an array of integers.
+   *
+   * @throws {CpfCheckDigitsInputTypeError} When input is not a string or
+   *   string[].
    */
   private _handleArrayInput(cpfArray: unknown[]): number[] {
     if (cpfArray.length === 0) {
