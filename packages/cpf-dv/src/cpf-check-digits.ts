@@ -36,15 +36,7 @@ export class CpfCheckDigits {
    *   (repeated digits, e.g. `777.777.777-...`).
    */
   public constructor(cpfInput: CpfInput) {
-    let parsedInput: number[];
-
-    if (typeof cpfInput === 'string') {
-      parsedInput = this._handleStringInput(cpfInput);
-    } else if (Array.isArray(cpfInput)) {
-      parsedInput = this._handleArrayInput(cpfInput);
-    } else {
-      throw new CpfCheckDigitsInputTypeError(cpfInput, 'string or string[]');
-    }
+    const parsedInput = this._parseInput(cpfInput);
 
     this._validateLength(parsedInput, cpfInput);
     this._validateNonRepeatedDigits(parsedInput, cpfInput);
@@ -98,7 +90,22 @@ export class CpfCheckDigits {
    * @throws {CpfCheckDigitsInputTypeError} When input is not a string or
    *   string[].
    */
-  private _handleStringInput(cpfString: string): number[] {
+  private _parseInput(cpfInput: unknown): number[] {
+    if (typeof cpfInput === 'string') {
+      return this._parseStringInput(cpfInput);
+    }
+
+    if (Array.isArray(cpfInput)) {
+      return this._parseArrayInput(cpfInput);
+    }
+
+    throw new CpfCheckDigitsInputTypeError(cpfInput, 'string or string[]');
+  }
+
+  /**
+   * Parses a string into an array of integers.
+   */
+  private _parseStringInput(cpfString: string): number[] {
     const stringDigitsOnly = cpfString.replace(/\D/g, '');
     const stringDigitsArray = stringDigitsOnly.split('');
     const numberDigitsArray = stringDigitsArray.map(Number);
@@ -112,7 +119,7 @@ export class CpfCheckDigits {
    * @throws {CpfCheckDigitsInputTypeError} When input is not a string or
    *   string[].
    */
-  private _handleArrayInput(cpfArray: unknown[]): number[] {
+  private _parseArrayInput(cpfArray: unknown[]): number[] {
     if (cpfArray.length === 0) {
       return [];
     }
@@ -123,7 +130,7 @@ export class CpfCheckDigits {
       throw new CpfCheckDigitsInputTypeError(cpfArray, 'string or string[]');
     }
 
-    return this._handleStringInput(cpfArray.join(''));
+    return this._parseStringInput(cpfArray.join(''));
   }
 
   /**
