@@ -47,15 +47,7 @@ export class CnpjCheckDigits {
    *   the same (repeated digits, e.g. `77.777.777/7777-...`).
    */
   public constructor(cnpjInput: CnpjInput) {
-    let parsedInput: string[];
-
-    if (typeof cnpjInput === 'string') {
-      parsedInput = this._handleStringInput(cnpjInput);
-    } else if (Array.isArray(cnpjInput)) {
-      parsedInput = this._handleArrayInput(cnpjInput);
-    } else {
-      throw new CnpjCheckDigitsInputTypeError(cnpjInput, 'string or string[]');
-    }
+    const parsedInput = this._parseInput(cnpjInput);
 
     this._validateLength(parsedInput, cnpjInput);
     this._validateBaseId(parsedInput, cnpjInput);
@@ -107,9 +99,28 @@ export class CnpjCheckDigits {
   }
 
   /**
+   * Parses a string or an array of strings into an array of alphanumeric
+   * characters.
+   *
+   * @throws {CnpjCheckDigitsInputTypeError} When input is not a string or
+   *   string[].
+   */
+  private _parseInput(cnpjInput: unknown): string[] {
+    if (typeof cnpjInput === 'string') {
+      return this._parseeStringInput(cnpjInput);
+    }
+
+    if (Array.isArray(cnpjInput)) {
+      return this._parseArrayInput(cnpjInput);
+    }
+
+    throw new CnpjCheckDigitsInputTypeError(cnpjInput, 'string or string[]');
+  }
+
+  /**
    * Parses a string into an array of alphanumeric characters.
    */
-  private _handleStringInput(cnpjString: string): string[] {
+  private _parseeStringInput(cnpjString: string): string[] {
     const alphanumericOnly = cnpjString.replace(/[^0-9A-Z]/gi, '');
     const alphanumericUpper = alphanumericOnly.toUpperCase();
     const alphanumericArray = alphanumericUpper.split('');
@@ -123,7 +134,7 @@ export class CnpjCheckDigits {
    * @throws {CnpjCheckDigitsInputTypeError} When input is not a string or
    *   string[].
    */
-  private _handleArrayInput(cnpjArray: unknown[]): string[] {
+  private _parseArrayInput(cnpjArray: unknown[]): string[] {
     if (cnpjArray.length === 0) {
       return [];
     }
@@ -134,7 +145,7 @@ export class CnpjCheckDigits {
       throw new CnpjCheckDigitsInputTypeError(cnpjArray, 'string or string[]');
     }
 
-    return this._handleStringInput(cnpjArray.join(''));
+    return this._parseeStringInput(cnpjArray.join(''));
   }
 
   /**
