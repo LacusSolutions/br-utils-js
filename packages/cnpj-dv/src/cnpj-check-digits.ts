@@ -43,8 +43,8 @@ export class CnpjCheckDigits {
    * @throws {CnpjCheckDigitsInputLengthException} When character count is not
    *   between 12 and 14.
    * @throws {CnpjCheckDigitsInputInvalidException} When base ID is all zero
-   *   (`00.000.000`), branch ID is all zero (`0000`) or all digits are the same
-   *   (repeated digits, e.g. `77.777.777/7777-...`).
+   *   (`00.000.000`), branch ID is all zero (`0000`) or all digits are numeric
+   *   the same (repeated digits, e.g. `77.777.777/7777-...`).
    */
   public constructor(cnpjInput: CnpjInput) {
     let parsedInput: string[];
@@ -118,7 +118,10 @@ export class CnpjCheckDigits {
   }
 
   /**
-   * Normalizes array input to a string array and delegates to string parsing.
+   * Parses an array into an array of alphanumeric characters.
+   *
+   * @throws {CnpjCheckDigitsInputTypeError} When input is not a string or
+   *   string[].
    */
   private _handleArrayInput(cnpjArray: unknown[]): string[] {
     if (cnpjArray.length === 0) {
@@ -137,6 +140,9 @@ export class CnpjCheckDigits {
   /**
    * Ensures character count is between {@link CNPJ_MIN_LENGTH} and
    * {@link CNPJ_MAX_LENGTH}.
+   *
+   * @throws {CnpjCheckDigitsInputLengthException} When character count is not
+   *   between 12 and 14.
    */
   private _validateLength(cnpjChars: string[], originalInput: CnpjInput): void {
     const charsCount = cnpjChars.length;
@@ -153,6 +159,9 @@ export class CnpjCheckDigits {
 
   /**
    * Rejects base ID (first 8 digits) when it is all zeros.
+   *
+   * @throws {CnpjCheckDigitsInputInvalidException} When base ID is all zeros.
+   *   (`00.000.000`).
    */
   private _validateBaseId(cnpjIntArray: string[], originalInput: CnpjInput): void {
     const cnpjBaseIdArray = cnpjIntArray.slice(0, CNPJ_BASE_ID_LAST_INDEX + 1);
@@ -168,6 +177,9 @@ export class CnpjCheckDigits {
 
   /**
    * Rejects branch ID (digits 9–12) when it is all zeros.
+   *
+   * @throws {CnpjCheckDigitsInputInvalidException} When branch ID is all zeros.
+   *   (`0000`).
    */
   private _validateBranchId(cnpjIntArray: string[], originalInput: CnpjInput): void {
     const cnpjBranchIdArray = cnpjIntArray.slice(
@@ -186,6 +198,9 @@ export class CnpjCheckDigits {
 
   /**
    * Rejects inputs where all first 12 characters are the same.
+   *
+   * @throws {CnpjCheckDigitsInputInvalidException} When all digits are numeric
+   *   the same and the same (repeated digits, e.g. `77.777.777/7777-...`).
    */
   private _validateNonRepeatedDigits(cnpjIntArray: string[], originalInput: CnpjInput): void {
     const eligibleCnpjIntArray = cnpjIntArray.slice(0, CNPJ_MIN_LENGTH);
