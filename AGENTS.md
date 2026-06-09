@@ -50,7 +50,7 @@ Linting and formatting are done via **ESLint** (flat config, `eslint-config-any`
 
 ### Commit and standards
 
-**Commitlint** (conventional commits + workspace scopes) and **lint-staged** (pre-commit) are used. Commit messages must follow the conventional format. Package-scoped commits should use the package name as the commit scope (e.g. `docs(br-utils): update README`).
+**Commitlint** (conventional commits + workspace scopes) and **lint-staged** (pre-commit) are used. Commit messages must follow the conventional format. If a commit includes only changes in a single package directory (`packages/<pkg-name>/`), use that package name as the scope: `<type>(<pkg-name>): <message>` (e.g. `docs(br-utils): update README`).
 
 ### Root READMEs
 
@@ -99,7 +99,7 @@ All exported and internal resources (functions, classes, types, etc.) that are p
 
 ### Commit scope
 
-For package-specific changes, use the package name as the commit scope (e.g. `fix(cnpj-val): correct digit calculation`). Scopes are enforced by `@commitlint/config-workspace-scopes`.
+If a commit includes only changes in a package directory (`packages/<pkg-name>/`), use the package name as the conventional commit scope: `<type>(<pkg-name>): <message>` (e.g. `fix(cnpj-val): correct digit calculation`, `docs(br-utils): update README`). Scopes are enforced by `@commitlint/config-workspace-scopes`.
 
 ### Internal packages
 
