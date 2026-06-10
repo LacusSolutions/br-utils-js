@@ -2,6 +2,16 @@
 
 This file provides guidelines for AI agents and contributors working in this repository. Follow the root-level rules when changing anything at the monorepo root, and the package-specific rules when working inside any package under `packages/*`.
 
+## Instruction precedence
+
+When instructions conflict, **the more specific scope wins**:
+
+1. **`packages/<pkg>/agents/`** — package-level harness (if present)
+2. **`packages/<pkg>/AGENTS.md`** — package-level agent rules (if present)
+3. **Repository root** — [`agents/`](agents/) harnesses, then this file
+
+Apply every layer that applies to your task, but where a package-level `AGENTS.md` or `agents/` entry contradicts or overrides root-level guidance, follow the package-level instruction.
+
 ---
 
 ## Root-level guidelines
@@ -12,7 +22,7 @@ The project is managed by **Bun**. Prefer Bun over Node and over package manager
 
 ### Dependencies
 
-Always ask the developer before adding a new dependency to the project (at root or in any package).
+See [`agents/dependencies.md`](agents/dependencies.md) for the full policy (approval, workspace deps, direction, lockfile).
 
 ### Project structure
 
@@ -37,12 +47,7 @@ Packages are split by domain (e.g. `utils`, `cnpj-*`, `cpf-*`, `br-utils`). Buil
 
 ### Build directory
 
-Shared build logic lives in `build/`:
-
-- `build/tsconfig.json` – base TypeScript config
-- `build/rollup/` – config factory and ESM/CJS/UMD helpers
-
-Packages consume these; do not duplicate build logic in packages.
+See [`agents/build-config.md`](agents/build-config.md) for the full setup (`makeRollupConfig` params, entry points, output artifacts, when to extend vs parameterize).
 
 ### Lint and format
 
@@ -52,29 +57,17 @@ Linting and formatting are done via **ESLint** (flat config, `eslint-config-any`
 
 **Commitlint** (conventional commits + workspace scopes) and **lint-staged** (pre-commit) are used. Commit messages must follow the conventional format. If a commit includes only changes in a single package directory (`packages/<pkg-name>/`), use that package name as the scope: `<type>(<pkg-name>): <message>` (e.g. `docs(br-utils): update README`).
 
-### Root READMEs
-
-Do **not** edit root `README.md` or `README.pt.md` directly. Edit the corresponding files under `packages/br-utils/` instead. Lint-staged keeps root and `packages/br-utils/` in sync on commit.
-
 ### CI
 
-GitHub Actions workflows are maintained in `.github/workflows/` (e.g. `ci.yml`, `release.yml`). CI-related changes should be limited to this directory.
+See [`agents/ci-release.md`](agents/ci-release.md) for the full pipeline (steps, local validation commands, release workflow awareness, what agents must not run).
 
 ---
 
 ## Package-specific guidelines
 
-### Dependencies
-
-Always ask the developer before adding a new dependency to any package.
-
 ### Build scripts (DRY)
 
-Reuse the shared build setup. Each package has a `rollup.config.mjs` that imports `makeRollupConfig` from `../../build/rollup/config.mjs` and passes package-specific options. Do not duplicate build logic; extend or parameterize the shared config if needed.
-
-### TypeScript
-
-Reuse the base config: package `tsconfig.json` must extend `../../build/tsconfig.json`. Override or add options only in the package `tsconfig.json` (e.g. `include: ["src/"]`).
+See [`agents/build-config.md`](agents/build-config.md) for `makeRollupConfig` usage, `tsconfig.json` extension rules, and output artifact conventions.
 
 ### Dev tool configs
 
@@ -87,35 +80,21 @@ Avoid adding package-level config files for dev tools (e.g. no `eslint.config.*`
 
 Do not emit to other directories or put source at package root.
 
-### Tests
-
-- Tests live in `tests/`.
-- Test file names should match the file under test when testing that file (e.g. `foo.ts` → `foo.spec.ts`); use a different name only when the test covers a different scope.
-- Use the **Better Specs** style: `describe` for context/component, `it` for behavior; keep examples clear and one-behavior-per-`it`.
-
 ### JSDoc
 
-All exported and internal resources (functions, classes, types, etc.) that are part of the public or internal API should have JSDoc comments.
+See [`agents/jsdoc.md`](agents/jsdoc.md) for conventions (class/method docs, `@throws`, `@typedef` imports, constants, tone).
 
 ### Commit scope
 
 If a commit includes only changes in a package directory (`packages/<pkg-name>/`), use the package name as the conventional commit scope: `<type>(<pkg-name>): <message>` (e.g. `fix(cnpj-val): correct digit calculation`, `docs(br-utils): update README`). Scopes are enforced by `@commitlint/config-workspace-scopes`.
 
-### Internal packages
-
-Packages that depend on other packages in the monorepo must declare them in `package.json` and use **`workspace:*`**. Run `bun install` after adding or changing workspace dependencies so the lockfile is updated.
-
 ### Changesets
 
-New features, breaking changes, and fixes must be committed alongside a **changeset** (add a file under `.changeset/` describing the change). Use the `changelog` script from root.
+See [`agents/changelogs.md`](agents/changelogs.md) for the full workflow (when to create, bump levels, format, conciseness rules, examples).
 
 ### API and docs
 
-Additions or changes to a package’s public API should trigger a review (and update if needed) of JSDoc and that package’s `README.md`.
-
-### README.pt.md
-
-Any change to a package’s `README.md` should be reflected in that package’s `README.pt.md` (Portuguese version).
+Use [`agents/public-api.md`](agents/public-api.md) as the coordination checklist for any public API change (exports, signatures, options, defaults). It links to the specialized harnesses for source, JSDoc, tests, README, and changelogs. All README rules are in [`agents/readme-docs.md`](agents/readme-docs.md).
 
 ### CHANGELOG.md
 
@@ -123,10 +102,19 @@ Do not edit `CHANGELOG.md` in packages manually. Changelogs are managed by Chang
 
 ---
 
+## Agent harnesses
+
+Task-specific instructions live in [`agents/`](agents/). The harness catalog — IDs, files, and triggers — is [`agents/README.md`](agents/README.md). Read and follow the matching harness file in full before starting the task.
+
+A package may define its own [`packages/<pkg>/agents/`](packages/) or [`packages/<pkg>/AGENTS.md`](packages/); those override conflicting root harness or README rules for that package (see [Instruction precedence](#instruction-precedence) above).
+
+---
+
 ## Key paths
 
 | Purpose              | Path |
 |----------------------|------|
+| Agent harnesses      | `agents/` |
 | Shared build config  | `build/`, `build/tsconfig.json`, `build/rollup/` |
 | Package Rollup config| `packages/*/rollup.config.mjs` |
 | Lint / format        | `eslint.config.mjs`, `.lintstagedrc` |
