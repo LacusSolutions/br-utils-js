@@ -11,7 +11,7 @@
 
 > 🌎 [Acessar documentação em português](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/br-utils/README.pt.md)
 
-A JavaScript/TypeScript toolkit to handle the main operations with Brazilian-related data: CPF (personal ID) and CNPJ (employer ID). It exposes a unified API that wraps [`cpf-utils`](https://www.npmjs.com/package/cpf-utils) and [`cnpj-utils`](https://www.npmjs.com/package/cnpj-utils) in a single entry point.
+A JavaScript/TypeScript toolkit to handle the main operations with Brazilian-related data: CPF (Individual's Taxpayer ID) and CNPJ (Business Tax ID). It exposes a unified API that wraps [`cpf-utils`](https://www.npmjs.com/package/cpf-utils) and [`cnpj-utils`](https://www.npmjs.com/package/cnpj-utils) in a single entry point.
 
 ## Platform Support
 

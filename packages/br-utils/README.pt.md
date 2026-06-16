@@ -4,7 +4,7 @@
 
 > 🌎 [Access documentation in English](https://github.com/LacusSolutions/br-utils-js/blob/main/packages/br-utils/README.md)
 
-Kit em JavaScript/TypeScript para as principais operações com dados brasileiros: CPF (Cadastro de Pessoa Física) e CNPJ (Cadastro Nacional da Pessoa Jurídica). Expõe uma API unificada que reúne [`cpf-utils`](https://www.npmjs.com/package/cpf-utils) e [`cnpj-utils`](https://www.npmjs.com/package/cnpj-utils) em um único ponto de entrada.
+Kit de utilitários em JavaScript/TypeScript para as principais operações com dados brasileiros: CPF (Cadastro de Pessoa Física) e CNPJ (Cadastro Nacional da Pessoa Jurídica). Expõe uma API unificada que reúne [`cpf-utils`](https://www.npmjs.com/package/cpf-utils) e [`cnpj-utils`](https://www.npmjs.com/package/cnpj-utils) em um único ponto de entrada.
 
 ## Recursos
 
