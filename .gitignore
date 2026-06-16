@@ -11,6 +11,7 @@ packages/**/dist/
 # Local AI tooling (personal; do not commit)
 .aider*
 .claude/*
+.cursor/*
 AGENTS.override.md
 CLAUDE.local.md
 GEMINI.local.md
