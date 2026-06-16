@@ -8,7 +8,7 @@ When instructions conflict, **the more specific scope wins**:
 
 1. **`packages/<pkg>/agents/`** — package-level harness (if present)
 2. **`packages/<pkg>/AGENTS.md`** — package-level agent rules (if present)
-3. **Repository root** — [`agents/`](agents/) harnesses, then this file
+3. **Repository root** — [`.context/`](.context/) harnesses, then this file
 
 Apply every layer that applies to your task, but where a package-level `AGENTS.md` or `agents/` entry contradicts or overrides root-level guidance, follow the package-level instruction.
 
@@ -22,7 +22,7 @@ The project is managed by **Bun**. Prefer Bun over Node and over package manager
 
 ### Dependencies
 
-See [`agents/dependencies.md`](agents/dependencies.md) for the full policy (approval, workspace deps, direction, lockfile).
+See [`.context/dependencies.md`](.context/dependencies.md) for the full policy (approval, workspace deps, direction, lockfile).
 
 ### Project structure
 
@@ -47,7 +47,7 @@ Packages are split by domain (e.g. `utils`, `cnpj-*`, `cpf-*`, `br-utils`). Buil
 
 ### Build directory
 
-See [`agents/build-config.md`](agents/build-config.md) for the full setup (`makeRollupConfig` params, entry points, output artifacts, when to extend vs parameterize).
+See [`.context/build-config.md`](.context/build-config.md) for the full setup (`makeRollupConfig` params, entry points, output artifacts, when to extend vs parameterize).
 
 ### Lint and format
 
@@ -59,7 +59,7 @@ Linting and formatting are done via **ESLint** (flat config, `eslint-config-any`
 
 ### CI
 
-See [`agents/ci-release.md`](agents/ci-release.md) for the full pipeline (steps, local validation commands, release workflow awareness, what agents must not run).
+See [`.context/ci-release.md`](.context/ci-release.md) for the full pipeline (steps, local validation commands, release workflow awareness, what agents must not run).
 
 ---
 
@@ -67,7 +67,7 @@ See [`agents/ci-release.md`](agents/ci-release.md) for the full pipeline (steps,
 
 ### Build scripts (DRY)
 
-See [`agents/build-config.md`](agents/build-config.md) for `makeRollupConfig` usage, `tsconfig.json` extension rules, and output artifact conventions.
+See [`.context/build-config.md`](.context/build-config.md) for `makeRollupConfig` usage, `tsconfig.json` extension rules, and output artifact conventions.
 
 ### Dev tool configs
 
@@ -82,7 +82,7 @@ Do not emit to other directories or put source at package root.
 
 ### JSDoc
 
-See [`agents/jsdoc.md`](agents/jsdoc.md) for conventions (class/method docs, `@throws`, `@typedef` imports, constants, tone).
+See [`.context/jsdoc.md`](.context/jsdoc.md) for conventions (class/method docs, `@throws`, `@typedef` imports, constants, tone).
 
 ### Commit scope
 
@@ -90,11 +90,11 @@ If a commit includes only changes in a package directory (`packages/<pkg-name>/`
 
 ### Changesets
 
-See [`agents/changelogs.md`](agents/changelogs.md) for the full workflow (when to create, bump levels, format, conciseness rules, examples).
+See [`.context/changelogs.md`](.context/changelogs.md) for the full workflow (when to create, bump levels, format, conciseness rules, examples).
 
 ### API and docs
 
-Use [`agents/public-api.md`](agents/public-api.md) as the coordination checklist for any public API change (exports, signatures, options, defaults). It links to the specialized harnesses for source, JSDoc, tests, README, and changelogs. All README rules are in [`agents/readme-docs.md`](agents/readme-docs.md).
+Use [`.context/public-api.md`](.context/public-api.md) as the coordination checklist for any public API change (exports, signatures, options, defaults). It links to the specialized harnesses for source, JSDoc, tests, README, and changelogs. All README rules are in [`.context/readme-docs.md`](.context/readme-docs.md).
 
 ### CHANGELOG.md
 
@@ -104,7 +104,7 @@ Do not edit `CHANGELOG.md` in packages manually. Changelogs are managed by Chang
 
 ## Agent harnesses
 
-Task-specific instructions live in [`agents/`](agents/). The harness catalog — IDs, files, and triggers — is [`agents/README.md`](agents/README.md). Read and follow the matching harness file in full before starting the task.
+Task-specific instructions live in [`.context/`](.context/). The harness catalog — IDs, files, and triggers — is [`.context/README.md`](.context/README.md). Read and follow the matching harness file in full before starting the task.
 
 A package may define its own [`packages/<pkg>/agents/`](packages/) or [`packages/<pkg>/AGENTS.md`](packages/); those override conflicting root harness or README rules for that package (see [Instruction precedence](#instruction-precedence) above).
 
@@ -114,7 +114,7 @@ A package may define its own [`packages/<pkg>/agents/`](packages/) or [`packages
 
 | Purpose              | Path |
 |----------------------|------|
-| Agent harnesses      | `agents/` |
+| Agent harnesses      | `.context/` |
 | Shared build config  | `build/`, `build/tsconfig.json`, `build/rollup/` |
 | Package Rollup config| `packages/*/rollup.config.mjs` |
 | Lint / format        | `eslint.config.mjs`, `.lintstagedrc` |

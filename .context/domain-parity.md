@@ -49,7 +49,7 @@ These divergences are documented in the respective `options.ts` and `check-digit
 When changing a `cpf-*` package:
 
 1. Identify the CNPJ counterpart from the table above.
-2. Check if the same issue or feature applies to the CNPJ package (same archetype, same `src/` structure per [`agents/package-arch.md`](package-arch.md)).
+2. Check if the same issue or feature applies to the CNPJ package (same archetype, same `src/` structure per [`.context/package-arch.md`](package-arch.md)).
 3. If parity applies → open or note a corresponding change for `cnpj-*`.
 4. If divergence is intentional (table above) → no action needed; note it in your changeset body if user-visible.
 5. If unsure → ask the developer.
@@ -61,10 +61,10 @@ When a feature or fix is applied to one domain, verify the following in the coun
 - [ ] Same change in the main class (`{domain}-{op}.ts`) if logic is symmetric
 - [ ] Same change in the options class (`{domain}-{op}-options.ts`) if a new option is added
 - [ ] Same new exception class in `exceptions.ts` if a new error case is introduced
-- [ ] Same `@throws` annotation in JSDoc per [`agents/jsdoc.md`](jsdoc.md)
-- [ ] Same test cases in `tests/` per [`agents/unit-tests.md`](unit-tests.md)
-- [ ] Both packages included in the changeset if user-facing per [`agents/changelogs.md`](changelogs.md)
-- [ ] Both READMEs updated per [`agents/readme-docs.md`](readme-docs.md) if options or defaults change
+- [ ] Same `@throws` annotation in JSDoc per [`.context/jsdoc.md`](jsdoc.md)
+- [ ] Same test cases in `tests/` per [`.context/unit-tests.md`](unit-tests.md)
+- [ ] Both packages included in the changeset if user-facing per [`.context/changelogs.md`](changelogs.md)
+- [ ] Both READMEs updated per [`.context/readme-docs.md`](readme-docs.md) if options or defaults change
 
 ## Key files for comparison
 
@@ -77,4 +77,4 @@ When a feature or fix is applied to one domain, verify the following in the coun
 
 ## Package-level overrides
 
-Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`agents/README.md`](README.md#instruction-precedence)).
+Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`.context/README.md`](README.md#instruction-precedence)).

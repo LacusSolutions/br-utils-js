@@ -76,11 +76,11 @@ This regenerates `bun.lock` and symlinks the workspace package. Do not commit a 
 
 ## Changesets
 
-Adding or bumping a runtime `dependency` or `peerDependency` in `packages/<pkg>/package.json` is user-facing and requires a changeset (see [`agents/changelogs.md`](changelogs.md)). Adding `devDependencies` only does not require a changeset.
+Adding or bumping a runtime `dependency` or `peerDependency` in `packages/<pkg>/package.json` is user-facing and requires a changeset (see [`.context/changelogs.md`](changelogs.md)). Adding `devDependencies` only does not require a changeset.
 
 ## Package-level overrides
 
-Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`agents/README.md`](README.md#instruction-precedence)).
+Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`.context/README.md`](README.md#instruction-precedence)).
 
 ## Reference
 

@@ -7,3 +7,10 @@ node_modules/
 
 packages/**/build/
 packages/**/dist/
+
+# Local AI tooling (personal; do not commit)
+.aider*
+.claude/*
+AGENTS.override.md
+CLAUDE.local.md
+GEMINI.local.md

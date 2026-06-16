@@ -73,4 +73,4 @@ Workflow file changes are dev-only and do **not** require a changeset.
 | CI workflow | `.github/workflows/ci.yml` |
 | Release workflow | `.github/workflows/release.yml` |
 | Changesets config | `.changeset/config.json` |
-| Changelog harness | [`agents/changelogs.md`](changelogs.md) |
+| Changelog harness | [`.context/changelogs.md`](changelogs.md) |

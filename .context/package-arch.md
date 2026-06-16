@@ -196,12 +196,12 @@ Upstream packages must not import downstream ones. `utils` is a leaf with no int
 - [ ] `exceptions.ts` defines abstract base + concrete subclasses, each with `Object.setPrototypeOf`
 - [ ] `index.esm.ts`, `index.cjs.ts`, `index.umd.ts` follow the pattern for this archetype
 - [ ] Options class uses `static readonly` defaults; constructor validates and throws
-- [ ] JSDoc on all exported symbols per [`agents/jsdoc.md`](jsdoc.md)
-- [ ] Tests per [`agents/unit-tests.md`](unit-tests.md)
+- [ ] JSDoc on all exported symbols per [`.context/jsdoc.md`](jsdoc.md)
+- [ ] Tests per [`.context/unit-tests.md`](unit-tests.md)
 
 ## Package-level overrides
 
-Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`agents/README.md`](README.md#instruction-precedence)).
+Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`.context/README.md`](README.md#instruction-precedence)).
 
 ## Reference packages
 

@@ -14,8 +14,8 @@ Step-by-step checklist for adding a new package to the br-utils-js workspace. Ad
 
 ## Prerequisites
 
-- **Developer approval is required** before adding any new package or dependency. Stop and confirm before starting. See [`agents/dependencies.md`](dependencies.md).
-- Identify the archetype (DV / Val / Fmt / Gen / Foundation / Aggregator) — this determines the `src/` layout and export patterns. See [`agents/package-arch.md`](package-arch.md).
+- **Developer approval is required** before adding any new package or dependency. Stop and confirm before starting. See [`.context/dependencies.md`](dependencies.md).
+- Identify the archetype (DV / Val / Fmt / Gen / Foundation / Aggregator) — this determines the `src/` layout and export patterns. See [`.context/package-arch.md`](package-arch.md).
 - Identify the canonical sibling package to clone from (table below).
 
 ## Clone-from table
@@ -120,22 +120,22 @@ export default makeRollupConfig({
 });
 ```
 
-See [`agents/build-config.md`](build-config.md) for `umdGlobalName` conventions and parameter details.
+See [`.context/build-config.md`](build-config.md) for `umdGlobalName` conventions and parameter details.
 
 ## Step 5 — Implement `src/`
 
-Follow [`agents/package-arch.md`](package-arch.md):
+Follow [`.context/package-arch.md`](package-arch.md):
 
 - Choose the layout for the archetype (DV / Val / Fmt / Gen / Foundation / Aggregator).
 - Implement the facade function (Val/Fmt/Gen) or main class (DV) or re-export modules (Aggregator).
 - Write `exceptions.ts` with abstract base classes + concrete subclasses; include `Object.setPrototypeOf`.
 - Write `types.ts` for all TypeScript types and input shapes.
 - Write `index.esm.ts`, `index.cjs.ts`, `index.umd.ts` per archetype pattern.
-- Add JSDoc per [`agents/jsdoc.md`](jsdoc.md).
+- Add JSDoc per [`.context/jsdoc.md`](jsdoc.md).
 
 ## Step 6 — Add `tests/`
 
-Follow [`agents/unit-tests.md`](unit-tests.md):
+Follow [`.context/unit-tests.md`](unit-tests.md):
 
 - `tests/<pkg>.spec.ts` — behavior tests (happy path, edge cases, error cases)
 - `tests/exceptions.spec.ts` — error class instantiation and prototype chain
@@ -178,12 +178,12 @@ Then run from the project root:
 bun install
 ```
 
-See [`agents/dependencies.md`](dependencies.md) for direction rules (e.g. `utils` must not depend on `cpf-fmt`).
+See [`.context/dependencies.md`](dependencies.md) for direction rules (e.g. `utils` must not depend on `cpf-fmt`).
 
 ## Step 9 — README and initial changeset
 
-- Write `README.md` and `README.pt.md` per [`agents/readme-docs.md`](readme-docs.md).
-- If the package ships user-facing code from the first commit, create a changeset per [`agents/changelogs.md`](changelogs.md).
+- Write `README.md` and `README.pt.md` per [`.context/readme-docs.md`](readme-docs.md).
+- If the package ships user-facing code from the first commit, create a changeset per [`.context/changelogs.md`](changelogs.md).
 
 ## Final checklist
 
@@ -204,4 +204,4 @@ See [`agents/dependencies.md`](dependencies.md) for direction rules (e.g. `utils
 
 ## Package-level overrides
 
-Before applying this harness, check whether a package-level `AGENTS.md` or `agents/` directory was created for this package. If so, follow it over this file for any conflicting instructions (see [`agents/README.md`](README.md#instruction-precedence)).
+Before applying this harness, check whether a package-level `AGENTS.md` or `agents/` directory was created for this package. If so, follow it over this file for any conflicting instructions (see [`.context/README.md`](README.md#instruction-precedence)).

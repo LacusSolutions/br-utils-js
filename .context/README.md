@@ -12,10 +12,10 @@ When instructions conflict, **the more specific scope wins**:
 |----------|----------|--------------|
 | 1 (highest) | `packages/<pkg>/agents/` | Working in that package and a package harness exists |
 | 2 | `packages/<pkg>/AGENTS.md` | Working in that package and the file exists |
-| 3 | Repository `agents/` (this directory) | A root harness matches the task |
+| 3 | Repository `.context/` (this directory) | A root harness matches the task |
 | 4 (lowest) | Repository [`AGENTS.md`](../AGENTS.md) | Always (baseline rules) |
 
-Load and apply every layer relevant to the task. Package-level `AGENTS.md` or `agents/` entries **override** root harnesses and root `AGENTS.md` on the same topic for that package.
+Load and apply every layer relevant to the task. Package-level `AGENTS.md` or `.context/` entries **override** root harnesses and root `AGENTS.md` on the same topic for that package.
 
 ## How to use
 

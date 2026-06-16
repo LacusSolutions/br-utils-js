@@ -33,14 +33,14 @@ For every public API change, work through the following artifacts in order:
 
 | # | Artifact | Harness |
 |---|----------|---------|
-| 1 | Source (`src/`) changes + `exceptions.ts` | [`agents/package-arch.md`](package-arch.md) |
-| 2 | JSDoc on all changed/new symbols | [`agents/jsdoc.md`](jsdoc.md) |
-| 3 | Behavior unit tests (`*.spec.ts`) | [`agents/unit-tests.md`](unit-tests.md) |
-| 4 | Distribution tests (`output.spec.ts`) — UMD global, ESM/CJS exports, `.d.ts` | [`agents/unit-tests.md`](unit-tests.md) |
-| 5 | README update (options table, usage example) | [`agents/readme-docs.md`](readme-docs.md) |
-| 6 | Changeset entry | [`agents/changelogs.md`](changelogs.md) |
-| 7 | Workspace dependency update (if new internal dep) | [`agents/dependencies.md`](dependencies.md) |
-| 8 | Domain parity check (if `cpf-*` / `cnpj-*`) | [`agents/domain-parity.md`](domain-parity.md) |
+| 1 | Source (`src/`) changes + `exceptions.ts` | [`.context/package-arch.md`](package-arch.md) |
+| 2 | JSDoc on all changed/new symbols | [`.context/jsdoc.md`](jsdoc.md) |
+| 3 | Behavior unit tests (`*.spec.ts`) | [`.context/unit-tests.md`](unit-tests.md) |
+| 4 | Distribution tests (`output.spec.ts`) — UMD global, ESM/CJS exports, `.d.ts` | [`.context/unit-tests.md`](unit-tests.md) |
+| 5 | README update (options table, usage example) | [`.context/readme-docs.md`](readme-docs.md) |
+| 6 | Changeset entry | [`.context/changelogs.md`](changelogs.md) |
+| 7 | Workspace dependency update (if new internal dep) | [`.context/dependencies.md`](dependencies.md) |
+| 8 | Domain parity check (if `cpf-*` / `cnpj-*`) | [`.context/domain-parity.md`](domain-parity.md) |
 
 ## Decision flow
 
@@ -92,12 +92,12 @@ When changing a sub-package public API, check whether the aggregator that wraps 
 | `cnpj-{fmt,gen,val}` | `cnpj-utils` re-export module + `CnpjUtils` class |
 | `cpf-utils` or `cnpj-utils` | `br-utils` |
 
-If the aggregator re-export does not yet expose the new symbol, add it to the appropriate re-export module (see [`agents/aggregator-package.md`](aggregator-package.md)).
+If the aggregator re-export does not yet expose the new symbol, add it to the appropriate re-export module (see [`.context/aggregator-package.md`](aggregator-package.md)).
 
 ## Checklist
 
-- [ ] All `src/` changes implemented per [`agents/package-arch.md`](package-arch.md)
-- [ ] JSDoc updated on all changed symbols per [`agents/jsdoc.md`](jsdoc.md)
+- [ ] All `src/` changes implemented per [`.context/package-arch.md`](package-arch.md)
+- [ ] JSDoc updated on all changed symbols per [`.context/jsdoc.md`](jsdoc.md)
 - [ ] Behavior tests added or updated in `tests/*.spec.ts`
 - [ ] `output.spec.ts` updated if export surface changed
 - [ ] README updated if option, default, or public behavior changed
@@ -108,4 +108,4 @@ If the aggregator re-export does not yet expose the new symbol, add it to the ap
 
 ## Package-level overrides
 
-Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`agents/README.md`](README.md#instruction-precedence)).
+Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`.context/README.md`](README.md#instruction-precedence)).

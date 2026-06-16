@@ -81,7 +81,7 @@ When adding or changing a shared UX pattern (e.g. a new formatter option UI, a c
 
 ## Changesets
 
-Demo-only changes do **not** require a changeset — the `demo/` directory is not published to npm. If the same task also changes `src/`, include a changeset for those `src/` changes per [`agents/changelogs.md`](changelogs.md).
+Demo-only changes do **not** require a changeset — the `demo/` directory is not published to npm. If the same task also changes `src/`, include a changeset for those `src/` changes per [`.context/changelogs.md`](changelogs.md).
 
 ## Reference
 

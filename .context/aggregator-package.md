@@ -100,7 +100,7 @@ Cross-package error types must be pulled in via `@typedef` so IDEs can resolve t
  */
 ```
 
-Place the block at the top of the file, after imports. Separate each `@typedef` with a blank line (two newlines within the comment block), matching the existing pattern. See [`agents/jsdoc.md`](jsdoc.md) for the full `@typedef` convention.
+Place the block at the top of the file, after imports. Separate each `@typedef` with a blank line (two newlines within the comment block), matching the existing pattern. See [`.context/jsdoc.md`](jsdoc.md) for the full `@typedef` convention.
 
 ## Index entry points
 
@@ -161,7 +161,7 @@ import cpfUtils from '@lacussoft/cpf-utils';
 import { CpfFormatter } from '@lacussoft/cpf-fmt';
 ```
 
-Or via the Rollup alias (check `rollup.config.mjs` for the alias map if tests fail to resolve). Follow [`agents/unit-tests.md`](unit-tests.md) for test structure.
+Or via the Rollup alias (check `rollup.config.mjs` for the alias map if tests fail to resolve). Follow [`.context/unit-tests.md`](unit-tests.md) for test structure.
 
 ## Checklist
 
@@ -171,12 +171,12 @@ Or via the Rollup alias (check `rollup.config.mjs` for the alias map if tests fa
 - [ ] `@typedef` imports cover all cross-package error types
 - [ ] ESM default is a singleton; CJS/UMD attaches named exports to it
 - [ ] `types.ts` defines the settings input type
-- [ ] JSDoc per [`agents/jsdoc.md`](jsdoc.md)
-- [ ] Tests import via workspace name; behavior and output tests per [`agents/unit-tests.md`](unit-tests.md)
+- [ ] JSDoc per [`.context/jsdoc.md`](jsdoc.md)
+- [ ] Tests import via workspace name; behavior and output tests per [`.context/unit-tests.md`](unit-tests.md)
 
 ## Package-level overrides
 
-Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`agents/README.md`](README.md#instruction-precedence)).
+Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`.context/README.md`](README.md#instruction-precedence)).
 
 ## Reference
 

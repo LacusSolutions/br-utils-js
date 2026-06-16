@@ -18,7 +18,7 @@ Manage the Rollup and TypeScript build setup for br-utils-js packages. All paths
 
 - **Do not duplicate build logic in packages.** Shared logic lives in `build/rollup/`; packages only parameterize it via `makeRollupConfig`.
 - **Do not add package-level TypeScript configs beyond extending the base.** Each package `tsconfig.json` must extend `../../build/tsconfig.json`.
-- `rollup.config.mjs` and `tsconfig.json` **are user-facing** (they shape published output). Changes to these files require a changeset — see [`agents/changelogs.md`](changelogs.md).
+- `rollup.config.mjs` and `tsconfig.json` **are user-facing** (they shape published output). Changes to these files require a changeset — see [`.context/changelogs.md`](changelogs.md).
 - **Do not emit build artifacts outside `dist/`.** Source must stay in `src/`.
 
 ## Shared build setup (`build/rollup/`)
@@ -124,7 +124,7 @@ After building, `output.spec.ts` tests validate artifacts in `dist/`. Run `bun r
 
 ## Package-level overrides
 
-Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`agents/README.md`](README.md#instruction-precedence)).
+Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`.context/README.md`](README.md#instruction-precedence)).
 
 ## Reference
 
