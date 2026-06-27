@@ -186,7 +186,7 @@ describe('CnpjCheckDigitsInputLengthException', () => {
       const evaluatedInput = '12345';
       const minExpectedLength = 12;
       const maxExpectedLength = 14;
-      const actualMessage = `CNPJ input "${actualInput}" does not contain ${minExpectedLength} to ${maxExpectedLength} digits. Got ${evaluatedInput.length} in "${evaluatedInput}".`;
+      const actualMessage = `CNPJ input "${actualInput}" does not contain ${minExpectedLength} to ${maxExpectedLength} characters. Got ${evaluatedInput.length} in "${evaluatedInput}".`;
 
       const exception = new CnpjCheckDigitsInputLengthException(
         actualInput,

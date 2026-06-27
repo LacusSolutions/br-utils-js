@@ -100,7 +100,7 @@ export class CnpjCheckDigitsInputLengthException extends CnpjCheckDigitsExceptio
         : `${evaluatedInput.length} in "${evaluatedInput}"`;
 
     super(
-      `CNPJ input ${fmtActualInput} does not contain ${minExpectedLength} to ${maxExpectedLength} digits. Got ${fmtEvaluatedInput}.`,
+      `CNPJ input ${fmtActualInput} does not contain ${minExpectedLength} to ${maxExpectedLength} characters. Got ${fmtEvaluatedInput}.`,
     );
     this.actualInput = actualInput;
     this.evaluatedInput = evaluatedInput;
