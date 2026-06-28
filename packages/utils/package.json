@@ -10,7 +10,12 @@
   "keywords": [
     "utils",
     "utilities",
-    "helpers"
+    "helpers",
+    "html",
+    "escape",
+    "random",
+    "sequence",
+    "type"
   ],
   "repository": {
     "type": "git",
