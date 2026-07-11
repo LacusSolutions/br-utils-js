@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to this initiative! This document provides guidelines and information for contributors.
 
-For task-specific, in-depth conventions (tests, changesets, public API changes, READMEs, build config, and more), see [`.context/`](.context/README.md) and [`AGENTS.md`](AGENTS.md). Those files are the source of truth for detailed workflows; this guide summarizes what every contributor should know.
+For task-specific, in-depth conventions (tests, changesets, public API changes, READMEs, build config, and more), see [`context/`](context/README.md) and [`AGENTS.md`](AGENTS.md). Those files are the source of truth for detailed workflows; this guide summarizes what every contributor should know.
 
 ## Table of Contents
 
@@ -114,7 +114,7 @@ bun run release     # Publish packages to npm (maintainers)
 
 ```text
 br-utils-js/
-├── .context/                   # Task-specific contributor/agent harnesses
+├── context/                    # Task-specific contributor/agent harnesses
 ├── .changeset/                 # Changeset entries for releases
 ├── .github/workflows/          # CI (type-check, lint, test, publish-mock)
 ├── .husky/                     # Git hooks (pre-commit, commit-msg)
@@ -150,7 +150,7 @@ Each package follows a consistent layout:
 - Tests live in `tests/` and use the `.spec.ts` extension.
 - Do **not** add package-level ESLint, Prettier, or other dev-tool config files — use root configs.
 
-A package may define its own `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/` for package-specific rules that override root guidance.
+A package may define its own `packages/<pkg>/AGENTS.md` or `packages/<pkg>/context/` for package-specific rules that override root guidance.
 
 ### Package dependency direction
 
@@ -174,7 +174,7 @@ Internal workspace dependencies use `workspace:*` in the consumer's `package.jso
 
 ### CPF ↔ CNPJ parity
 
-When changing a `cpf-*` package, check whether the symmetric `cnpj-*` counterpart needs the same change (and vice versa). Some divergences are intentional — for example, CNPJ supports alphanumeric input while CPF is digits-only. See [`.context/domain-parity.md`](.context/domain-parity.md) for the full pairing table and documented divergences.
+When changing a `cpf-*` package, check whether the symmetric `cnpj-*` counterpart needs the same change (and vice versa). Some divergences are intentional — for example, CNPJ supports alphanumeric input while CPF is digits-only. See [`context/domain-parity.md`](context/domain-parity.md) for the full pairing table and documented divergences.
 
 ## Contributing Guidelines
 
@@ -213,7 +213,7 @@ git checkout -b fix/issue-description
 - Add tests for new functionality
 - Update JSDoc on changed symbols
 - Update documentation (README, demo pages) when behavior or options change
-- For detailed implementation guidance, see [`.context/package-arch.md`](.context/package-arch.md)
+- For detailed implementation guidance, see [`context/package-arch.md`](context/package-arch.md)
 
 ### 3. Test Your Changes
 
@@ -261,7 +261,7 @@ Then create a pull request on GitHub.
 
 ## Testing
 
-See [`.context/unit-tests.md`](.context/unit-tests.md) for the full testing harness (file roles, Better Specs style, error patterns, and checklists).
+See [`context/unit-tests.md`](context/unit-tests.md) for the full testing harness (file roles, Better Specs style, error patterns, and checklists).
 
 ### Test Structure
 
@@ -347,20 +347,20 @@ bun run lint:ci    # Check only (CI)
 
 ### JSDoc
 
-All public symbols need JSDoc — classes, methods, options, errors, and constants. See [`.context/jsdoc.md`](.context/jsdoc.md) for conventions (`@throws`, `@typedef` imports, tone).
+All public symbols need JSDoc — classes, methods, options, errors, and constants. See [`context/jsdoc.md`](context/jsdoc.md) for conventions (`@throws`, `@typedef` imports, tone).
 
 ## Public API Changes
 
-When a change affects anything npm consumers would observe (exports, signatures, options, defaults, thrown errors, or `package.json` exports map), work through the coordinated checklist in [`.context/public-api.md`](.context/public-api.md):
+When a change affects anything npm consumers would observe (exports, signatures, options, defaults, thrown errors, or `package.json` exports map), work through the coordinated checklist in [`context/public-api.md`](context/public-api.md):
 
-1. Source changes (`src/`) — [package-arch](.context/package-arch.md)
-2. JSDoc on changed symbols — [jsdoc](.context/jsdoc.md)
-3. Behavior unit tests — [unit-tests](.context/unit-tests.md)
-4. Distribution tests (`output.spec.ts`) — [unit-tests](.context/unit-tests.md)
-5. README update — [readme-docs](.context/readme-docs.md)
-6. Changeset entry — [changelogs](.context/changelogs.md)
-7. Workspace dependency update (if needed) — [dependencies](.context/dependencies.md)
-8. Domain parity check (if `cpf-*` / `cnpj-*`) — [domain-parity](.context/domain-parity.md)
+1. Source changes (`src/`) — [package-arch](context/package-arch.md)
+2. JSDoc on changed symbols — [jsdoc](context/jsdoc.md)
+3. Behavior unit tests — [unit-tests](context/unit-tests.md)
+4. Distribution tests (`output.spec.ts`) — [unit-tests](context/unit-tests.md)
+5. README update — [readme-docs](context/readme-docs.md)
+6. Changeset entry — [changelogs](context/changelogs.md)
+7. Workspace dependency update (if needed) — [dependencies](context/dependencies.md)
+8. Domain parity check (if `cpf-*` / `cnpj-*`) — [domain-parity](context/domain-parity.md)
 
 Discuss breaking changes with maintainers before implementing.
 
@@ -378,7 +378,7 @@ bun run changelog
 - Do **not** edit `package.json` `"version"` fields.
 - Test-only, CI, and dev-tooling changes do **not** need a changeset.
 
-See [`.context/changelogs.md`](.context/changelogs.md) for bump levels (patch/minor/major), user-facing vs dev-only classification, and format rules.
+See [`context/changelogs.md`](context/changelogs.md) for bump levels (patch/minor/major), user-facing vs dev-only classification, and format rules.
 
 ## Pull Request Process
 
@@ -504,7 +504,7 @@ Add any other context or screenshots about the feature request.
 
 - **GitHub Issues**: For bugs and feature requests
 - **GitHub Discussions**: For questions and general discussion
-- **Documentation**: Check package READMEs, [`.context/`](.context/README.md), and inline JSDoc
+- **Documentation**: Check package READMEs, [`context/`](context/README.md), and inline JSDoc
 
 ## Recognition
 

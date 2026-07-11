@@ -30,11 +30,11 @@ Package `CHANGELOG.md` files are managed by **Changesets** — do not edit them 
 
 ### Package-level overrides
 
-Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`.context/README.md`](../.context/README.md#instruction-precedence)).
+Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/context/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`context/README.md`](README.md#instruction-precedence)).
 
 ## Before writing
 
-1. Check for `packages/<pkg>/AGENTS.md` and `packages/<pkg>/agents/`; apply package-level overrides when present.
+1. Check for `packages/<pkg>/AGENTS.md` and `packages/<pkg>/context/`; apply package-level overrides when present.
 2. Read `packages/<pkg>/package.json` for the npm name, description, and exports.
 3. Read `src/index.ts` (or equivalent) to list public exports accurately.
 4. Skim tests in `tests/` for realistic examples and edge cases.

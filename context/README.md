@@ -10,17 +10,17 @@ When instructions conflict, **the more specific scope wins**:
 
 | Priority | Location | Applies when |
 |----------|----------|--------------|
-| 1 (highest) | `packages/<pkg>/agents/` | Working in that package and a package harness exists |
+| 1 (highest) | `packages/<pkg>/context/` | Working in that package and a package harness exists |
 | 2 | `packages/<pkg>/AGENTS.md` | Working in that package and the file exists |
-| 3 | Repository `.context/` (this directory) | A root harness matches the task |
+| 3 | Repository `context/` (this directory) | A root harness matches the task |
 | 4 (lowest) | Repository [`AGENTS.md`](../AGENTS.md) | Always (baseline rules) |
 
-Load and apply every layer relevant to the task. Package-level `AGENTS.md` or `.context/` entries **override** root harnesses and root `AGENTS.md` on the same topic for that package.
+Load and apply every layer relevant to the task. Package-level `AGENTS.md` or `context/` entries **override** root harnesses and root `AGENTS.md` on the same topic for that package.
 
 ## How to use
 
 1. Read [`AGENTS.md`](../AGENTS.md) for general project rules (build, tests, changesets, etc.).
-2. If working inside `packages/<pkg>/`, check for `packages/<pkg>/AGENTS.md` and `packages/<pkg>/agents/` and prefer them over root instructions when they differ.
+2. If working inside `packages/<pkg>/`, check for `packages/<pkg>/AGENTS.md` and `packages/<pkg>/context/` and prefer them over root instructions when they differ.
 3. When a root harness trigger matches (table below), read and follow that harness file **in full** before making changes — unless step 2 provides a more specific override.
 4. Paths are relative to the **js/** repository root.
 
@@ -52,6 +52,6 @@ Load and apply every layer relevant to the task. Package-level `AGENTS.md` or `.
 
 ### Package-level harness
 
-1. Add `packages/<pkg>/agents/` and/or `packages/<pkg>/AGENTS.md` for rules that apply only to that package.
-2. Register package harnesses in `packages/<pkg>/agents/README.md` when using an `agents/` directory.
+1. Add `packages/<pkg>/context/` and/or `packages/<pkg>/AGENTS.md` for rules that apply only to that package.
+2. Register package harnesses in `packages/<pkg>/context/README.md` when using a `context/` directory.
 3. Do not duplicate root harness content unless the package genuinely diverges; state overrides explicitly.

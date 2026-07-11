@@ -42,13 +42,13 @@ Test-only changes are **dev-only** — do not add a changeset for test edits, co
 
 ### Package-level overrides
 
-Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/agents/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`.context/README.md`](README.md#instruction-precedence)).
+Before applying this harness, check whether the target package defines `packages/<pkg>/AGENTS.md` or `packages/<pkg>/context/`. If either exists and contradicts this file on the same topic, **follow the package-level instruction** (see [`context/README.md`](README.md#instruction-precedence)).
 
 ---
 
 ## Before writing tests
 
-1. Check for `packages/<pkg>/AGENTS.md` and `packages/<pkg>/agents/`; apply package-level overrides when present.
+1. Check for `packages/<pkg>/AGENTS.md` and `packages/<pkg>/context/`; apply package-level overrides when present.
 2. Read the source file(s) under test and list public behaviors, options, and error paths.
 3. Skim existing specs in `packages/<pkg>/tests/` — match structure, naming, and assertion style.
 4. Identify the **package archetype** (below); only create or extend the test files that archetype uses.
