@@ -1,5 +1,12 @@
 # @lacussoft/cpf-dv
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [bc48b83]
+  - @lacussoft/utils@1.0.1
+
 ## 1.0.0
 
 ### 🚀 Stable Version Released!

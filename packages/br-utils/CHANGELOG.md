@@ -1,5 +1,15 @@
 # br-utils
 
+## 3.0.1
+
+### Patch Changes
+
+- d1e885c: Clarify CPF and CNPJ descriptions in `README.md` and `README.pt.md`.
+- Updated dependencies [bc48b83]
+  - @lacussoft/utils@1.0.1
+  - cnpj-utils@3.0.1
+  - cpf-utils@3.0.1
+
 ## 3.0.0
 
 ### 🎉 v3 at a glance 🎊

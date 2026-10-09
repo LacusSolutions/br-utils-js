@@ -1,5 +1,15 @@
 # cnpj-utils
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies [bc48b83]
+  - @lacussoft/utils@1.0.1
+  - @lacussoft/cnpj-gen@3.0.1
+  - @lacussoft/cnpj-val@3.0.1
+  - @lacussoft/cnpj-fmt@3.0.1
+
 ## 3.0.0
 
 ### 🎉 v3 at a glance 🎊

@@ -1,6 +1,6 @@
 {
   "name": "cnpj-utils",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Utilities to deal with CNPJ (Brazilian Business Tax ID)",
   "license": "MIT",
   "author": {
