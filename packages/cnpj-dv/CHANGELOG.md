@@ -1,5 +1,16 @@
 # @lacussoft/cnpj-dv
 
+## 1.1.0
+
+### Minor Changes
+
+- 170f797: `CnpjCheckDigitsInputLengthException` now refers to "characters" instead of "digits" to match alphanumeric input support.
+
+### Patch Changes
+
+- Updated dependencies [bc48b83]
+  - @lacussoft/utils@1.0.1
+
 ## 1.0.0
 
 ### 🚀 Stable Version Released!

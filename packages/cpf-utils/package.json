@@ -1,6 +1,6 @@
 {
   "name": "cpf-utils",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Utilities to deal with CPF (Brazilian Individual's Taxpayer ID)",
   "license": "MIT",
   "author": {
